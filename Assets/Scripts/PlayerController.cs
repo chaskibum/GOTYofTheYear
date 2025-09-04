@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     private State _state = State.Idle;
     private bool _isOnFloor;
     
+    [Header("JumpBuffering")]
+    private float _jumpBufferTime = 0.1f;
+    private float _lastJumpPressedTime;
+    
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
 
@@ -25,18 +29,42 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
+        CheckIfGrounded();
         CheckJumpInput();
         CheckMovementInput();
         
         UpdateState();
     }
+
+    private void CheckIfGrounded()
+    {
+        RaycastHit2D ray = Physics2D.BoxCast(
+            transform.position, 
+            new Vector2(0.2f, 0.68f),
+            0f, 
+            Vector2.down,
+            0.68f, 
+            groundLayer);
+
+        if (ray.collider != null)
+        {
+            _isOnFloor = true;
+            _rigidbody2D.gravityScale = data.regularGravity;
+        }
+        else
+            _isOnFloor = false;
+    }
     
     private void CheckJumpInput()
     {
-        if (Input.GetButtonDown("Jump") && _isOnFloor)
+        if (Input.GetButtonDown("Jump"))
+            _lastJumpPressedTime = Time.time;
+        
+        if (_isOnFloor && Time.time - _lastJumpPressedTime <= _jumpBufferTime)
         {
             Jump();
             SetState(State.Jump);
+            _lastJumpPressedTime = -Mathf.Infinity;
         }
     }
 
@@ -47,9 +75,6 @@ public class PlayerController : MonoBehaviour
     
     private void IdleState()
     {
-        _isOnFloor = true;
-        _rigidbody2D.gravityScale = data.regularGravity;
-        
         if (_xInput != 0) SetState(State.Move);
         
         _spriteRenderer.color = Color.white;
@@ -93,14 +118,8 @@ public class PlayerController : MonoBehaviour
     {
         _spriteRenderer.color = Color.yellow;
         if (_xInput != 0) Move();
-
-        RaycastHit2D ray = Physics2D.BoxCast(transform.position, new Vector2(0.3f, 1.2f),0f, Vector2.down, 1.2f, groundLayer);
-        if (ray.collider)
-        {
-            SetState(State.Idle);
-        }
-
-        Debug.DrawRay(transform.position, Vector2.down, Color.black);
+        
+        if (_isOnFloor) SetState(State.Idle);
     }
 
     private void CheckIfIsFalling()
