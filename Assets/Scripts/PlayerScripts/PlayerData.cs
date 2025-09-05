@@ -13,10 +13,8 @@ namespace PlayerScripts
         
         [Header("CoyoteTime")]
         public float coyoteTime = 1f;
-        public bool canUseCoyoteTime;
         
         [Header("JumpBuffering")]
         public float jumpBufferTime = 0.1f;
-        public float lastJumpPressedTime;
     }
 }

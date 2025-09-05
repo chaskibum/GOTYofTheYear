@@ -19,6 +19,12 @@ namespace PlayerScripts
         
         #endregion
         
+        [Header("CoyoteTime")]
+        private float _coyoteCounter;
+        
+        [Header("JumpBuffering")]
+        private float _lastJumpPressedTime;
+        
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
 
@@ -50,36 +56,33 @@ namespace PlayerScripts
                 0.1f, 
                 groundLayer);
 
-            if (ray.collider != null)
+            if (ray.collider != null) // El raycast toca el suelo
             {
-                if (!_isOnFloor)
-                    data.canUseCoyoteTime = false;
-        
                 _isOnFloor = true;
+                _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyotetime
                 _rigidbody2D.gravityScale = data.regularGravity;
             }
-            else
+            else // Si el raycast no toca el suelo...
             {
-                if (_isOnFloor)
-                {
-                    data.canUseCoyoteTime = true;
-                    Invoke("EndCoyoteTime", data.coyoteTime);
-                }
+                if (_isOnFloor) // Acabamos de dejar el suelo
+                    _coyoteCounter = data.coyoteTime;
 
                 _isOnFloor = false;
+                _coyoteCounter -= Time.deltaTime;
             }
         }
         
         private void CheckJumpInput()
         {
             if (Input.GetButtonDown("Jump"))
-                data.lastJumpPressedTime = Time.time;
+                _lastJumpPressedTime = Time.time;
             
-            if ((_isOnFloor || data.canUseCoyoteTime) && Time.time - data.lastJumpPressedTime <= data.jumpBufferTime)
+            // Si el jugador esta en el piso o dentro de la ventana del coyote time -> puede saltar
+            if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
                 SetState(State.Jump);
-                data.lastJumpPressedTime = -Mathf.Infinity;
+                _lastJumpPressedTime = -Mathf.Infinity;
             }
         }
 
@@ -100,8 +103,6 @@ namespace PlayerScripts
         private void IdleState()
         {
             if (_xInput != 0) SetState(State.Move);
-            
-            // _spriteRenderer.color = Color.white;
             // Here we play the Idle animation
         }
         
@@ -111,7 +112,6 @@ namespace PlayerScripts
             
             if (_xInput == 0) SetState(State.Idle);
             
-            // _spriteRenderer.color = Color.red;
             Move();
             // Here we play the animations and sounds for when the character moves
         }
@@ -123,7 +123,6 @@ namespace PlayerScripts
 
         private void JumpState()
         {
-            // _spriteRenderer.color = Color.black;
             if (_xInput != 0) Move();
             
             CheckIfIsFalling();
@@ -131,9 +130,7 @@ namespace PlayerScripts
         
         private void Jump()
         {
-            // _rigidbody2D.gravityScale = data.regularGravity;
             _isOnFloor = false;
-            data.canUseCoyoteTime = false;
             
             _rigidbody2D.gravityScale = data.regularGravity;
             
@@ -144,7 +141,6 @@ namespace PlayerScripts
 
         private void FallState()
         {
-            // _spriteRenderer.color = Color.yellow;
             if (_xInput != 0) Move();
             
             if (_isOnFloor) SetState(State.Idle);
@@ -155,7 +151,7 @@ namespace PlayerScripts
             if (_rigidbody2D.linearVelocityY < 0)
             {
                 SetState(State.Fall);
-                _rigidbody2D.gravityScale *= data.fallGravity;
+                _rigidbody2D.gravityScale = data.regularGravity * data.fallGravity;
             }
         }
         
@@ -164,12 +160,7 @@ namespace PlayerScripts
             Move();
             if (!playerWeapon.isAttacking) SetState(State.Idle);
         }
-
-        private void EndCoyoteTime()
-        {
-            data.canUseCoyoteTime = false;
-        }
-
+        
         private void UpdateState()
         {
             switch (_state)
