@@ -8,15 +8,16 @@ namespace PlayerScripts
         [SerializeField] private PlayerData data;
         
         [SerializeField] private LayerMask groundLayer;
-        
+
+        [SerializeField] private PlayerWeapon playerWeapon;
+
+        #region States
         public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, }
         
         private State _state = State.Idle;
         private bool _isOnFloor;
         
-        [Header("JumpBuffering")]
-        private float _jumpBufferTime = 0.1f;
-        private float _lastJumpPressedTime;
+        #endregion
         
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
@@ -34,6 +35,7 @@ namespace PlayerScripts
             CheckIfGrounded();
             CheckJumpInput();
             CheckMovementInput();
+            CheckAttackInput();
             
             UpdateState();
         }
@@ -50,29 +52,49 @@ namespace PlayerScripts
 
             if (ray.collider != null)
             {
+                if (!_isOnFloor)
+                    data.canUseCoyoteTime = false;
+        
                 _isOnFloor = true;
                 _rigidbody2D.gravityScale = data.regularGravity;
             }
             else
+            {
+                if (_isOnFloor)
+                {
+                    data.canUseCoyoteTime = true;
+                    Invoke("EndCoyoteTime", data.coyoteTime);
+                }
+
                 _isOnFloor = false;
+            }
         }
         
         private void CheckJumpInput()
         {
             if (Input.GetButtonDown("Jump"))
-                _lastJumpPressedTime = Time.time;
+                data.lastJumpPressedTime = Time.time;
             
-            if (_isOnFloor && Time.time - _lastJumpPressedTime <= _jumpBufferTime)
+            if ((_isOnFloor || data.canUseCoyoteTime) && Time.time - data.lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
                 SetState(State.Jump);
-                _lastJumpPressedTime = -Mathf.Infinity;
+                data.lastJumpPressedTime = -Mathf.Infinity;
             }
         }
 
         private void CheckMovementInput()
         {
             _xInput = Input.GetAxis("Horizontal");
+        }
+
+        private void CheckAttackInput()
+        {
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                playerWeapon.Attack();
+                SetState(State.Attack);
+            }
         }
         
         private void IdleState()
@@ -109,7 +131,11 @@ namespace PlayerScripts
         
         private void Jump()
         {
+            // _rigidbody2D.gravityScale = data.regularGravity;
             _isOnFloor = false;
+            data.canUseCoyoteTime = false;
+            
+            _rigidbody2D.gravityScale = data.regularGravity;
             
             _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, 0f);
             _rigidbody2D.AddForce(Vector2.up * data.jumpForce, ForceMode2D.Impulse);
@@ -132,6 +158,17 @@ namespace PlayerScripts
                 _rigidbody2D.gravityScale *= data.fallGravity;
             }
         }
+        
+        private void AttackState()
+        {
+            Move();
+            if (!playerWeapon.isAttacking) SetState(State.Idle);
+        }
+
+        private void EndCoyoteTime()
+        {
+            data.canUseCoyoteTime = false;
+        }
 
         private void UpdateState()
         {
@@ -141,8 +178,8 @@ namespace PlayerScripts
                 case State.Move: MoveState(); break;
                 case State.Jump: JumpState(); break;
                 case State.Fall: FallState(); break;
-                /*case State.Attack: AttackState(); break;
-                case State.GetHit: GetHitState(); break;
+                case State.Attack: AttackState(); break;
+                /*case State.GetHit: GetHitState(); break;
                 case State.Die: DieState(); break;*/
             }
         }
@@ -151,13 +188,8 @@ namespace PlayerScripts
         {
             _state = newState;
         }
-
+        
         #region PaDespues
-
-        private void AttackState()
-        {
-            
-        }
         
         private void GetHitState()
         {
