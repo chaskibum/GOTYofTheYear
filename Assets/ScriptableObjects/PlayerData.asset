@@ -18,6 +18,4 @@ MonoBehaviour:
   regularGravity: 2
   fallGravity: 2
   coyoteTime: 0.1
-  canUseCoyoteTime: 0
   jumpBufferTime: 0.1
-  lastJumpPressedTime: -Infinity
