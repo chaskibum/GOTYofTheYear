@@ -180,6 +180,10 @@ namespace PlayerScripts
             _state = newState;
         }
         
+        public State GetState => _state;
+
+        public float GetMovementInput => _xInput;
+        
         #region PaDespues
         
         private void GetHitState()

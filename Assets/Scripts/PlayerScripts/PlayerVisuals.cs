@@ -4,16 +4,36 @@ namespace PlayerScripts
 {
     public class PlayerVisuals : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private SpriteRenderer _spriteRenderer;
+        private PlayerController _playerController;
+        
+        // PA BORRAR DESPUES
+        public bool facingRight = true;
+
+        private void Start()
         {
-            
+            _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            _playerController = gameObject.GetComponentInParent<PlayerController>();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            
+            HandleFlipPlayer();
+        }
+
+        private void HandleFlipPlayer()
+        {
+            float moveInput = _playerController.GetMovementInput;
+            if (moveInput > 0f)
+            {
+                _spriteRenderer.flipX = false;
+                facingRight = true;
+            }
+            else if (moveInput < 0f)
+            {
+                _spriteRenderer.flipX = true;
+                facingRight = false;
+            }
         }
     }
 }
