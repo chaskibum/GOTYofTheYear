@@ -11,8 +11,10 @@ namespace EnemiesScripts
 
         private void Start()
         {
-            _hp = data.hp;
+            _hp = data.baseHp;
             _moveSpeed = data.moveSpeed;
+            
+            GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -25,6 +27,12 @@ namespace EnemiesScripts
             _hp -= 1;
             
             if(_hp <= 0) gameObject.SetActive(false);
+        }
+
+        private void Restart()
+        {
+            gameObject.SetActive(true);
+            _hp = data.baseHp;
         }
     }
 }

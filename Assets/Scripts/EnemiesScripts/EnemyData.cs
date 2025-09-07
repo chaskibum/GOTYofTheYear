@@ -5,7 +5,7 @@ namespace EnemiesScripts
     [CreateAssetMenu(fileName = "EnemyData", menuName = "GOTYofTheYear/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        public int hp;
+        public int baseHp;
         public int damage;
         public float moveSpeed;
     }
