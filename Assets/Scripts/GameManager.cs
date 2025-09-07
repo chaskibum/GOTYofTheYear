@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +7,7 @@ public class GameManager : MonoBehaviour
     
     private UnityEvent _onGameOver = new UnityEvent();
     private UnityEvent _onGameRestart = new UnityEvent();
+    private UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
     private void Awake()
     {
@@ -45,4 +44,5 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent GetGameOverEvent => _onGameOver;
     public UnityEvent GetGameRestarted => _onGameRestart;
+    public UnityEvent<int> GetLifeAmountChanged => _onLifeAmountChanged;
 }

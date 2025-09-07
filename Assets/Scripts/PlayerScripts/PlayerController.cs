@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PlayerScripts
 {
@@ -29,12 +30,28 @@ namespace PlayerScripts
         private int _hp;
         
         // PA BORRAR DESPUES
-        public bool isImmune;
+        private bool _isImmune;
         
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
 
         private float _xInput;
+        
+        public static PlayerController Instance { get; private set; }
+        
+        [Header("Events")]
+        private UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+                Destroy(gameObject);
+        }
         
         private void Start()
         {
@@ -44,6 +61,7 @@ namespace PlayerScripts
             _hp = data.baseHp;
             
             GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
+            _onPlayerHit.AddListener((damage) => GetHit(damage));
         }
         
         private void Update()
@@ -175,20 +193,22 @@ namespace PlayerScripts
         private void GetHitState()
         {
             _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
-            isImmune = true;
+            _isImmune = true;
             Invoke("StopInmunityTime", 1f);
             SetState(State.Idle);
         }
 
         private void StopInmunityTime()
         {
-            isImmune = false;
+            _isImmune = false;
         }
 
         public void GetHit(int damage)
         {
+            if (_isImmune) return;
+            
             _hp -= damage;
-            print(_hp);
+            GameManager.Instance.GetLifeAmountChanged?.Invoke(_hp);
 
             if (_hp <= 0)
                 SetState(State.Die);
@@ -230,5 +250,11 @@ namespace PlayerScripts
         public State GetState => _state;
 
         public float GetMovementInput => _xInput;
+
+        #region GetEvents
+
+        public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
+
+        #endregion
     }
 }
