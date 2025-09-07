@@ -28,6 +28,7 @@ namespace PlayerScripts
 
         [Header("Properties")] 
         private int _hp;
+        private Vector3 _respawnPosition = new Vector3(-7f, -2f, 0f);
         
         // PA BORRAR DESPUES
         private bool _isImmune;
@@ -223,8 +224,9 @@ namespace PlayerScripts
 
         private void Restart()
         {
-            transform.position = new Vector2(6.5f, 2.5f);
+            transform.position = _respawnPosition;
             _hp = data.baseHp;
+            _rigidbody2D.linearVelocity = new Vector2(0, 0);
             SetState(State.Idle);
         }
         
@@ -246,6 +248,12 @@ namespace PlayerScripts
         {
             _state = newState;
         }
+
+        // PA CAMBIAR DESPUES ?
+        public void SetRespawnPosition(Vector3 newPosition)
+        {
+            _respawnPosition = newPosition;
+        }
         
         public State GetState => _state;
 
@@ -256,5 +264,23 @@ namespace PlayerScripts
         public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
 
         #endregion
+        
+        
+        // PA BORRAR DESPUES
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("MovingPlatform"))
+            {
+                transform.SetParent(collision.transform);
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("MovingPlatform"))
+            {
+                transform.SetParent(null);
+            }
+        }
     }
 }
