@@ -24,6 +24,12 @@ namespace PlayerScripts
         
         [Header("JumpBuffering")]
         private float _lastJumpPressedTime;
+
+        [Header("Properties")] 
+        private int _hp;
+        
+        // PA BORRAR DESPUES
+        public bool isImmune;
         
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
@@ -34,6 +40,10 @@ namespace PlayerScripts
         {
             _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+
+            _hp = data.baseHp;
+            
+            GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
         }
         
         private void Update()
@@ -161,6 +171,43 @@ namespace PlayerScripts
             if (!playerWeapon.isAttacking) SetState(State.Idle);
         }
         
+        // PA BORRAR DESPUES (ALGO)
+        private void GetHitState()
+        {
+            _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            isImmune = true;
+            Invoke("StopInmunityTime", 1f);
+            SetState(State.Idle);
+        }
+
+        private void StopInmunityTime()
+        {
+            isImmune = false;
+        }
+
+        public void GetHit(int damage)
+        {
+            _hp -= damage;
+            print(_hp);
+
+            if (_hp <= 0)
+                SetState(State.Die);
+            else
+                SetState(State.GetHit);
+        }
+        
+        private void DieState()
+        {
+            GameManager.Instance.GetGameOverEvent?.Invoke();
+        }
+
+        private void Restart()
+        {
+            transform.position = new Vector2(6.5f, 2.5f);
+            _hp = data.baseHp;
+            SetState(State.Idle);
+        }
+        
         private void UpdateState()
         {
             switch (_state)
@@ -170,8 +217,8 @@ namespace PlayerScripts
                 case State.Jump: JumpState(); break;
                 case State.Fall: FallState(); break;
                 case State.Attack: AttackState(); break;
-                /*case State.GetHit: GetHitState(); break;
-                case State.Die: DieState(); break;*/
+                case State.GetHit: GetHitState(); break;
+                case State.Die: DieState(); break;
             }
         }
 
@@ -183,21 +230,5 @@ namespace PlayerScripts
         public State GetState => _state;
 
         public float GetMovementInput => _xInput;
-        
-        #region PaDespues
-        
-        private void GetHitState()
-        {
-            
-        }
-        
-        private void DieState()
-        {
-            
-        }
-        
-
-        #endregion
-        
     }
 }

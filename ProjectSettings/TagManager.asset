@@ -53,5 +53,8 @@ TagManager:
   - name: Entities
     uniqueID: 563985417
     locked: 0
+  - name: Camera
+    uniqueID: 3214713739
+    locked: 0
   m_RenderingLayers:
   - Default
