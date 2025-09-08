@@ -28,7 +28,8 @@ namespace PlayerScripts
 
         [Header("Properties")] 
         private int _hp;
-        private Vector3 _respawnPosition = new Vector3(-7f, -2f, 0f);
+        // private Vector3 _respawnPosition = new Vector3(-7f, -2f, 0f);
+        private Vector3 _respawnPosition = new Vector3();
         
         // PA BORRAR DESPUES
         private bool _isImmune;
@@ -193,7 +194,7 @@ namespace PlayerScripts
         // PA BORRAR DESPUES (ALGO)
         private void GetHitState()
         {
-            _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             _isImmune = true;
             Invoke("StopInmunityTime", 1f);
             SetState(State.Idle);
@@ -209,6 +210,12 @@ namespace PlayerScripts
             if (_isImmune) return;
             
             _hp -= damage;
+            
+            // Frena el impuslo en Y del player (por si venia de un salto)
+            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, 0f);
+            // Hace que el jugador pegue un saltito como feedback a recibir daño
+            _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            
             GameManager.Instance.GetLifeAmountChanged?.Invoke(_hp);
 
             if (_hp <= 0)
