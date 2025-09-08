@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cuervo_0: 5713657609081141718
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

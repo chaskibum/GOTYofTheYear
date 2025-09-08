@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Objeto Volador Lapida_0: 9164480361215326670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

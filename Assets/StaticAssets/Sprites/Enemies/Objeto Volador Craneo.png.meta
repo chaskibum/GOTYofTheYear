@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Objeto Volador Craneo_0: -5880384437016035303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
