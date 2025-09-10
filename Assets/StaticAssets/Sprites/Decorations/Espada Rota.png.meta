@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c7044458db5a2f448998976857ef8f60
+guid: 49cb230e718a08a41a0cda9b73de0da9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4054549612528855553
-    second: Objeto Volador Vasija_0
+      213: -7722945156143712408
+    second: Espada Rota_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Objeto Volador Vasija_0
+      name: Espada Rota_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 9
         y: 0
-        width: 145
-        height: 252
+        width: 66
+        height: 83
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10aeaf20467a44830800000000000000
-      internalID: 4054549612528855553
+      spriteID: 867fa346c4692d490800000000000000
+      internalID: -7722945156143712408
       vertices: []
       indices: 
       edges: []

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c7044458db5a2f448998976857ef8f60
+guid: c22f96a45da44e3438654e79834b740c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4054549612528855553
-    second: Objeto Volador Vasija_0
+      213: -5945135438311252011
+    second: Pasto Carnivoro_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Objeto Volador Vasija_0
+      name: Pasto Carnivoro_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 145
-        height: 252
+        width: 68
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10aeaf20467a44830800000000000000
-      internalID: 4054549612528855553
+      spriteID: 5df1fd941d2ae7da0800000000000000
+      internalID: -5945135438311252011
       vertices: []
       indices: 
       edges: []

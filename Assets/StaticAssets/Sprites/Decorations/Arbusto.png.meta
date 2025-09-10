@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c7044458db5a2f448998976857ef8f60
+guid: 6d3162113a7dfe44faf65cd0375666f2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4054549612528855553
-    second: Objeto Volador Vasija_0
+      213: -6448815087415423558
+    second: Arbusto_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Objeto Volador Vasija_0
+      name: Arbusto_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 145
-        height: 252
+        y: 86
+        width: 311
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10aeaf20467a44830800000000000000
-      internalID: 4054549612528855553
+      spriteID: abd8c6468d43186a0800000000000000
+      internalID: -6448815087415423558
       vertices: []
       indices: 
       edges: []
