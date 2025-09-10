@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bcd166eab017c93438103e10705ef9e5
+guid: 703078eaeddfe8c46b9bf67a997b97ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5713169797449081661
-    second: Pasto_0
+      213: -5394195919384786253
+    second: GrannyDialog2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pasto_0
+      name: GrannyDialog2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 67
-        height: 64
+        width: 616
+        height: 283
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cc9e81c65eb6b0b0800000000000000
-      internalID: -5713169797449081661
+      spriteID: 3ba45381467f325b0800000000000000
+      internalID: -5394195919384786253
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Pasto_0: -5713169797449081661
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
