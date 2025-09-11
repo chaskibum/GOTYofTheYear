@@ -34,7 +34,7 @@ namespace PlayerScripts
         private bool _isImmune;
         
         private SpriteRenderer _spriteRenderer;
-        private Rigidbody2D _rigidbody2D;
+        private Rigidbody2D _body;
 
         private float _xInput;
         
@@ -57,7 +57,7 @@ namespace PlayerScripts
         private void Start()
         {
             _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+            _body = gameObject.GetComponent<Rigidbody2D>();
 
             _hp = data.baseHp;
             
@@ -77,19 +77,25 @@ namespace PlayerScripts
 
         private void CheckIfGrounded()
         {
-            RaycastHit2D ray = Physics2D.BoxCast(
+            /*RaycastHit2D ray = Physics2D.BoxCast(
                 transform.position, 
                 new Vector2(0.2f, 0.1f),
                 0f, 
                 Vector2.down,
                 0.1f, 
+                groundLayer);*/
+            
+            RaycastHit2D ray = Physics2D.Raycast(
+                _body.transform.position, 
+                Vector2.down * 0.2f, 
+                0.1f, 
                 groundLayer);
 
-            if (ray.collider != null) // El raycast toca el suelo
+            if (ray.collider) // El raycast toca el suelo
             {
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyotetime
-                _rigidbody2D.gravityScale = data.regularGravity;
+                _body.gravityScale = data.regularGravity;
             }
             else // Si el raycast no toca el suelo...
             {
@@ -132,7 +138,7 @@ namespace PlayerScripts
         private void IdleState()
         {
             if (_xInput != 0) SetState(State.Move);
-            else _rigidbody2D.linearVelocity = new Vector2(0, _rigidbody2D.linearVelocity.y);
+            else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             // Here we play the Idle animation
         }
         
@@ -148,7 +154,7 @@ namespace PlayerScripts
 
         private void Move()
         {
-            _rigidbody2D.linearVelocity = new Vector2(_xInput * data.moveSpeed, _rigidbody2D.linearVelocity.y);
+            _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
         }
 
         private void JumpState()
@@ -162,10 +168,10 @@ namespace PlayerScripts
         {
             _isOnFloor = false;
             
-            _rigidbody2D.gravityScale = data.regularGravity;
+            _body.gravityScale = data.regularGravity;
             
-            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, 0f);
-            _rigidbody2D.AddForce(Vector2.up * data.jumpForce, ForceMode2D.Impulse);
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
+            _body.AddForce(Vector2.up * data.jumpForce, ForceMode2D.Impulse);
             // Here we play the animations and sounds for when the character jumps
         }
 
@@ -178,10 +184,10 @@ namespace PlayerScripts
 
         private void CheckIfIsFalling()
         {
-            if (_rigidbody2D.linearVelocityY < 0)
+            if (_body.linearVelocityY < 0)
             {
                 SetState(State.Fall);
-                _rigidbody2D.gravityScale = data.regularGravity * data.fallGravity;
+                _body.gravityScale = data.regularGravity * data.fallGravity;
             }
         }
         
@@ -212,9 +218,9 @@ namespace PlayerScripts
             _hp -= damage;
             
             // Frena el impuslo en Y del player (por si venia de un salto)
-            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, 0f);
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             // Hace que el jugador pegue un saltito como feedback a recibir daño
-            _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             
             GameManager.Instance.GetLifeAmountChanged?.Invoke(_hp);
 
@@ -233,7 +239,7 @@ namespace PlayerScripts
         {
             transform.position = _respawnPosition;
             _hp = data.baseHp;
-            _rigidbody2D.linearVelocity = new Vector2(0, 0);
+            _body.linearVelocity = new Vector2(0, 0);
             SetState(State.Idle);
         }
         

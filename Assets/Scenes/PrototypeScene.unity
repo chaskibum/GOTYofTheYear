@@ -17126,6 +17126,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6520025705749360739, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6621801761806166937, guid: 07ac53524c940c247ae4af9438654070, type: 3}
       propertyPath: _playerVisuals
       value: 
