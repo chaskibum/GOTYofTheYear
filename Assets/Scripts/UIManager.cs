@@ -30,14 +30,19 @@ public class UIManager : MonoBehaviour
 
     private void RemoveLife(int currentHp)
     {
-        if (currentHp <= 0)
+        foreach (Transform child in livesContainer)
         {
-            foreach (Transform child in livesContainer)
+            child.gameObject.SetActive(false);
+        }
+
+        foreach (Transform child in livesContainer)
+        {
+            if (currentHp > 0)
             {
-                child.gameObject.SetActive(false);
+                print(currentHp);
+                child.gameObject.SetActive(true);
+                currentHp--;
             }
         }
-        else
-            livesContainer.GetChild(currentHp).gameObject.SetActive(false);
     }
 }

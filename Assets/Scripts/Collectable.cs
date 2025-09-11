@@ -6,6 +6,10 @@ public class Collectable : MonoBehaviour
     private BoxCollider2D _collider;
     
     [SerializeField] private GameObject text;
+    
+    // PA BORRAR DESPUES
+    [SerializeField] private bool isGameWonCollectable = false;
+    [SerializeField] private GameObject gameWonScreen;
 
     private void Start()
     {
@@ -15,6 +19,12 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isGameWonCollectable)
+        {
+            gameWonScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+            
         _sprite.enabled = false;
         _collider.enabled = false;
         text.SetActive(true);

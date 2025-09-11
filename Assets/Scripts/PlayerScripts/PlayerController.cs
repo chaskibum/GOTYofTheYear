@@ -28,8 +28,7 @@ namespace PlayerScripts
 
         [Header("Properties")] 
         private int _hp;
-        // private Vector3 _respawnPosition = new Vector3(-7f, -2f, 0f);
-        private Vector3 _respawnPosition = new Vector3();
+        private Vector3 _respawnPosition;
         
         // PA BORRAR DESPUES
         private bool _isImmune;
@@ -133,6 +132,7 @@ namespace PlayerScripts
         private void IdleState()
         {
             if (_xInput != 0) SetState(State.Move);
+            else _rigidbody2D.linearVelocity = new Vector2(0, _rigidbody2D.linearVelocity.y);
             // Here we play the Idle animation
         }
         
@@ -265,6 +265,8 @@ namespace PlayerScripts
         public State GetState => _state;
 
         public float GetMovementInput => _xInput;
+        
+        public Vector3 GetPlayerPosition => transform.position;
 
         #region GetEvents
 
