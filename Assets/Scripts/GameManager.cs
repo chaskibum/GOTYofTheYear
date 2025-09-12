@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
@@ -40,6 +41,12 @@ public class GameManager : MonoBehaviour
     private void RestartGameEvent()
     {
         Time.timeScale = 1;
+    }
+    
+    public void BackToMainMenu()
+    {
+        // Time.timeScale = 0f;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public UnityEvent GetGameOverEvent => _onGameOver;

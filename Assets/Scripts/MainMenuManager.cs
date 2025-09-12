@@ -13,10 +13,4 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void BackToMainMenu()
-    {
-        // Time.timeScale = 0f;
-        SceneManager.LoadScene("MainMenu");
-    }
 }
