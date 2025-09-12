@@ -1,4 +1,3 @@
-using System;
 using PlayerScripts;
 using UnityEngine;
 
@@ -27,7 +26,15 @@ namespace EnemiesScripts.ArmorGhost
         private void Start()
         {
             _hp = data.baseHp;
-            // _startingPosition = transform.position;
+            _startingPosition = transform.position;
+            
+            GameManager.Instance.GetGameRestarted.AddListener(() => Reset());
+        }
+
+        private void Reset()
+        {
+            _state = State.Idle;
+            transform.position = _startingPosition;
         }
 
         private void Update()
