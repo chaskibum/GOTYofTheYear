@@ -11,6 +11,8 @@ namespace PlayerScripts
         [SerializeField] private LayerMask groundLayer;
 
         [SerializeField] private PlayerWeapon playerWeapon;
+        
+        private Animator _animator;
 
         #region States
         public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, }
@@ -58,6 +60,7 @@ namespace PlayerScripts
         {
             _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             _body = gameObject.GetComponent<Rigidbody2D>();
+            _animator = gameObject.GetComponent<Animator>();
 
             _hp = data.baseHp;
             
@@ -77,14 +80,6 @@ namespace PlayerScripts
 
         private void CheckIfGrounded()
         {
-            /*RaycastHit2D ray = Physics2D.BoxCast(
-                transform.position, 
-                new Vector2(0.2f, 0.1f),
-                0f, 
-                Vector2.down,
-                0.1f, 
-                groundLayer);*/
-            
             RaycastHit2D ray = Physics2D.Raycast(
                 _body.transform.position, 
                 Vector2.down * 0.2f, 
@@ -140,6 +135,8 @@ namespace PlayerScripts
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             // Here we play the Idle animation
+            // PA BORRAR DESPUES
+            _animator.SetBool("Moving", false);
         }
         
         private void MoveState()
@@ -150,6 +147,8 @@ namespace PlayerScripts
             
             Move();
             // Here we play the animations and sounds for when the character moves
+            // PA BORRAR DESPUES
+            _animator.SetBool("Moving", true);
         }
 
         private void Move()
@@ -260,6 +259,8 @@ namespace PlayerScripts
         private void SetState(State newState)
         {
             _state = newState;
+            // PA BORRAR DESPUES
+            if (newState != State.Move) _animator.SetBool("Moving", false);
         }
 
         // PA CAMBIAR DESPUES ?

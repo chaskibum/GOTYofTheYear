@@ -35,6 +35,7 @@ namespace EnemiesScripts.ArmorGhost
         {
             _state = State.Idle;
             transform.position = _startingPosition;
+            _hp = data.baseHp;
         }
 
         private void Update()

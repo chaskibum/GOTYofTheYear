@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1652080222296054240}
   - component: {fileID: 8453261439765389444}
   - component: {fileID: 169401278547092642}
-  - component: {fileID: 2242284031506180127}
+  - component: {fileID: 7720781680477161199}
   m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: MovingPlatform
@@ -135,25 +135,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!95 &2242284031506180127
-Animator:
-  serializedVersion: 7
+--- !u!114 &7720781680477161199
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3677199645259759755}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 527e872d9f288934fad3965bbabaf6da, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811e8025e93adfa4e9516f1ac9a28986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions: []
+  speed: 0
