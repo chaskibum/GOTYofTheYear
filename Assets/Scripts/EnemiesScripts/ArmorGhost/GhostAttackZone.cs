@@ -1,4 +1,3 @@
-using System;
 using PlayerScripts;
 using UnityEngine;
 
@@ -57,7 +56,8 @@ namespace EnemiesScripts.ArmorGhost
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            PlayerController.Instance.GetPlayerHitEvent?.Invoke(data.damage);
+            if (other.TryGetComponent<PlayerController>(out var player))
+                player.GetPlayerHitEvent?.Invoke(data.damage);
         }
     }
 }

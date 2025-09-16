@@ -7,10 +7,9 @@ namespace EnemiesScripts
     {
         [SerializeField] private EnemyData data;
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            print("Player hit");
-            if (TryGetComponent<PlayerController>(out PlayerController player)) 
+            if (other.TryGetComponent<PlayerController>(out PlayerController player)) 
                 player.GetPlayerHitEvent?.Invoke(data.damage);
         }
     }

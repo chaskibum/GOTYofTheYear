@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHp: 5
   damage: 2
-  moveSpeed: 0.5
+  moveSpeed: 15

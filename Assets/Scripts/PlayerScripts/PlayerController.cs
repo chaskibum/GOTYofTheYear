@@ -205,7 +205,7 @@ namespace PlayerScripts
             
             _hp -= damage;
             
-            // Frena el impuslo en Y del player (por si venia de un salto)
+            // Frena el impulso en Y del player (por si venia de un salto)
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             // Hace que el jugador pegue un saltito como feedback a recibir daño
             _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
@@ -269,9 +269,12 @@ namespace PlayerScripts
         public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
 
         #endregion
-        
-        
-        // PA BORRAR DESPUES
+
+
+        #region Plataformas Movibles
+
+        // Logica de plataformas movibles
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("MovingPlatform"))
@@ -287,5 +290,6 @@ namespace PlayerScripts
                 transform.SetParent(null);
             }
         }
+        #endregion
     }
 }
