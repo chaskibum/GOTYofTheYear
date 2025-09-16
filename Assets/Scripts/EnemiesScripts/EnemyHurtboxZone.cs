@@ -7,13 +7,14 @@ namespace EnemiesScripts
         [SerializeField] private EnemyData data;
 
         private int _hp;
-        private float _moveSpeed;
+        
+        private GameObject _parent;
 
         private void Start()
         {
             _hp = data.baseHp;
-            _moveSpeed = data.moveSpeed;
-            
+
+            _parent = transform.parent.gameObject;
             GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
         }
 
@@ -26,12 +27,12 @@ namespace EnemiesScripts
         {
             _hp -= 1;
             
-            if(_hp <= 0) gameObject.SetActive(false);
+            if (_hp <= 0) _parent.SetActive(false);
         }
 
         private void Restart()
         {
-            gameObject.SetActive(true);
+            _parent.SetActive(true);
             _hp = data.baseHp;
         }
     }

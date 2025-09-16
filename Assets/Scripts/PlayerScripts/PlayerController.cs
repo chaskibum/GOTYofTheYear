@@ -44,17 +44,6 @@ namespace PlayerScripts
         
         [Header("Events")]
         private UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                // DontDestroyOnLoad(gameObject);
-            }
-            else
-                Destroy(gameObject);
-        }
         
         private void Start()
         {

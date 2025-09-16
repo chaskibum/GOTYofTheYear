@@ -9,7 +9,9 @@ namespace EnemiesScripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            PlayerController.Instance.GetPlayerHitEvent?.Invoke(data.damage);
+            print("Player hit");
+            if (TryGetComponent<PlayerController>(out PlayerController player)) 
+                player.GetPlayerHitEvent?.Invoke(data.damage);
         }
     }
 }
