@@ -40,7 +40,7 @@ public class ApplyMovement : MonoBehaviour
                 positions[_targetIndex].position,
                 speed * Time.deltaTime);
             _body.MovePosition(newPosition);
-            
+
             if (Vector2.Distance(_body.position, positions[_targetIndex].position) < 0.01f)
             {
                 // Guardamos la x de la posicion actual

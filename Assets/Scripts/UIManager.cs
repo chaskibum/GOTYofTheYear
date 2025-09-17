@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
         {
             if (currentHp > 0)
             {
-                print(currentHp);
                 child.gameObject.SetActive(true);
                 currentHp--;
             }

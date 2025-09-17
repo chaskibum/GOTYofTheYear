@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -28,6 +29,11 @@ namespace EnemiesScripts
             _hp -= 1;
             
             if (_hp <= 0) _parent.SetActive(false);
+            // else _parent.GetComponent<EnemyController>().SetState(EnemyController.State.GetHit);
+            else if (_parent.GetComponent<EnemyController>().GetState == EnemyController.State.GetHit) return;
+            
+            _parent.GetComponent<EnemyController>().GetHit();
+            print("GOT HIT");
         }
 
         private void Restart()

@@ -271,7 +271,7 @@ namespace PlayerScripts
         #endregion
 
 
-        #region Plataformas Movibles
+        /*#region Plataformas Movibles
 
         // Logica de plataformas movibles
 
@@ -290,6 +290,6 @@ namespace PlayerScripts
                 transform.SetParent(null);
             }
         }
-        #endregion
+        #endregion*/
     }
 }

@@ -8,5 +8,9 @@ namespace EnemiesScripts
         public int baseHp;
         public int damage;
         public float moveSpeed;
+        public float attackAnimationTime;
+
+        public float detectionRange;
+        public float attackRange;
     }
 }
