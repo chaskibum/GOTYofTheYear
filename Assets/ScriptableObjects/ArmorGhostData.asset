@@ -15,6 +15,7 @@ MonoBehaviour:
   baseHp: 5
   damage: 2
   moveSpeed: 15
-  attackAnimationTime: 1
+  attackAnimationTime: 0.5
+  attackCooldown: 1.5
   detectionRange: 12
   attackRange: 3

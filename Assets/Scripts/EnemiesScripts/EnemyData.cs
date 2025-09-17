@@ -9,6 +9,7 @@ namespace EnemiesScripts
         public int damage;
         public float moveSpeed;
         public float attackAnimationTime;
+        public float attackCooldown;
 
         public float detectionRange;
         public float attackRange;

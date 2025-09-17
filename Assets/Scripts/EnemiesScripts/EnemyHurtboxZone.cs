@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -9,13 +8,12 @@ namespace EnemiesScripts
 
         private int _hp;
         
-        private GameObject _parent;
+        [SerializeField] private EnemyController enemy;
 
         private void Start()
         {
             _hp = data.baseHp;
-
-            _parent = transform.parent.gameObject;
+            
             GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
         }
 
@@ -28,17 +26,13 @@ namespace EnemiesScripts
         {
             _hp -= 1;
             
-            if (_hp <= 0) _parent.SetActive(false);
-            // else _parent.GetComponent<EnemyController>().SetState(EnemyController.State.GetHit);
-            else if (_parent.GetComponent<EnemyController>().GetState == EnemyController.State.GetHit) return;
-            
-            _parent.GetComponent<EnemyController>().GetHit();
-            print("GOT HIT");
+            if (_hp <= 0) enemy.SetState(EnemyController.State.Die);
+            else if (enemy.GetState != EnemyController.State.GetHit) enemy.GetHit();
         }
 
         private void Restart()
         {
-            _parent.SetActive(true);
+            enemy.gameObject.SetActive(true);
             _hp = data.baseHp;
         }
     }

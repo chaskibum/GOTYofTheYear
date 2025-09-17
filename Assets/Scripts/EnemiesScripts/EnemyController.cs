@@ -22,10 +22,11 @@ namespace EnemiesScripts
         private int _hp;
         private Vector3 _startingPosition;
         private float _attackTime;
-        private float _lastAttackTime;
+        private bool _canAttack = true;
         // public bool facingRight = true;
         
         private Rigidbody2D _body;
+        private SpriteRenderer _visuals;
         
         private Vector3 _playerPosition;
 
@@ -42,6 +43,7 @@ namespace EnemiesScripts
             
             GameManager.Instance.GetGameRestarted.AddListener(() => Reset());
             _body = GetComponent<Rigidbody2D>();
+            _visuals = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void Reset()
@@ -49,6 +51,13 @@ namespace EnemiesScripts
             _state = State.Idle;
             transform.position = _startingPosition;
             _hp = data.baseHp;
+            attackZone.SetActive(false);
+            _canAttack = true;
+            
+            // PA BORRAR DESPUES
+            var color = _visuals.color;
+            color.a = 1;
+            _visuals.color = color;
         }
 
         private void Update()
@@ -64,6 +73,9 @@ namespace EnemiesScripts
         
         private void ChaseState()
         {
+            // Resetea la fuerza del impulso de GetHit
+            _body.linearVelocity = Vector2.zero;
+            
             Vector3 newPosition = Vector3.MoveTowards(
                 _body.position,
                 _playerPosition,
@@ -72,7 +84,7 @@ namespace EnemiesScripts
             _body.MovePosition(newPosition);
             
             if (Vector3.Distance(_body.position, _playerPosition) >= data.detectionRange) SetState(State.Idle);
-            if (Vector3.Distance(_body.position, _playerPosition) < data.attackRange) SetState(State.Attack);
+            if (Vector3.Distance(_body.position, _playerPosition) < data.attackRange && _canAttack) SetState(State.Attack);
         }
         
         private void AttackState()
@@ -87,12 +99,20 @@ namespace EnemiesScripts
             else
             {
                 attackZone.SetActive(true);
+                _canAttack = false;
+                StartCoroutine("CanAttackAgain");
             }
+        }
+
+        private IEnumerator CanAttackAgain()
+        {
+            yield return new WaitForSeconds(data.attackCooldown);
+            _canAttack = true;
         }
 
         public void GetHit()
         {
-            _body.AddForce(Vector2.left * 3f, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.left * 6f, ForceMode2D.Impulse);
             SetState(State.GetHit);
         }
         
@@ -103,13 +123,31 @@ namespace EnemiesScripts
 
         private IEnumerator DelayChaseState()
         {
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.2f);
             SetState(State.Chase);
         }
         
         private void DieState()
         {
-            
+            _body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
+            StartCoroutine("Disappear");
+        }
+
+        // PA BORRAR DESPUES
+        private IEnumerator Disappear()
+        {
+            if (_visuals.color.a > 0)
+            {
+                var color = _visuals.color;
+                color.a = color.a - 0.01f;
+                _visuals.color = color;
+                yield return new WaitForSeconds(0.05f);
+            }
+            else
+            {
+                transform.gameObject.SetActive(false);
+            }
+                
         }
         
         private void UpdateState()
