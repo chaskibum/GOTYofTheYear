@@ -7,8 +7,7 @@ namespace EnemiesScripts
     public class EnemyController : MonoBehaviour
     {
         [SerializeField] private EnemyData data;
-
-        // [SerializeField] private GhostAttackZone attackScript;
+        
         [SerializeField] private GameObject attackZone;
         
         [SerializeField] private TMP_Text stateText;
@@ -51,6 +50,7 @@ namespace EnemiesScripts
             transform.position = _startingPosition;
             _hp = data.baseHp;
             _canAttack = true;
+            attackZone.SetActive(true);
             
             // PA BORRAR DESPUES
             var color = _visuals.color;
@@ -129,6 +129,7 @@ namespace EnemiesScripts
         
         private void DieState()
         {
+            attackZone.SetActive(false);
             _body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             StartCoroutine("Disappear");
         }

@@ -264,32 +264,17 @@ namespace PlayerScripts
         
         public Vector3 GetPlayerPosition => transform.position;
 
+        public void SetPlayerMaterial(PhysicsMaterial2D material)
+        {
+            _body.sharedMaterial = material;
+        }
+
         #region GetEvents
 
         public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
 
         #endregion
 
-
-        /*#region Plataformas Movibles
-
-        // Logica de plataformas movibles
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("MovingPlatform"))
-            {
-                transform.SetParent(collision.transform);
-            }
-        }
-
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("MovingPlatform"))
-            {
-                transform.SetParent(null);
-            }
-        }
-        #endregion*/
+        
     }
 }

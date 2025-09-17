@@ -185,7 +185,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ce0b70d7a022be145ad01105aa819535, type: 2}
   attackZone: {fileID: 3262942600924391178}
+  hurtbox: {fileID: 4673387972831737692}
   stateText: {fileID: 3043423746521078765}
 --- !u!1 &3262942600924391178
 GameObject:

@@ -1,4 +1,3 @@
-using PlayerScripts;
 using UnityEngine;
 
 public class SaveSpotManager : MonoBehaviour
@@ -9,6 +8,6 @@ public class SaveSpotManager : MonoBehaviour
     {
         _lastSavedRespawnPosition = transform.position;
         
-        PlayerController.Instance.SetRespawnPosition(_lastSavedRespawnPosition);
+        GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
     }
 }

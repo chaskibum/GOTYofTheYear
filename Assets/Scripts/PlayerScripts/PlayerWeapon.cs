@@ -32,7 +32,7 @@ namespace PlayerScripts
             isAttacking = true;
             _spriteRenderer.enabled = true;
             _collider.enabled = true;
-            Invoke("StopAttacking", 0.5f);
+            Invoke("StopAttacking", 0.2f);
         }
 
         private void StopAttacking()
