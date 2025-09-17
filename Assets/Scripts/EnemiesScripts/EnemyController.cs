@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -48,10 +47,9 @@ namespace EnemiesScripts
 
         private void Reset()
         {
-            _state = State.Idle;
+            SetState(State.Idle);
             transform.position = _startingPosition;
             _hp = data.baseHp;
-            attackZone.SetActive(false);
             _canAttack = true;
             
             // PA BORRAR DESPUES
@@ -75,6 +73,8 @@ namespace EnemiesScripts
         {
             // Resetea la fuerza del impulso de GetHit
             _body.linearVelocity = Vector2.zero;
+            // Desactiva la hitbox si el personaje persigue
+            attackZone.SetActive(false);
             
             Vector3 newPosition = Vector3.MoveTowards(
                 _body.position,
