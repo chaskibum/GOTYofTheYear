@@ -5,6 +5,8 @@ namespace PlayerScripts
 {
     public class PlayerController : MonoBehaviour
     {
+        private static readonly int Moving = Animator.StringToHash("Moving");
+
         // We link the PlayerData Scriptable Object to the Player
         [SerializeField] private PlayerData data;
         
@@ -22,17 +24,16 @@ namespace PlayerScripts
         
         #endregion
         
-        [Header("CoyoteTime")]
+        [Header("Jump")]
         private float _coyoteCounter;
-        
-        [Header("JumpBuffering")]
         private float _lastJumpPressedTime;
+        private float _jumpKeyTimePressed;
 
         [Header("Properties")] 
         private int _hp;
         private Vector3 _respawnPosition;
         
-        // PA BORRAR DESPUES
+        // PA BORRAR DESPUÉS
         private bool _isImmune;
         
         private SpriteRenderer _spriteRenderer;
@@ -40,10 +41,8 @@ namespace PlayerScripts
 
         private float _xInput;
         
-        public static PlayerController Instance { get; private set; }
-        
         [Header("Events")]
-        private UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
+        private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
         
         private void Start()
         {
@@ -53,8 +52,8 @@ namespace PlayerScripts
 
             _hp = data.baseHp;
             
-            GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
-            _onPlayerHit.AddListener((damage) => GetHit(damage));
+            GameManager.Instance.GetGameRestarted.AddListener(Restart);
+            _onPlayerHit.AddListener(GetHit);
         }
         
         private void Update()
@@ -78,7 +77,7 @@ namespace PlayerScripts
             if (ray.collider) // El raycast toca el suelo
             {
                 _isOnFloor = true;
-                _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyotetime
+                _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
             }
             else // Si el raycast no toca el suelo...
@@ -93,13 +92,13 @@ namespace PlayerScripts
         
         private void CheckJumpInput()
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space))
                 _lastJumpPressedTime = Time.time;
             
-            // Si el jugador esta en el piso o dentro de la ventana del coyote time -> puede saltar
+            // Si el jugador está en el piso o dentro de la ventana del coyote time -> puede saltar
             if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
-                Jump();
+                // Jump();
                 SetState(State.Jump);
                 _lastJumpPressedTime = -Mathf.Infinity;
             }
@@ -124,8 +123,8 @@ namespace PlayerScripts
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             // Here we play the Idle animation
-            // PA BORRAR DESPUES
-            _animator.SetBool("Moving", false);
+            // PA BORRAR DESPUÉS
+            _animator.SetBool(Moving, false);
         }
         
         private void MoveState()
@@ -136,8 +135,8 @@ namespace PlayerScripts
             
             Move();
             // Here we play the animations and sounds for when the character moves
-            // PA BORRAR DESPUES
-            _animator.SetBool("Moving", true);
+            // PA BORRAR DESPUÉS
+            _animator.SetBool(Moving, true);
         }
 
         private void Move()
@@ -149,23 +148,28 @@ namespace PlayerScripts
         {
             if (_xInput != 0) Move();
             
-            CheckIfIsFalling();
-        }
-        
-        private void Jump()
-        {
             _isOnFloor = false;
             
             _body.gravityScale = data.regularGravity;
+
+            _jumpKeyTimePressed += Time.deltaTime;
+            
+            if (Input.GetKeyUp(KeyCode.Space) || _jumpKeyTimePressed > data.jumpDuration)
+                SetState(State.Fall);
             
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
-            _body.AddForce(Vector2.up * data.jumpForce, ForceMode2D.Impulse);
-            // Here we play the animations and sounds for when the character jumps
+            _body.linearVelocityY = 1f * data.jumpForce;
+            
+            CheckIfIsFalling();
         }
 
         private void FallState()
         {
             if (_xInput != 0) Move();
+            
+            if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
+            _body.gravityScale = data.regularGravity * data.fallGravity;
+            _jumpKeyTimePressed = 0f;
             
             if (_isOnFloor) SetState(State.Idle);
         }
@@ -175,7 +179,6 @@ namespace PlayerScripts
             if (_body.linearVelocityY < 0)
             {
                 SetState(State.Fall);
-                _body.gravityScale = data.regularGravity * data.fallGravity;
             }
         }
         
@@ -185,16 +188,16 @@ namespace PlayerScripts
             if (!playerWeapon.isAttacking) SetState(State.Idle);
         }
         
-        // PA BORRAR DESPUES (ALGO)
+        // PARA BORRAR DESPUÉS (ALGO)
         private void GetHitState()
         {
             // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             _isImmune = true;
-            Invoke("StopInmunityTime", 1f);
+            Invoke(nameof(StopImmunityTime), 1f);
             SetState(State.Idle);
         }
 
-        private void StopInmunityTime()
+        private void StopImmunityTime()
         {
             _isImmune = false;
         }
@@ -212,10 +215,7 @@ namespace PlayerScripts
             
             GameManager.Instance.GetLifeAmountChanged?.Invoke(_hp);
 
-            if (_hp <= 0)
-                SetState(State.Die);
-            else
-                SetState(State.GetHit);
+            SetState(_hp <= 0 ? State.Die : State.GetHit);
         }
         
         private void DieState()
@@ -248,11 +248,11 @@ namespace PlayerScripts
         private void SetState(State newState)
         {
             _state = newState;
-            // PA BORRAR DESPUES
-            if (newState != State.Move) _animator.SetBool("Moving", false);
+            // PA BORRAR DESPUÉS
+            if (newState != State.Move) _animator.SetBool(Moving, false);
         }
 
-        // PA CAMBIAR DESPUES ?
+        // ¿PARA CAMBIAR DESPUÉS?
         public void SetRespawnPosition(Vector3 newPosition)
         {
             _respawnPosition = newPosition;

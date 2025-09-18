@@ -8,7 +8,7 @@ namespace PlayerScripts
         private SpriteRenderer _spriteRenderer;
         private PolygonCollider2D _collider;
         
-        // PA BORRAR DESPUES
+        // PARA BORRAR DESPUÉS
         [SerializeField] private PlayerVisuals playerVisuals;
         
         private void Start()
@@ -20,7 +20,7 @@ namespace PlayerScripts
             _collider.enabled = false;
         }
         
-        // PA BORRAR DESPUES
+        // PARA BORRAR DESPUÉS
         private void Update()
         {
             FlipAttackPosition();
@@ -32,7 +32,7 @@ namespace PlayerScripts
             isAttacking = true;
             _spriteRenderer.enabled = true;
             _collider.enabled = true;
-            Invoke("StopAttacking", 0.2f);
+            Invoke(nameof(StopAttacking), 0.2f);
         }
 
         private void StopAttacking()
@@ -42,7 +42,7 @@ namespace PlayerScripts
             _collider.enabled = false;
         }
 
-        // PA BORRAR DESPUES
+        // PARA BORRAR DESPUÉS
         private void FlipAttackPosition()
         {
             if (isAttacking) return;

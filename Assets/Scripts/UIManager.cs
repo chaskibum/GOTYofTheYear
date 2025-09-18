@@ -1,5 +1,3 @@
-using System;
-using PlayerScripts;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -9,9 +7,9 @@ public class UIManager : MonoBehaviour
     
     private void Start()
     {
-        GameManager.Instance.GetGameOverEvent.AddListener(() => ShowGameOverScreen());
-        GameManager.Instance.GetGameRestarted.AddListener(() => ResetUI());
-        GameManager.Instance.GetLifeAmountChanged.AddListener((hp) => RemoveLife(hp));
+        GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
+        GameManager.Instance.GetGameRestarted.AddListener(ResetUI);
+        GameManager.Instance.GetLifeAmountChanged.AddListener(RemoveLife);
     }
 
     private void ShowGameOverScreen()

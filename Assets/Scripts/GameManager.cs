@@ -7,18 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
-    private UnityEvent _onGameOver = new UnityEvent();
-    private UnityEvent _onGameRestart = new UnityEvent();
-    private UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
+    private readonly UnityEvent _onGameOver = new UnityEvent();
+    private readonly UnityEvent _onGameRestart = new UnityEvent();
+    private readonly UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
     [SerializeField] private PlayerController player;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (!Instance)
         {
             Instance = this;
-            // DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
@@ -26,8 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _onGameOver.AddListener(() => GameOverScreen());
-        _onGameRestart.AddListener(() => RestartGameEvent());
+        _onGameOver.AddListener(GameOverScreen);
+        _onGameRestart.AddListener(RestartGameEvent);
     }
 
     private void GameOverScreen()
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    // PA CAMBIAR DESPUES
+    // PARA CAMBIAR DESPUÉS
     public void RestartGame()
     {
         _onGameRestart?.Invoke();
@@ -48,14 +47,17 @@ public class GameManager : MonoBehaviour
     
     public void BackToMainMenu()
     {
-        // Time.timeScale = 0f;
         SceneManager.LoadScene("MainMenu");
     }
+
+    #region Events
 
     public UnityEvent GetGameOverEvent => _onGameOver;
     public UnityEvent GetGameRestarted => _onGameRestart;
     public UnityEvent<int> GetLifeAmountChanged => _onLifeAmountChanged;
     
+
+    #endregion
     
     public PlayerController GetPlayer => player;
 }

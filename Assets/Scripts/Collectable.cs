@@ -7,7 +7,7 @@ public class Collectable : MonoBehaviour
     
     [SerializeField] private GameObject text;
     
-    // PA BORRAR DESPUES
+    // PARA BORRAR DESPUÉS
     [SerializeField] private bool isGameWonCollectable = false;
     [SerializeField] private GameObject gameWonScreen;
 
@@ -28,7 +28,7 @@ public class Collectable : MonoBehaviour
         _sprite.enabled = false;
         _collider.enabled = false;
         text.SetActive(true);
-        Invoke("HideText", 1f);
+        Invoke(nameof(HideText), 1f);
     }
 
     private void HideText()

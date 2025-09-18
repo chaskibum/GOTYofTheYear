@@ -7,7 +7,7 @@ namespace PlayerScripts
         private SpriteRenderer _spriteRenderer;
         private PlayerController _playerController;
         
-        // PA BORRAR DESPUES
+        // PA BORRAR DESPUÉS
         public bool facingRight = true;
 
         private void Start()

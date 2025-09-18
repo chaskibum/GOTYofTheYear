@@ -12,10 +12,9 @@ namespace PlayerScripts
         public float fallGravity;
         public float pushForce;
         
-        [Header("CoyoteTime")]
+        [Header("Jump")]
         public float coyoteTime = 1f;
-        
-        [Header("JumpBuffering")]
         public float jumpBufferTime = 0.1f;
+        public float jumpDuration = 1f;
     }
 }

@@ -7,7 +7,7 @@ public class ApplyMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private bool isPlatform;
 
-    private int _targetIndex = 0;
+    private int _targetIndex;
     
     private SpriteRenderer _sprite;
     private Rigidbody2D _body;
@@ -44,13 +44,10 @@ public class ApplyMovement : MonoBehaviour
             if (Vector2.Distance(_body.position, positions[_targetIndex].position) < 0.01f)
             {
                 // Guardamos la x de la posicion actual
-                float _currentIndexX = positions[_targetIndex].position.x;
+                float currentIndexX = positions[_targetIndex].position.x;
                 _targetIndex = (_targetIndex + 1) % positions.Count;
-                // Si la x de la nueva posicion es mayor, seguimos mirando a la derecha, sino flipamos (CAMBIAR CUANDO TODOS LOS SPRITES ESTEN MIRANDO PA LA DERECHA)
-                if (positions[_targetIndex].position.x > _currentIndexX)
-                    _sprite.flipX = true;
-                else
-                    _sprite.flipX = false;
+                // Si la x de la nueva posicion es mayor, seguimos mirando a la derecha, si no flipamos (CAMBIAR CUANDO TODOS LOS SPRITES ESTÉN MIRANDO PA LA DERECHA)
+                _sprite.flipX = positions[_targetIndex].position.x > currentIndexX;
             }
         }
     }

@@ -40,7 +40,7 @@ namespace EnemiesScripts
         {
             _startingPosition = transform.position;
             
-            GameManager.Instance.GetGameRestarted.AddListener(() => Reset());
+            GameManager.Instance.GetGameRestarted.AddListener(Reset);
             _body = GetComponent<Rigidbody2D>();
             _visuals = GetComponentInChildren<SpriteRenderer>();
             
@@ -54,7 +54,7 @@ namespace EnemiesScripts
             _canAttack = true;
             attackHitbox.SetActive(true);
             
-            // PA BORRAR DESPUES (se va a hacer mediante animaciones)
+            // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
             var color = _visuals.color;
             color.a = 1;
             _visuals.color = color;
@@ -66,7 +66,7 @@ namespace EnemiesScripts
             UpdateState();
         }
 
-        // Calculamos la posicion del player y con ello la direccion hacia donde tendriamos que estar mirando.
+        // Calculamos la posicion del player y con ello la dirección hacia donde tendríamos que estar mirando.
         private void CalculateDirection()
         {
             _playerPosition = _player.GetPlayerPosition;
@@ -87,7 +87,7 @@ namespace EnemiesScripts
             // Desactiva la hitbox si el personaje persigue
             attackHitbox.SetActive(false);
 
-            // Si no esta TAN cerca del player se acerca lentamente
+            // Si no está TAN cerca del player se acerca lentamente
             if (Vector3.Distance(_body.position, _playerPosition) >= 1f)
             {
                 _visuals.flipX = _playerToTheRight;
@@ -99,7 +99,7 @@ namespace EnemiesScripts
             
                 _body.MovePosition(newPosition);
             }
-            // Si esta muy cerca del player se aleja rapidamente
+            // Si está muy cerca del player se aleja rápidamente
             else
             {
                 _body.AddForce(_direction * 4f, ForceMode2D.Impulse);
@@ -111,7 +111,7 @@ namespace EnemiesScripts
         
         private void AttackState()
         {
-            // Si el tiempo de la animacion de ataque termino, desactivamos la hitbox
+            // Si el tiempo de la animación de ataque termino, desactivamos la hitbox
             _attackTime -= Time.deltaTime;
             if (_attackTime <= 0f)
             {
@@ -119,12 +119,12 @@ namespace EnemiesScripts
                 SetState(State.Idle);
                 _attackTime = data.attackAnimationTime;
             }
-            // Sino la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
+            // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
             {
                 attackHitbox.SetActive(true);
                 _canAttack = false;
-                StartCoroutine("CanAttackAgain");
+                StartCoroutine(nameof(CanAttackAgain));
             }
         }
 
@@ -155,10 +155,10 @@ namespace EnemiesScripts
         {
             attackHitbox.SetActive(false);
             _body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
-            StartCoroutine("Disappear");
+            StartCoroutine(nameof(Disappear));
         }
 
-        // PA BORRAR DESPUES (cuando tengamos la animacion de muerte)
+        // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
         private IEnumerator Disappear()
         {
             if (_visuals.color.a > 0)

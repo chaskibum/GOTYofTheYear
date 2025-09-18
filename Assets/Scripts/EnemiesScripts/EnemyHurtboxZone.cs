@@ -14,7 +14,7 @@ namespace EnemiesScripts
         {
             _hp = data.baseHp;
             
-            GameManager.Instance.GetGameRestarted.AddListener(() => Restart());
+            GameManager.Instance.GetGameRestarted.AddListener(Restart);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
