@@ -1,4 +1,5 @@
 using System.Collections;
+using PlayerScripts;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace EnemiesScripts
     {
         [SerializeField] private EnemyData data;
         
-        [SerializeField] private GameObject attackZone;
+        [SerializeField] private GameObject attackHitbox;
         
         [SerializeField] private TMP_Text stateText;
         
@@ -17,16 +18,17 @@ namespace EnemiesScripts
         private State _state = State.Idle;
         
         [Header("Properties")]
-        private int _hp;
         private Vector3 _startingPosition;
+        private Vector2 _direction;
         private float _attackTime;
         private bool _canAttack = true;
-        // public bool facingRight = true;
         
         private Rigidbody2D _body;
         private SpriteRenderer _visuals;
         
+        private PlayerController _player;
         private Vector3 _playerPosition;
+        private bool _playerToTheRight;
 
         private void Awake()
         {
@@ -36,23 +38,23 @@ namespace EnemiesScripts
 
         private void Start()
         {
-            _hp = data.baseHp;
             _startingPosition = transform.position;
             
             GameManager.Instance.GetGameRestarted.AddListener(() => Reset());
             _body = GetComponent<Rigidbody2D>();
             _visuals = GetComponentInChildren<SpriteRenderer>();
+            
+            _player = GameManager.Instance.GetPlayer;
         }
 
         private void Reset()
         {
             SetState(State.Idle);
             transform.position = _startingPosition;
-            _hp = data.baseHp;
             _canAttack = true;
-            attackZone.SetActive(true);
+            attackHitbox.SetActive(true);
             
-            // PA BORRAR DESPUES
+            // PA BORRAR DESPUES (se va a hacer mediante animaciones)
             var color = _visuals.color;
             color.a = 1;
             _visuals.color = color;
@@ -60,12 +62,21 @@ namespace EnemiesScripts
 
         private void Update()
         {
-            _playerPosition = GameManager.Instance.GetPlayer.GetPlayerPosition;
+            CalculateDirection();
             UpdateState();
+        }
+
+        // Calculamos la posicion del player y con ello la direccion hacia donde tendriamos que estar mirando.
+        private void CalculateDirection()
+        {
+            _playerPosition = _player.GetPlayerPosition;
+            _playerToTheRight = _playerPosition.x > transform.position.x;
+            _direction = _playerToTheRight ? Vector2.left : Vector2.right;
         }
 
         private void IdleState()
         {
+            _visuals.flipX = _playerToTheRight;
             if (Vector3.Distance(_body.position, _playerPosition) < data.detectionRange) SetState(State.Chase);
         }
         
@@ -74,14 +85,25 @@ namespace EnemiesScripts
             // Resetea la fuerza del impulso de GetHit
             _body.linearVelocity = Vector2.zero;
             // Desactiva la hitbox si el personaje persigue
-            attackZone.SetActive(false);
+            attackHitbox.SetActive(false);
+
+            // Si no esta TAN cerca del player se acerca lentamente
+            if (Vector3.Distance(_body.position, _playerPosition) >= 1f)
+            {
+                _visuals.flipX = _playerToTheRight;
+                
+                Vector3 newPosition = Vector3.MoveTowards(
+                    _body.position,
+                    _playerPosition,
+                    data.moveSpeed * Time.deltaTime);
             
-            Vector3 newPosition = Vector3.MoveTowards(
-                _body.position,
-                _playerPosition,
-                data.moveSpeed * Time.deltaTime);
-            
-            _body.MovePosition(newPosition);
+                _body.MovePosition(newPosition);
+            }
+            // Si esta muy cerca del player se aleja rapidamente
+            else
+            {
+                _body.AddForce(_direction * 4f, ForceMode2D.Impulse);
+            }
             
             if (Vector3.Distance(_body.position, _playerPosition) >= data.detectionRange) SetState(State.Idle);
             if (Vector3.Distance(_body.position, _playerPosition) < data.attackRange && _canAttack) SetState(State.Attack);
@@ -89,16 +111,18 @@ namespace EnemiesScripts
         
         private void AttackState()
         {
+            // Si el tiempo de la animacion de ataque termino, desactivamos la hitbox
             _attackTime -= Time.deltaTime;
             if (_attackTime <= 0f)
             {
-                attackZone.SetActive(false);
+                attackHitbox.SetActive(false);
                 SetState(State.Idle);
                 _attackTime = data.attackAnimationTime;
             }
+            // Sino la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
             {
-                attackZone.SetActive(true);
+                attackHitbox.SetActive(true);
                 _canAttack = false;
                 StartCoroutine("CanAttackAgain");
             }
@@ -112,7 +136,7 @@ namespace EnemiesScripts
 
         public void GetHit()
         {
-            _body.AddForce(Vector2.left * 6f, ForceMode2D.Impulse);
+            _body.AddForce(_direction * 6f, ForceMode2D.Impulse);
             SetState(State.GetHit);
         }
         
@@ -129,12 +153,12 @@ namespace EnemiesScripts
         
         private void DieState()
         {
-            attackZone.SetActive(false);
+            attackHitbox.SetActive(false);
             _body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             StartCoroutine("Disappear");
         }
 
-        // PA BORRAR DESPUES
+        // PA BORRAR DESPUES (cuando tengamos la animacion de muerte)
         private IEnumerator Disappear()
         {
             if (_visuals.color.a > 0)
@@ -148,7 +172,6 @@ namespace EnemiesScripts
             {
                 transform.gameObject.SetActive(false);
             }
-                
         }
         
         private void UpdateState()
@@ -171,5 +194,7 @@ namespace EnemiesScripts
         }
         
         public State GetState => _state;
+
+        public bool GetCanAttack => _canAttack;
     }
 }

@@ -9,7 +9,7 @@ namespace PlayerScripts
         private PolygonCollider2D _collider;
         
         // PA BORRAR DESPUES
-        [SerializeField] private PlayerVisuals _playerVisuals;
+        [SerializeField] private PlayerVisuals playerVisuals;
         
         private void Start()
         {
@@ -47,16 +47,10 @@ namespace PlayerScripts
         {
             if (isAttacking) return;
 
-            if (_playerVisuals.facingRight)
-            {
-                transform.localPosition = new Vector3(1.2f, 1f, 0f);
-                transform.localRotation = Quaternion.Euler(0, 0, 270);
-            }
-            else if (!_playerVisuals.facingRight)
-            {
-                transform.localPosition = new Vector3(-1.2f, 1f, 0f);
-                transform.localRotation = Quaternion.Euler(0, 0, 90);
-            }
+            if (playerVisuals.facingRight)
+                transform.parent.localRotation = Quaternion.Euler(0, 0, 0);
+            else if (!playerVisuals.facingRight)
+                transform.parent.localRotation = Quaternion.Euler(0, 0, 180);
         }
     }
 }
