@@ -2486,6 +2486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerParent
       objectReference: {fileID: 0}
+    - target: {fileID: 6520025705749360739, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6806308929947319336, guid: 07ac53524c940c247ae4af9438654070, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2746,11 +2750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9045817233869756307, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.57
+      value: -11.4
       objectReference: {fileID: 0}
     - target: {fileID: 9045817233869756307, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.26
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 9045817233869756307, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_LocalPosition.z

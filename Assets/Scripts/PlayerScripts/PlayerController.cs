@@ -36,7 +36,6 @@ namespace PlayerScripts
         // PA BORRAR DESPUÉS
         private bool _isImmune;
         
-        private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _body;
 
         private float _xInput;
@@ -46,7 +45,6 @@ namespace PlayerScripts
         
         private void Start()
         {
-            _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             _body = gameObject.GetComponent<Rigidbody2D>();
             _animator = gameObject.GetComponent<Animator>();
 
@@ -106,7 +104,13 @@ namespace PlayerScripts
 
         private void CheckMovementInput()
         {
-            _xInput = Input.GetAxis("Horizontal");
+            // _xInput = Input.GetAxis("Horizontal");
+            if (Input.GetKey(KeyCode.A))
+                _xInput = -1f;
+            else if (Input.GetKey(KeyCode.D))
+                _xInput = 1f;
+            else
+                _xInput = 0f;
         }
 
         private void CheckAttackInput()
@@ -202,7 +206,7 @@ namespace PlayerScripts
             _isImmune = false;
         }
 
-        public void GetHit(int damage)
+        private void GetHit(int damage)
         {
             if (_isImmune) return;
             

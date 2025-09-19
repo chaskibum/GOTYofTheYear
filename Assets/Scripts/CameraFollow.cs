@@ -9,6 +9,35 @@ public class CameraFollow : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 newPos = new Vector3(target.position.x, target.position.y + yOffset, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
+        
+        MoveCamera();
+    }
+
+    private void MoveCamera()
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            Vector3 newPos = new Vector3(target.position.x, target.position.y + 5.5f, -10f);
+            transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * 2 * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            Vector3 newPos = new Vector3(target.position.x, target.position.y - 0.5f, -10f);
+            transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * 2 * Time.deltaTime);
+        }
+        
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            Vector3 newPos = new Vector3(target.position.x - 4.5f, target.position.y + yOffset, -10f);
+            transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * 2 * Time.deltaTime);
+        }
+        
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            Vector3 newPos = new Vector3(target.position.x + 4.5f, target.position.y + yOffset, -10f);
+            transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * 2 * Time.deltaTime);
+        }
     }
 }
