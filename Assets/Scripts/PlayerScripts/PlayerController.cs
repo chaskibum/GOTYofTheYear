@@ -96,8 +96,8 @@ namespace PlayerScripts
             // Si el jugador está en el piso o dentro de la ventana del coyote time -> puede saltar
             if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
-                // Jump();
-                SetState(State.Jump);
+                Jump();
+                // SetState(State.Jump);
                 _lastJumpPressedTime = -Mathf.Infinity;
             }
         }
@@ -151,20 +151,24 @@ namespace PlayerScripts
         private void JumpState()
         {
             if (_xInput != 0) Move();
-            
-            _isOnFloor = false;
-            
-            _body.gravityScale = data.regularGravity;
 
             _jumpKeyTimePressed += Time.deltaTime;
             
             if (Input.GetKeyUp(KeyCode.Space) || _jumpKeyTimePressed > data.jumpDuration)
                 SetState(State.Fall);
             
-            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
-            _body.linearVelocityY = 1f * data.jumpForce;
-            
             CheckIfIsFalling();
+        }
+
+        private void Jump()
+        {
+            _isOnFloor = false;
+            SetState(State.Jump);
+            
+            _body.gravityScale = data.regularGravity;
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
+            
+            _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
         }
 
         private void FallState()

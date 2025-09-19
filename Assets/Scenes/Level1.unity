@@ -2393,7 +2393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followSpeed: 2
   target: {fileID: 702805034}
-  yOffset: 3
+  yOffset: 1
 --- !u!114 &1346764179
 MonoBehaviour:
   m_ObjectHideFlags: 0

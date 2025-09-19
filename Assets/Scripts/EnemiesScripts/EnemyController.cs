@@ -76,7 +76,6 @@ namespace EnemiesScripts
 
         private void IdleState()
         {
-            _visuals.flipX = _playerToTheRight;
             if (Vector3.Distance(_body.position, _playerPosition) < data.detectionRange) SetState(State.Chase);
         }
         
@@ -169,9 +168,7 @@ namespace EnemiesScripts
                 yield return new WaitForSeconds(0.05f);
             }
             else
-            {
                 transform.gameObject.SetActive(false);
-            }
         }
         
         private void UpdateState()

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   baseHp: 5
-  moveSpeed: 5
-  jumpForce: 6
+  moveSpeed: 6
+  jumpForce: 10
   regularGravity: 2
   fallGravity: 1.5
   pushForce: 8

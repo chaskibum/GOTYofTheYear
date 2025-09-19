@@ -25,7 +25,7 @@ namespace EnemiesScripts
         
         private void FlipAttackPosition()
         {
-            if (enemy.GetCanAttack) return;
+            if (!enemy || enemy.GetCanAttack) return;
 
             _rotation = visuals.flipX ? 0 : 180;
             
