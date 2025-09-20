@@ -48,6 +48,9 @@ TagManager:
   - name: Level
     uniqueID: 285662925
     locked: 0
+  - name: Tilemap Middle
+    uniqueID: 1624547825
+    locked: 0
   - name: Player
     uniqueID: 766150381
     locked: 0
