@@ -29,6 +29,7 @@ namespace EnemiesScripts
         private PlayerController _player;
         private Vector3 _playerPosition;
         private bool _playerToTheRight;
+        private ApplyMovement _moveScript;
 
         private void Awake()
         {
@@ -43,6 +44,7 @@ namespace EnemiesScripts
             GameManager.Instance.GetGameRestarted.AddListener(Reset);
             _body = GetComponent<Rigidbody2D>();
             _visuals = GetComponentInChildren<SpriteRenderer>();
+            TryGetComponent<ApplyMovement>(out _moveScript);
             
             _player = GameManager.Instance.GetPlayer;
         }
@@ -76,6 +78,7 @@ namespace EnemiesScripts
 
         private void IdleState()
         {
+            if (!_moveScript) _visuals.flipX = _playerToTheRight;
             if (Vector3.Distance(_body.position, _playerPosition) < data.detectionRange) SetState(State.Chase);
         }
         
