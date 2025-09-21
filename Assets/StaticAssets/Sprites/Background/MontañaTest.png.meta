@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6d3162113a7dfe44faf65cd0375666f2
+guid: 5f30fbba271d9c140a15e4d03920cb09
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6448815087415423558
-    second: Arbusto_0
+      213: -516978597728564145
+    second: "Monta\xF1aTest_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arbusto_0
+      name: "Monta\xF1aTest_0"
       rect:
         serializedVersion: 2
-        x: 8
-        y: 91
-        width: 292
-        height: 127
+        x: 0
+        y: 1098
+        width: 3325
+        height: 1130
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abd8c6468d43186a0800000000000000
-      internalID: -6448815087415423558
+      spriteID: f4cc8e554b253d8f0800000000000000
+      internalID: -516978597728564145
       vertices: []
       indices: 
       edges: []

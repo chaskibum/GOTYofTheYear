@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6d3162113a7dfe44faf65cd0375666f2
+guid: 5c0b89f59d697b04da7af649fbc2e355
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6448815087415423558
-    second: Arbusto_0
+      213: 4549777870084830040
+    second: Generic Background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arbusto_0
+      name: Generic Background_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 91
-        width: 292
-        height: 127
+        x: 0
+        y: 0
+        width: 1080
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abd8c6468d43186a0800000000000000
-      internalID: -6448815087415423558
+      spriteID: 853f659fdde042f30800000000000000
+      internalID: 4549777870084830040
       vertices: []
       indices: 
       edges: []
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Generic Background_0: 4549777870084830040
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

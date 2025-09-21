@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6d3162113a7dfe44faf65cd0375666f2
+guid: 6e21d5f993a7f7e4cb00383826abfdb9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6448815087415423558
-    second: Arbusto_0
+      213: -3982770290404731144
+    second: Granny Alpha_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arbusto_0
+      name: Granny Alpha_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 91
-        width: 292
-        height: 127
+        x: 22
+        y: 13
+        width: 197
+        height: 213
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abd8c6468d43186a0800000000000000
-      internalID: -6448815087415423558
+      spriteID: 8f65272c58b5ab8c0800000000000000
+      internalID: -3982770290404731144
       vertices: []
       indices: 
       edges: []
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Granny Alpha_0: -3982770290404731144
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

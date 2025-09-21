@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6d3162113a7dfe44faf65cd0375666f2
+guid: 27cc13f79227bec4a945a79bdbfcbb08
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6448815087415423558
-    second: Arbusto_0
+      213: 7072328901801133453
+    second: Placeholder House_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arbusto_0
+      name: Placeholder House_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 91
-        width: 292
-        height: 127
+        x: 3
+        y: 140
+        width: 1053
+        height: 781
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abd8c6468d43186a0800000000000000
-      internalID: -6448815087415423558
+      spriteID: d85c5965aa5f52260800000000000000
+      internalID: 7072328901801133453
       vertices: []
       indices: 
       edges: []
