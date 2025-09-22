@@ -45,6 +45,12 @@ TagManager:
   - name: B7_Final
     uniqueID: 2992921663
     locked: 0
+  - name: B6_Gray
+    uniqueID: 1444595517
+    locked: 0
+  - name: B5_Dark_Gray
+    uniqueID: 4021377999
+    locked: 0
   - name: B4_Houses
     uniqueID: 1146245055
     locked: 0
@@ -68,6 +74,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3861720283
+    locked: 0
+  - name: BORRAR
+    uniqueID: 2111663271
     locked: 0
   m_RenderingLayers:
   - Default
