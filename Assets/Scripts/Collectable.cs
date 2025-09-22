@@ -10,6 +10,7 @@ public class Collectable : MonoBehaviour
     // PARA BORRAR DESPUÉS
     [SerializeField] private bool isGameWonCollectable = false;
     [SerializeField] private GameObject gameWonScreen;
+    [SerializeField] private GameObject restartButton;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class Collectable : MonoBehaviour
         if (isGameWonCollectable)
         {
             gameWonScreen.SetActive(true);
+            restartButton.SetActive(false);
             Time.timeScale = 0;
         }
             
