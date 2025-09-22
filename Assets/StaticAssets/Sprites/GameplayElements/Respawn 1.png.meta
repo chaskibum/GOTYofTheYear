@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5d3defe9cce660d4dbfa96bb7b124cce
+guid: 0b77ad92e83718340bbfb83ce8b8d792
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6965697414652412855
-    second: Respawn_0
+      213: -5645642711409404122
+    second: Respawn 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Respawn_0
+      name: Respawn 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 745
-        height: 702
+        x: 142
+        y: 2
+        width: 472
+        height: 699
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b3c63d84e02ba060800000000000000
-      internalID: 6965697414652412855
+      spriteID: 6275ba9add5a6a1b0800000000000000
+      internalID: -5645642711409404122
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Respawn_0: 6965697414652412855
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
