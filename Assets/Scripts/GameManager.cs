@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlayerController player;
 
+    // PARA BORRAR
+    [SerializeField] private GameObject wonScreen;
+
     private void Awake()
     {
         if (!Instance)
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour
     private void RestartGameEvent()
     {
         Time.timeScale = 1;
+        // PARA BORRAR
+        wonScreen.SetActive(false);
     }
     
     public void BackToMainMenu()
