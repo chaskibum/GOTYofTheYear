@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Collectable : MonoBehaviour
@@ -9,8 +10,6 @@ public class Collectable : MonoBehaviour
     
     // PARA BORRAR DESPUÉS
     [SerializeField] private bool isGameWonCollectable = false;
-    [SerializeField] private GameObject gameWonScreen;
-    [SerializeField] private GameObject restartButton;
 
     private void Start()
     {
@@ -22,9 +21,9 @@ public class Collectable : MonoBehaviour
     {
         if (isGameWonCollectable)
         {
-            gameWonScreen.SetActive(true);
-            restartButton.SetActive(false);
-            Time.timeScale = 0;
+            GameManager.Instance.canWin = true;
+            text.GetComponent<TextMeshProUGUI>().text = "Item final conseguido!";
+            text.SetActive(true);
         }
             
         _sprite.enabled = false;

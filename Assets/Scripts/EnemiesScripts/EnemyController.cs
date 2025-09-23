@@ -13,6 +13,9 @@ namespace EnemiesScripts
         
         [SerializeField] private TMP_Text stateText;
         
+        // PARA BORRAR
+        [SerializeField] private GameObject winCollectable;
+        
         public enum State { Idle, Chase, Attack, GetHit, Die, }
         
         private State _state = State.Idle;
@@ -163,6 +166,8 @@ namespace EnemiesScripts
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
         private IEnumerator Disappear()
         {
+            if (name == "ArmorGhost") winCollectable.SetActive(true);
+            
             if (_visuals.color.a > 0)
             {
                 var color = _visuals.color;

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController player;
 
     // PARA BORRAR
+    public bool canWin = false;
     [SerializeField] private GameObject wonScreen;
 
     private void Awake()
