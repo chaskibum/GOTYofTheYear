@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHp: 5
   damage: 2
-  moveSpeed: 25
+  moveSpeed: 3.5
   attackAnimationTime: 0.5
   attackCooldown: 1.5
   detectionRange: 12
   attackRange: 3
+  pushForce: 15
+  pushTime: 0.1

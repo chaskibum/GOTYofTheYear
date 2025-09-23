@@ -62,6 +62,7 @@ namespace PlayerScripts
             CheckAttackInput();
             
             UpdateState();
+            UpdatePhysicsState();
         }
 
         private void CheckIfGrounded()
@@ -246,12 +247,19 @@ namespace PlayerScripts
             switch (_state)
             {
                 case State.Idle: IdleState(); break;
+                case State.Attack: AttackState(); break;
+                case State.Die: DieState(); break;
+            }
+        }
+
+        private void UpdatePhysicsState()
+        {
+            switch (_state)
+            {
                 case State.Move: MoveState(); break;
                 case State.Jump: JumpState(); break;
                 case State.Fall: FallState(); break;
-                case State.Attack: AttackState(); break;
                 case State.GetHit: GetHitState(); break;
-                case State.Die: DieState(); break;
             }
         }
 

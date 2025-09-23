@@ -16,7 +16,7 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 10
   regularGravity: 2
-  fallGravity: 1.5
+  fallGravity: 2
   pushForce: 8
   coyoteTime: 0.1
   jumpBufferTime: 0.1

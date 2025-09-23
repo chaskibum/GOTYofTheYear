@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using PlayerScripts;
 using TMPro;
@@ -71,6 +72,11 @@ namespace EnemiesScripts
             UpdateState();
         }
 
+        private void FixedUpdate()
+        {
+            UpdatePhysicsState();
+        }
+
         // Calculamos la posicion del player y con ello la dirección hacia donde tendríamos que estar mirando.
         private void CalculateDirection()
         {
@@ -141,7 +147,7 @@ namespace EnemiesScripts
 
         public void GetHit()
         {
-            _body.AddForce(_direction * 6f, ForceMode2D.Impulse);
+            _body.AddForce(_direction * data.pushForce, ForceMode2D.Impulse);
             SetState(State.GetHit);
         }
         
@@ -152,7 +158,7 @@ namespace EnemiesScripts
 
         private IEnumerator DelayChaseState()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(data.pushTime);
             SetState(State.Chase);
         }
         
@@ -171,7 +177,7 @@ namespace EnemiesScripts
             if (_visuals.color.a > 0)
             {
                 var color = _visuals.color;
-                color.a = color.a - 0.01f;
+                color.a = color.a - 0.02f;
                 _visuals.color = color;
                 yield return new WaitForSeconds(0.05f);
             }
@@ -184,8 +190,15 @@ namespace EnemiesScripts
             switch (_state)
             {
                 case State.Idle: IdleState(); break;
-                case State.Chase: ChaseState(); break;
                 case State.Attack: AttackState(); break;
+            }
+        }
+
+        private void UpdatePhysicsState()
+        {
+            switch (_state)
+            {
+                case State.Chase: ChaseState(); break;
                 case State.GetHit: GetHitState(); break;
                 case State.Die: DieState(); break;
             }
