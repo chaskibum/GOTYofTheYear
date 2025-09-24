@@ -69,12 +69,14 @@ namespace PlayerScripts
         {
             RaycastHit2D ray = Physics2D.Raycast(
                 _body.transform.position, 
-                Vector2.down * 0.2f, 
+                Vector2.down, 
                 0.1f, 
                 groundLayer);
+            
 
             if (ray.collider) // El raycast toca el suelo
             {
+                Debug.DrawRay(_body.transform.position, Vector2.down * 0.1f, Color.red);
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
@@ -86,6 +88,7 @@ namespace PlayerScripts
 
                 _isOnFloor = false;
                 _coyoteCounter -= Time.deltaTime;
+                Debug.DrawRay(_body.transform.position, Vector2.down * 0.1f, Color.green);
             }
         }
         
