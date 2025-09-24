@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2596207092793031561}
   - component: {fileID: 7762624340419800210}
+  - component: {fileID: 4545498594080714638}
   m_Layer: 11
   m_Name: Visuals
   m_TagString: Untagged
@@ -157,7 +158,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 563985417
-  m_SortingLayer: 4
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4a459a90b5004c64abd084d8c9842eee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -170,6 +171,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4545498594080714638
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310252761989957385}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dce8d987193ac2b45a589b8a9a2de074, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3307784738787154612
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,11 +337,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3047588560742125279}
   - component: {fileID: 2956866508651815176}
-  - component: {fileID: 5953186676389147879}
   - component: {fileID: 2620486072086197281}
   m_Layer: 11
-  m_Name: CrowEnemy
-  m_TagString: Untagged
+  m_Name: Crow
+  m_TagString: Crow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,28 +391,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!95 &5953186676389147879
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7075098999528095806}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b880abe9a2e88f34e8c20f3476700177, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2620486072086197281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,4 +626,3 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
   enemy: {fileID: 2620486072086197281}
   visuals: {fileID: 7762624340419800210}
-  attack: {fileID: 1051314774765821282}

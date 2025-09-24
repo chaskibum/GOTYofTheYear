@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: a49e175257e4b1a418fa5fbbd2cfe681
+guid: 316be4ea9b6a2f145bc06eaf1c7ed165
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4191991996121791008
-    second: Cuervo2_0
+      213: 3295929069987726268
+    second: Cuervo4_0
   - first:
-      213: 8026017668782716677
-    second: Cuervo2_1
+      213: -4248302036338710889
+    second: Cuervo4_1
+  - first:
+      213: 497861211421018325
+    second: Cuervo4_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cuervo2_0
+      name: Cuervo4_0
       rect:
         serializedVersion: 2
-        x: 44
+        x: 28
         y: 51
-        width: 223
-        height: 165
+        width: 247
+        height: 94
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0e541e95d7d03d5c0800000000000000
-      internalID: -4191991996121791008
+      spriteID: cb3808dc60e7dbd20800000000000000
+      internalID: 3295929069987726268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cuervo2_1
+      name: Cuervo4_1
       rect:
         serializedVersion: 2
-        x: 147
-        y: 47
-        width: 31
-        height: 43
+        x: 149
+        y: 45
+        width: 17
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +156,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5077dcccb84226f60800000000000000
-      internalID: 8026017668782716677
+      spriteID: 79666717ecffa05c0800000000000000
+      internalID: -4248302036338710889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cuervo4_2
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 44
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d8023e4222c8e600800000000000000
+      internalID: 497861211421018325
       vertices: []
       indices: 
       edges: []
@@ -173,8 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cuervo2_0: -4191991996121791008
-      Cuervo2_1: 8026017668782716677
+      Cuervo4_0: 3295929069987726268
+      Cuervo4_1: -4248302036338710889
+      Cuervo4_2: 497861211421018325
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

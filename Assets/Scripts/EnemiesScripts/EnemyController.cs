@@ -60,7 +60,7 @@ namespace EnemiesScripts
             SetState(State.Idle);
             transform.position = _startingPosition;
             _canAttack = true;
-            attackHitbox.SetActive(false);
+            if (!CompareTag("Crow")) attackHitbox.SetActive(false);
             _animator?.SetBool(Attacking, false);
             
             // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
@@ -90,7 +90,7 @@ namespace EnemiesScripts
 
         private void IdleState()
         {
-            if (!_moveScript) _visuals.flipX = _playerToTheRight;
+            if (!_moveScript) _visuals.flipX = !_playerToTheRight;
             if (Vector3.Distance(_body.position, _playerPosition) < data.detectionRange) SetState(State.Chase);
         }
         

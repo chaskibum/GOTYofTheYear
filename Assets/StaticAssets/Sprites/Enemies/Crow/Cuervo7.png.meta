@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: a49e175257e4b1a418fa5fbbd2cfe681
+guid: abfa41208fae2aa49b638e4f37257100
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4191991996121791008
-    second: Cuervo2_0
+      213: 7731696891089490335
+    second: Cuervo7_0
   - first:
-      213: 8026017668782716677
-    second: Cuervo2_1
+      213: -4953176794296239564
+    second: Cuervo7_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cuervo2_0
+      name: Cuervo7_0
       rect:
         serializedVersion: 2
-        x: 44
+        x: 39
         y: 51
-        width: 223
-        height: 165
+        width: 220
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,19 +131,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0e541e95d7d03d5c0800000000000000
-      internalID: -4191991996121791008
+      spriteID: f919160bb518c4b60800000000000000
+      internalID: 7731696891089490335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cuervo2_1
+      name: Cuervo7_1
       rect:
         serializedVersion: 2
-        x: 147
+        x: 150
         y: 47
-        width: 31
+        width: 25
         height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5077dcccb84226f60800000000000000
-      internalID: 8026017668782716677
+      spriteID: 43ab34ad2f7c24bb0800000000000000
+      internalID: -4953176794296239564
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cuervo2_0: -4191991996121791008
-      Cuervo2_1: 8026017668782716677
+      Cuervo7_0: 7731696891089490335
+      Cuervo7_1: -4953176794296239564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: a49e175257e4b1a418fa5fbbd2cfe681
+guid: 22607c4c5ad12e84291b5fdf26c7c6c7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4191991996121791008
-    second: Cuervo2_0
+      213: -4997000087016682598
+    second: Cuervo3_0
   - first:
-      213: 8026017668782716677
-    second: Cuervo2_1
+      213: -8181395132318599359
+    second: Cuervo3_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cuervo2_0
+      name: Cuervo3_0
       rect:
         serializedVersion: 2
-        x: 44
+        x: 9
         y: 51
-        width: 223
-        height: 165
+        width: 285
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0e541e95d7d03d5c0800000000000000
-      internalID: -4191991996121791008
+      spriteID: a9b46c665e617aab0800000000000000
+      internalID: -4997000087016682598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cuervo2_1
+      name: Cuervo3_1
       rect:
         serializedVersion: 2
-        x: 147
-        y: 47
-        width: 31
-        height: 43
+        x: 153
+        y: 46
+        width: 20
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5077dcccb84226f60800000000000000
-      internalID: 8026017668782716677
+      spriteID: 1473a0b5978d57e80800000000000000
+      internalID: -8181395132318599359
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cuervo2_0: -4191991996121791008
-      Cuervo2_1: 8026017668782716677
+      Cuervo3_0: -4997000087016682598
+      Cuervo3_1: -8181395132318599359
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
