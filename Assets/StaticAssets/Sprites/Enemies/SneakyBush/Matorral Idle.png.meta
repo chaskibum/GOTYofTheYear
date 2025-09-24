@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 703078eaeddfe8c46b9bf67a997b97ab
+guid: 6c5cc037a8e35a749a77d282a49e0ff5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5394195919384786253
-    second: GrannyDialog2_0
+      213: -3733422472938568293
+    second: Matorral Idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GrannyDialog2_0
+      name: Matorral Idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 616
-        height: 283
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 474
+        height: 288
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ba45381467f325b0800000000000000
-      internalID: -5394195919384786253
+      spriteID: b9549089a08303cc0800000000000000
+      internalID: -3733422472938568293
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: cd411171caf1ce3459b7c1fd9ba0d761
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GrannyDialog2_0: -5394195919384786253
+      Matorral Idle_0: -3733422472938568293
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

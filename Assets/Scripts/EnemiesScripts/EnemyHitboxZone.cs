@@ -19,8 +19,10 @@ namespace EnemiesScripts
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController player)) 
+            if (other.TryGetComponent(out PlayerController player))
+            {
                 player.GetPlayerHitEvent?.Invoke(data.damage);
+            }
         }
         
         private void FlipAttackPosition()

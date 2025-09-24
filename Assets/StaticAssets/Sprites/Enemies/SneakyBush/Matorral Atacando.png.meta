@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6c5cc037a8e35a749a77d282a49e0ff5
+guid: ef81de06f5bb7654e8e401add9466ee9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3733422472938568293
-    second: Matorral Idle_0
+      213: 3400787102113818047
+    second: Matorral Atacando_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Matorral Idle_0
+      name: Matorral Atacando_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 474
-        height: 288
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 703
+        height: 883
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b9549089a08303cc0800000000000000
-      internalID: -3733422472938568293
+      spriteID: fb5693ae9d5023f20800000000000000
+      internalID: 3400787102113818047
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: dd674b675e31eb44c9bb8dff2a7ffc95
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Matorral Idle_0: -3733422472938568293
+      Matorral Atacando_0: 3400787102113818047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

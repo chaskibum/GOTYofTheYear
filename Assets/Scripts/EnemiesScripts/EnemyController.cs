@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using PlayerScripts;
 using TMPro;
@@ -8,6 +7,7 @@ namespace EnemiesScripts
 {
     public class EnemyController : MonoBehaviour
     {
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
         [SerializeField] private EnemyData data;
         
         [SerializeField] private GameObject attackHitbox;
@@ -15,7 +15,7 @@ namespace EnemiesScripts
         [SerializeField] private TMP_Text stateText;
         
         // PARA BORRAR
-        [SerializeField] private GameObject winCollectable;
+        // [SerializeField] private GameObject winCollectable;
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
         
@@ -29,6 +29,7 @@ namespace EnemiesScripts
         
         private Rigidbody2D _body;
         private SpriteRenderer _visuals;
+        private Animator _animator;
         
         private PlayerController _player;
         private Vector3 _playerPosition;
@@ -48,6 +49,7 @@ namespace EnemiesScripts
             GameManager.Instance.GetGameRestarted.AddListener(Reset);
             _body = GetComponent<Rigidbody2D>();
             _visuals = GetComponentInChildren<SpriteRenderer>();
+            TryGetComponent<Animator>(out _animator);
             TryGetComponent<ApplyMovement>(out _moveScript);
             
             _player = GameManager.Instance.GetPlayer;
@@ -58,7 +60,8 @@ namespace EnemiesScripts
             SetState(State.Idle);
             transform.position = _startingPosition;
             _canAttack = true;
-            attackHitbox.SetActive(true);
+            attackHitbox.SetActive(false);
+            _animator?.SetBool(Attacking, false);
             
             // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
             var color = _visuals.color;
@@ -126,6 +129,7 @@ namespace EnemiesScripts
             _attackTime -= Time.deltaTime;
             if (_attackTime <= 0f)
             {
+                _animator?.SetBool(Attacking, false);
                 attackHitbox.SetActive(false);
                 SetState(State.Idle);
                 _attackTime = data.attackAnimationTime;
@@ -133,6 +137,7 @@ namespace EnemiesScripts
             // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
             {
+                _animator?.SetBool(Attacking, true);
                 attackHitbox.SetActive(true);
                 _canAttack = false;
                 StartCoroutine(nameof(CanAttackAgain));
@@ -172,7 +177,7 @@ namespace EnemiesScripts
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
         private IEnumerator Disappear()
         {
-            if (name == "ArmorGhost") winCollectable.SetActive(true);
+            // if (name == "ArmorGhost") winCollectable.SetActive(true);
             
             if (_visuals.color.a > 0)
             {
