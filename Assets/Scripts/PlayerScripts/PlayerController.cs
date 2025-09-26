@@ -109,14 +109,6 @@ namespace PlayerScripts
         private void CheckMovementInput()
         {
             _xInput = Input.GetAxis("Horizontal");
-            /*if (Input.GetKey(KeyCode.A))
-                _xInput = -1f;
-            else if (Input.GetKey(KeyCode.D))
-                _xInput = 1f;
-            else
-            {
-                _xInput = 0f;
-            }*/
         }
 
         private void CheckAttackInput()

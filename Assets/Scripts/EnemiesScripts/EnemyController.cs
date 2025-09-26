@@ -59,8 +59,9 @@ namespace EnemiesScripts
         {
             SetState(State.Idle);
             transform.position = _startingPosition;
+            _body.linearVelocity = new Vector2(0, 0);
             _canAttack = true;
-            if (!CompareTag("Crow")) attackHitbox.SetActive(false);
+            attackHitbox.SetActive(CompareTag("Crow"));
             _animator?.SetBool(Attacking, false);
             
             // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
