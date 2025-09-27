@@ -26,6 +26,7 @@ namespace EnemiesScripts
         private Vector2 _direction;
         private float _attackTime;
         private bool _canAttack = true;
+        private bool _canChangeState = true;
         
         private Rigidbody2D _body;
         private SpriteRenderer _visuals;
@@ -84,16 +85,24 @@ namespace EnemiesScripts
         // Calculamos la posicion del player y con ello la dirección hacia donde tendríamos que estar mirando.
         private void CalculateDirection()
         {
-            _playerPosition = _player.GetPlayerPosition;
-            // _playerPosition = new Vector3(_playerPosition.x, _playerPosition.y + 1f, _playerPosition.z);
+            _playerPosition = CompareTag("FlyingObject") ? _player.GetPlayerTarget : _player.GetPlayerPosition;
             _playerToTheRight = _playerPosition.x > transform.position.x;
             _direction = _playerToTheRight ? Vector2.left : Vector2.right;
         }
 
         private void IdleState()
         {
+            _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, Time.deltaTime);
+            if (!_canChangeState) return;
             if (!_moveScript) _visuals.flipX = !_playerToTheRight;
             if (Vector3.Distance(_body.position, _playerPosition) < data.detectionRange) SetState(State.Chase);
+        }
+        
+        private IEnumerator CanChangeState()
+        {
+            _canChangeState = false;
+            yield return new WaitForSeconds(data.attackCooldown);
+            _canChangeState = true;
         }
         
         private void ChaseState()
@@ -102,26 +111,25 @@ namespace EnemiesScripts
             _body.linearVelocity = Vector2.zero;
             // Desactiva la hitbox si el personaje persigue
             attackHitbox.SetActive(false);
-
-            // Si no está TAN cerca del player se acerca lentamente
-            // if (Vector3.Distance(_body.position, _playerPosition) >= data.attackRange / 3f)
-            if (Vector3.Distance(_body.position, _playerPosition) >= 1f)
-            {
-                _visuals.flipX = _playerToTheRight;
+            
+            _visuals.flipX = _playerToTheRight;
+            
+            Vector3 newPosition = Vector3.MoveTowards(
+                _body.position,
+                _playerPosition,
+                data.moveSpeed * Time.deltaTime);
                 
-                Vector3 newPosition = Vector3.MoveTowards(
-                    _body.position,
-                    _playerPosition,
-                    data.moveSpeed * Time.deltaTime);
-            
-                _body.MovePosition(newPosition);
-            }
-            // Si está muy cerca del player se aleja rápidamente
-            else
+            _body.MovePosition(newPosition);
+
+            if (!CompareTag("FlyingObject"))
             {
-                _body.AddForce(_direction * data.stepAwayForce, ForceMode2D.Impulse);
+                if (Vector3.Distance(_body.position, _playerPosition) <= 1)
+                {
+                    _body.AddForce(_direction * data.stepAwayForce, ForceMode2D.Impulse);
+                    StartCoroutine(nameof(CanChangeState));
+                    SetState(State.Idle);
+                }
             }
-            
             if (Vector3.Distance(_body.position, _playerPosition) >= data.detectionRange) SetState(State.Idle);
             if (Vector3.Distance(_body.position, _playerPosition) < data.attackRange && _canAttack) SetState(State.Attack);
         }
@@ -134,8 +142,14 @@ namespace EnemiesScripts
             {
                 _animator?.SetBool(Attacking, false);
                 attackHitbox.SetActive(false);
-                SetState(State.Idle);
                 _attackTime = data.attackAnimationTime;
+
+                if (CompareTag("FlyingObject"))
+                {
+                    _body.AddForce(_direction * data.stepAwayForce, ForceMode2D.Impulse);
+                    StartCoroutine(nameof(CanChangeState));
+                }
+                SetState(State.Idle);
             }
             // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else

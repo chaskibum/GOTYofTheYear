@@ -15,10 +15,10 @@ MonoBehaviour:
   baseHp: 1
   damage: 1
   moveSpeed: 12
-  attackAnimationTime: 0.5
-  attackCooldown: 0.5
-  detectionRange: 12
+  attackAnimationTime: 0.1
+  attackCooldown: 1
+  detectionRange: 10
   attackRange: 1
   pushForce: 8
   pushTime: 0.5
-  stepAwayForce: 1
+  stepAwayForce: -10

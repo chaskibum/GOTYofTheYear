@@ -14,6 +14,8 @@ namespace PlayerScripts
 
         [SerializeField] private PlayerWeapon playerWeapon;
         
+        [SerializeField] private Transform playerTarget;
+        
         private Animator _animator;
 
         #region States
@@ -276,6 +278,8 @@ namespace PlayerScripts
         public float GetMovementInput => _xInput;
         
         public Vector3 GetPlayerPosition => transform.position;
+        
+        public Vector3 GetPlayerTarget => playerTarget.position;
 
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
