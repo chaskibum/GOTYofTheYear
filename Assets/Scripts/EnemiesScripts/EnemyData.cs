@@ -19,5 +19,6 @@ namespace EnemiesScripts
         [Header("Physics")] 
         public float pushForce;
         public float pushTime;
+        public float stepAwayForce;
     }
 }

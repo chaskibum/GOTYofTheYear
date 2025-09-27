@@ -61,7 +61,7 @@ namespace EnemiesScripts
             transform.position = _startingPosition;
             _body.linearVelocity = new Vector2(0, 0);
             _canAttack = true;
-            attackHitbox.SetActive(CompareTag("Crow"));
+            attackHitbox.SetActive(CompareTag("Crow") || CompareTag("FlyingObject"));
             _animator?.SetBool(Attacking, false);
             
             // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
@@ -85,6 +85,7 @@ namespace EnemiesScripts
         private void CalculateDirection()
         {
             _playerPosition = _player.GetPlayerPosition;
+            // _playerPosition = new Vector3(_playerPosition.x, _playerPosition.y + 1f, _playerPosition.z);
             _playerToTheRight = _playerPosition.x > transform.position.x;
             _direction = _playerToTheRight ? Vector2.left : Vector2.right;
         }
@@ -103,6 +104,7 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
 
             // Si no está TAN cerca del player se acerca lentamente
+            // if (Vector3.Distance(_body.position, _playerPosition) >= data.attackRange / 3f)
             if (Vector3.Distance(_body.position, _playerPosition) >= 1f)
             {
                 _visuals.flipX = _playerToTheRight;
@@ -117,7 +119,7 @@ namespace EnemiesScripts
             // Si está muy cerca del player se aleja rápidamente
             else
             {
-                _body.AddForce(_direction * 4f, ForceMode2D.Impulse);
+                _body.AddForce(_direction * data.stepAwayForce, ForceMode2D.Impulse);
             }
             
             if (Vector3.Distance(_body.position, _playerPosition) >= data.detectionRange) SetState(State.Idle);

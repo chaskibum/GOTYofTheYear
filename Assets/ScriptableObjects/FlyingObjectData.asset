@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedf7f19231238c44b4420b6cb6fb582, type: 3}
-  m_Name: ArmorGhostData
+  m_Name: FlyingObjectData
   m_EditorClassIdentifier: 
-  baseHp: 5
-  damage: 2
-  moveSpeed: 3.5
+  baseHp: 1
+  damage: 1
+  moveSpeed: 12
   attackAnimationTime: 0.5
-  attackCooldown: 1.5
+  attackCooldown: 0.5
   detectionRange: 12
-  attackRange: 3
-  pushForce: 15
-  pushTime: 0.1
-  stepAwayForce: 6
+  attackRange: 1
+  pushForce: 8
+  pushTime: 0.5
+  stepAwayForce: 15
