@@ -19,7 +19,7 @@ namespace PlayerScripts
         private Animator _animator;
 
         #region States
-        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, }
+        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, }
         
         private State _state = State.Idle;
         private bool _isOnFloor;
@@ -41,9 +41,13 @@ namespace PlayerScripts
         private Rigidbody2D _body;
 
         private float _xInput;
+
+        private int _inputCount;
         
         [Header("Events")]
         private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
+        private readonly UnityEvent _onPlayerPossessed = new UnityEvent();
+        private readonly UnityEvent _onPlayerExorcised = new UnityEvent();
         
         private void Start()
         {
@@ -54,6 +58,31 @@ namespace PlayerScripts
             
             GameManager.Instance.GetGameRestarted.AddListener(Restart);
             _onPlayerHit.AddListener(GetHit);
+            _onPlayerPossessed.AddListener(PlayerPossessed);
+        }
+
+        private void PlayerPossessed()
+        {
+            if (_state == State.Possessed) return;
+            _inputCount = 0;
+            SetState(State.Possessed);
+        }
+        
+        private void PossessedState()
+        {
+            if (Input.GetKeyDown(KeyCode.W)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.A)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.S)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.D)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
+            if (_inputCount >= 30) Exorcised();
+        }
+
+        private void Exorcised()
+        {
+            _onPlayerExorcised.Invoke();
+            SetState(State.Idle);
         }
         
         private void Update()
@@ -115,7 +144,7 @@ namespace PlayerScripts
 
         private void CheckAttackInput()
         {
-            if (Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H) && _state != State.Possessed)
             {
                 playerWeapon.Attack();
                 SetState(State.Attack);
@@ -162,6 +191,8 @@ namespace PlayerScripts
 
         private void Jump()
         {
+            if (_state == State.Possessed) return;
+            
             _isOnFloor = false;
             SetState(State.Jump);
             
@@ -246,6 +277,7 @@ namespace PlayerScripts
                 case State.Idle: IdleState(); break;
                 case State.Attack: AttackState(); break;
                 case State.Die: DieState(); break;
+                case State.Possessed: PossessedState(); break;
             }
         }
 
@@ -290,8 +322,12 @@ namespace PlayerScripts
 
         public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
 
+        public UnityEvent GetPlayerPossessedEvent => _onPlayerPossessed;
+        
+        public UnityEvent GetPlayerExorcisedEvent => _onPlayerExorcised;
+
         #endregion
 
-        
+
     }
 }

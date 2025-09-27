@@ -27,7 +27,7 @@ namespace EnemiesScripts
             _hp -= 1;
             
             if (_hp <= 0) enemy.SetState(EnemyController.State.Die);
-            else if (enemy.GetState != EnemyController.State.Attack) enemy.GetHit();
+            else enemy.GetHit();
         }
 
         private void Restart()

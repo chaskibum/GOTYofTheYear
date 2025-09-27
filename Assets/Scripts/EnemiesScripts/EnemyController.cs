@@ -48,6 +48,7 @@ namespace EnemiesScripts
             _startingPosition = transform.position;
             
             GameManager.Instance.GetGameRestarted.AddListener(Reset);
+            if (CompareTag("Ghost")) GameManager.Instance.GetPlayer.GetPlayerExorcisedEvent.AddListener(GetHit);
             _body = GetComponent<Rigidbody2D>();
             _visuals = GetComponentInChildren<SpriteRenderer>();
             TryGetComponent<Animator>(out _animator);
@@ -85,7 +86,7 @@ namespace EnemiesScripts
         // Calculamos la posicion del player y con ello la dirección hacia donde tendríamos que estar mirando.
         private void CalculateDirection()
         {
-            _playerPosition = CompareTag("FlyingObject") ? _player.GetPlayerTarget : _player.GetPlayerPosition;
+            _playerPosition = CompareTag("FlyingObject") || CompareTag("Ghost") ? _player.GetPlayerTarget : _player.GetPlayerPosition;
             _playerToTheRight = _playerPosition.x > transform.position.x;
             _direction = _playerToTheRight ? Vector2.left : Vector2.right;
         }
@@ -114,6 +115,7 @@ namespace EnemiesScripts
             
             _visuals.flipX = _playerToTheRight;
             
+            
             Vector3 newPosition = Vector3.MoveTowards(
                 _body.position,
                 _playerPosition,
@@ -121,7 +123,7 @@ namespace EnemiesScripts
                 
             _body.MovePosition(newPosition);
 
-            if (!CompareTag("FlyingObject"))
+            if (!CompareTag("FlyingObject") || !CompareTag("Ghost"))
             {
                 if (Vector3.Distance(_body.position, _playerPosition) <= 1)
                 {
@@ -170,17 +172,22 @@ namespace EnemiesScripts
         public void GetHit()
         {
             _body.AddForce(_direction * data.pushForce, ForceMode2D.Impulse);
+            print("ME PEGARON LA CONCHA DE LA LORA");
+            // SetState(CompareTag("Ghost") ? State.Die : State.GetHit);
             SetState(State.GetHit);
         }
         
         private void GetHitState()
         {
+            _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, Time.deltaTime);
+            if (CompareTag("Ghost")) attackHitbox.SetActive(false);
             StartCoroutine(DelayChaseState());
         }
 
         private IEnumerator DelayChaseState()
         {
             yield return new WaitForSeconds(data.pushTime);
+            if (CompareTag("Ghost")) attackHitbox.SetActive(true);
             SetState(State.Chase);
         }
         

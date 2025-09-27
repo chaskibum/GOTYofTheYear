@@ -21,7 +21,8 @@ namespace EnemiesScripts
         {
             if (other.TryGetComponent(out PlayerController player))
             {
-                player.GetPlayerHitEvent?.Invoke(data.damage);
+                if (enemy.CompareTag("Ghost")) player.GetPlayerPossessedEvent?.Invoke();
+                else player.GetPlayerHitEvent?.Invoke(data.damage);
             }
         }
         
