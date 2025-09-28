@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
-  enemy: {fileID: 2620486072086197281}
+  enemy: {fileID: 6781242904647377393}
 --- !u!1 &1310252761989957385
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3047588560742125279}
   - component: {fileID: 2956866508651815176}
-  - component: {fileID: 2620486072086197281}
+  - component: {fileID: 6781242904647377393}
   m_Layer: 11
   m_Name: Crow
   m_TagString: Crow
@@ -391,7 +391,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2620486072086197281
+--- !u!114 &6781242904647377393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7075098999528095806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b35f9fbb393db640b77c69bded1f63f, type: 3}
+  m_Script: {fileID: 11500000, guid: ac62a2c0bbca5cb4e8c0a5e8b22b4c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
@@ -624,5 +624,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
-  enemy: {fileID: 2620486072086197281}
+  enemy: {fileID: 6781242904647377393}
   visuals: {fileID: 7762624340419800210}

@@ -24,7 +24,10 @@ namespace EnemiesScripts
 
         private void GetHit()
         {
+            print("auch");
             _hp -= 1;
+            
+            print(_hp);
             
             if (_hp <= 0) enemy.SetState(EnemyController.State.Die);
             else enemy.GetHit();

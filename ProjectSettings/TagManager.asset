@@ -5,8 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - MovingPlatform
-  - Crow
-  - FlyingObject
   - Ghost
   layers:
   - Default

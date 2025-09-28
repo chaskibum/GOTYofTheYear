@@ -21,4 +21,4 @@ MonoBehaviour:
   attackRange: 3
   pushForce: 15
   pushTime: 0.1
-  stepAwayForce: 6
+  stepAwayForce: 0.5

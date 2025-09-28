@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedf7f19231238c44b4420b6cb6fb582, type: 3}
   m_Name: GhostData
   m_EditorClassIdentifier: 
-  baseHp: 3
+  baseHp: 2
   damage: 0
   moveSpeed: 8
   attackAnimationTime: 0.05
-  attackCooldown: 0.005
+  attackCooldown: 0.05
   detectionRange: 7
   attackRange: 0.5
   pushForce: 7

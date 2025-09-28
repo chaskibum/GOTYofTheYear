@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9e6528769a3a4bc4bba17676368b8d9d, type: 2}
-  enemy: {fileID: 2620486072086197281}
+  enemy: {fileID: 3228940157421932396}
 --- !u!1 &1310252761989957385
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3047588560742125279}
   - component: {fileID: 2956866508651815176}
-  - component: {fileID: 2620486072086197281}
+  - component: {fileID: 3228940157421932396}
   m_Layer: 11
   m_Name: FlyingObject
   m_TagString: FlyingObject
@@ -368,7 +368,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &2620486072086197281
+--- !u!114 &3228940157421932396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7075098999528095806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b35f9fbb393db640b77c69bded1f63f, type: 3}
+  m_Script: {fileID: 11500000, guid: b181ce1b037fc5649b6988976806ff5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9e6528769a3a4bc4bba17676368b8d9d, type: 2}
@@ -601,5 +601,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9e6528769a3a4bc4bba17676368b8d9d, type: 2}
-  enemy: {fileID: 2620486072086197281}
+  enemy: {fileID: 3228940157421932396}
   visuals: {fileID: 7762624340419800210}
