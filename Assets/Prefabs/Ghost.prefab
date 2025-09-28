@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 6118021533815636196}
   - component: {fileID: 6016659084137136840}
   - component: {fileID: 6643247865261225854}
+  - component: {fileID: 8278486582442435721}
   m_Layer: 11
   m_Name: Hitbox
   m_TagString: Untagged
@@ -600,5 +601,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ea4af31bc2a6d6f4fab07aa93fe90685, type: 2}
-  enemy: {fileID: 8474652512343033617}
   visuals: {fileID: 7762624340419800210}
+--- !u!114 &8278486582442435721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756755338566658112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ade2145296d49a40a11e19de723a9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

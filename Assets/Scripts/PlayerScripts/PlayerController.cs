@@ -43,6 +43,7 @@ namespace PlayerScripts
 
         private float _xInput;
 
+        private bool _isPossessed;
         private int _inputCount;
         private float _randomPossessedDirection;
         
@@ -65,9 +66,8 @@ namespace PlayerScripts
 
         private void PlayerPossessed()
         {
-            if (_state == State.Possessed) return;
-            _inputCount = 0;
             _randomPossessedDirection = GetRandomDirection();
+            _isPossessed = true;
             SetState(State.Possessed);
         }
         
@@ -80,6 +80,7 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.D)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
+            //print(_inputCount);
             if (_inputCount >= 30) Exorcised();
         }
 
@@ -91,6 +92,8 @@ namespace PlayerScripts
         private void Exorcised()
         {
             _onPlayerExorcised.Invoke();
+            _inputCount = 0;
+            _isPossessed = false;
             SetState(State.Idle);
         }
         
@@ -153,7 +156,7 @@ namespace PlayerScripts
 
         private void CheckAttackInput()
         {
-            if (Input.GetKeyDown(KeyCode.H) && _state != State.Possessed)
+            if (Input.GetKeyDown(KeyCode.H) && !_isPossessed)
             {
                 Attack();
                 SetState(State.Attack);
@@ -318,6 +321,7 @@ namespace PlayerScripts
         private void SetState(State newState)
         {
             _state = newState;
+            print(_state);
             // PA BORRAR DESPUÉS
             if (newState != State.Move) _animator.SetBool(Moving, false);
         }

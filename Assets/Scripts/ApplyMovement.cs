@@ -46,8 +46,7 @@ public class ApplyMovement : MonoBehaviour
                 // Guardamos la x de la posicion actual
                 float currentIndexX = positions[_targetIndex].position.x;
                 _targetIndex = (_targetIndex + 1) % positions.Count;
-                // Si la x de la nueva posicion es mayor, seguimos mirando a la derecha, si no flipamos (CAMBIAR CUANDO TODOS LOS SPRITES ESTÉN MIRANDO PA LA DERECHA)
-                _sprite.flipX = positions[_targetIndex].position.x > currentIndexX;
+                _sprite.flipX = positions[_targetIndex].position.x < currentIndexX;
             }
         }
     }

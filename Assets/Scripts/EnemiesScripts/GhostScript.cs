@@ -51,8 +51,8 @@ namespace EnemiesScripts
         public override void SetState(State newState)
         {
             if (StateTimer > 0 && newState != State.GetHit && newState != State.Die) return;
-            ActualState = newState;
-            stateText.text = ActualState.ToString();
+            CurrentState = newState;
+            stateText.text = CurrentState.ToString();
         }
     }
 }

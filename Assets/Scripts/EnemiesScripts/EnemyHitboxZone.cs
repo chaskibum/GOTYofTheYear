@@ -7,10 +7,15 @@ namespace EnemiesScripts
     {
         [SerializeField] private EnemyData data;
 
-        [SerializeField] private EnemyController enemy;
+        private EnemyController _enemy;
         [SerializeField] private SpriteRenderer visuals;
         
         private int _rotation;
+
+        private void Start()
+        {
+            TryGetComponent(out _enemy);
+        }
 
         private void Update()
         {
@@ -21,14 +26,13 @@ namespace EnemiesScripts
         {
             if (other.TryGetComponent(out PlayerController player))
             {
-                if (enemy.CompareTag("Ghost")) player.GetPlayerPossessedEvent?.Invoke();
-                else player.GetPlayerHitEvent?.Invoke(data.damage);
+                player.GetPlayerHitEvent?.Invoke(data.damage);
             }
         }
-        
+
         private void FlipAttackPosition()
         {
-            if (!enemy || enemy.GetCanAttack) return;
+            if (!_enemy || _enemy.GetCanAttack) return;
 
             _rotation = visuals.flipX ? 0 : 180;
             

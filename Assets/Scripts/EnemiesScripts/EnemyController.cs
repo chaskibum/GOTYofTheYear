@@ -12,7 +12,8 @@ namespace EnemiesScripts
         [SerializeField] protected TMP_Text stateText;
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
-        protected State ActualState = State.Idle;
+        protected State CurrentState = State.Idle;
+        protected bool CanChangeState = true;
 
         [Header("Properties")] 
         protected int Hp;
@@ -20,7 +21,6 @@ namespace EnemiesScripts
         protected Vector2 Direction;
         protected float AttackTimer;
         protected bool CanAttack = true;
-        protected bool CanChangeState = true;
         
         protected Rigidbody2D Body;
         protected SpriteRenderer Visuals;
@@ -61,7 +61,7 @@ namespace EnemiesScripts
 
         protected virtual void ResetEnemy()
         {
-            ActualState = State.Idle;
+            CurrentState = State.Idle;
             transform.position = StartingPosition;
             Hp = data.baseHp;
             Body.linearVelocity = Vector2.zero;
@@ -193,16 +193,16 @@ namespace EnemiesScripts
             gameObject.SetActive(false);
         }
         
-        protected IEnumerator DelayChangeState()
+        protected IEnumerator LockStateForSeconds(float duration)
         {
             CanChangeState = false;
-            yield return new WaitForSeconds(data.attackCooldown);
+            yield return new WaitForSeconds(duration);
             CanChangeState = true;
         }
         
         protected void UpdateState()
         {
-            switch (ActualState)
+            switch (CurrentState)
             {
                 case State.Idle: IdleState(); break;
                 case State.Attack: AttackState(); break;
@@ -211,7 +211,7 @@ namespace EnemiesScripts
 
         protected void UpdatePhysicsState()
         {
-            switch (ActualState)
+            switch (CurrentState)
             {
                 case State.Chase: ChaseState(); break;
                 case State.GetHit: GetHitState(); break;
@@ -221,13 +221,14 @@ namespace EnemiesScripts
 
         public virtual void SetState(State newState)
         {
-            if (newState == ActualState || ActualState == State.Die) return;
-            print("Previous State: " + ActualState + ". New State: " + newState);
-            ActualState = newState;
-            stateText.text = ActualState.ToString();
+            if (!CanChangeState) return;
+            
+            if (newState == CurrentState || CurrentState == State.Die) return;
+            CurrentState = newState;
+            stateText.text = CurrentState.ToString();
         }
         
-        public State GetState => ActualState;
+        public State GetState => CurrentState;
 
         public bool GetCanAttack => CanAttack;
     }
