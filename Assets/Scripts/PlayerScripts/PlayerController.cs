@@ -321,7 +321,6 @@ namespace PlayerScripts
         private void SetState(State newState)
         {
             _state = newState;
-            print(_state);
             // PA BORRAR DESPUÉS
             if (newState != State.Move) _animator.SetBool(Moving, false);
         }
