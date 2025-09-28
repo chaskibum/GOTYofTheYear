@@ -16,5 +16,8 @@ namespace PlayerScripts
         public float coyoteTime = 1f;
         public float jumpBufferTime = 0.1f;
         public float jumpDuration = 1f;
+
+        [Header("Combat")] 
+        public float attackSpeed = 1f;
     }
 }

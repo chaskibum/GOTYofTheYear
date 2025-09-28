@@ -47,7 +47,7 @@ namespace EnemiesScripts
             GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
         }
         
-        protected void Update()
+        protected virtual void Update()
         {
             CalculateDirection();
             GetPlayerPosition();

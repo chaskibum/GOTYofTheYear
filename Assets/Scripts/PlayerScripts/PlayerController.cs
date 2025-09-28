@@ -12,7 +12,7 @@ namespace PlayerScripts
         
         [SerializeField] private LayerMask groundLayer;
 
-        [SerializeField] private PlayerWeapon playerWeapon;
+        [SerializeField] private GameObject playerWeapon;
         
         [SerializeField] private Transform playerTarget;
         
@@ -37,12 +37,14 @@ namespace PlayerScripts
         
         // PA BORRAR DESPUÉS
         private bool _isImmune;
+        private bool _isAttacking;
         
         private Rigidbody2D _body;
 
         private float _xInput;
 
         private int _inputCount;
+        private float _randomPossessedDirection;
         
         [Header("Events")]
         private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
@@ -65,11 +67,13 @@ namespace PlayerScripts
         {
             if (_state == State.Possessed) return;
             _inputCount = 0;
+            _randomPossessedDirection = GetRandomDirection();
             SetState(State.Possessed);
         }
         
         private void PossessedState()
         {
+            _body.linearVelocity = new Vector2(_randomPossessedDirection * data.moveSpeed, _body.linearVelocity.y);
             if (Input.GetKeyDown(KeyCode.W)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.A)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.S)) _inputCount += 1;
@@ -77,6 +81,11 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
             if (_inputCount >= 30) Exorcised();
+        }
+
+        private float GetRandomDirection()
+        {
+            return Random.value < 0.5f ? -1f : 1f;
         }
 
         private void Exorcised()
@@ -146,9 +155,23 @@ namespace PlayerScripts
         {
             if (Input.GetKeyDown(KeyCode.H) && _state != State.Possessed)
             {
-                playerWeapon.Attack();
+                Attack();
                 SetState(State.Attack);
             }
+        }
+
+        private void Attack()
+        {
+            playerWeapon.SetActive(true);
+            if (_isAttacking) return;
+            _isAttacking = true;
+            Invoke(nameof(EndAttack), data.attackSpeed);
+        }
+        
+        private void EndAttack()
+        {
+            _isAttacking = false;
+            playerWeapon.SetActive(false);
         }
         
         private void IdleState()
@@ -224,7 +247,7 @@ namespace PlayerScripts
         private void AttackState()
         {
             Move();
-            if (!playerWeapon.isAttacking) SetState(State.Idle);
+            if (!_isAttacking) SetState(State.Idle);
         }
         
         // PARA BORRAR DESPUÉS (ALGO)

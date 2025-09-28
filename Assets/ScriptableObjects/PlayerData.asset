@@ -21,3 +21,4 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpDuration: 0.5
+  attackSpeed: 0.2

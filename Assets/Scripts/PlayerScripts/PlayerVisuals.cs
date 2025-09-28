@@ -35,7 +35,5 @@ namespace PlayerScripts
                 facingRight = false;
             }
         }
-        
-        
     }
 }

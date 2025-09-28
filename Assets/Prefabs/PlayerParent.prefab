@@ -118,7 +118,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerWeapon: {fileID: 6621801761806166937}
+  playerWeapon: {fileID: 9090752982169513825}
   playerTarget: {fileID: 9065315658519123801}
 --- !u!95 &2376433283659886037
 Animator:
@@ -324,7 +324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8311411505070645557
 Transform:
   m_ObjectHideFlags: 0
