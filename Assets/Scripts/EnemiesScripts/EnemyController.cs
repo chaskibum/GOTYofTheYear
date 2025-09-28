@@ -13,8 +13,9 @@ namespace EnemiesScripts
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
         protected State ActualState = State.Idle;
-        
-        [Header("Properties")]
+
+        [Header("Properties")] 
+        protected int Hp;
         protected Vector3 StartingPosition;
         protected Vector2 Direction;
         protected float AttackTimer;
@@ -33,6 +34,7 @@ namespace EnemiesScripts
         {
             StartingPosition = transform.position;
             AttackTimer = data.attackAnimationTime;
+            Hp = data.baseHp;
         }
 
         protected virtual void Start()
@@ -59,12 +61,14 @@ namespace EnemiesScripts
 
         protected virtual void ResetEnemy()
         {
-            SetState(State.Idle);
+            ActualState = State.Idle;
             transform.position = StartingPosition;
+            Hp = data.baseHp;
             Body.linearVelocity = Vector2.zero;
             CanAttack = true;
             Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
+            gameObject.SetActive(true);
             
             // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
             var color = Visuals.color;
@@ -89,8 +93,8 @@ namespace EnemiesScripts
         {
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
             if (!CanChangeState) return;
-            
-            if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange) 
+
+            if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange)
                 SetState(State.Chase);
         }
         
@@ -105,7 +109,7 @@ namespace EnemiesScripts
                 
             Body.MovePosition(newPosition);
             
-            if (Vector3.Distance(Body.position, PlayerPos) >= data.detectionRange) 
+            if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange) 
                 SetState(State.Idle);
             
             if (Vector3.Distance(Body.position, PlayerPos) < data.attackRange && CanAttack) 
@@ -120,7 +124,7 @@ namespace EnemiesScripts
             {
                 EndAttack();
                 AttackTimer = data.attackAnimationTime;
-                SetState(State.Idle);
+                SetState(State.Chase);
             }
             // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
@@ -167,11 +171,12 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
         }
         
-        
         public virtual void GetHit()
         {
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
-            SetState(State.GetHit);
+
+            Hp -= 1;
+            SetState(Hp <= 0 ? State.Die : State.GetHit);
         }
         
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
@@ -216,7 +221,8 @@ namespace EnemiesScripts
 
         public virtual void SetState(State newState)
         {
-            if (newState == ActualState) return;
+            if (newState == ActualState || ActualState == State.Die) return;
+            print("Previous State: " + ActualState + ". New State: " + newState);
             ActualState = newState;
             stateText.text = ActualState.ToString();
         }

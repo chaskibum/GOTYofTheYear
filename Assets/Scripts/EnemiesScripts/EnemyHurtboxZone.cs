@@ -4,39 +4,11 @@ namespace EnemiesScripts
 {
     public class EnemyHurtboxZone : MonoBehaviour
     {
-        [SerializeField] private EnemyData data;
-
-        private int _hp;
-        
         [SerializeField] private EnemyController enemy;
-
-        private void Start()
-        {
-            _hp = data.baseHp;
-            
-            GameManager.Instance.GetGameRestarted.AddListener(Restart);
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            GetHit();
-        }
-
-        private void GetHit()
-        {
-            print("auch");
-            _hp -= 1;
-            
-            print(_hp);
-            
-            if (_hp <= 0) enemy.SetState(EnemyController.State.Die);
-            else enemy.GetHit();
-        }
-
-        private void Restart()
-        {
-            enemy.gameObject.SetActive(true);
-            _hp = data.baseHp;
+            enemy.GetHit();
         }
     }
 }

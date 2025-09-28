@@ -1,6 +1,5 @@
 namespace EnemiesScripts
 {
-    
     public class GhostScript : EnemyController
     {
         protected override void Start()
