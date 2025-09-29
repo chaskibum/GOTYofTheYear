@@ -5,7 +5,8 @@ public class Collectable : MonoBehaviour
 {
     private SpriteRenderer _sprite;
     private BoxCollider2D _collider;
-    
+
+    [SerializeField] private GameObject panel;
     [SerializeField] private GameObject text;
     
     // PARA BORRAR DESPUÉS
@@ -23,17 +24,17 @@ public class Collectable : MonoBehaviour
         {
             GameManager.Instance.canWin = true;
             text.GetComponent<TextMeshProUGUI>().text = "Item final conseguido!";
-            text.SetActive(true);
+            panel.SetActive(true);
         }
             
         _sprite.enabled = false;
         _collider.enabled = false;
-        text.SetActive(true);
+        panel.SetActive(true);
         Invoke(nameof(HideText), 1f);
     }
 
     private void HideText()
     {
-        text.SetActive(false);
+        panel.SetActive(false);
     }
 }

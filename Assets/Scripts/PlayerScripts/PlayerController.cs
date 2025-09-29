@@ -258,7 +258,7 @@ namespace PlayerScripts
         {
             // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             _isImmune = true;
-            Invoke(nameof(StopImmunityTime), 1f);
+            Invoke(nameof(StopImmunityTime), data.immunityTime);
             SetState(State.Idle);
         }
 

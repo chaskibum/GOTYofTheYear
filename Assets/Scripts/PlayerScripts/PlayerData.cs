@@ -19,5 +19,6 @@ namespace PlayerScripts
 
         [Header("Combat")] 
         public float attackSpeed = 1f;
+        public float immunityTime = 1f;
     }
 }

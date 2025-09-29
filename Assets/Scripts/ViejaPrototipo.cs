@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ViejaPrototipo : MonoBehaviour
+public class ViejaAlpha : MonoBehaviour
 {
     [SerializeField] private GameObject grannyDialog;
     

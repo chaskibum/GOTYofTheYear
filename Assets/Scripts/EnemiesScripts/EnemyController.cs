@@ -100,7 +100,7 @@ namespace EnemiesScripts
         
         protected virtual void ChaseState()
         {
-            Visuals.flipX = PlayerToTheRight;
+            Visuals.flipX = !PlayerToTheRight;
             
             Vector3 newPosition = Vector3.MoveTowards(
                 Body.position,
