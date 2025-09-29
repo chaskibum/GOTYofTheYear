@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -11,6 +12,7 @@ namespace EnemiesScripts
 
         [SerializeField] private GameObject gameWonCollectable;
         [SerializeField] private List<GameObject> waves;
+        private Coroutine _waveCoroutine;
 
         protected override void ResetEnemy()
         {
@@ -18,6 +20,15 @@ namespace EnemiesScripts
             {
                 base.ResetEnemy();
                 attackHitbox.SetActive(true);
+
+                if (_waveCoroutine != null)
+                {
+                    StopCoroutine(_waveCoroutine);
+                    _waveCoroutine = null;
+                }
+                
+                foreach (GameObject wave in waves)
+                    wave.SetActive(false);
             }
         }
 
@@ -27,12 +38,9 @@ namespace EnemiesScripts
             {
                 foreach (GameObject wave in waves)
                 {
-                    foreach (Transform child in wave.transform)
-                    {
-                        if (!child.gameObject.activeInHierarchy) child.gameObject.SetActive(true);
-                    }
+                    yield return new WaitUntil(() => Hp % 4 == 0);
                     wave.SetActive(true);
-                    yield return new WaitForSeconds(5f);
+                    yield return new WaitWhile(() => Hp % 4 == 0);
                 }
             }
         }
@@ -46,7 +54,10 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             base.ChaseState();
-            StartCoroutine(WaveSpawner());
+
+            if (_waveCoroutine == null)
+                _waveCoroutine = StartCoroutine(WaveSpawner());
+                
             ChaseTimer += Time.deltaTime;
             if (ChaseTimer >= 3f)
             {
@@ -59,8 +70,14 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            if (Hp <= 0) BossSlain = true;
-            gameWonCollectable.SetActive(true);
+            print(Hp);
+            if (Hp <= 0)
+            {
+                BossSlain = true;
+                gameWonCollectable.SetActive(true);
+                foreach (GameObject wave in waves)
+                    Destroy(wave);
+            }
         }
     }
 }
