@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private readonly UnityEvent _onGameOver = new UnityEvent();
     private readonly UnityEvent _onGameRestart = new UnityEvent();
     private readonly UnityEvent _onPlayerRespawn = new UnityEvent();
+    private readonly UnityEvent _onCollectablePicked = new UnityEvent();
     private readonly UnityEvent<int> _onHpAmountChanged = new UnityEvent<int>();
     private readonly UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent GetGameOverEvent => _onGameOver;
     public UnityEvent GetGameRestarted => _onGameRestart;
     public UnityEvent GetPlayerRespawn => _onPlayerRespawn;
+    public UnityEvent GetCollectablePicked => _onCollectablePicked;
     public UnityEvent<int> GetHpAmountChanged => _onHpAmountChanged;
     public UnityEvent<int> GetLifeAmountChanged => _onLifeAmountChanged;
     

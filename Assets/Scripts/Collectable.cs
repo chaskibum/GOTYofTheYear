@@ -14,8 +14,10 @@ public class Collectable : MonoBehaviour
 
     private void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
+        _sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
+        
+        GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -31,10 +33,17 @@ public class Collectable : MonoBehaviour
         _collider.enabled = false;
         panel.SetActive(true);
         Invoke(nameof(HideText), 1f);
+        GameManager.Instance.GetCollectablePicked?.Invoke();
     }
 
     private void HideText()
     {
         panel.SetActive(false);
+    }
+
+    private void ResetCollectable()
+    {
+        _sprite.enabled = true;
+        _collider.enabled = true;
     }
 }

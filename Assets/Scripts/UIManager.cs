@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
         GameManager.Instance.GetGameRestarted.AddListener(ResetUI);
-        GameManager.Instance.GetLifeAmountChanged.AddListener(RemoveLife);
+        GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
     }
 
     private void ShowGameOverScreen()
@@ -22,13 +22,13 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         restartButton.SetActive(false);
-        foreach (Transform child in livesContainer)
-        {
-            child.gameObject.SetActive(true);
-        }
+        
+        int baseLives = GameManager.Instance.GetPlayer.GetPlayerData.baseLives;
+
+        UpdateLife(baseLives);
     }
 
-    private void RemoveLife(int currentHp)
+    private void UpdateLife(int currentHp)
     {
         foreach (Transform child in livesContainer)
         {

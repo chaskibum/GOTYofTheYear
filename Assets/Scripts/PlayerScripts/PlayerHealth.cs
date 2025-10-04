@@ -21,6 +21,7 @@ namespace PlayerScripts
             healthBar.SetMaxHealth(_hp);
             
             GameManager.Instance.GetHpAmountChanged?.AddListener(TakeDamage);
+            GameManager.Instance.GetCollectablePicked?.AddListener(AddExtraLife);
             GameManager.Instance.GetPlayerRespawn?.AddListener(Respawn);
             GameManager.Instance.GetGameRestarted?.AddListener(Restart);
         }
@@ -48,6 +49,12 @@ namespace PlayerScripts
                 _lives -= 1;
                 GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
             }
+        }
+
+        private void AddExtraLife()
+        {
+            _lives += 1;
+            GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
         }
     }
 }
