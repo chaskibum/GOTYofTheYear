@@ -34,6 +34,7 @@ public class Collectable : MonoBehaviour
         panel.SetActive(true);
         Invoke(nameof(HideText), 1f);
         GameManager.Instance.GetCollectablePicked?.Invoke();
+        // AudioManager.Instance.PlayClip();
     }
 
     private void HideText()
