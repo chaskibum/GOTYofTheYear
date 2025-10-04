@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     
     private readonly UnityEvent _onGameOver = new UnityEvent();
     private readonly UnityEvent _onGameRestart = new UnityEvent();
+    private readonly UnityEvent _onPlayerRespawn = new UnityEvent();
+    private readonly UnityEvent<int> _onHpAmountChanged = new UnityEvent<int>();
     private readonly UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
     [SerializeField] private PlayerController player;
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
     // PARA BORRAR
     public bool canWin = false;
     [SerializeField] private GameObject wonScreen;
+    
+    private bool _gameOver = false;
 
     private void Awake()
     {
@@ -35,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOverScreen()
     {
+        _gameOver = true;
         Time.timeScale = 0;
     }
 
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // PARA BORRAR
         wonScreen.SetActive(false);
+        _gameOver = false;
     }
     
     public void BackToMainMenu()
@@ -60,10 +66,14 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent GetGameOverEvent => _onGameOver;
     public UnityEvent GetGameRestarted => _onGameRestart;
+    public UnityEvent GetPlayerRespawn => _onPlayerRespawn;
+    public UnityEvent<int> GetHpAmountChanged => _onHpAmountChanged;
     public UnityEvent<int> GetLifeAmountChanged => _onLifeAmountChanged;
     
 
     #endregion
     
     public PlayerController GetPlayer => player;
+    
+    public bool GetGameOver => _gameOver;
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SneakyBushData
   m_EditorClassIdentifier: 
   baseHp: 2
-  damage: 1
+  damage: 15
   moveSpeed: 0
   attackAnimationTime: 3
   attackCooldown: 5
@@ -21,3 +21,4 @@ MonoBehaviour:
   attackRange: 4
   pushForce: 0
   pushTime: 0
+  stepAwayForce: 0

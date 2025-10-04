@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547c5ae30b523ca4890f741bf9cc7c13, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  baseHp: 5
+  baseHp: 100
+  baseLives: 3
   moveSpeed: 6
   jumpForce: 10
   regularGravity: 2
   fallGravity: 2
   pushForce: 8
+  deathAnimationTime: 0.5
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpDuration: 0.5

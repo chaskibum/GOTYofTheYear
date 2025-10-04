@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: SpikesData
   m_EditorClassIdentifier: 
   baseHp: 0
-  damage: 5
+  damage: 100
   moveSpeed: 0
+  attackAnimationTime: 0
+  attackCooldown: 0
+  detectionRange: 0
+  attackRange: 0
+  pushForce: 0
+  pushTime: 0
+  stepAwayForce: 0

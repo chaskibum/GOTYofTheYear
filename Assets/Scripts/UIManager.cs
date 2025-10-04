@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private Transform livesContainer;
     
     private void Start()
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     private void ResetUI()
     {
         gameOverPanel.SetActive(false);
+        restartButton.SetActive(false);
         foreach (Transform child in livesContainer)
         {
             child.gameObject.SetActive(true);
@@ -33,13 +35,21 @@ public class UIManager : MonoBehaviour
             child.gameObject.SetActive(false);
         }
 
-        foreach (Transform child in livesContainer)
+        if (currentHp > 0)
         {
-            if (currentHp > 0)
+            foreach (Transform child in livesContainer)
             {
-                child.gameObject.SetActive(true);
-                currentHp--;
+                if (currentHp > 0)
+                {
+                    child.gameObject.SetActive(true);
+                    currentHp--;
+                }
             }
+        }
+        else
+        {
+            GameManager.Instance.GetGameOverEvent?.Invoke();
+            restartButton.SetActive(true);
         }
     }
 }

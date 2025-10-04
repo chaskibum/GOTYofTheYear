@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedf7f19231238c44b4420b6cb6fb582, type: 3}
   m_Name: CrowData
   m_EditorClassIdentifier: 
-  baseHp: 0
-  damage: 1
+  baseHp: 1
+  damage: 20
   moveSpeed: 6
   attackAnimationTime: 0
   attackCooldown: 0
   detectionRange: 0
   attackRange: 0
+  pushForce: 0
+  pushTime: 0
+  stepAwayForce: 0

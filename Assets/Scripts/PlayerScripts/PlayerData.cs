@@ -6,11 +6,13 @@ namespace PlayerScripts
     public class PlayerData : ScriptableObject
     {
         public int baseHp;
+        public int baseLives;
         public float moveSpeed;
         public float jumpForce;
         public float regularGravity;
         public float fallGravity;
         public float pushForce;
+        public float deathAnimationTime;
         
         [Header("Jump")]
         public float coyoteTime = 1f;

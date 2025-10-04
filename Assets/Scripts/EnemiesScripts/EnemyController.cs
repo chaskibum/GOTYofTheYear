@@ -44,7 +44,7 @@ namespace EnemiesScripts
             TryGetComponent(out Animator);
             Player = GameManager.Instance.GetPlayer;
             
-            GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
+            GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
         }
         
         protected virtual void Update()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlyingObjectData
   m_EditorClassIdentifier: 
   baseHp: 1
-  damage: 1
+  damage: 20
   moveSpeed: 12
   attackAnimationTime: 0.1
   attackCooldown: 1

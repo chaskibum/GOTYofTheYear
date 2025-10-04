@@ -60,6 +60,7 @@ namespace PlayerScripts
             _hp = data.baseHp;
             
             GameManager.Instance.GetGameRestarted.AddListener(Restart);
+            // GameManager.Instance.GetPlayerRespawn.AddListener(Respawn);
             _onPlayerHit.AddListener(GetHit);
             _onPlayerPossessed.AddListener(PlayerPossessed);
         }
@@ -99,6 +100,8 @@ namespace PlayerScripts
         
         private void Update()
         {
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f) return;
+            
             CheckIfGrounded();
             CheckJumpInput();
             CheckMovementInput();
@@ -278,18 +281,37 @@ namespace PlayerScripts
             // Hace que el jugador pegue un saltito como feedback a recibir daño
             _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             
-            GameManager.Instance.GetLifeAmountChanged?.Invoke(_hp);
+            GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
-            SetState(_hp <= 0 ? State.Die : State.GetHit);
+            if (_hp <= 0)
+            {
+                SetState(State.Die);
+                if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
+            } 
+            else 
+                SetState(State.GetHit);
         }
         
         private void DieState()
         {
-            GameManager.Instance.GetGameOverEvent?.Invoke();
+            _isImmune = true;
+            Time.timeScale = 0.2f;
+        }
+
+        private void Respawn()
+        {
+            GameManager.Instance.GetPlayerRespawn.Invoke();
+            transform.position = _respawnPosition;
+            _hp = data.baseHp;
+            _body.linearVelocity = new Vector2(0, 0);
+            Time.timeScale = 1f;
+            _isImmune = false;
+            SetState(State.Idle);
         }
 
         private void Restart()
         {
+            SetRespawnPosition(Vector3.zero);
             transform.position = _respawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
@@ -338,6 +360,8 @@ namespace PlayerScripts
         public Vector3 GetPlayerPosition => transform.position;
         
         public Vector3 GetPlayerTarget => playerTarget.position;
+
+        public PlayerData GetPlayerData => data;
 
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
