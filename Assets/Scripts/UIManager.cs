@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
         restartButton.SetActive(false);
         optionsButton.SetActive(true);
         
+        pauseMenuUI.SetActive(false);
+        
         int baseLives = GameManager.Instance.GetPlayer.GetPlayerData.baseLives;
 
         UpdateLife(baseLives);
