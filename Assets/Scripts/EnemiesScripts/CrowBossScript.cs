@@ -40,6 +40,7 @@ namespace EnemiesScripts
                 {
                     yield return new WaitUntil(() => Hp % 4 == 0);
                     wave.SetActive(true);
+                    AudioManager.Instance.PlayClip(AudioManager.AudioList.CrowScream);
                     yield return new WaitWhile(() => Hp % 4 == 0);
                 }
             }

@@ -30,7 +30,7 @@ namespace EnemiesScripts
         protected override void Attack()
         {
             if (!CanAttack) return;
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             base.Attack();
         }
         

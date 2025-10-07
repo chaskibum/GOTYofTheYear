@@ -32,7 +32,7 @@ public class Collectable : MonoBehaviour
         _sprite.enabled = false;
         _collider.enabled = false;
         panel.SetActive(true);
-        AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed);
+        AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed, false, 0.9f);
         Invoke(nameof(HideText), 1f);
         GameManager.Instance.GetCollectablePicked?.Invoke();
     }

@@ -11,7 +11,6 @@ public class SaveSpotManager : MonoBehaviour
         _lastSavedRespawnPosition = transform.position;
         
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        // activated.Play();
         AudioManager.Instance.PlayClip(AudioManager.AudioList.CheckpointActivated);
     }
 }

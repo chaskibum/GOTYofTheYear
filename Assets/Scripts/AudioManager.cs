@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
         ArmorDeath,
         BushAttack,
         BushDeath,
+        CrowScream,
     }
     
     [SerializeField] List<AudioClip> audioClips;
@@ -62,12 +63,14 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeMusicVolume()
     {
-        audioMixer.SetFloat("MusicVolume", musicSlider.value);
+        if (sfxSlider.value < -39f) audioMixer.SetFloat("MusicVolume", -60f);
+        else audioMixer.SetFloat("MusicVolume", sfxSlider.value);
     }
 
     public void ChangeSfxVolume()
     {
-        audioMixer.SetFloat("SFXVolume", sfxSlider.value);
-        // PlayClip(AudioList.ButtonPressed, true, 1f, false);
+        if (sfxSlider.value < -39f) audioMixer.SetFloat("SFXVolume", -60f);
+        else audioMixer.SetFloat("SFXVolume", sfxSlider.value);
+        PlayClip(AudioList.PlayerAttack, true, 1f, false);
     }
 }

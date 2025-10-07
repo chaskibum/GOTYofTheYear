@@ -37,7 +37,7 @@ namespace EnemiesScripts
 
             StateTimer = data.pushTime;
             
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack);
             
             Hp -= 1;
             SetState(Hp <= 0 ? State.Die : State.GetHit);

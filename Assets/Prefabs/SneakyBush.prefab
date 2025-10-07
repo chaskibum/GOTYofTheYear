@@ -91,7 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640a697d760f6794dbda4f17d13c9f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: b7a2eb33f290d054583205468c7cd8ab, type: 2}
   enemy: {fileID: 856472639070044984}
 --- !u!1 &2084803182688432551
 GameObject:
@@ -145,6 +144,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -166,6 +167,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 563985417
   m_SortingLayer: 8
   m_SortingOrder: 0
@@ -212,8 +214,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2823755103436823984}
   - {fileID: 7738217815778967665}
+  - {fileID: 2823755103436823984}
   - {fileID: 2623206385225830995}
   - {fileID: 4487989244057702824}
   m_Father: {fileID: 0}
@@ -336,6 +338,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -357,6 +361,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 563985417
   m_SortingLayer: 8
   m_SortingOrder: 0
@@ -430,7 +435,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b7a2eb33f290d054583205468c7cd8ab, type: 2}
-  enemy: {fileID: 856472639070044984}
   visuals: {fileID: 2891370086248172332}
 --- !u!1 &4714681701473910323
 GameObject:
@@ -618,7 +622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7738217815778967665
 RectTransform:
   m_ObjectHideFlags: 0
