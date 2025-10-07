@@ -34,7 +34,9 @@ namespace EnemiesScripts
         {
             if (!_enemy || _enemy.GetCanAttack) return;
 
-            _rotation = visuals.flipX ? 0 : 180;
+            _rotation = visuals.flipX ? 180 : 0;
+            
+            print("rotating...");
             
             transform.parent.localRotation = Quaternion.Euler(0, 0, _rotation);
         }

@@ -174,7 +174,10 @@ namespace EnemiesScripts
         public virtual void GetHit()
         {
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
-
+            
+            // if (AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack)) return;
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true);
+            
             Hp -= 1;
             SetState(Hp <= 0 ? State.Die : State.GetHit);
         }

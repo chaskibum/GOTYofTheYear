@@ -172,6 +172,7 @@ namespace PlayerScripts
             if (_isAttacking) return;
             _isAttacking = true;
             Invoke(nameof(EndAttack), data.attackSpeed);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
         }
         
         private void EndAttack()
@@ -229,6 +230,8 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
+            
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
         }
 
         private void FallState()
@@ -286,10 +289,14 @@ namespace PlayerScripts
             if (_hp <= 0)
             {
                 SetState(State.Die);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
                 if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
-            } 
-            else 
+            }
+            else
+            {
                 SetState(State.GetHit);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
+            }
         }
         
         private void DieState()

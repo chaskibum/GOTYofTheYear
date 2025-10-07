@@ -15,7 +15,18 @@ public class AudioManager : MonoBehaviour
     
     public enum AudioList
     {
-        
+        CheckpointActivated,
+        ExtraLifeGrabbed,
+        PlayerJump,
+        PlayerHit,
+        PlayerDeath,
+        PlayerAttack,
+        PlayerMissedAttack,
+        ArmorAttack,
+        ArmorHit,
+        ArmorDeath,
+        BushAttack,
+        BushDeath,
     }
     
     [SerializeField] List<AudioClip> audioClips;
@@ -32,7 +43,7 @@ public class AudioManager : MonoBehaviour
     public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)
     {
         sfxSource.volume = volume;
-        sfxSource.pitch = changePitch ? Random.Range(0.8f, 1.2f) : 1f;
+        sfxSource.pitch = changePitch ? Random.Range(0.9f, 1.1f) : 1f;
         if (oneShot)
             sfxSource.PlayOneShot(audioClips[(int)clip]);
         else
