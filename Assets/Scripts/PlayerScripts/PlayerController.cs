@@ -313,6 +313,8 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(0, 0);
             Time.timeScale = 1f;
             _isImmune = false;
+            _isPossessed = false;
+            _inputCount = 0;
             SetState(State.Idle);
         }
 

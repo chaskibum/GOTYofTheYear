@@ -45,6 +45,7 @@ namespace EnemiesScripts
             Player = GameManager.Instance.GetPlayer;
             
             GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
+            GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
         }
         
         protected virtual void Update()
