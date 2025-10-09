@@ -35,5 +35,7 @@ namespace PlayerScripts
                 facingRight = false;
             }
         }
+        
+        public SpriteRenderer GetPlayerVisuals => _spriteRenderer;
     }
 }

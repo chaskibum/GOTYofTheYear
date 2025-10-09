@@ -16,11 +16,14 @@ MonoBehaviour:
   startingLives: 3
   baseLives: 4
   moveSpeed: 6
-  jumpForce: 10
+  dashSpeed: 15
+  dashDuration: 0.2
   regularGravity: 2
   fallGravity: 2
+  dashGravity: 0
   pushForce: 8
   deathAnimationTime: 0.5
+  jumpForce: 10
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpDuration: 0.5

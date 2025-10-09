@@ -9,13 +9,16 @@ namespace PlayerScripts
         public int startingLives;
         public int baseLives;
         public float moveSpeed;
-        public float jumpForce;
+        public float dashSpeed;
+        public float dashDuration;
         public float regularGravity;
         public float fallGravity;
+        public float dashGravity;
         public float pushForce;
         public float deathAnimationTime;
         
         [Header("Jump")]
+        public float jumpForce;
         public float coyoteTime = 1f;
         public float jumpBufferTime = 0.1f;
         public float jumpDuration = 1f;

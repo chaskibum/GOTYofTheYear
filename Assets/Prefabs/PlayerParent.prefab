@@ -130,6 +130,10 @@ MonoBehaviour:
     m_Bits: 64
   playerWeapon: {fileID: 9090752982169513825}
   playerTarget: {fileID: 9065315658519123801}
+  visuals: {fileID: 4559264885470363141}
+  _doubleJumpUnlocked: 0
+  _canDash: 0
+  _dashUnlocked: 1
 --- !u!114 &3028596203003872494
 MonoBehaviour:
   m_ObjectHideFlags: 0

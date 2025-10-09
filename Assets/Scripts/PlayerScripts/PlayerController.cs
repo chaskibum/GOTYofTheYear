@@ -15,12 +15,13 @@ namespace PlayerScripts
         [SerializeField] private GameObject playerWeapon;
         
         [SerializeField] private Transform playerTarget;
+        [SerializeField] private PlayerVisuals visuals;
         
         private Animator _animator;
         private PlayerHealth _playerHealth;
 
         #region States
-        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, }
+        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, Dash, }
         
         private State _state = State.Idle;
         private bool _isOnFloor;
@@ -31,6 +32,12 @@ namespace PlayerScripts
         private float _coyoteCounter;
         private float _lastJumpPressedTime;
         private float _jumpKeyTimePressed;
+        [SerializeField] private bool _doubleJumpUnlocked;
+        private bool _canDoubleJump;
+        
+        [Header("Dash")]
+        [SerializeField] private bool _canDash;
+        [SerializeField] private bool _dashUnlocked;
 
         [Header("Properties")] 
         private int _hp;
@@ -108,6 +115,7 @@ namespace PlayerScripts
             
             CheckIfGrounded();
             CheckJumpInput();
+            CheckDashInput();
             CheckMovementInput();
             CheckAttackInput();
             
@@ -151,7 +159,14 @@ namespace PlayerScripts
             if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
-                // SetState(State.Jump);
+                _lastJumpPressedTime = -Mathf.Infinity;
+                if (_doubleJumpUnlocked) _canDoubleJump = true;
+            }
+            // Sino, si el jugador esta en el aire y puede hacer doble salto -> saltar en el aire
+            else if ((!_isOnFloor && _canDoubleJump) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
+            {
+                Jump();
+                _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
             }
         }
@@ -170,6 +185,38 @@ namespace PlayerScripts
             }
         }
 
+        private void CheckDashInput()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Dash();
+            }
+        }
+
+        private void Dash()
+        {
+            if (!_canDash) return;
+            _body.linearVelocity = Vector2.zero;
+            float direction = visuals.GetPlayerVisuals.flipX ? -1 : 1;
+            _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
+            _canDash = false;
+            print(_canDash);
+            SetState(State.Dash);
+        }
+
+        private void DashState()
+        {
+            _body.gravityScale = data.dashGravity;
+            Invoke(nameof(EndDash), data.dashDuration);
+        }
+
+        private void EndDash()
+        {
+            _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
+            _body.gravityScale = data.regularGravity;
+            SetState(_isOnFloor ? State.Idle : State.Jump);
+        }
+        
         private void Attack()
         {
             playerWeapon.SetActive(true);
@@ -187,6 +234,8 @@ namespace PlayerScripts
         
         private void IdleState()
         {
+            if (_doubleJumpUnlocked) _canDoubleJump = true;
+            if (_dashUnlocked) _canDash = true;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             // Here we play the Idle animation
@@ -201,7 +250,6 @@ namespace PlayerScripts
             if (_xInput == 0) SetState(State.Idle);
             
             Move();
-            // Here we play the animations and sounds for when the character moves
             // PA BORRAR DESPUÉS
             _animator.SetBool(Moving, true);
         }
@@ -350,6 +398,7 @@ namespace PlayerScripts
                 case State.Jump: JumpState(); break;
                 case State.Fall: FallState(); break;
                 case State.GetHit: GetHitState(); break;
+                case State.Dash: DashState(); break;
             }
         }
 
