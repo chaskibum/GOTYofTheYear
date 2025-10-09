@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         // PARA BORRAR
         wonScreen.SetActive(false);
         _gameOver = false;
+        canWin = false;
     }
     
     public void BackToMainMenu()

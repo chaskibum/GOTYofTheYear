@@ -17,6 +17,7 @@ namespace PlayerScripts
         [SerializeField] private Transform playerTarget;
         
         private Animator _animator;
+        private PlayerHealth _playerHealth;
 
         #region States
         public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, }
@@ -56,6 +57,7 @@ namespace PlayerScripts
         {
             _body = gameObject.GetComponent<Rigidbody2D>();
             _animator = gameObject.GetComponent<Animator>();
+            _playerHealth = GetComponent<PlayerHealth>();
 
             _hp = data.baseHp;
             
@@ -63,6 +65,8 @@ namespace PlayerScripts
             // GameManager.Instance.GetPlayerRespawn.AddListener(Respawn);
             _onPlayerHit.AddListener(GetHit);
             _onPlayerPossessed.AddListener(PlayerPossessed);
+            
+            transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
         }
 
         private void PlayerPossessed()
@@ -360,6 +364,7 @@ namespace PlayerScripts
         public void SetRespawnPosition(Vector3 newPosition)
         {
             _respawnPosition = newPosition;
+            SavePlayerStats();
         }
         
         public State GetState => _state;
@@ -369,6 +374,8 @@ namespace PlayerScripts
         public Vector3 GetPlayerPosition => transform.position;
         
         public Vector3 GetPlayerTarget => playerTarget.position;
+        
+        public int GetPlayerLives => PlayerPrefs.GetInt("Lives");
 
         public PlayerData GetPlayerData => data;
 
@@ -376,6 +383,19 @@ namespace PlayerScripts
         {
             _body.sharedMaterial = material;
         }
+
+        #region PlayerPrefs
+
+        public void SavePlayerStats()
+        {
+            PlayerPrefs.SetFloat("XPosition", _respawnPosition.x);
+            PlayerPrefs.SetFloat("YPosition", _respawnPosition.y);
+            
+            PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
+            PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
+        }
+
+        #endregion
 
         #region GetEvents
 

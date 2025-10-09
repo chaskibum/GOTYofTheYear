@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6806308929947319336}
+  - component: {fileID: 4015730205657032306}
   - component: {fileID: 6520025705749360739}
   - component: {fileID: 8916707518787453935}
   - component: {fileID: 64250473553342079}
@@ -39,6 +40,14 @@ Transform:
   - {fileID: 1047310037597039411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &4015730205657032306
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317187331235201566}
+  m_Enabled: 1
 --- !u!50 &6520025705749360739
 Rigidbody2D:
   serializedVersion: 5

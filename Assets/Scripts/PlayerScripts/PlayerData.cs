@@ -6,6 +6,7 @@ namespace PlayerScripts
     public class PlayerData : ScriptableObject
     {
         public int baseHp;
+        public int startingLives;
         public int baseLives;
         public float moveSpeed;
         public float jumpForce;

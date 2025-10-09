@@ -17,7 +17,7 @@ namespace PlayerScripts
             _data = _player.GetPlayerData;
             
             _hp = _data.baseHp;
-            _lives = _data.baseLives;
+            _lives = PlayerPrefs.GetInt("Lives");
             healthBar.SetMaxHealth(_hp);
             
             GameManager.Instance.GetHpAmountChanged?.AddListener(TakeDamage);
@@ -37,7 +37,9 @@ namespace PlayerScripts
         {
             _hp = _data.baseHp;
             healthBar.SetMaxHealth(_hp);
-            _lives = _data.baseLives;
+            _lives = _data.startingLives;
+            _data.baseLives = _data.startingLives;
+            GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
         }
 
         private void TakeDamage(int hp)
@@ -48,13 +50,20 @@ namespace PlayerScripts
             {
                 _lives -= 1;
                 GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
+                GameManager.Instance.GetPlayer.SavePlayerStats();
             }
         }
 
         private void AddExtraLife()
         {
             _lives += 1;
+            _data.baseLives += 1;
             GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
+            GameManager.Instance.GetPlayer.SavePlayerStats();
         }
+        
+        public int GetPlayerLives => _lives;
+        
+        public int GetPlayerBaseLives => _data.baseLives;
     }
 }

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   baseHp: 100
-  baseLives: 3
+  startingLives: 3
+  baseLives: 4
   moveSpeed: 6
   jumpForce: 10
   regularGravity: 2
@@ -23,5 +24,5 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpDuration: 0.5
-  attackSpeed: 0.4
-  immunityTime: 1
+  attackSpeed: 0.2
+  immunityTime: 0.8

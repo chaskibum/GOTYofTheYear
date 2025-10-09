@@ -6,12 +6,6 @@ namespace EnemiesScripts
     {
         [SerializeField] private GameObject attack;
         private float _rotation;
-
-        protected override void Update()
-        {
-            base.Update();
-            FlipAttackPosition();
-        }
         
         protected override void ChaseState()
         {
@@ -32,13 +26,6 @@ namespace EnemiesScripts
             if (!CanAttack) return;
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             base.Attack();
-        }
-        
-        private void FlipAttackPosition()
-        {
-            _rotation = Visuals.flipX ? 180 : 0;
-            
-            attack.transform.localRotation = Quaternion.Euler(0, 0, _rotation);
         }
     }
 }

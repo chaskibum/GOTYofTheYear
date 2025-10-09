@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource musicSource;
+
+    [SerializeField] private AudioSettings settings;
+
+    // [SerializeField] private GameObject mainMenuOptionsPanel;
     
     public enum AudioList
     {
@@ -71,6 +76,7 @@ public class AudioManager : MonoBehaviour
     {
         if (sfxSlider.value < -39f) audioMixer.SetFloat("SFXVolume", -60f);
         else audioMixer.SetFloat("SFXVolume", sfxSlider.value);
-        PlayClip(AudioList.PlayerAttack, true, 1f, false);
+
+        if (!settings.GetIsLoading) PlayClip(AudioList.PlayerAttack, true, 1f, false);
     }
 }
