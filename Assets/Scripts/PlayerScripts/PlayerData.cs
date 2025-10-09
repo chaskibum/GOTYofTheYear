@@ -26,5 +26,7 @@ namespace PlayerScripts
         [Header("Combat")] 
         public float attackSpeed = 1f;
         public float immunityTime = 1f;
+        public float shieldDuration = 3f;
+        public float shieldCooldown = 15f;
     }
 }

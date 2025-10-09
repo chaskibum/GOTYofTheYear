@@ -1,4 +1,6 @@
+using PlayerScripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,16 +9,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsButton;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Transform livesContainer;
+
+    [SerializeField] private GameObject cooldownBar;
+    private Slider _cooldownBarSlider;
     
     private bool _isPaused = false;
+
+    private PlayerController _player;
     
     private void Start()
     {
         GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
         GameManager.Instance.GetGameRestarted.AddListener(ResetUI);
         GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
+
+        _player = GameManager.Instance.GetPlayer;
+        _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
         
-        int lives = GameManager.Instance.GetPlayer.GetPlayerLives;
+        int lives = _player.GetPlayerLives;
 
         UpdateLife(lives);
     }
@@ -24,6 +34,8 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) HandlePause();
+
+        _cooldownBarSlider.value = _player.GetCooldown * -1;
     }
 
     private void ShowGameOverScreen()
@@ -40,7 +52,7 @@ public class UIManager : MonoBehaviour
         
         if (pauseMenuUI.activeInHierarchy) HandlePause();
         
-        int baseLives = GameManager.Instance.GetPlayer.GetPlayerData.baseLives;
+        int baseLives = _player.GetPlayerData.baseLives;
 
         UpdateLife(baseLives);
     }

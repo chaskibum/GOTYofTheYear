@@ -16,6 +16,7 @@ namespace PlayerScripts
         
         [SerializeField] private Transform playerTarget;
         [SerializeField] private PlayerVisuals visuals;
+        [SerializeField] private GameObject shieldVisuals;
         
         private Animator _animator;
         private PlayerHealth _playerHealth;
@@ -28,16 +29,21 @@ namespace PlayerScripts
         
         #endregion
         
+        [Header("Dash")]
+        [SerializeField] private bool _dashUnlocked;
+        private bool _canDash;
+        
         [Header("Jump")]
+        [SerializeField] private bool _doubleJumpUnlocked;
         private float _coyoteCounter;
         private float _lastJumpPressedTime;
         private float _jumpKeyTimePressed;
-        [SerializeField] private bool _doubleJumpUnlocked;
         private bool _canDoubleJump;
         
-        [Header("Dash")]
-        [SerializeField] private bool _canDash;
-        [SerializeField] private bool _dashUnlocked;
+        [Header("Immunity Skill")]
+        [SerializeField] private bool _immuneSkillUnlocked;
+        private float _cooldown = 0f;
+        
 
         [Header("Properties")] 
         private int _hp;
@@ -115,6 +121,8 @@ namespace PlayerScripts
             
             CheckIfGrounded();
             CheckJumpInput();
+            _cooldown -= Time.deltaTime;
+            CheckImmunitySkillInput();
             CheckDashInput();
             CheckMovementInput();
             CheckAttackInput();
@@ -193,6 +201,7 @@ namespace PlayerScripts
             }
         }
 
+
         private void Dash()
         {
             if (!_canDash) return;
@@ -200,7 +209,6 @@ namespace PlayerScripts
             float direction = visuals.GetPlayerVisuals.flipX ? -1 : 1;
             _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
             _canDash = false;
-            print(_canDash);
             SetState(State.Dash);
         }
 
@@ -215,6 +223,24 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             _body.gravityScale = data.regularGravity;
             SetState(_isOnFloor ? State.Idle : State.Jump);
+        }
+        
+        private void CheckImmunitySkillInput()
+        {
+            if (!_immuneSkillUnlocked) return;
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                ActivateImmunity();
+            }
+        }
+
+        private void ActivateImmunity()
+        {
+            if (_cooldown > 0f) return;
+            _isImmune = true;
+            shieldVisuals.gameObject.SetActive(true);
+            Invoke(nameof(EndImmunityTime), data.shieldDuration);
+            _cooldown = data.shieldCooldown;
         }
         
         private void Attack()
@@ -316,13 +342,14 @@ namespace PlayerScripts
         {
             // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
             _isImmune = true;
-            Invoke(nameof(StopImmunityTime), data.immunityTime);
+            Invoke(nameof(EndImmunityTime), data.immunityTime);
             SetState(State.Idle);
         }
 
-        private void StopImmunityTime()
+        private void EndImmunityTime()
         {
             _isImmune = false;
+            shieldVisuals.gameObject.SetActive(false);
         }
 
         private void GetHit(int damage)
@@ -367,6 +394,7 @@ namespace PlayerScripts
             _isImmune = false;
             _isPossessed = false;
             _inputCount = 0;
+            _cooldown = 0f;
             SetState(State.Idle);
         }
 
@@ -376,6 +404,9 @@ namespace PlayerScripts
             transform.position = _respawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
+            EndImmunityTime();
+            _cooldown = 0f;
+            CancelInvoke();
             SetState(State.Idle);
         }
         
@@ -408,12 +439,16 @@ namespace PlayerScripts
             // PA BORRAR DESPUÉS
             if (newState != State.Move) _animator.SetBool(Moving, false);
         }
-
-        // ¿PARA CAMBIAR DESPUÉS?
+        
         public void SetRespawnPosition(Vector3 newPosition)
         {
             _respawnPosition = newPosition;
             SavePlayerStats();
+        }
+        
+        public void SetPlayerMaterial(PhysicsMaterial2D material)
+        {
+            _body.sharedMaterial = material;
         }
         
         public State GetState => _state;
@@ -425,13 +460,11 @@ namespace PlayerScripts
         public Vector3 GetPlayerTarget => playerTarget.position;
         
         public int GetPlayerLives => PlayerPrefs.GetInt("Lives");
+        
+        public float GetCooldown => _cooldown;
 
         public PlayerData GetPlayerData => data;
 
-        public void SetPlayerMaterial(PhysicsMaterial2D material)
-        {
-            _body.sharedMaterial = material;
-        }
 
         #region PlayerPrefs
 

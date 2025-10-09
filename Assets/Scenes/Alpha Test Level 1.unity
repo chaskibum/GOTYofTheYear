@@ -3512,6 +3512,7 @@ MonoBehaviour:
   optionsButton: {fileID: 467593820}
   pauseMenuUI: {fileID: 2063295879}
   livesContainer: {fileID: 1761941459}
+  cooldownBar: {fileID: 788171521}
 --- !u!114 &298616934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9905,6 +9906,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &788171521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3124715332231526973, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+  m_PrefabInstance: {fileID: 2310478581433734602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &790008570
 GameObject:
   m_ObjectHideFlags: 0
@@ -161959,6 +161965,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerParent
       objectReference: {fileID: 0}
+    - target: {fileID: 349424286413617306, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 349424286413617306, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1017661918131739288, guid: 07ac53524c940c247ae4af9438654070, type: 3}
       propertyPath: m_SortingLayer
       value: 7
@@ -161975,6 +161989,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 2143479006}
+    - target: {fileID: 5750785005562550516, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750785005562550516, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6520025705749360739, guid: 07ac53524c940c247ae4af9438654070, type: 3}
       propertyPath: m_Interpolate
       value: 1
@@ -162029,6 +162051,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806308929947319336, guid: 07ac53524c940c247ae4af9438654070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650791070332166366, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650791070332166366, guid: 07ac53524c940c247ae4af9438654070, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
