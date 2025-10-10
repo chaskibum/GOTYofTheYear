@@ -17,8 +17,8 @@ MonoBehaviour:
   moveSpeed: 12
   attackAnimationTime: 0.1
   attackCooldown: 1
-  detectionRange: 6
+  detectionRange: 7
   attackRange: 1
   pushForce: 8
   pushTime: 0.5
-  stepAwayForce: -10
+  stepAwayForce: 8

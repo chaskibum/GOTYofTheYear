@@ -15,7 +15,7 @@ namespace EnemiesScripts
         protected State CurrentState = State.Idle;
         protected bool CanChangeState = true;
 
-        [Header("Properties")] 
+        [Header("Properties")]
         protected int Hp;
         protected Vector3 StartingPosition;
         protected Vector2 Direction;
