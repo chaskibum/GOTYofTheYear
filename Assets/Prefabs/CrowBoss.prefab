@@ -104,6 +104,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3508264049135946011}
   m_SourcePrefab: {fileID: 100100000, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+--- !u!1 &2819746096393968608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1207505907987047259, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+  m_PrefabInstance: {fileID: 4026266562781231291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5649223186259038459 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8756755338566658112, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
@@ -174,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 13b2c92bdbbb35b4ba9ecc9f23f19b89, type: 2}
   attackHitbox: {fileID: 5649223186259038459}
+  attackHurtbox: {fileID: 2819746096393968608}
   stateText: {fileID: 8059040020638351081}
   gameWonCollectable: {fileID: 0}
   waves:

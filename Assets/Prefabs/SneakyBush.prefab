@@ -283,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b7a2eb33f290d054583205468c7cd8ab, type: 2}
   attackHitbox: {fileID: 3855080162455854337}
+  attackHurtbox: {fileID: 1508472435974918507}
   stateText: {fileID: 2879435305635914274}
 --- !u!1 &3855080162455854337
 GameObject:

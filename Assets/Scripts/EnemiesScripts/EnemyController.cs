@@ -9,6 +9,7 @@ namespace EnemiesScripts
     {
         [SerializeField] protected EnemyData data;
         [SerializeField] protected GameObject attackHitbox;
+        [SerializeField] protected GameObject attackHurtbox;
         [SerializeField] protected TMP_Text stateText;
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
@@ -69,6 +70,7 @@ namespace EnemiesScripts
             CanAttack = true;
             Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
+            attackHurtbox.SetActive(true);
             gameObject.SetActive(true);
             
             var color = Visuals.color;
@@ -151,6 +153,7 @@ namespace EnemiesScripts
         protected virtual void DieState()
         {
             attackHitbox.SetActive(false);
+            attackHurtbox.SetActive(false);
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             StartCoroutine(nameof(Disappear));
         }

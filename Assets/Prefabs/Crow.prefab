@@ -555,6 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
   attackHitbox: {fileID: 8756755338566658112}
+  attackHurtbox: {fileID: 1207505907987047259}
   stateText: {fileID: 6356648528669148754}
 --- !u!1 &8339383124014994451
 GameObject:
@@ -774,4 +775,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
+  enemy: {fileID: 0}
   visuals: {fileID: 7762624340419800210}
