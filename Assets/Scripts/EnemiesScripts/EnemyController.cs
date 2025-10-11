@@ -71,7 +71,6 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             gameObject.SetActive(true);
             
-            // PARA BORRAR DESPUÉS (se va a hacer mediante animaciones)
             var color = Visuals.color;
             color.a = 1;
             Visuals.color = color;

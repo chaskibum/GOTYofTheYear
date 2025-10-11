@@ -16,12 +16,23 @@ namespace EnemiesScripts
             
             UpdateState();
         }
-        
+
+        protected override void IdleState()
+        {
+            Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
+            if (!CanChangeState) return;
+
+            if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange)
+                SetState(State.Chase);
+        }
+
         protected override void ResetEnemy()
         {
             base.ResetEnemy();
             attackHitbox.SetActive(true);
             _forceAdded = false;
+            StopAllCoroutines();
+            Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
         }
         
         protected override void GetPlayerPosition()

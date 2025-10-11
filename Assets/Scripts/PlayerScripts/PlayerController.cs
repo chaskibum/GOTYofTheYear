@@ -48,6 +48,7 @@ namespace PlayerScripts
         [Header("Properties")] 
         private int _hp;
         private Vector3 _respawnPosition;
+        private Vector3 _mainRespawnPosition;
         
         // PA BORRAR DESPUÉS
         private bool _isImmune;
@@ -65,6 +66,7 @@ namespace PlayerScripts
         private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
         private readonly UnityEvent _onPlayerPossessed = new UnityEvent();
         private readonly UnityEvent _onPlayerExorcised = new UnityEvent();
+        private readonly UnityEvent _onPlayerRevived = new UnityEvent();
         
         private void Start()
         {
@@ -74,10 +76,11 @@ namespace PlayerScripts
 
             _hp = data.baseHp;
             
-            GameManager.Instance.GetGameRestarted.AddListener(Restart);
+            GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
             // GameManager.Instance.GetPlayerRespawn.AddListener(Respawn);
             _onPlayerHit.AddListener(GetHit);
             _onPlayerPossessed.AddListener(PlayerPossessed);
+            _onPlayerRevived.AddListener(Revive);
             
             transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
         }
@@ -398,10 +401,22 @@ namespace PlayerScripts
             SetState(State.Idle);
         }
 
-        private void Restart()
+        private void RestartGame()
         {
             SetRespawnPosition(Vector3.zero);
             transform.position = _respawnPosition;
+            _hp = data.baseHp;
+            _body.linearVelocity = new Vector2(0, 0);
+            EndImmunityTime();
+            _cooldown = 0f;
+            CancelInvoke();
+            SetState(State.Idle);
+        }
+
+        private void Revive()
+        {
+            // SetRespawnPosition(new Vector3(PlayerPrefs.GetFloat("MainXPosition"), PlayerPrefs.GetFloat("MainYPosition"), 0f));
+            transform.position = _mainRespawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
             EndImmunityTime();
@@ -445,6 +460,12 @@ namespace PlayerScripts
             _respawnPosition = newPosition;
             SavePlayerStats();
         }
+
+        public void SetMainRespawnPosition(Vector3 newPosition)
+        {
+            _mainRespawnPosition = newPosition;
+            SavePlayerStats();
+        }
         
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
@@ -473,6 +494,10 @@ namespace PlayerScripts
             PlayerPrefs.SetFloat("XPosition", _respawnPosition.x);
             PlayerPrefs.SetFloat("YPosition", _respawnPosition.y);
             
+            // Guardamos la posicion del respawn de inicio del nivel.
+            PlayerPrefs.SetFloat("MainXPosition", _mainRespawnPosition.x);
+            PlayerPrefs.SetFloat("MainYPosition", _mainRespawnPosition.y);
+            
             PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
             PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
         }
@@ -486,6 +511,8 @@ namespace PlayerScripts
         public UnityEvent GetPlayerPossessedEvent => _onPlayerPossessed;
         
         public UnityEvent GetPlayerExorcisedEvent => _onPlayerExorcised;
+        
+        public UnityEvent GetPlayerRevived => _onPlayerRevived;
 
         #endregion
 

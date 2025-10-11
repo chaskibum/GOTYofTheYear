@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
         _onGameRestart?.Invoke();
     }
 
+    public void RevivePlayer()
+    {
+        GetPlayer.GetPlayerRevived?.Invoke();
+        RestartGameEvent();
+    }
+
     private void RestartGameEvent()
     {
         Time.timeScale = 1;

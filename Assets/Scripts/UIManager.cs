@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
 
         _player = GameManager.Instance.GetPlayer;
+        _player.GetPlayerRevived?.AddListener(ResetUI);
         _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
         
         int lives = _player.GetPlayerLives;
