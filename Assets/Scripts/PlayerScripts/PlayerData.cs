@@ -9,11 +9,8 @@ namespace PlayerScripts
         public int startingLives;
         public int baseLives;
         public float moveSpeed;
-        public float dashSpeed;
-        public float dashDuration;
         public float regularGravity;
         public float fallGravity;
-        public float dashGravity;
         public float pushForce;
         public float deathAnimationTime;
         
@@ -22,6 +19,12 @@ namespace PlayerScripts
         public float coyoteTime = 1f;
         public float jumpBufferTime = 0.1f;
         public float jumpDuration = 1f;
+        
+        [Header("Dash")]
+        public float dashSpeed;
+        public float dashDuration;
+        public float dashGravity;
+        
 
         [Header("Combat")] 
         public float attackSpeed = 1f;

@@ -77,6 +77,14 @@ namespace PlayerScripts
             _hp = data.baseHp;
             
             GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
+            
+            // Skills
+            GameManager.Instance.GetDashUnlocked.AddListener(UnlockDash);
+            if (PlayerPrefs.GetString("DashUnlocked") == "Dash") UnlockDash();
+            GameManager.Instance.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
+            if (PlayerPrefs.GetString("DoubleJumpUnlocked") == "DoubleJump") UnlockDoubleJump();
+            GameManager.Instance.GetImmunityUnlocked.AddListener(UnlockImmunity);
+            if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") UnlockImmunity();
             // GameManager.Instance.GetPlayerRespawn.AddListener(Respawn);
             _onPlayerHit.AddListener(GetHit);
             _onPlayerPossessed.AddListener(PlayerPossessed);
@@ -160,6 +168,11 @@ namespace PlayerScripts
                 Debug.DrawRay(_body.transform.position, Vector2.down * 0.1f, Color.green);
             }
         }
+
+        private void UnlockDoubleJump()
+        {
+            _doubleJumpUnlocked = true;
+        }
         
         private void CheckJumpInput()
         {
@@ -196,6 +209,11 @@ namespace PlayerScripts
             }
         }
 
+        private void UnlockDash()
+        {
+            _dashUnlocked = true;
+        }
+
         private void CheckDashInput()
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -226,6 +244,11 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             _body.gravityScale = data.regularGravity;
             SetState(_isOnFloor ? State.Idle : State.Jump);
+        }
+
+        private void UnlockImmunity()
+        {
+            _immuneSkillUnlocked = true;
         }
         
         private void CheckImmunitySkillInput()
@@ -411,6 +434,11 @@ namespace PlayerScripts
             _cooldown = 0f;
             CancelInvoke();
             SetState(State.Idle);
+            _dashUnlocked = false;
+            _canDash = false;
+            _doubleJumpUnlocked = false;
+            _canDoubleJump = false;
+            _immuneSkillUnlocked = false;
         }
 
         private void Revive()

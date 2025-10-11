@@ -22,7 +22,9 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
         GameManager.Instance.GetGameRestarted.AddListener(ResetUI);
         GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
-
+        GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
+        if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
+        
         _player = GameManager.Instance.GetPlayer;
         _player.GetPlayerRevived?.AddListener(ResetUI);
         _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
@@ -45,11 +47,17 @@ public class UIManager : MonoBehaviour
         optionsButton.SetActive(false);
     }
 
+    private void ShowCooldown()
+    {
+        cooldownBar.SetActive(true);
+    }
+
     private void ResetUI()
     {
         gameOverPanel.SetActive(false);
         restartButton.SetActive(false);
         optionsButton.SetActive(true);
+        cooldownBar.SetActive(false);
         
         if (pauseMenuUI.activeInHierarchy) HandlePause();
         
