@@ -101,6 +101,10 @@ namespace EnemiesScripts
         protected virtual void ChaseState()
         {
             Visuals.flipX = !PlayerToTheRight;
+
+            var rotation = transform.rotation;
+            rotation.eulerAngles = new Vector3(0, 0, !PlayerToTheRight ? 10 : -10);
+            Visuals.transform.rotation = Quaternion.Lerp(Visuals.transform.rotation, rotation, 3f * Time.deltaTime);
             
             Vector3 newPosition = Vector3.MoveTowards(
                 Body.position,

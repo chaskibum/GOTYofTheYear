@@ -32,6 +32,8 @@ namespace EnemiesScripts
             attackHitbox.SetActive(true);
             _forceAdded = false;
             StopAllCoroutines();
+            _flying = false;
+            CanChangeState = true;
             Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
         }
         
