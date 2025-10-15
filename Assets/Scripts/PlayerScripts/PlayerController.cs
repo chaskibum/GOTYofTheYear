@@ -265,6 +265,7 @@ namespace PlayerScripts
             if (_cooldown > 0f) return;
             _isImmune = true;
             shieldVisuals.gameObject.SetActive(true);
+            CancelInvoke(nameof(EndImmunityTime));
             Invoke(nameof(EndImmunityTime), data.shieldDuration);
             _cooldown = data.shieldCooldown;
         }
@@ -367,6 +368,7 @@ namespace PlayerScripts
         private void GetHitState()
         {
             // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            print("IM IN GETHITSTATE");
             _isImmune = true;
             Invoke(nameof(EndImmunityTime), data.immunityTime);
             SetState(State.Idle);
@@ -388,6 +390,7 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             // Hace que el jugador pegue un saltito como feedback a recibir daño
             _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
             
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
