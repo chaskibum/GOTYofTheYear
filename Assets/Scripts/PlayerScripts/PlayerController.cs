@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,6 +50,7 @@ namespace PlayerScripts
         private int _hp;
         private Vector3 _respawnPosition;
         private Vector3 _mainRespawnPosition;
+        private bool _canChangeState;
         
         // PA BORRAR DESPUÉS
         private bool _isImmune;
@@ -157,6 +159,7 @@ namespace PlayerScripts
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
+                if (_doubleJumpUnlocked) _canDoubleJump = true;
             }
             else // Si el raycast no toca el suelo...
             {
@@ -287,7 +290,6 @@ namespace PlayerScripts
         
         private void IdleState()
         {
-            if (_doubleJumpUnlocked) _canDoubleJump = true;
             if (_dashUnlocked) _canDash = true;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
@@ -368,6 +370,8 @@ namespace PlayerScripts
         private void GetHitState()
         {
             // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
             print("IM IN GETHITSTATE");
             _isImmune = true;
             Invoke(nameof(EndImmunityTime), data.immunityTime);
@@ -389,8 +393,8 @@ namespace PlayerScripts
             // Frena el impulso en Y del player (por si venia de un salto)
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             // Hace que el jugador pegue un saltito como feedback a recibir daño
-            _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
-            _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
+            // _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
+            // _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
             
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
@@ -484,6 +488,13 @@ namespace PlayerScripts
             _state = newState;
             // PA BORRAR DESPUÉS
             if (newState != State.Move) _animator.SetBool(Moving, false);
+        }
+        
+        private IEnumerator LockStateForSeconds(float duration)
+        {
+            _canChangeState = false;
+            yield return new WaitForSeconds(duration);
+            _canChangeState = true;
         }
         
         public void SetRespawnPosition(Vector3 newPosition)
