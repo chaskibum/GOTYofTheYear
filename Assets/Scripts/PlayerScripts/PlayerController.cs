@@ -395,7 +395,7 @@ namespace PlayerScripts
             
             // Reproducir animacion al ser golpeado
             float direction = visuals.GetPlayerVisuals.flipX ? 1 : -1;
-            _body.linearVelocityX = direction * data.pushForce;
+            _body.linearVelocityX = direction * data.pushForce / 2;
             _body.linearVelocityY = data.pushForce;
             
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
@@ -456,6 +456,7 @@ namespace PlayerScripts
             transform.position = _mainRespawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
+            _body.gravityScale = data.regularGravity;
             EndImmunityTime();
             _cooldown = 0f;
             CancelInvoke();
