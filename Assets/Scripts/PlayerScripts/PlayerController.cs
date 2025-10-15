@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,7 +51,7 @@ namespace PlayerScripts
         private int _hp;
         private Vector3 _respawnPosition;
         private Vector3 _mainRespawnPosition;
-        private bool _canChangeState;
+        private bool _canChangeState = true;
         
         // PA BORRAR DESPUÉS
         private bool _isImmune;
@@ -130,11 +131,12 @@ namespace PlayerScripts
         
         private void Update()
         {
-            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f) return;
-            
-            CheckIfGrounded();
-            CheckJumpInput();
             _cooldown -= Time.deltaTime;
+            CheckIfGrounded();
+            
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
+            
+            CheckJumpInput();
             CheckImmunitySkillInput();
             CheckDashInput();
             CheckMovementInput();
@@ -231,7 +233,8 @@ namespace PlayerScripts
             if (!_canDash) return;
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetPlayerVisuals.flipX ? -1 : 1;
-            _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
+            // _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
+            _body.linearVelocityX = direction * data.dashSpeed;
             _canDash = false;
             SetState(State.Dash);
         }
@@ -369,10 +372,7 @@ namespace PlayerScripts
         // PARA BORRAR DESPUÉS (ALGO)
         private void GetHitState()
         {
-            // _rigidbody2D.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
-            _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
-            _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
-            print("IM IN GETHITSTATE");
+            StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
             _isImmune = true;
             Invoke(nameof(EndImmunityTime), data.immunityTime);
             SetState(State.Idle);
@@ -390,11 +390,13 @@ namespace PlayerScripts
             
             _hp -= damage;
             
-            // Frena el impulso en Y del player (por si venia de un salto)
-            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
-            // Hace que el jugador pegue un saltito como feedback a recibir daño
-            // _body.AddForce(Vector2.up * data.pushForce, ForceMode2D.Impulse);
-            // _body.AddForce(Vector2.left * data.pushForce, ForceMode2D.Impulse);
+            // Frena el impulso del player (por si venia de un salto o dash)
+            _body.linearVelocity = Vector2.zero;
+            
+            // Reproducir animacion al ser golpeado
+            float direction = visuals.GetPlayerVisuals.flipX ? 1 : -1;
+            _body.linearVelocityX = direction * data.pushForce;
+            _body.linearVelocityY = data.pushForce;
             
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
@@ -457,6 +459,7 @@ namespace PlayerScripts
             EndImmunityTime();
             _cooldown = 0f;
             CancelInvoke();
+            StopCoroutine(LockStateForSeconds(data.deathAnimationTime));
             SetState(State.Idle);
         }
         
