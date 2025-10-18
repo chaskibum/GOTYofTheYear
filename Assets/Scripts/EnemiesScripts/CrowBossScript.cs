@@ -80,5 +80,12 @@ namespace EnemiesScripts
                     Destroy(wave);
             }
         }
+
+        protected override IEnumerator EndFeedback()
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            Visuals.color = new Color(0.5f, 1, 0.5f);
+            Time.timeScale = 1;
+        }
     }
 }

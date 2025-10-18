@@ -122,7 +122,7 @@ namespace EnemiesScripts
                 SetState(State.Attack);
         }
         
-        protected virtual void AttackState()
+        private void AttackState()
         {
             // Si el tiempo de la animación de ataque termino, desactivamos la hitbox
             AttackTimer -= Time.deltaTime;
@@ -197,7 +197,7 @@ namespace EnemiesScripts
             StartCoroutine(nameof(EndFeedback));
         }
 
-        private IEnumerator EndFeedback()
+        protected virtual IEnumerator EndFeedback()
         {
             yield return new WaitForSecondsRealtime(0.05f);
             Visuals.color = Color.white;

@@ -56,13 +56,16 @@ namespace PlayerScripts
         private void TakeDamage(int hp)
         {
             healthBar.SetHealth(hp);
-            PlayHitFeedback();
 
             if (hp <= 0)
             {
                 _lives -= 1;
                 GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
                 GameManager.Instance.GetPlayer.SavePlayerStats();
+            }
+            else
+            {
+                PlayHitFeedback();
             }
         }
         
