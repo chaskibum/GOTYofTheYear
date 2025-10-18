@@ -10,7 +10,7 @@ namespace EnemiesScripts
         protected bool BossSlain;
         protected float ChaseTimer;
 
-        [SerializeField] private GameObject gameWonCollectable;
+        [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private List<GameObject> waves;
         private Coroutine _waveCoroutine;
 
@@ -75,7 +75,7 @@ namespace EnemiesScripts
             if (Hp <= 0)
             {
                 BossSlain = true;
-                gameWonCollectable.SetActive(true);
+                unlockableSkill.SetActive(true);
                 foreach (GameObject wave in waves)
                     Destroy(wave);
             }
