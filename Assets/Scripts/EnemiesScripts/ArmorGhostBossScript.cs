@@ -24,6 +24,7 @@ namespace EnemiesScripts
         protected override void Attack()
         {
             if (!CanAttack) return;
+            Body.linearVelocityX = 0f;
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             base.Attack();
         }
@@ -35,5 +36,4 @@ namespace EnemiesScripts
             Time.timeScale = 1;
         }
     }
-    
 }

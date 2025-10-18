@@ -192,7 +192,7 @@ namespace EnemiesScripts
 
         private void PlayHitFeedback()
         {
-            Visuals.color = Color.black;
+            Visuals.color = new Color(1000, 1000, 1000);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
         }
