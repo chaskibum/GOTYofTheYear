@@ -233,7 +233,7 @@ namespace PlayerScripts
         {
             if (!_canDash) return;
             _body.linearVelocity = Vector2.zero;
-            float direction = visuals.GetPlayerVisuals.flipX ? -1 : 1;
+            float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
             // _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
             _body.linearVelocityX = direction * data.dashSpeed;
             _canDash = false;
@@ -395,7 +395,7 @@ namespace PlayerScripts
             _body.linearVelocity = Vector2.zero;
             
             // Reproducir animacion al ser golpeado
-            float direction = visuals.GetPlayerVisuals.flipX ? 1 : -1;
+            float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
             _body.linearVelocityX = direction * data.pushForce / 2;
             _body.linearVelocityY = data.pushForce;
             
@@ -450,6 +450,12 @@ namespace PlayerScripts
             _doubleJumpUnlocked = false;
             _canDoubleJump = false;
             _immuneSkillUnlocked = false;
+        }
+
+        public void Heal()
+        {
+            _hp = data.baseHp;
+            _playerHealth.healthBar.SetHealth(_hp);
         }
 
         private void Revive()
@@ -533,6 +539,8 @@ namespace PlayerScripts
         public float GetCooldown => _cooldown;
 
         public PlayerData GetPlayerData => data;
+
+        public PlayerVisuals GetPlayerVisuals => visuals;
 
 
         #region PlayerPrefs

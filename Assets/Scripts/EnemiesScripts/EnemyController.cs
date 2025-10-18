@@ -182,11 +182,26 @@ namespace EnemiesScripts
         {
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
             
-            // if (AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack)) return;
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
+
+            PlayHitFeedback();
             
             Hp -= 1;
             SetState(Hp <= 0 ? State.Die : State.GetHit);
+        }
+
+        private void PlayHitFeedback()
+        {
+            Visuals.color = Color.black;
+            Time.timeScale = 0;
+            StartCoroutine(nameof(EndFeedback));
+        }
+
+        private IEnumerator EndFeedback()
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            Visuals.color = Color.white;
+            Time.timeScale = 1;
         }
         
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -5,8 +6,9 @@ namespace PlayerScripts
     public class PlayerHealth : MonoBehaviour
     {
         private PlayerController _player;
+        [SerializeField] private SpriteRenderer visuals;
         private PlayerData _data;
-        [SerializeField] private HealthBar healthBar;
+        public HealthBar healthBar;
         
         private int _hp;
         private int _lives;
@@ -54,6 +56,7 @@ namespace PlayerScripts
         private void TakeDamage(int hp)
         {
             healthBar.SetHealth(hp);
+            PlayHitFeedback();
 
             if (hp <= 0)
             {
@@ -61,6 +64,20 @@ namespace PlayerScripts
                 GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
                 GameManager.Instance.GetPlayer.SavePlayerStats();
             }
+        }
+        
+        private void PlayHitFeedback()
+        {
+            visuals.color = Color.black;
+            Time.timeScale = 0;
+            StartCoroutine(nameof(EndFeedback));
+        }
+
+        private IEnumerator EndFeedback()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            visuals.color = Color.white;
+            Time.timeScale = 1;
         }
 
         private void AddExtraLife()

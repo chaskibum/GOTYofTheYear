@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4489ef966a7f7f14f9d37c2927fe19de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScripts.PlayerHealth
+  visuals: {fileID: 1017661918131739288}
   healthBar: {fileID: 8610993357090000527, guid: 1a7e45cc9b479394797ef8728aa8b3a2, type: 3}
 --- !u!95 &2376433283659886037
 Animator:

@@ -36,6 +36,6 @@ namespace PlayerScripts
             }
         }
         
-        public SpriteRenderer GetPlayerVisuals => _spriteRenderer;
+        public SpriteRenderer GetSpriteRenderer => _spriteRenderer;
     }
 }
