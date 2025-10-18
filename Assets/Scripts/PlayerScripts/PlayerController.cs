@@ -161,6 +161,7 @@ namespace PlayerScripts
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
+                if (_dashUnlocked) _canDash = true;
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
             }
             else // Si el raycast no toca el suelo...
@@ -247,8 +248,8 @@ namespace PlayerScripts
 
         private void EndDash()
         {
-            _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             _body.gravityScale = data.regularGravity;
+            _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             SetState(_isOnFloor ? State.Idle : State.Jump);
         }
 
@@ -293,7 +294,6 @@ namespace PlayerScripts
         
         private void IdleState()
         {
-            if (_dashUnlocked) _canDash = true;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             // Here we play the Idle animation
@@ -374,6 +374,7 @@ namespace PlayerScripts
         {
             StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
             _isImmune = true;
+            CancelInvoke(nameof(EndDash));
             Invoke(nameof(EndImmunityTime), data.immunityTime);
             SetState(State.Idle);
         }
@@ -409,6 +410,7 @@ namespace PlayerScripts
             else
             {
                 SetState(State.GetHit);
+                _body.gravityScale = data.regularGravity;
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
             }
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -60,6 +61,9 @@ namespace EnemiesScripts
             {
                 SetState(State.Attack);
             }
+
+            var actualDistance = Vector3.Distance(Body.position, PlayerPos);
+            StartCoroutine(CheckIfStuck(actualDistance));
             
             _flying = true;
             Visuals.transform.eulerAngles += new Vector3(0, 0, 1000) * Time.deltaTime;
@@ -73,6 +77,17 @@ namespace EnemiesScripts
             _flying = false;
             _forceAdded = false;
             attackHitbox.SetActive(true);
+        }
+
+        private IEnumerator CheckIfStuck(float distance)
+        {
+            yield return new WaitForSeconds(1);
+            if (distance == Vector3.Distance(Body.position, PlayerPos))
+            {
+                print("bugeao");
+                EndAttack();
+                StartCoroutine(LockStateForSeconds(1));
+            }
         }
     }
 }
