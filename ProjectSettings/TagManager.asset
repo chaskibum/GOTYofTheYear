@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MovingPlatform
   - Ghost
+  - Crow
+  - FlyingObject
   layers:
   - Default
   - TransparentFX
@@ -78,6 +80,9 @@ TagManager:
     locked: 0
   - name: BORRAR
     uniqueID: 2111663271
+    locked: 0
+  - name: Menu
+    uniqueID: 84044903
     locked: 0
   m_RenderingLayers:
   - Default
