@@ -7,23 +7,32 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float followSpeed = 2f;
     [SerializeField] private Transform target;
     [SerializeField] private float yOffset = 3f;
-    [SerializeField] private GameObject limits;
+    [SerializeField] private Collider2D limits;
     
     private Camera _camera;
     private Mouse _mouse;
 
-    private void Start()
+    private float _boundHeight;
+    private float _boundWidth;
+
+
+    private void Awake()
     {
         _camera = Camera.main;
         _mouse = Mouse.current;
+    }
+
+    private void Start()
+    {
+        _boundHeight = _camera.orthographicSize;
+        _boundWidth = _boundHeight * _camera.aspect;
     }
 
     private void LateUpdate()
     {
         if (!target)
         {
-            MoveBasedOnMousePosition();
-            CheckLimits();
+            CheckLimitsAndMoveBasedOnMousePosition();
         }
         else
         {
@@ -34,16 +43,23 @@ public class CameraFollow : MonoBehaviour
         MoveCamera();
     }
 
-    private void MoveBasedOnMousePosition()
+    private void CheckLimitsAndMoveBasedOnMousePosition()
     {
         Vector3 newTarget = new Vector3(_mouse.position.ReadValue().x, _mouse.position.ReadValue().y, -10f);
         Vector3 worldPosition = _camera.ScreenToWorldPoint(newTarget);
-        transform.position = Vector3.Lerp(transform.position, worldPosition, followSpeed * Time.deltaTime);
-    }
-
-    private void CheckLimits()
-    {
         
+        Bounds bounds = limits.bounds;
+        
+        var minX = bounds.min.x + _boundWidth;
+        var maxX = bounds.max.x - _boundWidth;
+                
+        var minY = bounds.min.y + _boundHeight;
+        var maxY = bounds.max.y - _boundHeight;
+        
+        worldPosition.x = Mathf.Clamp(worldPosition.x, minX, maxX);
+        worldPosition.y = Mathf.Clamp(worldPosition.y, minY, maxY);
+        
+        transform.position = Vector3.Lerp(transform.position, worldPosition, followSpeed * Time.deltaTime);
     }
 
     private void MoveCamera()
