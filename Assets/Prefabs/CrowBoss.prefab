@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_Color.g
+      value: 0.98823535
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3529412
+      objectReference: {fileID: 0}
     - target: {fileID: 4167647778853895782, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: enemy
       value: 
@@ -181,7 +193,7 @@ MonoBehaviour:
   attackHitbox: {fileID: 5649223186259038459}
   attackHurtbox: {fileID: 2819746096393968608}
   stateText: {fileID: 8059040020638351081}
-  gameWonCollectable: {fileID: 0}
+  unlockableSkill: {fileID: 0}
   waves:
   - {fileID: 0}
   - {fileID: 0}
