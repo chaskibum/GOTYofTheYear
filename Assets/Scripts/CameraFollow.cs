@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +46,7 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 newTarget = new Vector3(_mouse.position.ReadValue().x, _mouse.position.ReadValue().y, -10f);
         Vector3 worldPosition = _camera.ScreenToWorldPoint(newTarget);
+        worldPosition.z = -10;
         
         Bounds bounds = limits.bounds;
         
