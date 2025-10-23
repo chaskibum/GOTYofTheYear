@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -71,7 +70,6 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            print(Hp);
             if (Hp <= 0)
             {
                 BossSlain = true;

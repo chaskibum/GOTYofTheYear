@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
-        GameManager.Instance.GetGameRestarted.AddListener(ResetUI);
+        GameManager.Instance.GetGameRestarted.AddListener(RestartUI);
         GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
         GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
         GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
@@ -60,6 +60,20 @@ public class UIManager : MonoBehaviour
         optionsButton.SetActive(true);
         if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
         else cooldownBar.SetActive(false);
+        
+        if (pauseMenuUI.activeInHierarchy) HandlePause();
+        
+        int baseLives = _player.GetPlayerData.baseLives;
+
+        UpdateLife(baseLives);
+    }
+
+    private void RestartUI()
+    {
+        gameOverPanel.SetActive(false);
+        restartButton.SetActive(false);
+        optionsButton.SetActive(true);
+        cooldownBar.SetActive(false);
         
         if (pauseMenuUI.activeInHierarchy) HandlePause();
         

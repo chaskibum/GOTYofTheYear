@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 383657994750316925, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8.137501
+      objectReference: {fileID: 0}
+    - target: {fileID: 383657994750316925, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.163746
+      objectReference: {fileID: 0}
+    - target: {fileID: 383657994750316925, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1179359216135549239, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_Color.b
       value: 0.5411765
@@ -19,6 +31,10 @@ PrefabInstance:
     - target: {fileID: 1466979379084223959, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_Name
       value: ArmorGhostBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262942600924391178, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5997820974161958851, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: enemy
@@ -106,7 +122,9 @@ MonoBehaviour:
   attackHitbox: {fileID: 3318388256216294041}
   attackHurtbox: {fileID: 4872384699356951247}
   stateText: {fileID: 2988538908866731646}
+  unlockableSkill: {fileID: 0}
   attack: {fileID: 3891411048349249427}
+  enemies: []
 --- !u!114 &2988538908866731646 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3043423746521078765, guid: a28910142082b1d479b1221a8d9be548, type: 3}

@@ -5479,6 +5479,7 @@ MonoBehaviour:
   attackHitbox: {fileID: 8756755338566658112}
   attackHurtbox: {fileID: 1207505907987047259}
   stateText: {fileID: 6356648528669148754}
+  crowLight: {fileID: 3855294013440335192}
 --- !u!1 &8339383124014994451
 GameObject:
   m_ObjectHideFlags: 0

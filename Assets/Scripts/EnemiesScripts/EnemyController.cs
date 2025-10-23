@@ -46,6 +46,7 @@ namespace EnemiesScripts
             Player = GameManager.Instance.GetPlayer;
             
             GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
             GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
         }
         
@@ -180,6 +181,9 @@ namespace EnemiesScripts
         
         public virtual void GetHit()
         {
+            // PARA BORRAR DESPUÉS
+            EndAttack();
+            
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
             
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
@@ -215,6 +219,7 @@ namespace EnemiesScripts
                 yield return new WaitForSeconds(0.05f);
             }
 
+            yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);
         }
         

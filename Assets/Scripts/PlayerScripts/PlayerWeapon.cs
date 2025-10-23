@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -6,18 +7,19 @@ namespace PlayerScripts
     {
         public bool isAttacking;
         private int _rotation;
+        private PlayerController _player;
         
         [SerializeField] private PlayerVisuals playerVisuals;
-        
-        
-        private void Update()
+
+
+        private void Start()
         {
-            FlipAttackPosition();
+            _player = GameManager.Instance.GetPlayer;
         }
         
-        private void FlipAttackPosition()
+        public void FlipAttackPosition()
         {
-            if (isAttacking) return;
+            // if (_player.GetIsAttacking) return;
 
             _rotation = playerVisuals.facingRight ? 0 : 180;
 

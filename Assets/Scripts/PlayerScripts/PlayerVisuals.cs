@@ -24,6 +24,9 @@ namespace PlayerScripts
         private void HandleFlipPlayer()
         {
             float moveInput = _playerController.GetMovementInput;
+
+            if (_playerController.GetIsAttacking) return;
+            
             if (moveInput > 0f)
             {
                 _spriteRenderer.flipX = false;

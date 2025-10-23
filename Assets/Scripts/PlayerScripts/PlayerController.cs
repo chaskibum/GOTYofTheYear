@@ -56,6 +56,8 @@ namespace PlayerScripts
         // PA BORRAR DESPUÉS
         private bool _isImmune;
         private bool _isAttacking;
+        private float _attackCooldown;
+        private PlayerWeapon _weapon;
         
         private Rigidbody2D _body;
 
@@ -76,8 +78,10 @@ namespace PlayerScripts
             _body = gameObject.GetComponent<Rigidbody2D>();
             _animator = gameObject.GetComponent<Animator>();
             _playerHealth = GetComponent<PlayerHealth>();
+            _weapon = playerWeapon.GetComponent<PlayerWeapon>();
 
             _hp = data.baseHp;
+            _attackCooldown = data.attackCooldown;
             
             GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
             
@@ -113,7 +117,7 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
             //print(_inputCount);
-            if (_inputCount >= 30) Exorcised();
+            if (_inputCount >= 20) Exorcised();
         }
 
         private float GetRandomDirection()
@@ -132,6 +136,7 @@ namespace PlayerScripts
         private void Update()
         {
             _cooldown -= Time.deltaTime;
+            _attackCooldown -= Time.deltaTime;
             CheckIfGrounded();
             
             if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
@@ -208,7 +213,7 @@ namespace PlayerScripts
 
         private void CheckAttackInput()
         {
-            if (Input.GetKeyDown(KeyCode.H) && !_isPossessed)
+            if (Input.GetKeyDown(KeyCode.H) && !_isPossessed && _attackCooldown <= 0)
             {
                 Attack();
                 SetState(State.Attack);
@@ -279,10 +284,13 @@ namespace PlayerScripts
         
         private void Attack()
         {
+            // _body.linearVelocity /= 2f;
             playerWeapon.SetActive(true);
             if (_isAttacking) return;
             _isAttacking = true;
             Invoke(nameof(EndAttack), data.attackSpeed);
+            _attackCooldown = data.attackCooldown;
+            _weapon.FlipAttackPosition();
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
         }
         
@@ -365,6 +373,7 @@ namespace PlayerScripts
         
         private void AttackState()
         {
+            // _body.linearVelocityX -= 2f;
             Move();
             if (!_isAttacking) SetState(State.Idle);
         }
@@ -537,6 +546,8 @@ namespace PlayerScripts
         public int GetPlayerLives => PlayerPrefs.GetInt("Lives");
         
         public float GetCooldown => _cooldown;
+
+        public bool GetIsAttacking => _isAttacking;
 
         public PlayerData GetPlayerData => data;
 
