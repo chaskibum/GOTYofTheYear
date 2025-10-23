@@ -459,6 +459,7 @@ namespace PlayerScripts
             _doubleJumpUnlocked = false;
             _canDoubleJump = false;
             _immuneSkillUnlocked = false;
+            EndAttack();
         }
 
         public void Heal()
