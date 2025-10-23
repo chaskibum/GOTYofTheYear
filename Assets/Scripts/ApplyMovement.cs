@@ -41,12 +41,17 @@ public class ApplyMovement : MonoBehaviour
                 speed * Time.deltaTime);
             _body.MovePosition(newPosition);
 
+            
             if (Vector2.Distance(_body.position, positions[_targetIndex].position) < 0.01f)
             {
-                // Guardamos la x de la posicion actual
-                float currentIndexX = positions[_targetIndex].position.x;
-                _targetIndex = (_targetIndex + 1) % positions.Count;
-                _sprite.flipX = positions[_targetIndex].position.x < currentIndexX;
+                if (positions.Count == 1) Destroy(this);
+                else
+                {
+                    // Guardamos la x de la posicion actual
+                    float currentIndexX = positions[_targetIndex].position.x;
+                    _targetIndex = (_targetIndex + 1) % positions.Count;
+                    _sprite.flipX = positions[_targetIndex].position.x < currentIndexX;
+                }
             }
         }
     }
