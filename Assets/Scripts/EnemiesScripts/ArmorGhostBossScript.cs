@@ -11,7 +11,6 @@ namespace EnemiesScripts
         [SerializeField] private List<GameObject> enemies;
         [SerializeField] private List<GameObject> objects;
         private Coroutine _spawnCoroutine;
-        private float _rotation;
         
         private bool BossSlain;
 
@@ -51,7 +50,7 @@ namespace EnemiesScripts
             {
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
                 BossSlain = true;
-                unlockableSkill.SetActive(true);
+                unlockableSkill?.SetActive(true);
                 foreach (GameObject enemy in enemies)
                     Destroy(enemy);
             }
@@ -80,7 +79,7 @@ namespace EnemiesScripts
                 print("WRAAAAAAAGH!!!");
                 objects[Random.Range(0, objects.Count)].SetActive(true);
                 yield return new WaitForSeconds(Random.Range(10f, 15f));
-                print("SUBDITOS!!!");
+                print("MINIONS!!!");
                 enemies[Random.Range(0, enemies.Count)].SetActive(true);
                 RelocateObjects();
                 
@@ -90,11 +89,20 @@ namespace EnemiesScripts
 
         private void RelocateObjects()
         {
+            GameManager.Instance.GetResetObjects.Invoke();
+            
             foreach (GameObject obj in objects)
             {
                 obj.transform.position = new Vector3(10, 23, 0);
                 obj.SetActive(false);
             }
+        }
+
+        protected override void DieState()
+        {
+            base.DieState();
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
         }
     }
 }
