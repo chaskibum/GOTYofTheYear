@@ -9,10 +9,11 @@ namespace EnemiesScripts
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private GameObject attack;
         [SerializeField] private List<GameObject> enemies;
+        [SerializeField] private List<GameObject> objects;
         private Coroutine _spawnCoroutine;
         private float _rotation;
         
-        protected bool BossSlain;
+        private bool BossSlain;
 
         protected override void ResetEnemy()
         {
@@ -75,11 +76,24 @@ namespace EnemiesScripts
         {
             if (!BossSlain)
             {
-                print("im spawning an enemy");
-                yield return new WaitForSeconds(Random.Range(7f, 12f));
+                yield return new WaitForSeconds(Random.Range(5f, 8f));
+                print("WRAAAAAAAGH!!!");
+                objects[Random.Range(0, objects.Count)].SetActive(true);
+                yield return new WaitForSeconds(Random.Range(10f, 15f));
+                print("SUBDITOS!!!");
                 enemies[Random.Range(0, enemies.Count)].SetActive(true);
+                RelocateObjects();
                 
                 if (_spawnCoroutine != null) StartCoroutine(nameof(SpawnEnemies));
+            }
+        }
+
+        private void RelocateObjects()
+        {
+            foreach (GameObject obj in objects)
+            {
+                obj.transform.position = new Vector3(10, 23, 0);
+                obj.SetActive(false);
             }
         }
     }
