@@ -45,6 +45,8 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
+            EndAttack();
+            
             if (Hp > 0) AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
             else
             {

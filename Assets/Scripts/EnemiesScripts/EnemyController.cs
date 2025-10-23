@@ -181,9 +181,6 @@ namespace EnemiesScripts
         
         public virtual void GetHit()
         {
-            // PARA BORRAR DESPUÉS
-            EndAttack();
-            
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
             
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
