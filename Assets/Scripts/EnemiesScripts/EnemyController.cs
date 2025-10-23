@@ -251,7 +251,7 @@ namespace EnemiesScripts
 
         public virtual void SetState(State newState)
         {
-            if (!CanChangeState) return;
+            if (newState != State.Die && !CanChangeState) return;
             
             if (newState == CurrentState || CurrentState == State.Die) return;
             CurrentState = newState;
