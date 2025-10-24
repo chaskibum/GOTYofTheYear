@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact(GameObject interactor);
+    public void Interact();
     // string GetInteractionPrompt();
 }
