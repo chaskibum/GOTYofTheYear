@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5123395781038653535}
   - component: {fileID: 3268039482471644624}
   - component: {fileID: 4077928002189562652}
-  - component: {fileID: 8664984956483769805}
   - component: {fileID: 6422405260774565539}
   m_Layer: 0
   m_Name: Vieja
@@ -141,21 +140,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
---- !u!114 &8664984956483769805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1331777317948042120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f41b5628b1ec74984b0d2e8b5a52b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grannyDialog: {fileID: 7633229673682375166}
-  gameWonScreen: {fileID: 0}
-  restartButton: {fileID: 0}
 --- !u!114 &6422405260774565539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSystem
   interactPrompt: {fileID: 7578884170229156200}
-  dialoguePanel: {fileID: 0}
-  dialogueText: {fileID: 0}
+  dialoguePanel: {fileID: 7633229673682375166}
+  dialogueText: {fileID: 4000212990029005163}
   dialogueList: []
 --- !u!1 &3190731608662247953
 GameObject:
