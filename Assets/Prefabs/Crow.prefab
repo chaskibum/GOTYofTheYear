@@ -5480,6 +5480,8 @@ MonoBehaviour:
   attackHurtbox: {fileID: 1207505907987047259}
   stateText: {fileID: 6356648528669148754}
   crowLight: {fileID: 3855294013440335192}
+  crowParticles: {fileID: 7695004738326358881}
+  crowSounds: {fileID: 5381792072788326190}
 --- !u!1 &8339383124014994451
 GameObject:
   m_ObjectHideFlags: 0

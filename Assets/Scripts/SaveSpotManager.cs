@@ -35,7 +35,7 @@ public class SaveSpotManager : MonoBehaviour
         if (isMainRespawn)
         {
             GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.CheckpointActivated);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
         }
         else
         {

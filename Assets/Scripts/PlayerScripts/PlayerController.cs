@@ -98,7 +98,9 @@ namespace PlayerScripts
             _onPlayerPossessed.AddListener(PlayerPossessed);
             _onPlayerRevived.AddListener(Revive);
             
-            transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
+            if (!PlayerPrefs.HasKey("XPosition")) RestartGame();
+            else
+                transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
         }
 
         private void PlayerPossessed()
@@ -117,7 +119,6 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.D)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
-            //print(_inputCount);
             if (_inputCount >= 20) Exorcised();
         }
 
@@ -466,6 +467,7 @@ namespace PlayerScripts
             _canDoubleJump = false;
             _immuneSkillUnlocked = false;
             EndAttack();
+            ResetPlayerStats();
         }
 
         public void Heal()
@@ -476,7 +478,6 @@ namespace PlayerScripts
 
         private void Revive()
         {
-            // SetRespawnPosition(new Vector3(PlayerPrefs.GetFloat("MainXPosition"), PlayerPrefs.GetFloat("MainYPosition"), 0f));
             transform.position = _mainRespawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
@@ -574,6 +575,19 @@ namespace PlayerScripts
             
             PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
             PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
+        }
+
+        private void ResetPlayerStats()
+        {
+            PlayerPrefs.SetFloat("XPosition", 0);
+            PlayerPrefs.SetFloat("YPosition", 0);
+            
+            PlayerPrefs.SetFloat("MainXPosition", 0);
+            PlayerPrefs.SetFloat("MainYPosition", 0);
+            
+            
+            PlayerPrefs.SetInt("Lives", data.startingLives);
+            PlayerPrefs.SetInt("BaseLives", data.startingLives);
         }
 
         #endregion

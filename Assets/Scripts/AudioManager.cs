@@ -20,7 +20,8 @@ public class AudioManager : MonoBehaviour
     
     public enum AudioList
     {
-        CheckpointActivated,
+        MainCheckpointActivated,
+        FireCheckpointActivated,
         ExtraLifeGrabbed,
         PlayerJump,
         PlayerHit,
