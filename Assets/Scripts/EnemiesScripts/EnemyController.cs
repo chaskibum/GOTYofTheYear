@@ -12,6 +12,10 @@ namespace EnemiesScripts
         [SerializeField] protected GameObject attackHurtbox;
         [SerializeField] protected TMP_Text stateText;
         
+        [Header("Details")]
+        [SerializeField] private ParticleSystem particles;
+        [SerializeField] private AudioSource idleSounds;
+        
         public enum State { Idle, Chase, Attack, GetHit, Die, }
         protected State CurrentState = State.Idle;
         protected bool CanChangeState = true;
@@ -73,6 +77,8 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(true);
             gameObject.SetActive(true);
+            particles?.Play();
+            idleSounds?.Play();
             
             var color = Visuals.color;
             color.a = 1;
@@ -215,6 +221,8 @@ namespace EnemiesScripts
                 Visuals.color = color;
                 yield return new WaitForSeconds(0.05f);
             }
+            particles?.Stop();
+            idleSounds?.Stop();
 
             yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);

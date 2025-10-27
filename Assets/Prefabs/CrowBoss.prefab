@@ -213,11 +213,18 @@ MonoBehaviour:
   attackHitbox: {fileID: 5649223186259038459}
   attackHurtbox: {fileID: 2819746096393968608}
   stateText: {fileID: 8059040020638351081}
+  particles: {fileID: 6713189264583578586}
+  idleSounds: {fileID: 9029677099297017749}
   unlockableSkill: {fileID: 0}
   waves:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!198 &6713189264583578586 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7695004738326358881, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+  m_PrefabInstance: {fileID: 4026266562781231291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8059040020638351081 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6356648528669148754, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
@@ -229,3 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &9029677099297017749 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5381792072788326190, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+  m_PrefabInstance: {fileID: 4026266562781231291}
+  m_PrefabAsset: {fileID: 0}

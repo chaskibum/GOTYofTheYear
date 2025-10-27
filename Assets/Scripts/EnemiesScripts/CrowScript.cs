@@ -7,8 +7,6 @@ namespace EnemiesScripts
     {
         protected ApplyMovement MovementScript;
         [SerializeField] private Light2D crowLight;
-        [SerializeField] private ParticleSystem crowParticles;
-        [SerializeField] private AudioSource crowSounds;
         
         protected override void Start()
         {
@@ -21,8 +19,6 @@ namespace EnemiesScripts
             base.ResetEnemy();
             attackHitbox.SetActive(true);
             crowLight.enabled = true;
-            crowSounds.Play();
-            crowParticles.Play();
         }
 
         protected override void IdleState()
@@ -35,8 +31,6 @@ namespace EnemiesScripts
         {
             base.DieState();
             crowLight.enabled = false;
-            crowSounds.Stop();
-            crowParticles.Stop();
         }
     }
 }

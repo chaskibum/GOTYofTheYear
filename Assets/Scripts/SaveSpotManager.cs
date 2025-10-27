@@ -8,6 +8,8 @@ public class SaveSpotManager : MonoBehaviour
     private static event Action<SaveSpotManager> OnCollisionEvent;
 
     [SerializeField] private bool isMainRespawn;
+    [SerializeField] private AudioSource activatingSound;
+    // [SerializeField] private AudioSource fireLoopSound;
 
     private void Awake()
     {
@@ -59,5 +61,10 @@ public class SaveSpotManager : MonoBehaviour
         if (!_animator) return;
         
         _animator.SetBool("Activated", false);
+    }
+
+    public void PlayActivatingSound()
+    {
+        activatingSound.Play();
     }
 }
