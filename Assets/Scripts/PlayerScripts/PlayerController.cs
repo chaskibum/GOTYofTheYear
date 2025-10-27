@@ -52,6 +52,7 @@ namespace PlayerScripts
         private Vector3 _respawnPosition;
         private Vector3 _mainRespawnPosition;
         private bool _canChangeState = true;
+        public bool inDialog = false;
         
         // PA BORRAR DESPUÉS
         private bool _isImmune;
@@ -140,6 +141,12 @@ namespace PlayerScripts
             CheckIfGrounded();
             
             if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
+            if (inDialog)
+            {
+                SetState(State.Idle);
+                _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
+                return;
+            }
             
             CheckJumpInput();
             CheckImmunitySkillInput();
@@ -304,7 +311,6 @@ namespace PlayerScripts
         {
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-            // Here we play the Idle animation
             // PA BORRAR DESPUÉS
             _animator.SetBool(Moving, false);
         }

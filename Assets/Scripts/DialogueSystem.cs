@@ -30,7 +30,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
 
     private void CheckInteractInput()
     {
-        if (Input.GetKeyDown(KeyCode.E)) Interact();
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) Interact();
     }
 
     public void Interact()
@@ -48,6 +48,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     private void StartDialogue()
     {
         _dialogueStarted = true;
+        GameManager.Instance.GetPlayer.inDialog = true;
         _dialogueIndex = 0;
         interactPrompt.SetActive(false);
         dialoguePanel.SetActive(true);
@@ -74,6 +75,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
         else
         {
             _dialogueStarted = false;
+            GameManager.Instance.GetPlayer.inDialog = false;
             interactPrompt.SetActive(true);
             dialoguePanel.SetActive(false);
         }
