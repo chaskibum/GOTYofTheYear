@@ -9,7 +9,6 @@ public class SaveSpotManager : MonoBehaviour
 
     [SerializeField] private bool isMainRespawn;
     [SerializeField] private AudioSource activatingSound;
-    // [SerializeField] private AudioSource fireLoopSound;
 
     private void Awake()
     {
@@ -66,5 +65,6 @@ public class SaveSpotManager : MonoBehaviour
     public void PlayActivatingSound()
     {
         activatingSound.Play();
+        print("Activating!!");
     }
 }

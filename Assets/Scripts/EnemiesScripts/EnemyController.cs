@@ -77,12 +77,14 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(true);
             gameObject.SetActive(true);
-            particles?.Play();
-            idleSounds?.Play();
             
             var color = Visuals.color;
             color.a = 1;
             Visuals.color = color;
+            
+            if (!particles || !idleSounds) return;
+            particles?.Play();
+            idleSounds?.Play();
         }
         
         protected virtual void GetPlayerPosition()
@@ -221,8 +223,12 @@ namespace EnemiesScripts
                 Visuals.color = color;
                 yield return new WaitForSeconds(0.05f);
             }
-            particles?.Stop();
-            idleSounds?.Stop();
+
+            if (particles && idleSounds)
+            {
+                particles?.Stop();
+                idleSounds?.Stop();
+            }
 
             yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);
