@@ -6,7 +6,7 @@ public class MainMenuManager : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Alpha Test Level 1");
+        SceneManager.LoadScene("GameLevel");
     }
 
     public void Exit()
