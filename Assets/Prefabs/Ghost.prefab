@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2596207092793031561}
   - component: {fileID: 7762624340419800210}
+  - component: {fileID: 6302854132705460679}
   m_Layer: 11
   m_Name: Visuals
   m_TagString: Untagged
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 563985417
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d917a002cc064e458d9d0c164c1a214, type: 3}
+  m_Sprite: {fileID: 2234749248277829988, guid: e8b693b11c975ec4cb7a651708c3ef56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,6 +173,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6302854132705460679
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310252761989957385}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a14c8cc29bdb4f4a98a6ab57f2eb0ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1340835014157521405
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +867,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: -0, y: 0, z: 180}
-    m_Scale: {x: 0.5, y: 0.5, z: 1}
+    m_Scale: {x: 0.3, y: 0.3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4973,8 +4996,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 563985417
-  m_SortingLayer: 8
+  m_SortingLayerID: 766150381
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5223,6 +5246,8 @@ MonoBehaviour:
   attackHitbox: {fileID: 8756755338566658112}
   attackHurtbox: {fileID: 1207505907987047259}
   stateText: {fileID: 6356648528669148754}
+  particles: {fileID: 5468141582329921908}
+  idleSounds: {fileID: 0}
 --- !u!1 &8339383124014994451
 GameObject:
   m_ObjectHideFlags: 0

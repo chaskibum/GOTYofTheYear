@@ -149,8 +149,6 @@ namespace PlayerScripts
                 return;
             }
             
-            print(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash);
-            
             CheckJumpInput();
             CheckImmunitySkillInput();
             CheckDashInput();

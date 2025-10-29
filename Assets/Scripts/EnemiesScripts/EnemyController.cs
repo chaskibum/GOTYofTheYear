@@ -68,6 +68,7 @@ namespace EnemiesScripts
 
         protected virtual void ResetEnemy()
         {
+            StopCoroutine(nameof(Disappear));
             CurrentState = State.Idle;
             transform.position = StartingPosition;
             Hp = data.baseHp;
@@ -231,6 +232,7 @@ namespace EnemiesScripts
             }
 
             yield return new WaitForSeconds(10f);
+            print("disappearing");
             gameObject.SetActive(false);
         }
         

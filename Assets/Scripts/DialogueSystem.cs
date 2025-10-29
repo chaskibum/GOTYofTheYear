@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerScripts;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +16,17 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(3, 5)] private List<string> dialogueList;
+    
+    [Header("Flip")]
+    private bool _playerToTheRight;
+    private PlayerController _player;
+    private SpriteRenderer _sprite;
+
+    private void Start()
+    {
+        _player = GameManager.Instance.GetPlayer;
+        _sprite = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -30,7 +43,17 @@ public class DialogueSystem : MonoBehaviour, IInteractable
 
     private void CheckInteractInput()
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) Interact();
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+        {
+            Interact();
+            CalculateDirection();
+        }
+    }
+    
+    private void CalculateDirection()
+    {
+        _playerToTheRight = _player.GetPlayerPosition.x > transform.position.x;
+        _sprite.flipX = _playerToTheRight ? false : true;
     }
 
     public void Interact()
