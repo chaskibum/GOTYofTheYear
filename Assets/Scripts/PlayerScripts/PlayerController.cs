@@ -149,6 +149,8 @@ namespace PlayerScripts
                 return;
             }
             
+            print(_animator.GetCurrentAnimatorStateInfo(0).shortNameHash);
+            
             CheckJumpInput();
             CheckImmunitySkillInput();
             CheckDashInput();
@@ -164,13 +166,13 @@ namespace PlayerScripts
             RaycastHit2D ray = Physics2D.Raycast(
                 _body.transform.position, 
                 Vector2.down, 
-                0.1f, 
+                1.1f, 
                 groundLayer);
             
 
             if (ray.collider) // El raycast toca el suelo
             {
-                Debug.DrawRay(_body.transform.position, Vector2.down * 0.1f, Color.red);
+                Debug.DrawRay(_body.transform.position, Vector2.down * 1.1f, Color.red);
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
@@ -184,7 +186,7 @@ namespace PlayerScripts
 
                 _isOnFloor = false;
                 _coyoteCounter -= Time.deltaTime;
-                Debug.DrawRay(_body.transform.position, Vector2.down * 0.1f, Color.green);
+                Debug.DrawRay(_body.transform.position, Vector2.down * 1.1f, Color.green);
             }
         }
 

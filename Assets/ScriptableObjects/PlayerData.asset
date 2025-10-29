@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHp: 100
   startingLives: 3
-  baseLives: 4
+  baseLives: 5
   moveSpeed: 6
   regularGravity: 2
   fallGravity: 2
