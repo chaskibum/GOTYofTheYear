@@ -314,7 +314,7 @@ namespace PlayerScripts
         {
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-            // PA BORRAR DESPUÉS
+
             _animator.SetBool(Moving, false);
         }
         
@@ -325,8 +325,8 @@ namespace PlayerScripts
             if (_xInput == 0) SetState(State.Idle);
             
             Move();
-            // PA BORRAR DESPUÉS
-            _animator.SetBool(Moving, true);
+            
+            if (_isOnFloor) _animator.SetBool(Moving, true);
         }
 
         private void Move()
@@ -517,8 +517,6 @@ namespace PlayerScripts
         private void SetState(State newState)
         {
             _state = newState;
-            // PA BORRAR DESPUÉS
-            if (newState != State.Move) _animator.SetBool(Moving, false);
         }
         
         private IEnumerator LockStateForSeconds(float duration)
