@@ -1,29 +1,20 @@
-using System;
 using UnityEngine;
 
 namespace PlayerScripts
 {
     public class PlayerWeapon : MonoBehaviour
     {
-        public bool isAttacking;
-        private int _rotation;
-        private PlayerController _player;
+        private float _position;
         
         [SerializeField] private PlayerVisuals playerVisuals;
-
-
-        private void Start()
-        {
-            _player = GameManager.Instance.GetPlayer;
-        }
         
         public void FlipAttackPosition()
         {
-            // if (_player.GetIsAttacking) return;
-
-            _rotation = playerVisuals.facingRight ? 0 : 180;
-
-            transform.parent.localRotation = Quaternion.Euler(0, 0, _rotation);
+            _position = playerVisuals.facingRight ? 2.8f : -2.8f;
+            
+            var vector3 = transform.parent.localPosition;
+            vector3.x = _position;
+            transform.parent.localPosition = vector3;
         }
     }
 }

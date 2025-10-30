@@ -7,6 +7,7 @@ namespace PlayerScripts
     public class PlayerController : MonoBehaviour
     {
         private static readonly int Moving = Animator.StringToHash("Moving");
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
 
         // We link the PlayerData Scriptable Object to the Player
         [SerializeField] private PlayerData data;
@@ -296,20 +297,22 @@ namespace PlayerScripts
         
         private void Attack()
         {
-            // _body.linearVelocity /= 2f;
-            playerWeapon.SetActive(true);
             if (_isAttacking) return;
+            _body.linearVelocityX /= 2f;
+            // playerWeapon.SetActive(true);
             _isAttacking = true;
             Invoke(nameof(EndAttack), data.attackSpeed);
             _attackCooldown = data.attackCooldown;
             _weapon.FlipAttackPosition();
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
+            _animator.SetBool(Attacking, true);
         }
         
         private void EndAttack()
         {
             _isAttacking = false;
-            playerWeapon.SetActive(false);
+            _animator.SetBool(Attacking, false);
+            // playerWeapon.SetActive(false);
         }
         
         private void IdleState()
@@ -333,7 +336,8 @@ namespace PlayerScripts
 
         private void Move()
         {
-            _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
+            if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
+            else _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
         }
 
         private void JumpState()
