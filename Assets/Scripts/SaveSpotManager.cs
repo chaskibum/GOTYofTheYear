@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SaveSpotManager : MonoBehaviour
+public class SaveSpotManager : MonoBehaviour, IInteractable
 {
     private Vector3 _lastSavedRespawnPosition;
     private Animator _animator;
@@ -9,6 +9,9 @@ public class SaveSpotManager : MonoBehaviour
 
     [SerializeField] private bool isMainRespawn;
     [SerializeField] private AudioSource activatingSound;
+    [SerializeField] private GameObject interactPrompt;
+    
+    private bool _isInRange;
 
     private void Awake()
     {
@@ -32,18 +35,58 @@ public class SaveSpotManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _lastSavedRespawnPosition = transform.position;
-        if (isMainRespawn)
+        _isInRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        _isInRange = false;
+    }
+    
+    void Update()
+    {
+        if (_isInRange)
         {
-            GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
+            CheckInteractInput();
+            interactPrompt.SetActive(true);
         }
         else
         {
-            OnCollisionEvent?.Invoke(this);
+            interactPrompt.SetActive(false);
         }
+    }
+
+    private void CheckInteractInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+        {
+            Interact();
+        }
+    }
+
+    public void Interact()
+    {
+        if (isMainRespawn) ActivateMainRespawn();
+        else ActivateBonfireRespawn();
         
+        OnCollisionEvent?.Invoke(this);
+    }
+
+    private void ActivateMainRespawn()
+    {
+        _lastSavedRespawnPosition = transform.position;
+        GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
+        AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
+        _animator.SetBool("MainRespawnActivated", true);
+        Destroy(interactPrompt);
+    }
+
+    private void ActivateBonfireRespawn()
+    {
+        _lastSavedRespawnPosition = transform.position;
+        GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
+        interactPrompt.SetActive(false);
     }
 
     private void HandleAnimations(SaveSpotManager activated)
@@ -53,6 +96,7 @@ public class SaveSpotManager : MonoBehaviour
         bool isActive = activated == this;
 
         _animator.SetBool("Activated", isActive);
+        // interactPrompt.SetActive(!isActive);
     }
 
     private void ResetAnimations()
@@ -65,6 +109,5 @@ public class SaveSpotManager : MonoBehaviour
     public void PlayActivatingSound()
     {
         activatingSound.Play();
-        print("Activating!!");
     }
 }
