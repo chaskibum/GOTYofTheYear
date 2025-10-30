@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -117,9 +116,14 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.A)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.S)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.D)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.UpArrow)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.DownArrow)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) _inputCount += 1;
+            if (Input.GetKeyDown(KeyCode.RightArrow)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
-            if (_inputCount >= 20) Exorcised();
+            if (Input.GetKeyDown(KeyCode.Z)) _inputCount += 1;
+            if (_inputCount >= 25) Exorcised();
         }
 
         private float GetRandomDirection()
@@ -195,7 +199,7 @@ namespace PlayerScripts
         
         private void CheckJumpInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (JumpPressed())
                 _lastJumpPressedTime = Time.time;
             
             // Si el jugador está en el piso o dentro de la ventana del coyote time -> puede saltar
@@ -221,7 +225,7 @@ namespace PlayerScripts
 
         private void CheckAttackInput()
         {
-            if (Input.GetKeyDown(KeyCode.H) && !_isPossessed && _attackCooldown <= 0)
+            if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.Z) && !_isPossessed && _attackCooldown <= 0)
             {
                 Attack();
                 SetState(State.Attack);
@@ -235,7 +239,7 @@ namespace PlayerScripts
 
         private void CheckDashInput()
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !_isAttacking)
             {
                 Dash();
             }
@@ -274,7 +278,7 @@ namespace PlayerScripts
         private void CheckImmunitySkillInput()
         {
             if (!_immuneSkillUnlocked) return;
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
             {
                 ActivateImmunity();
             }
@@ -338,10 +342,20 @@ namespace PlayerScripts
 
             _jumpKeyTimePressed += Time.deltaTime;
             
-            if (Input.GetKeyUp(KeyCode.Space) || _jumpKeyTimePressed > data.jumpDuration)
+            if (JumpReleased() || _jumpKeyTimePressed > data.jumpDuration)
                 SetState(State.Fall);
             
             CheckIfIsFalling();
+        }
+
+        private bool JumpPressed()
+        {
+            return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+        }
+
+        private bool JumpReleased()
+        {
+            return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
         }
 
         private void Jump()

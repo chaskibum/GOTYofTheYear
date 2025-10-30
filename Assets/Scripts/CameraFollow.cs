@@ -39,7 +39,7 @@ public class CameraFollow : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
         }
         
-        MoveCamera();
+        // MoveCamera();
     }
 
     private void CheckLimitsAndMoveBasedOnMousePosition()
