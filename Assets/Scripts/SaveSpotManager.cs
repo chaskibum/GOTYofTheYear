@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class SaveSpotManager : MonoBehaviour, IInteractable
 {
     private Vector3 _lastSavedRespawnPosition;
-    private Animator _animator;
+    private Animator _animator; 
     private static event Action<SaveSpotManager> OnCollisionEvent;
 
     [SerializeField] private bool isMainRespawn;
