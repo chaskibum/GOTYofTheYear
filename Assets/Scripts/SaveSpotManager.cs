@@ -21,6 +21,9 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     private void Start()
     {
         GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
+        
+        if (PlayerPrefs.GetFloat("XPosition") == transform.position.x) _animator.SetBool("Activated", true);
+        if (PlayerPrefs.GetFloat("MainXPosition") == transform.position.x) _animator.SetBool("Activated", true);
     }
 
     private void OnEnable()
@@ -48,11 +51,11 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         if (_isInRange)
         {
             CheckInteractInput();
-            interactPrompt.SetActive(true);
+            _animator.SetBool("OnRange", true);
         }
         else
         {
-            interactPrompt.SetActive(false);
+            _animator.SetBool("OnRange", false);
         }
     }
 
@@ -78,8 +81,7 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
         AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        _animator.SetBool("MainRespawnActivated", true);
-        Destroy(interactPrompt);
+        _animator.SetBool("Activated", true);
     }
 
     private void ActivateBonfireRespawn()
@@ -96,7 +98,6 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         bool isActive = activated == this;
 
         _animator.SetBool("Activated", isActive);
-        // interactPrompt.SetActive(!isActive);
     }
 
     private void ResetAnimations()
@@ -110,4 +111,6 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     {
         activatingSound.Play();
     }
+    
+    
 }
