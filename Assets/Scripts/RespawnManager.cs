@@ -22,7 +22,7 @@ public class RespawnManager : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         _respawnPos = mainRespawn.transform.position;
-        globalLight.color = Color.green;
+        // globalLight.color = Color.green;
     }
 
     private void Revive()

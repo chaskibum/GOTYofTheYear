@@ -24,7 +24,7 @@ namespace PlayerScripts
         private PlayerHealth _playerHealth;
 
         #region States
-        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, Dash, }
+        public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, Dash }
         
         private State _state = State.Idle;
         private bool _isOnFloor;
@@ -125,6 +125,8 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.Z)) _inputCount += 1;
             if (_inputCount >= 25) Exorcised();
+            
+            print(_inputCount);
         }
 
         private float GetRandomDirection()
@@ -200,6 +202,8 @@ namespace PlayerScripts
         
         private void CheckJumpInput()
         {
+            if (_isAttacking || _isPossessed) return;
+            
             if (JumpPressed())
                 _lastJumpPressedTime = Time.time;
             
@@ -221,6 +225,7 @@ namespace PlayerScripts
 
         private void CheckMovementInput()
         {
+            if (_isPossessed) return;
             _xInput = Input.GetAxis("Horizontal");
         }
 
@@ -297,7 +302,7 @@ namespace PlayerScripts
         
         private void Attack()
         {
-            if (_isAttacking) return;
+            if (_isAttacking || _isPossessed) return;
             _body.linearVelocityX /= 2f;
             // playerWeapon.SetActive(true);
             _isAttacking = true;
@@ -317,6 +322,7 @@ namespace PlayerScripts
         
         private void IdleState()
         {
+            // if (_isPossessed) SetState(State.Possessed);
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
 
@@ -400,13 +406,17 @@ namespace PlayerScripts
         {
             // _body.linearVelocityX -= 2f;
             Move();
-            if (!_isAttacking) SetState(State.Idle);
+            if (!_isAttacking)
+            {
+                print("Attack finished");
+                SetState(State.Idle);
+            }
         }
         
         // PARA BORRAR DESPUÉS (ALGO)
         private void GetHitState()
         {
-            StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
+            if (!_isPossessed) StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
             _isImmune = true;
             CancelInvoke(nameof(EndDash));
             Invoke(nameof(EndImmunityTime), data.immunityTime);
