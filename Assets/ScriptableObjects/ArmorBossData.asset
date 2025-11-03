@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedf7f19231238c44b4420b6cb6fb582, type: 3}
   m_Name: ArmorBossData
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyData
-  baseHp: 1
+  baseHp: 30
   damage: 60
   moveSpeed: 2
   attackAnimationTime: 2

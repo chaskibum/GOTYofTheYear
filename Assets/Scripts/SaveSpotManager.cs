@@ -22,9 +22,20 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     private void Start()
     {
         GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
-        
-        if (PlayerPrefs.GetFloat("XPosition") == transform.position.x) _animator.SetBool("Activated", true);
-        if (PlayerPrefs.GetFloat("MainXPosition") == transform.position.x) _animator.SetBool("Activated", true);
+
+        // if (PlayerPrefs.GetFloat("XPosition") == transform.position.x) _animator.SetBool("Activated", true);
+        // if (PlayerPrefs.GetFloat("MainXPosition") == transform.position.x) _animator.SetBool("Activated", true);
+
+        Invoke(nameof(ActivateRespawn), 0.1f);
+    }
+
+    private void ActivateRespawn()
+    {
+        if (_isInRange)
+        {
+            print("HOLA ESTOY EN RANGO");
+            Interact();
+        }
     }
 
     private void OnEnable()
@@ -37,7 +48,7 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         OnCollisionEvent -= HandleAnimations;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         _isInRange = true;
     }
@@ -82,14 +93,12 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
         AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        // _animator.SetBool("Activated", true);
     }
 
     private void ActivateBonfireRespawn()
     {
         _lastSavedRespawnPosition = transform.position;
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        // _animator.SetBool("Activated", true);
     }
 
     private void HandleAnimations(SaveSpotManager activated)
