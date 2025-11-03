@@ -496,7 +496,8 @@ namespace PlayerScripts
 
         private void Revive()
         {
-            transform.position = _mainRespawnPosition;
+            // transform.position = _mainRespawnPosition;
+            // SetRespawnPosition(_mainRespawnPosition);
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
             _body.gravityScale = data.regularGravity;

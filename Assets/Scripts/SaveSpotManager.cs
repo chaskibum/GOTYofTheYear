@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class SaveSpotManager : MonoBehaviour, IInteractable
 {
@@ -22,10 +21,7 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     private void Start()
     {
         GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
-
-        // if (PlayerPrefs.GetFloat("XPosition") == transform.position.x) _animator.SetBool("Activated", true);
-        // if (PlayerPrefs.GetFloat("MainXPosition") == transform.position.x) _animator.SetBool("Activated", true);
-
+        GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
         Invoke(nameof(ActivateRespawn), 0.1f);
     }
 
@@ -107,14 +103,9 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         
         bool isActive = activated == this;
 
-        _animator.SetBool("Activated", isActive);
-    }
-
-    private void ResetAnimations()
-    {
-        if (!_animator) return;
+        if (isMainRespawn && _animator.GetBool("Activated")) return;
         
-        _animator.SetBool("Activated", false);
+        _animator.SetBool("Activated", isActive);
     }
 
     public void PlayActivatingSound()
@@ -122,5 +113,20 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         activatingSound.Play();
     }
     
+    private void ResetAnimations()
+    {
+        if (!_animator) return;
+        
+        _animator.SetBool("Activated", false);
+        Invoke(nameof(ActivateRespawn), 0.1f);
+    }
     
+    /*private void RestartAnimations()
+    {
+        if (!_animator) return;
+        
+        _animator.SetBool("Activated", false);
+        
+        Invoke(nameof(ActivateRespawn), 0.1f);
+    }*/
 }
