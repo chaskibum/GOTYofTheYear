@@ -8,6 +8,7 @@ namespace PlayerScripts
     {
         private static readonly int Moving = Animator.StringToHash("Moving");
         private static readonly int Attacking = Animator.StringToHash("Attacking");
+        private static readonly int Jumping = Animator.StringToHash("Jumping");
 
         // We link the PlayerData Scriptable Object to the Player
         [SerializeField] private PlayerData data;
@@ -135,6 +136,7 @@ namespace PlayerScripts
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
 
             _animator.SetBool(Moving, false);
+            _animator.SetBool(Jumping, false);
         }
         
         private void MoveState()
@@ -253,7 +255,6 @@ namespace PlayerScripts
                 _body.gravityScale = data.regularGravity;
                 if (_dashUnlocked) _canDash = true;
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
-                _animator.SetBool("Jumping", false);
             }
             else // Si el raycast no toca el suelo...
             {
@@ -313,7 +314,7 @@ namespace PlayerScripts
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
             
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
-            _animator.SetBool("Jumping", true);
+            _animator.SetBool(Jumping, true);
         }
 
         private void CheckIfIsFalling()
