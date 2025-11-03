@@ -253,6 +253,7 @@ namespace PlayerScripts
                 _body.gravityScale = data.regularGravity;
                 if (_dashUnlocked) _canDash = true;
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
+                _animator.SetBool("Jumping", false);
             }
             else // Si el raycast no toca el suelo...
             {
@@ -312,6 +313,7 @@ namespace PlayerScripts
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
             
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
+            _animator.SetBool("Jumping", true);
         }
 
         private void CheckIfIsFalling()
