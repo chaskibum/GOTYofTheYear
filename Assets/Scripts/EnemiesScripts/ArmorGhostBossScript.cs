@@ -16,9 +16,11 @@ namespace EnemiesScripts
 
         protected override void ResetEnemy()
         {
+            
             if (!BossSlain)
             {
                 base.ResetEnemy();
+                unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(false);
 
                 if (_spawnCoroutine != null)
@@ -29,7 +31,16 @@ namespace EnemiesScripts
                 
                 foreach (GameObject enemy in enemies)
                     enemy.SetActive(false);
+                
+                foreach (GameObject obj in objects)
+                    obj.SetActive(false);
             }
+        }
+        
+        protected override void RestartEnemy()
+        {
+            base.RestartEnemy();
+            unlockableSkill.SetActive(false);
         }
 
         protected override void ChaseState()

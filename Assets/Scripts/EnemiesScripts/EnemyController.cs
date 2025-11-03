@@ -26,6 +26,7 @@ namespace EnemiesScripts
         protected Vector2 Direction;
         protected float AttackTimer;
         protected bool CanAttack = true;
+        [SerializeField] protected bool IsBoss = false;
         
         protected Rigidbody2D Body;
         protected SpriteRenderer Visuals;
@@ -51,7 +52,7 @@ namespace EnemiesScripts
             
             GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
             GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
-            GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
+            GameManager.Instance.GetGameRestarted.AddListener(RestartEnemy);
         }
         
         protected virtual void Update()
@@ -67,6 +68,16 @@ namespace EnemiesScripts
         }
 
         protected virtual void ResetEnemy()
+        {
+            Respawn();
+        }
+        
+        protected virtual void RestartEnemy()
+        {
+            Respawn();
+        }
+
+        private void Respawn()
         {
             StopCoroutine(nameof(Disappear));
             CurrentState = State.Idle;
@@ -232,7 +243,6 @@ namespace EnemiesScripts
             }
 
             yield return new WaitForSeconds(10f);
-            print("disappearing");
             gameObject.SetActive(false);
         }
         

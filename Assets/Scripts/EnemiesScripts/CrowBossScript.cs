@@ -15,9 +15,11 @@ namespace EnemiesScripts
 
         protected override void ResetEnemy()
         {
+            
             if (!BossSlain)
             {
                 base.ResetEnemy();
+                unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(true);
 
                 if (_waveCoroutine != null)
@@ -29,6 +31,12 @@ namespace EnemiesScripts
                 foreach (GameObject wave in waves)
                     wave.SetActive(false);
             }
+        }
+
+        protected override void RestartEnemy()
+        {
+            base.RestartEnemy();
+            unlockableSkill.SetActive(false);
         }
 
         private IEnumerator WaveSpawner()

@@ -82,14 +82,14 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
         AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        _animator.SetBool("Activated", true);
+        // _animator.SetBool("Activated", true);
     }
 
     private void ActivateBonfireRespawn()
     {
         _lastSavedRespawnPosition = transform.position;
         GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
-        interactPrompt.SetActive(false);
+        // _animator.SetBool("Activated", true);
     }
 
     private void HandleAnimations(SaveSpotManager activated)
