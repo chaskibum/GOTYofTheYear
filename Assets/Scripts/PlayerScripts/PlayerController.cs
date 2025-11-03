@@ -53,8 +53,6 @@ namespace PlayerScripts
         private Vector3 _mainRespawnPosition;
         private bool _canChangeState = true;
         public bool inDialog = false;
-        
-        // PA BORRAR DESPUÉS
         private bool _isImmune;
         private bool _isAttacking;
         private float _attackCooldown;
@@ -102,12 +100,101 @@ namespace PlayerScripts
             else
                 transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
         }
-
-        private void PlayerPossessed()
+        
+        private void Update()
         {
-            _randomPossessedDirection = GetRandomDirection();
-            _isPossessed = true;
-            SetState(State.Possessed);
+            _cooldown -= Time.deltaTime;
+            _attackCooldown -= Time.deltaTime;
+            CheckIfGrounded();
+            
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
+            if (inDialog)
+            {
+                _animator.SetBool(Moving, false);
+                _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
+                return;
+            }
+            
+            CheckJumpInput();
+            CheckImmunitySkillInput();
+            CheckDashInput();
+            CheckMovementInput();
+            CheckAttackInput();
+            
+            UpdateState();
+            UpdatePhysicsState();
+        }
+
+        
+        #region States
+        
+        private void IdleState()
+        {
+            // if (_isPossessed) SetState(State.Possessed);
+            if (_xInput != 0) SetState(State.Move);
+            else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
+
+            _animator.SetBool(Moving, false);
+        }
+        
+        private void MoveState()
+        {
+            CheckIfIsFalling();
+            
+            if (_xInput == 0) SetState(State.Idle);
+            
+            Move();
+            
+            if (_isOnFloor) _animator.SetBool(Moving, true);
+        }
+        
+        private void JumpState()
+        {
+            if (_xInput != 0) Move();
+
+            _jumpKeyTimePressed += Time.deltaTime;
+            
+            if (JumpReleased() || _jumpKeyTimePressed > data.jumpDuration)
+                SetState(State.Fall);
+            
+            CheckIfIsFalling();
+        }
+        
+        private void FallState()
+        {
+            if (_xInput != 0) Move();
+            
+            if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
+            _body.gravityScale = data.regularGravity * data.fallGravity;
+            _jumpKeyTimePressed = 0f;
+            
+            if (_isOnFloor) SetState(State.Idle);
+        }
+        
+        private void AttackState()
+        {
+            // _body.linearVelocityX -= 2f;
+            Move();
+            if (!_isAttacking)
+            {
+                print("Attack finished");
+                SetState(State.Idle);
+            }
+        }
+        
+        private void DashState()
+        {
+            _body.gravityScale = data.dashGravity;
+            Invoke(nameof(EndDash), data.dashDuration);
+        }
+        
+        private void GetHitState()
+        {
+            if (!_isPossessed) StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
+            _isImmune = true;
+            CancelInvoke(nameof(EndDash));
+            Invoke(nameof(EndImmunityTime), data.immunityTime);
+            SetState(State.Idle);
         }
         
         private void PossessedState()
@@ -125,47 +212,30 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
             if (Input.GetKeyDown(KeyCode.Z)) _inputCount += 1;
             if (_inputCount >= 25) Exorcised();
-            
-            print(_inputCount);
-        }
-
-        private float GetRandomDirection()
-        {
-            return Random.value < 0.5f ? -1f : 1f;
-        }
-
-        private void Exorcised()
-        {
-            _onPlayerExorcised.Invoke();
-            _inputCount = 0;
-            _isPossessed = false;
-            SetState(State.Idle);
         }
         
-        private void Update()
+        private void DieState()
         {
-            _cooldown -= Time.deltaTime;
-            _attackCooldown -= Time.deltaTime;
-            CheckIfGrounded();
-            
-            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
-            if (inDialog)
-            {
-                SetState(State.Idle);
-                _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-                return;
-            }
-            
-            CheckJumpInput();
-            CheckImmunitySkillInput();
-            CheckDashInput();
-            CheckMovementInput();
-            CheckAttackInput();
-            
-            UpdateState();
-            UpdatePhysicsState();
+            _isImmune = true;
+            Time.timeScale = 0.2f;
         }
-
+        
+        #endregion
+        
+        #region StatesLogic
+        
+        private void SetState(State newState)
+        {
+            _state = newState;
+        }
+        
+        private IEnumerator LockStateForSeconds(float duration)
+        {
+            _canChangeState = false;
+            yield return new WaitForSeconds(duration);
+            _canChangeState = true;
+        }
+        
         private void CheckIfGrounded()
         {
             RaycastHit2D ray = Physics2D.Raycast(
@@ -194,12 +264,118 @@ namespace PlayerScripts
                 Debug.DrawRay(_body.transform.position, Vector2.down * 1.1f, Color.green);
             }
         }
-
-        private void UnlockDoubleJump()
+        
+        private void Attack()
         {
-            _doubleJumpUnlocked = true;
+            if (_isAttacking || _isPossessed) return;
+            _body.linearVelocityX /= 2f;
+            _isAttacking = true;
+            Invoke(nameof(EndAttack), data.attackSpeed);
+            _attackCooldown = data.attackCooldown;
+            _weapon.FlipAttackPosition();
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
+            _animator.SetBool(Attacking, true);
         }
         
+        private void EndAttack()
+        {
+            _isAttacking = false;
+            _animator.SetBool(Attacking, false);
+        }
+
+        private void Move()
+        {
+            if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
+            else _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
+        }
+
+        private bool JumpPressed()
+        {
+            return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+        }
+
+        private bool JumpReleased()
+        {
+            return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
+        }
+
+        private void Jump()
+        {
+            if (_state == State.Possessed) return;
+            
+            _isOnFloor = false;
+            SetState(State.Jump);
+            
+            _body.gravityScale = data.regularGravity;
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
+            
+            _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
+            
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
+        }
+
+        private void CheckIfIsFalling()
+        {
+            if (_body.linearVelocityY < 0)
+            {
+                SetState(State.Fall);
+            }
+        }
+        
+        private void GetHit(int damage)
+        {
+            if (_isImmune) return;
+            
+            _hp -= damage;
+            
+            // Frena el impulso del player (por si venia de un salto o dash)
+            _body.linearVelocity = Vector2.zero;
+            
+            // Reproducir animacion al ser golpeado
+            float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
+            _body.linearVelocityX = direction * data.pushForce / 2;
+            _body.linearVelocityY = data.pushForce;
+            
+            GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
+
+            if (_hp <= 0)
+            {
+                SetState(State.Die);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
+                if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
+            }
+            else
+            {
+                SetState(State.GetHit);
+                _body.gravityScale = data.regularGravity;
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
+            }
+        }
+        
+        private void PlayerPossessed()
+        {
+            _randomPossessedDirection = GetRandomDirection();
+            _isPossessed = true;
+            SetState(State.Possessed);
+        }
+
+        private float GetRandomDirection()
+        {
+            return Random.value < 0.5f ? -1f : 1f;
+        }
+
+        private void Exorcised()
+        {
+            _onPlayerExorcised.Invoke();
+            _inputCount = 0;
+            _isPossessed = false;
+            SetState(State.Idle);
+        }
+
+        #endregion
+
+        #region CheckInput
+
         private void CheckJumpInput()
         {
             if (_isAttacking || _isPossessed) return;
@@ -237,12 +413,7 @@ namespace PlayerScripts
                 SetState(State.Attack);
             }
         }
-
-        private void UnlockDash()
-        {
-            _dashUnlocked = true;
-        }
-
+        
         private void CheckDashInput()
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && !_isAttacking)
@@ -250,8 +421,33 @@ namespace PlayerScripts
                 Dash();
             }
         }
+        
+        private void CheckImmunitySkillInput()
+        {
+            if (!_immuneSkillUnlocked) return;
+            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
+            {
+                ActivateImmunity();
+            }
+        }
 
+        #endregion
 
+        #region Skills
+        private void UnlockDoubleJump()
+        {
+            _doubleJumpUnlocked = true;
+        }
+
+        private void UnlockDash()
+        {
+            _dashUnlocked = true;
+        }
+        
+        private void UnlockImmunity()
+        {
+            _immuneSkillUnlocked = true;
+        }
         private void Dash()
         {
             if (!_canDash) return;
@@ -263,31 +459,11 @@ namespace PlayerScripts
             SetState(State.Dash);
         }
 
-        private void DashState()
-        {
-            _body.gravityScale = data.dashGravity;
-            Invoke(nameof(EndDash), data.dashDuration);
-        }
-
         private void EndDash()
         {
             _body.gravityScale = data.regularGravity;
             _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             SetState(_isOnFloor ? State.Idle : State.Jump);
-        }
-
-        private void UnlockImmunity()
-        {
-            _immuneSkillUnlocked = true;
-        }
-        
-        private void CheckImmunitySkillInput()
-        {
-            if (!_immuneSkillUnlocked) return;
-            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
-            {
-                ActivateImmunity();
-            }
         }
 
         private void ActivateImmunity()
@@ -300,171 +476,14 @@ namespace PlayerScripts
             _cooldown = data.shieldCooldown;
         }
         
-        private void Attack()
-        {
-            if (_isAttacking || _isPossessed) return;
-            _body.linearVelocityX /= 2f;
-            // playerWeapon.SetActive(true);
-            _isAttacking = true;
-            Invoke(nameof(EndAttack), data.attackSpeed);
-            _attackCooldown = data.attackCooldown;
-            _weapon.FlipAttackPosition();
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
-            _animator.SetBool(Attacking, true);
-        }
-        
-        private void EndAttack()
-        {
-            _isAttacking = false;
-            _animator.SetBool(Attacking, false);
-            // playerWeapon.SetActive(false);
-        }
-        
-        private void IdleState()
-        {
-            // if (_isPossessed) SetState(State.Possessed);
-            if (_xInput != 0) SetState(State.Move);
-            else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-
-            _animator.SetBool(Moving, false);
-        }
-        
-        private void MoveState()
-        {
-            CheckIfIsFalling();
-            
-            if (_xInput == 0) SetState(State.Idle);
-            
-            Move();
-            
-            if (_isOnFloor) _animator.SetBool(Moving, true);
-        }
-
-        private void Move()
-        {
-            if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
-            else _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
-        }
-
-        private void JumpState()
-        {
-            if (_xInput != 0) Move();
-
-            _jumpKeyTimePressed += Time.deltaTime;
-            
-            if (JumpReleased() || _jumpKeyTimePressed > data.jumpDuration)
-                SetState(State.Fall);
-            
-            CheckIfIsFalling();
-        }
-
-        private bool JumpPressed()
-        {
-            return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
-        }
-
-        private bool JumpReleased()
-        {
-            return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
-        }
-
-        private void Jump()
-        {
-            if (_state == State.Possessed) return;
-            
-            _isOnFloor = false;
-            SetState(State.Jump);
-            
-            _body.gravityScale = data.regularGravity;
-            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
-            
-            _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
-            
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
-        }
-
-        private void FallState()
-        {
-            if (_xInput != 0) Move();
-            
-            if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
-            _body.gravityScale = data.regularGravity * data.fallGravity;
-            _jumpKeyTimePressed = 0f;
-            
-            if (_isOnFloor) SetState(State.Idle);
-        }
-
-        private void CheckIfIsFalling()
-        {
-            if (_body.linearVelocityY < 0)
-            {
-                SetState(State.Fall);
-            }
-        }
-        
-        private void AttackState()
-        {
-            // _body.linearVelocityX -= 2f;
-            Move();
-            if (!_isAttacking)
-            {
-                print("Attack finished");
-                SetState(State.Idle);
-            }
-        }
-        
-        // PARA BORRAR DESPUÉS (ALGO)
-        private void GetHitState()
-        {
-            if (!_isPossessed) StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
-            _isImmune = true;
-            CancelInvoke(nameof(EndDash));
-            Invoke(nameof(EndImmunityTime), data.immunityTime);
-            SetState(State.Idle);
-        }
-
         private void EndImmunityTime()
         {
             _isImmune = false;
             shieldVisuals.gameObject.SetActive(false);
         }
-
-        private void GetHit(int damage)
-        {
-            if (_isImmune) return;
-            
-            _hp -= damage;
-            
-            // Frena el impulso del player (por si venia de un salto o dash)
-            _body.linearVelocity = Vector2.zero;
-            
-            // Reproducir animacion al ser golpeado
-            float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
-            _body.linearVelocityX = direction * data.pushForce / 2;
-            _body.linearVelocityY = data.pushForce;
-            
-            GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
-
-            if (_hp <= 0)
-            {
-                SetState(State.Die);
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
-                if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
-            }
-            else
-            {
-                SetState(State.GetHit);
-                _body.gravityScale = data.regularGravity;
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
-            }
-        }
+        #endregion
         
-        private void DieState()
-        {
-            _isImmune = true;
-            Time.timeScale = 0.2f;
-        }
-
+        #region RespawnLogic
         private void Respawn()
         {
             GameManager.Instance.GetPlayerRespawn.Invoke();
@@ -497,13 +516,6 @@ namespace PlayerScripts
             EndAttack();
             ResetPlayerStats();
         }
-
-        public void Heal()
-        {
-            _hp = data.baseHp;
-            _playerHealth.healthBar.SetHealth(_hp);
-        }
-
         private void Revive()
         {
             // transform.position = _mainRespawnPosition;
@@ -517,6 +529,19 @@ namespace PlayerScripts
             StopCoroutine(LockStateForSeconds(data.deathAnimationTime));
             SetState(State.Idle);
         }
+        
+        public void SetRespawnPosition(Vector3 newPosition)
+        {
+            _respawnPosition = newPosition;
+            SavePlayerStats();
+        }
+
+        public void SetMainRespawnPosition(Vector3 newPosition)
+        {
+            _mainRespawnPosition = newPosition;
+            SavePlayerStats();
+        }
+        #endregion
         
         private void UpdateState()
         {
@@ -540,35 +565,19 @@ namespace PlayerScripts
                 case State.Dash: DashState(); break;
             }
         }
-
-        private void SetState(State newState)
-        {
-            _state = newState;
-        }
         
-        private IEnumerator LockStateForSeconds(float duration)
+        public void Heal()
         {
-            _canChangeState = false;
-            yield return new WaitForSeconds(duration);
-            _canChangeState = true;
-        }
-        
-        public void SetRespawnPosition(Vector3 newPosition)
-        {
-            _respawnPosition = newPosition;
-            SavePlayerStats();
-        }
-
-        public void SetMainRespawnPosition(Vector3 newPosition)
-        {
-            _mainRespawnPosition = newPosition;
-            SavePlayerStats();
+            _hp = data.baseHp;
+            _playerHealth.healthBar.SetHealth(_hp);
         }
         
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
             _body.sharedMaterial = material;
         }
+
+        #region GetProperties
         
         public State GetState => _state;
 
@@ -588,6 +597,7 @@ namespace PlayerScripts
 
         public PlayerVisuals GetPlayerVisuals => visuals;
 
+        #endregion
 
         #region PlayerPrefs
 
@@ -630,7 +640,5 @@ namespace PlayerScripts
         public UnityEvent GetPlayerRevived => _onPlayerRevived;
 
         #endregion
-
-
     }
 }
