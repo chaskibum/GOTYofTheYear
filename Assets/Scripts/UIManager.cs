@@ -7,7 +7,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject reviveButton;
     [SerializeField] private GameObject optionsButton;
+    [SerializeField] private GameObject uSurePanel;
     [SerializeField] private Slider slider;
+    [SerializeField] private Button button;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Transform livesContainer;
 
@@ -38,7 +40,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel")) HandlePause();
+        if (Input.GetButtonDown("Cancel") && !uSurePanel.activeInHierarchy) HandlePause();
 
         _cooldownBarSlider.value = _player.GetCooldown * -1;
     }
@@ -118,7 +120,7 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             pauseMenuUI.SetActive(true);
-            slider.Select();
+            HighlightSliderButton();
             optionsButton.SetActive(false);
         }
         else
@@ -127,5 +129,15 @@ public class UIManager : MonoBehaviour
             pauseMenuUI.SetActive(false);
             optionsButton.SetActive(true);
         }
+    }
+
+    public void HighlightSureButton()
+    {
+        button.Select();
+    }
+
+    public void HighlightSliderButton()
+    {
+        slider.Select();
     }
 }
