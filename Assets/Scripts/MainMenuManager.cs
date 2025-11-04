@@ -1,8 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] private Button playButton;
+    [SerializeField] private Slider slider;
+    
+    private void Start()
+    {
+        HighlightPlayButton();
+    }
+    
     public void Play()
     {
         Time.timeScale = 1;
@@ -12,5 +21,15 @@ public class MainMenuManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void HighlightPlayButton()
+    {
+        playButton.Select();
+    }
+
+    public void HighlightVolumeSlider()
+    {
+        slider.Select();
     }
 }

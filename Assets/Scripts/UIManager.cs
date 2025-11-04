@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject reviveButton;
     [SerializeField] private GameObject optionsButton;
+    [SerializeField] private Slider slider;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Transform livesContainer;
 
@@ -56,7 +57,7 @@ public class UIManager : MonoBehaviour
     private void ResetUI()
     {
         gameOverPanel.SetActive(false);
-        restartButton.SetActive(false);
+        reviveButton.SetActive(false);
         optionsButton.SetActive(true);
         if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
         else cooldownBar.SetActive(false);
@@ -71,7 +72,7 @@ public class UIManager : MonoBehaviour
     private void RestartUI()
     {
         gameOverPanel.SetActive(false);
-        restartButton.SetActive(false);
+        reviveButton.SetActive(false);
         optionsButton.SetActive(true);
         cooldownBar.SetActive(false);
         
@@ -103,7 +104,8 @@ public class UIManager : MonoBehaviour
         else
         {
             GameManager.Instance.GetGameOverEvent?.Invoke();
-            restartButton.SetActive(true);
+            reviveButton.SetActive(true);
+            reviveButton.GetComponent<Button>().Select();
             optionsButton.SetActive(false);
         }
     }
@@ -116,11 +118,14 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             pauseMenuUI.SetActive(true);
+            slider.Select();
+            optionsButton.SetActive(false);
         }
         else
         {
             Time.timeScale = 1f;
             pauseMenuUI.SetActive(false);
+            optionsButton.SetActive(true);
         }
     }
 }
