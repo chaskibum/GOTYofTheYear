@@ -43,7 +43,8 @@ public class DialogueSystem : MonoBehaviour, IInteractable
 
     private void CheckInteractInput()
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+        // if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("Interact"))
         {
             Interact();
             CalculateDirection();

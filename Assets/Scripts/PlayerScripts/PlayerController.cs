@@ -202,18 +202,15 @@ namespace PlayerScripts
         private void PossessedState()
         {
             _body.linearVelocity = new Vector2(_randomPossessedDirection * data.moveSpeed, _body.linearVelocity.y);
-            if (Input.GetKeyDown(KeyCode.W)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.A)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.S)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.D)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.UpArrow)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.DownArrow)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.RightArrow)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.Space)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.H)) _inputCount += 1;
-            if (Input.GetKeyDown(KeyCode.Z)) _inputCount += 1;
+
+            if (Input.GetButtonDown("Jump")) _inputCount += 1;
+            if (Input.GetButtonDown("Horizontal")) _inputCount += 1;
+            if (Input.GetButtonDown("Attack")) _inputCount += 1;
+            if (Input.GetButtonDown("Dash")) _inputCount += 1;
+            if (Input.GetButtonDown("ImmuneSkill")) _inputCount += 1;
             if (_inputCount >= 25) Exorcised();
+            
+            print(_inputCount);
         }
         
         private void DieState()
@@ -293,12 +290,14 @@ namespace PlayerScripts
 
         private bool JumpPressed()
         {
-            return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+            // return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+            return Input.GetButtonDown("Jump");
         }
 
         private bool JumpReleased()
         {
-            return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
+            // return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
+            return Input.GetButtonUp("Jump");
         }
 
         private void Jump()
@@ -410,7 +409,8 @@ namespace PlayerScripts
 
         private void CheckAttackInput()
         {
-            if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.Z) && !_isPossessed && _attackCooldown <= 0)
+            // if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.Z) && !_isPossessed && _attackCooldown <= 0)
+            if (Input.GetButtonDown("Attack") && !_isPossessed && _attackCooldown <= 0)
             {
                 Attack();
                 SetState(State.Attack);
@@ -419,7 +419,8 @@ namespace PlayerScripts
         
         private void CheckDashInput()
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !_isAttacking)
+            // if (Input.GetKeyDown(KeyCode.LeftShift) && !_isAttacking)
+            if (Input.GetButtonDown("Dash") && !_isAttacking)
             {
                 Dash();
             }
@@ -428,7 +429,8 @@ namespace PlayerScripts
         private void CheckImmunitySkillInput()
         {
             if (!_immuneSkillUnlocked) return;
-            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
+            // if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
+            if (Input.GetButtonDown("ImmuneSkill") && !_isPossessed)
             {
                 ActivateImmunity();
             }

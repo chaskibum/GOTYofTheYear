@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) HandlePause();
+        if (Input.GetButtonDown("Cancel")) HandlePause();
 
         _cooldownBarSlider.value = _player.GetCooldown * -1;
     }
