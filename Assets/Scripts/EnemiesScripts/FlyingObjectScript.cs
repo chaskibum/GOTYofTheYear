@@ -23,7 +23,7 @@ namespace EnemiesScripts
             Animator.SetTrigger("BackToIdle");
             particles.Stop();
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
-            //if (!CanChangeState) return;
+            if (!CanChangeState) return;
 
             if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange)
             {
