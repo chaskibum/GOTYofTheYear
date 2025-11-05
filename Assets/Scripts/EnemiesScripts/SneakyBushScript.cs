@@ -7,6 +7,7 @@ namespace EnemiesScripts
         protected override void Attack()
         {
             if (!CanAttack) return;
+            Animator?.SetBool("Attacking", true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
             base.Attack();
         }
@@ -26,6 +27,12 @@ namespace EnemiesScripts
             
             if (Vector2.Distance(Body.position, PlayerPos) < data.attackRange && CanAttack) 
                 SetState(State.Attack);
+        }
+
+        protected override void EndAttack()
+        {
+            base.EndAttack();
+            Animator?.SetBool("Attacking", false);
         }
     }
 }

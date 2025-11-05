@@ -5164,6 +5164,7 @@ GameObject:
   - component: {fileID: 2956866508651815176}
   - component: {fileID: 7710361452574459358}
   - component: {fileID: 3228940157421932396}
+  - component: {fileID: 5110217203751359881}
   m_Layer: 11
   m_Name: FlyingObject
   m_TagString: FlyingObject
@@ -5283,6 +5284,28 @@ MonoBehaviour:
   particles: {fileID: 8058585282957452448}
   idleSounds: {fileID: 0}
   IsBoss: 0
+--- !u!95 &5110217203751359881
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075098999528095806}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 681a9956c8933c14681d5a6c0469055a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8339383124014994451
 GameObject:
   m_ObjectHideFlags: 0
