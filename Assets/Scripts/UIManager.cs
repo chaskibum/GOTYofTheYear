@@ -78,7 +78,8 @@ public class UIManager : MonoBehaviour
         optionsButton.SetActive(true);
         cooldownBar.SetActive(false);
         
-        if (pauseMenuUI.activeInHierarchy) HandlePause();
+        // if (pauseMenuUI.activeInHierarchy) HandlePause();
+        HandlePause();
         
         int baseLives = _player.GetPlayerData.baseLives;
 

@@ -13,8 +13,8 @@ namespace EnemiesScripts
         [SerializeField] protected TMP_Text stateText;
         
         [Header("Details")]
-        [SerializeField] private ParticleSystem particles;
-        [SerializeField] private AudioSource idleSounds;
+        [SerializeField] protected ParticleSystem particles;
+        [SerializeField] protected AudioSource idleSounds;
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
         protected State CurrentState = State.Idle;

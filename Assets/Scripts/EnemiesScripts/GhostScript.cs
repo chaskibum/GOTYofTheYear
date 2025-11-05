@@ -56,5 +56,11 @@ namespace EnemiesScripts
             CurrentState = newState;
             stateText.text = CurrentState.ToString();
         }
+
+        protected override void DieState()
+        {
+            base.DieState();
+            StopAllCoroutines();
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace EnemiesScripts
 
         protected override void IdleState()
         {
+            particles.Stop();
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
             if (!CanChangeState) return;
 
@@ -30,6 +31,7 @@ namespace EnemiesScripts
         protected override void ResetEnemy()
         {
             base.ResetEnemy();
+            particles.Stop();
             attackHitbox.SetActive(true);
             _forceAdded = false;
             StopAllCoroutines();
@@ -47,9 +49,15 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             Visuals.flipX = !PlayerToTheRight;
+
+            /*while (Visuals.color == Color.white)
+            {
+                Visuals.color
+            }*/
             
             if (!_forceAdded)
             {
+                particles.Play();
                 Body.AddForce(_playerDirection * data.stepAwayForce, ForceMode2D.Impulse);
                 _forceAdded = true;
             }
