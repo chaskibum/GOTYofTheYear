@@ -131,6 +131,7 @@ namespace PlayerScripts
         
         private void IdleState()
         {
+            
             // if (_isPossessed) SetState(State.Possessed);
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
@@ -175,11 +176,12 @@ namespace PlayerScripts
         
         private void AttackState()
         {
+            _jumpKeyTimePressed = 0f;
             // _body.linearVelocityX -= 2f;
+            // _body.gravityScale = data.regularGravity;
             Move();
             if (!_isAttacking)
             {
-                print("Attack finished");
                 SetState(State.Idle);
             }
         }
@@ -267,7 +269,7 @@ namespace PlayerScripts
         private void Attack()
         {
             if (_isAttacking || _isPossessed) return;
-            _body.linearVelocityX /= 2f;
+            _body.linearVelocityX *= 0.5f;
             _isAttacking = true;
             Invoke(nameof(EndAttack), data.attackSpeed);
             _attackCooldown = data.attackCooldown;
@@ -318,7 +320,7 @@ namespace PlayerScripts
 
         private void CheckIfIsFalling()
         {
-            if (_body.linearVelocityY < 0)
+            if (_body.linearVelocityY < 0 && !_isOnFloor)
             {
                 SetState(State.Fall);
             }
