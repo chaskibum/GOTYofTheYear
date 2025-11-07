@@ -285,6 +285,9 @@ MonoBehaviour:
   attackHitbox: {fileID: 3855080162455854337}
   attackHurtbox: {fileID: 1508472435974918507}
   stateText: {fileID: 2879435305635914274}
+  particles: {fileID: 0}
+  idleSounds: {fileID: 0}
+  IsBoss: 0
 --- !u!1 &3855080162455854337
 GameObject:
   m_ObjectHideFlags: 0
