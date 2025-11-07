@@ -85,7 +85,7 @@ namespace EnemiesScripts
             Hp = data.baseHp;
             Body.linearVelocity = Vector2.zero;
             CanAttack = true;
-            Animator?.SetBool("Attacking", false);
+            // Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(true);
             gameObject.SetActive(true);
@@ -94,9 +94,8 @@ namespace EnemiesScripts
             color.a = 1;
             Visuals.color = color;
             
-            if (!particles || !idleSounds) return;
-            particles?.Play();
-            idleSounds?.Play();
+            if (particles) particles?.Play();
+            if (idleSounds) idleSounds?.Play();
         }
         
         protected virtual void GetPlayerPosition()

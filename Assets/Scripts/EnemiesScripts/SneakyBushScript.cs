@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -10,6 +11,12 @@ namespace EnemiesScripts
             Animator?.SetBool("Attacking", true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
             base.Attack();
+        }
+
+        protected override void ResetEnemy()
+        {
+            base.ResetEnemy();
+            Animator?.SetBool("Attacking", false);
         }
 
         public override void GetHit()

@@ -8,18 +8,25 @@ namespace EnemiesScripts
         private bool _flying;
         private Vector3 _playerDirection;
         private bool _forceAdded = false;
+        private float _timer = 3;
         
         protected override void Update()
         {
             CalculateDirection();
             if (!_flying)
+            {
                 GetPlayerPosition();
+                print("obteniendo la pos del player");
+            }
             
             UpdateState();
         }
 
         protected override void IdleState()
         {
+            _timer -= Time.deltaTime;
+            if (_timer <= 0) _flying = false;
+            
             Animator.SetTrigger("BackToIdle");
             particles.Stop();
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
@@ -27,6 +34,7 @@ namespace EnemiesScripts
 
             if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange)
             {
+                _timer = 3;
                 Animator.SetTrigger("StartAttack");
                 particles.Play();
             }
@@ -59,6 +67,15 @@ namespace EnemiesScripts
                 Body.AddForce(_playerDirection * data.stepAwayForce, ForceMode2D.Impulse);
                 _forceAdded = true;
             }
+            /*else
+            {
+                _timer -= Time.deltaTime;
+                if (_timer <= 0)
+                {
+                    _flying = false;
+                    SetState(State.Idle);
+                }
+            }*/
             
             if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange) 
                 SetState(State.Idle);
@@ -78,6 +95,7 @@ namespace EnemiesScripts
         protected override void EndAttack()
         {
             base.EndAttack();
+            _timer = 3;
             SetState(State.Idle);
             StartCoroutine(LockStateForSeconds(data.attackCooldown));
             _flying = false;
