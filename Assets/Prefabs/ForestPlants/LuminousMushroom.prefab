@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411737277612398539}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.0025079132, w: 0.99999684}
+  m_LocalRotation: {x: -0, y: -0, z: -0.005988118, w: 0.99998206}
   m_LocalPosition: {x: -0.1, y: 1.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50,8 +50,8 @@ MonoBehaviour:
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_LightVolumeIntensity: 1
-  m_LightVolumeEnabled: 0
+  m_LightVolumeIntensity: 0.01
+  m_LightVolumeEnabled: 1
   m_ApplyToSortingLayers: 000000003f5c64b23dc71a56cf5bb1efbf4f5244cdde0611f1a1d460ed86aa2d09bc9d218ba39cbf373c806ddb2c2de6a76cdd7d676c0205
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.08365184
-  m_PointLightOuterRadius: 3.632432
+  m_PointLightOuterRadius: 8.569287
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -4866,7 +4866,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c95d1de318f070e4eb7e7c1c9eb60205, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

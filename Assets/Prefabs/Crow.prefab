@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.2
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4782,7 +4782,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31eae85c2a88399439ff8d18d606607e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5481,6 +5481,7 @@ MonoBehaviour:
   stateText: {fileID: 6356648528669148754}
   particles: {fileID: 7695004738326358881}
   idleSounds: {fileID: 5381792072788326190}
+  IsBoss: 0
   crowLight: {fileID: 3855294013440335192}
 --- !u!1 &8339383124014994451
 GameObject:
