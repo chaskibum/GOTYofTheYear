@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using PlayerScripts;
@@ -11,6 +10,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     private bool _dialogueStarted;
     private int _dialogueIndex;
     private const float DialogueSpeed = 0.05f;
+    private bool _canSpeak = true;
 
     [SerializeField] private GameObject interactPrompt;
     [SerializeField] private GameObject dialoguePanel;
@@ -32,7 +32,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     {
         if (_isInRange)
         {
-            CheckInteractInput();
+            if (_canSpeak) CheckInteractInput();
             interactPrompt.SetActive(true);
         }
         else
@@ -43,12 +43,26 @@ public class DialogueSystem : MonoBehaviour, IInteractable
 
     private void CheckInteractInput()
     {
-        // if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
         if (Input.GetButtonDown("Interact"))
         {
             Interact();
             CalculateDirection();
         }
+    }
+
+    private void ExitDialogue()
+    {
+        _dialogueStarted = false;
+        interactPrompt.SetActive(true);
+        dialoguePanel.SetActive(false);
+        _player.inDialog = false;
+        _canSpeak = false;
+        Invoke(nameof(CanSpeakAgain), 0.7f);
+    }
+
+    private void CanSpeakAgain()
+    {
+        _canSpeak = true;
     }
     
     private void CalculateDirection()
@@ -74,6 +88,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
         _dialogueStarted = true;
         GameManager.Instance.GetPlayer.inDialog = true;
         _dialogueIndex = 0;
+        _player.inDialog = true;
         interactPrompt.SetActive(false);
         dialoguePanel.SetActive(true);
         StartCoroutine(WriteDialogue());
@@ -98,10 +113,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
         }
         else
         {
-            _dialogueStarted = false;
-            GameManager.Instance.GetPlayer.inDialog = false;
-            interactPrompt.SetActive(true);
-            dialoguePanel.SetActive(false);
+            ExitDialogue();
         }
     }
 

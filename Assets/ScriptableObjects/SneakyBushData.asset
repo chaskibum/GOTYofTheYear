@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 15
   moveSpeed: 0
   attackAnimationTime: 3
-  attackCooldown: 5
+  attackCooldown: 4.5
   detectionRange: 5
   attackRange: 4
   pushForce: 0

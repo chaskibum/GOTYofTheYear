@@ -112,6 +112,7 @@ namespace PlayerScripts
             if (inDialog)
             {
                 _animator.SetBool(Moving, false);
+                _animator.SetBool(Jumping, false);
                 _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
                 return;
             }
