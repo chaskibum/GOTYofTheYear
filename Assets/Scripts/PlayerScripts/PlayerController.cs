@@ -139,6 +139,7 @@ namespace PlayerScripts
 
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
+            // AudioManager.Instance.StopClip();
         }
         
         private void MoveState()
@@ -151,6 +152,7 @@ namespace PlayerScripts
             
             if (_isOnFloor) _animator.SetBool(Moving, true);
         }
+        
         
         private void JumpState()
         {
@@ -289,6 +291,11 @@ namespace PlayerScripts
         {
             if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
             else _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
+        }
+        
+        public void PlayStepSound()
+        {
+            AudioManager.Instance.PlayStepSound(AudioManager.AudioList.PlayerWalk);
         }
 
         private bool JumpPressed()
@@ -459,6 +466,7 @@ namespace PlayerScripts
         private void Dash()
         {
             if (!_canDash) return;
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
             // _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);

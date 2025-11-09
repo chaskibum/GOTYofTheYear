@@ -22,12 +22,15 @@ public class AudioManager : MonoBehaviour
     {
         MainCheckpointActivated,
         FireCheckpointActivated,
+        Dialog,
         ExtraLifeGrabbed,
+        PlayerWalk,
         PlayerJump,
         PlayerHit,
         PlayerDeath,
         PlayerAttack,
         PlayerMissedAttack,
+        Dash,
         ArmorAttack,
         ArmorHit,
         ArmorDeath,
@@ -59,6 +62,13 @@ public class AudioManager : MonoBehaviour
             sfxSource.Play();
         }
         sfxSource.loop = oneShot;
+    }
+
+    public void PlayStepSound(AudioList clip)
+    {
+        StopClip();
+        sfxSource.pitch = Random.Range(0.9f, 1.1f);
+        sfxSource.PlayOneShot(audioClips[(int)clip]);
     }
 
     public void StopClip()

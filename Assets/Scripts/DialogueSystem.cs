@@ -97,6 +97,7 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     private IEnumerator WriteDialogue()
     {
         dialogueText.text = string.Empty;
+        // AudioManager.Instance.PlayClip(AudioManager.AudioList.Dialog, false, 0.8f, false);
         foreach (char ch in dialogueList[_dialogueIndex])
         {
             dialogueText.text += ch;
