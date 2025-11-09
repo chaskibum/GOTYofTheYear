@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 1286415881803809653}
   - component: {fileID: 4526480891487246054}
   - component: {fileID: 5207319227392154934}
+  - component: {fileID: 9219014954767595345}
   m_Layer: 11
   m_Name: ArmorGhost
   m_TagString: Untagged
@@ -263,7 +264,32 @@ MonoBehaviour:
   attackHitbox: {fileID: 3262942600924391178}
   attackHurtbox: {fileID: 4673387972831737692}
   stateText: {fileID: 3043423746521078765}
+  particles: {fileID: 0}
+  idleSounds: {fileID: 0}
+  IsBoss: 0
   attack: {fileID: 3838214993714407936}
+--- !u!95 &9219014954767595345
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466979379084223959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61323cf27002cd74488fb50111689c97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3262942600924391178
 GameObject:
   m_ObjectHideFlags: 0
