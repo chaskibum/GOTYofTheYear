@@ -6,8 +6,10 @@ namespace EnemiesScripts
 {
     public class CrowBossScript : EnemyController
     {
-        protected bool BossSlain;
-        protected float ChaseTimer;
+        private bool BossSlain;
+        private float ChaseTimer;
+        private bool wentUp;
+        private int modifyPosition;
 
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private List<GameObject> waves;
@@ -21,6 +23,7 @@ namespace EnemiesScripts
                 base.ResetEnemy();
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(true);
+                wentUp = false;
 
                 if (_waveCoroutine != null)
                 {
@@ -37,6 +40,7 @@ namespace EnemiesScripts
         {
             base.RestartEnemy();
             unlockableSkill.SetActive(false);
+            wentUp = false;
         }
 
         private IEnumerator WaveSpawner()
@@ -56,7 +60,7 @@ namespace EnemiesScripts
         protected override void GetPlayerPosition()
         {
             PlayerPos = Player.GetPlayerTarget;
-            PlayerPos.y += 1f;
+            PlayerPos.y += modifyPosition;
         }
 
         protected override void ChaseState()
@@ -67,11 +71,26 @@ namespace EnemiesScripts
                 _waveCoroutine = StartCoroutine(WaveSpawner());
                 
             ChaseTimer += Time.deltaTime;
-            if (ChaseTimer >= 3f)
+            if (ChaseTimer >= data.stepAwayForce)
             {
+                UpAndDownMovement();
                 SetState(State.Idle);
-                StartCoroutine(LockStateForSeconds(data.moveSpeed));
+                StartCoroutine(LockStateForSeconds(data.stepAwayForce));
                 ChaseTimer = 0f;
+            }
+        }
+
+        private void UpAndDownMovement()
+        {
+            if (!wentUp)
+            {
+                modifyPosition += 5;
+                wentUp = true;
+            }
+            else
+            {
+                modifyPosition -= 5;
+                wentUp = false;
             }
         }
 

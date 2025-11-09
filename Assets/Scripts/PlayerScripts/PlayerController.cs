@@ -96,8 +96,13 @@ namespace PlayerScripts
             _onPlayerHit.AddListener(GetHit);
             _onPlayerPossessed.AddListener(PlayerPossessed);
             _onPlayerRevived.AddListener(Revive);
-            
-            if (!PlayerPrefs.HasKey("XPosition")) RestartGame();
+
+            if (!PlayerPrefs.HasKey("XPosition"))
+            {
+                PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
+                PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
+                RestartGame();
+            }
             else
                 transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
         }
@@ -530,6 +535,7 @@ namespace PlayerScripts
             EndAttack();
             ResetPlayerStats();
         }
+        
         private void Revive()
         {
             // transform.position = _mainRespawnPosition;
