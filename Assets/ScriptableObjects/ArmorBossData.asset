@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyData
   baseHp: 30
   damage: 60
-  moveSpeed: 2
+  moveSpeed: 3
   attackAnimationTime: 2
   attackCooldown: 4.5
-  detectionRange: 15
+  detectionRange: 45
   attackRange: 4
   pushForce: 0
   pushTime: 0

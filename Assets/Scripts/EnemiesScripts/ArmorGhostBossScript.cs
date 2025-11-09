@@ -8,20 +8,23 @@ namespace EnemiesScripts
     {
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private GameObject attack;
+        [SerializeField] private GameObject lockDoor;
         [SerializeField] private List<GameObject> enemies;
         [SerializeField] private List<GameObject> objects;
         private Coroutine _spawnCoroutine;
+        private Vector3 _startingLockPosition = new Vector3(214, -111, 0);
+        private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
         
         private bool BossSlain;
 
         protected override void ResetEnemy()
         {
-            
             if (!BossSlain)
             {
                 base.ResetEnemy();
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(false);
+                lockDoor.transform.position = _startingLockPosition;
 
                 if (_spawnCoroutine != null)
                 {
@@ -51,6 +54,11 @@ namespace EnemiesScripts
             {
                 _spawnCoroutine = StartCoroutine(nameof(SpawnEnemies));
             }
+
+            if (lockDoor.transform.position != _targetLockPosition)
+            {
+                lockDoor.transform.position = Vector3.Lerp(lockDoor.transform.position, _targetLockPosition, 3 * Time.deltaTime);
+            }
         }
 
         public override void GetHit()
@@ -64,6 +72,7 @@ namespace EnemiesScripts
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
                 BossSlain = true;
                 unlockableSkill?.SetActive(true);
+                lockDoor.SetActive(false);
                 foreach (GameObject enemy in enemies)
                     Destroy(enemy);
             }
@@ -89,10 +98,8 @@ namespace EnemiesScripts
             if (!BossSlain)
             {
                 yield return new WaitForSeconds(Random.Range(5f, 8f));
-                print("WRAAAAAAAGH!!!");
                 objects[Random.Range(0, objects.Count)].SetActive(true);
                 yield return new WaitForSeconds(Random.Range(10f, 15f));
-                print("MINIONS!!!");
                 enemies[Random.Range(0, enemies.Count)].SetActive(true);
                 RelocateObjects();
                 
