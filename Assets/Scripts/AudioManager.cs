@@ -22,9 +22,11 @@ public class AudioManager : MonoBehaviour
     {
         MainCheckpointActivated,
         FireCheckpointActivated,
-        Dialog,
+        Dialog1,
+        Dialog2,
         ExtraLifeGrabbed,
-        PlayerWalk,
+        PlayerWalk1,
+        PlayerWalk2,
         PlayerJump,
         PlayerHit,
         PlayerDeath,
@@ -64,11 +66,28 @@ public class AudioManager : MonoBehaviour
         sfxSource.loop = oneShot;
     }
 
-    public void PlayStepSound(AudioList clip)
+    public void PlayStepSound()
     {
-        StopClip();
+        var clip = RandomStep();
         sfxSource.pitch = Random.Range(0.9f, 1.1f);
-        sfxSource.PlayOneShot(audioClips[(int)clip]);
+        sfxSource.PlayOneShot(audioClips[clip]);
+    }
+
+    private int RandomStep()
+    {
+        return Random.Range(5, 7);
+    }
+    
+    public void PlayDialogSound()
+    {
+        var clip = RandomDialog();
+        sfxSource.pitch = Random.Range(0.9f, 1.1f);
+        sfxSource.PlayOneShot(audioClips[clip]);
+    }
+
+    private int RandomDialog()
+    {
+        return Random.Range(2, 4);
     }
 
     public void StopClip()

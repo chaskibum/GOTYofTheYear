@@ -295,18 +295,16 @@ namespace PlayerScripts
         
         public void PlayStepSound()
         {
-            AudioManager.Instance.PlayStepSound(AudioManager.AudioList.PlayerWalk);
+            AudioManager.Instance.PlayStepSound();
         }
 
         private bool JumpPressed()
         {
-            // return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
             return Input.GetButtonDown("Jump");
         }
 
         private bool JumpReleased()
         {
-            // return Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
             return Input.GetButtonUp("Jump");
         }
 

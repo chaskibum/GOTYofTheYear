@@ -12,8 +12,6 @@ namespace EnemiesScripts
             CanAttack = false;
             StartCoroutine(nameof(CanAttackAgain));
             SetState(State.Attack);
-            print("attacking");
-            // base.Attack();
         }
 
         public void PlayAttackSound()
@@ -30,7 +28,11 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            if (Hp <= 0) AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
+            if (Hp <= 0)
+            {
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
+                Animator?.SetBool("Attacking", false);
+            }
         }
 
         protected override void ChaseState()
@@ -41,10 +43,7 @@ namespace EnemiesScripts
                 SetState(State.Idle);
 
             if (Vector2.Distance(Body.position, PlayerPos) < data.attackRange && CanAttack)
-            {
                 SetState(State.Attack);
-                // Animator?.SetTrigger("Attack");
-            }
         }
 
         protected override void EndAttack()

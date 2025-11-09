@@ -97,9 +97,10 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     private IEnumerator WriteDialogue()
     {
         dialogueText.text = string.Empty;
-        // AudioManager.Instance.PlayClip(AudioManager.AudioList.Dialog, false, 0.8f, false);
         foreach (char ch in dialogueList[_dialogueIndex])
         {
+            // AudioManager.Instance.PlayClip(AudioManager.AudioList.Dialog, true, 0.8f);
+            AudioManager.Instance.PlayDialogSound();
             dialogueText.text += ch;
             yield return new WaitForSecondsRealtime(DialogueSpeed);
         }
