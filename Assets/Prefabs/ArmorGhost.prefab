@@ -265,9 +265,9 @@ MonoBehaviour:
   attackHitbox: {fileID: 3262942600924391178}
   attackHurtbox: {fileID: 4673387972831737692}
   stateText: {fileID: 3043423746521078765}
+  wallsCollider: {fileID: 4526480891487246054}
   particles: {fileID: 0}
   idleSounds: {fileID: 0}
-  IsBoss: 0
   attack: {fileID: 3838214993714407936}
 --- !u!95 &9219014954767595345
 Animator:

@@ -11,6 +11,7 @@ namespace EnemiesScripts
         [SerializeField] protected GameObject attackHitbox;
         [SerializeField] protected GameObject attackHurtbox;
         [SerializeField] protected TMP_Text stateText;
+        [SerializeField] protected Collider2D wallsCollider;
         
         [Header("Details")]
         [SerializeField] protected ParticleSystem particles;
@@ -26,7 +27,6 @@ namespace EnemiesScripts
         protected Vector2 Direction;
         protected float AttackTimer;
         protected bool CanAttack = true;
-        [SerializeField] protected bool IsBoss = false;
         
         protected Rigidbody2D Body;
         protected SpriteRenderer Visuals;
@@ -49,6 +49,7 @@ namespace EnemiesScripts
             Visuals = GetComponentInChildren<SpriteRenderer>();
             TryGetComponent(out Animator);
             Player = GameManager.Instance.GetPlayer;
+            if (wallsCollider) wallsCollider.enabled = true;
             
             GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
             GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
@@ -80,6 +81,7 @@ namespace EnemiesScripts
         private void Respawn()
         {
             StopCoroutine(nameof(Disappear));
+            if (wallsCollider) wallsCollider.enabled = true;
             CurrentState = State.Idle;
             transform.position = StartingPosition;
             Hp = data.baseHp;
@@ -174,6 +176,7 @@ namespace EnemiesScripts
         {
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(false);
+            if (wallsCollider) wallsCollider.enabled = false;
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             StartCoroutine(nameof(Disappear));
         }

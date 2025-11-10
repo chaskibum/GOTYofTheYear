@@ -122,11 +122,12 @@ MonoBehaviour:
   attackHitbox: {fileID: 3318388256216294041}
   attackHurtbox: {fileID: 4872384699356951247}
   stateText: {fileID: 2988538908866731646}
+  wallsCollider: {fileID: 4437259404135306101}
   particles: {fileID: 0}
   idleSounds: {fileID: 0}
-  IsBoss: 1
   unlockableSkill: {fileID: 0}
   attack: {fileID: 3891411048349249427}
+  lockDoor: {fileID: 0}
   enemies: []
   objects: []
 --- !u!114 &2988538908866731646 stripped
@@ -148,6 +149,11 @@ GameObject:
 --- !u!1 &3891411048349249427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3838214993714407936, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+  m_PrefabInstance: {fileID: 235600638993483155}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &4437259404135306101 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4526480891487246054, guid: a28910142082b1d479b1221a8d9be548, type: 3}
   m_PrefabInstance: {fileID: 235600638993483155}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4872384699356951247 stripped
