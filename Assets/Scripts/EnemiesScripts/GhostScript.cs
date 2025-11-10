@@ -5,7 +5,7 @@ namespace EnemiesScripts
     public class GhostScript : EnemyController
     {
         protected float StateTimer = 0;
-        
+
         protected override void Start()
         {
             base.Start();
@@ -48,6 +48,15 @@ namespace EnemiesScripts
             if (Body.linearVelocity.x == 0) Body.AddForce(Direction * data.pushForce / 2, ForceMode2D.Impulse);
             base.GetHitState();
             attackHitbox.SetActive(false);
+        }
+
+        protected override void ChaseState()
+        {
+            if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange && Player.GetIsPossessed)
+            {
+                Player.Exorcised();
+            }
+            base.ChaseState();
         }
 
         public override void SetState(State newState)

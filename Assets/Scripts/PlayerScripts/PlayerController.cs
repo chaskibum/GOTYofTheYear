@@ -63,7 +63,7 @@ namespace PlayerScripts
 
         private float _xInput;
 
-        private bool _isPossessed;
+        public bool _isPossessed;
         private int _inputCount;
         private float _randomPossessedDirection;
         
@@ -137,14 +137,11 @@ namespace PlayerScripts
         
         private void IdleState()
         {
-            
-            // if (_isPossessed) SetState(State.Possessed);
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
 
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
-            // AudioManager.Instance.StopClip();
         }
         
         private void MoveState()
@@ -185,8 +182,6 @@ namespace PlayerScripts
         private void AttackState()
         {
             _jumpKeyTimePressed = 0f;
-            // _body.linearVelocityX -= 2f;
-            // _body.gravityScale = data.regularGravity;
             Move();
             if (!_isAttacking)
             {
@@ -220,7 +215,7 @@ namespace PlayerScripts
             if (Input.GetButtonDown("ImmuneSkill")) _inputCount += 1;
             if (_inputCount >= 25) Exorcised();
             
-            print(_inputCount);
+            // print(_inputCount);
         }
         
         private void DieState()
@@ -342,14 +337,17 @@ namespace PlayerScripts
             if (_isImmune) return;
             
             _hp -= damage;
-            
-            // Frena el impulso del player (por si venia de un salto o dash)
-            _body.linearVelocity = Vector2.zero;
-            
-            // Reproducir animacion al ser golpeado
-            float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
-            _body.linearVelocityX = direction * data.pushForce / 2;
-            _body.linearVelocityY = data.pushForce;
+
+            if (!_isPossessed)
+            {
+                // Frena el impulso del player (por si venia de un salto o dash)
+                _body.linearVelocity = Vector2.zero;
+                
+                // Reproducir animacion al ser golpeado
+                float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
+                _body.linearVelocityX = direction * data.pushForce / 2;
+                _body.linearVelocityY = data.pushForce;
+            }
             
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
@@ -369,17 +367,18 @@ namespace PlayerScripts
         
         private void PlayerPossessed()
         {
-            _randomPossessedDirection = GetRandomDirection();
-            _isPossessed = true;
+            print("CALLING PLAYER POSSESSED");
+            InvokeRepeating(nameof(GetRandomDirection), 0f, 2.5f);
             SetState(State.Possessed);
+            _isPossessed = true;
         }
 
-        private float GetRandomDirection()
+        private void GetRandomDirection()
         {
-            return Random.value < 0.5f ? -1f : 1f;
+            _randomPossessedDirection = Random.value < 0.5f ? -1f : 1f;
         }
 
-        private void Exorcised()
+        public void Exorcised()
         {
             _onPlayerExorcised.Invoke();
             _inputCount = 0;
@@ -432,8 +431,7 @@ namespace PlayerScripts
         
         private void CheckDashInput()
         {
-            // if (Input.GetKeyDown(KeyCode.LeftShift) && !_isAttacking)
-            if (Input.GetButtonDown("Dash") && !_isAttacking)
+            if (Input.GetButtonDown("Dash") && !_isAttacking && !_isPossessed)
             {
                 Dash();
             }
@@ -617,6 +615,8 @@ namespace PlayerScripts
         public PlayerData GetPlayerData => data;
 
         public PlayerVisuals GetPlayerVisuals => visuals;
+        
+        public bool GetIsPossessed => _isPossessed;
 
         #endregion
 

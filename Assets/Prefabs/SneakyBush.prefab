@@ -286,9 +286,9 @@ MonoBehaviour:
   attackHitbox: {fileID: 3855080162455854337}
   attackHurtbox: {fileID: 1508472435974918507}
   stateText: {fileID: 2879435305635914274}
+  wallsCollider: {fileID: 0}
   particles: {fileID: 0}
   idleSounds: {fileID: 0}
-  IsBoss: 0
 --- !u!1 &3855080162455854337
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1783
+    m_Bits: 3831
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
