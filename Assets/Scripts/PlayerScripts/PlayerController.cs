@@ -63,7 +63,7 @@ namespace PlayerScripts
 
         private float _xInput;
 
-        public bool _isPossessed;
+        private bool _isPossessed;
         private int _inputCount;
         private float _randomPossessedDirection;
         
