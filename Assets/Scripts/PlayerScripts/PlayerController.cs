@@ -538,6 +538,7 @@ namespace PlayerScripts
         
         private void Revive()
         {
+            print("Revive: " + _mainRespawnPosition);
             transform.position = _mainRespawnPosition;
             // SetRespawnPosition(_mainRespawnPosition);
             _hp = data.baseHp;
