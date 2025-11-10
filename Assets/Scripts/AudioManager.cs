@@ -39,6 +39,7 @@ public class AudioManager : MonoBehaviour
         BushAttack,
         BushDeath,
         CrowScream,
+        BushAlert,
     }
     
     [SerializeField] List<AudioClip> audioClips;

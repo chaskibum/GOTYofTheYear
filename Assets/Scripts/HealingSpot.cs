@@ -40,7 +40,6 @@ public class HealingSpot : MonoBehaviour, IInteractable
 
     private void CheckInteractInput()
     {
-        // if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
         if (Input.GetButtonDown("Interact"))
         {
             Interact();
@@ -49,6 +48,7 @@ public class HealingSpot : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (_animator.GetBool("Used")) return;
         GameManager.Instance.GetPlayer.Heal();
         _animator.SetBool("Used", true);
     }

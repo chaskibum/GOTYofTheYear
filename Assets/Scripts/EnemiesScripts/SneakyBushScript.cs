@@ -5,6 +5,19 @@ namespace EnemiesScripts
 {
     public class SneakyBushScript : EnemyController
     {
+        protected override void IdleState()
+        {
+            Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
+            if (!CanChangeState) return;
+
+            if (Vector3.Distance(Body.position, PlayerPos) < data.detectionRange)
+            {
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAlert);
+                Animator.SetBool("Alert", true);
+                SetState(State.Chase);
+            }
+        }
+
         protected override void Attack()
         {
             if (!CanAttack) return;
@@ -38,9 +51,12 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             Visuals.flipX = !PlayerToTheRight;
-            
-            if (Vector2.Distance(Body.position, PlayerPos) > data.detectionRange) 
+
+            if (Vector2.Distance(Body.position, PlayerPos) > data.detectionRange)
+            {
+                Animator.SetBool("Alert", false);
                 SetState(State.Idle);
+            }
 
             if (Vector2.Distance(Body.position, PlayerPos) < data.attackRange && CanAttack)
                 SetState(State.Attack);

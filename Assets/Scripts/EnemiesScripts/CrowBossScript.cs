@@ -24,6 +24,7 @@ namespace EnemiesScripts
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(true);
                 wentUp = false;
+                modifyPosition = 0;
 
                 if (_waveCoroutine != null)
                 {
