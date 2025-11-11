@@ -52,6 +52,18 @@ namespace EnemiesScripts
             Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
         }
         
+        protected override void RestartEnemy()
+        {
+            base.RestartEnemy();
+            particles.Stop();
+            attackHitbox.SetActive(true);
+            _forceAdded = false;
+            StopAllCoroutines();
+            _flying = false;
+            CanChangeState = true;
+            Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        
         protected override void GetPlayerPosition()
         {
             PlayerPos = Player.GetPlayerTarget;
@@ -67,15 +79,6 @@ namespace EnemiesScripts
                 Body.AddForce(_playerDirection * data.stepAwayForce, ForceMode2D.Impulse);
                 _forceAdded = true;
             }
-            /*else
-            {
-                _timer -= Time.deltaTime;
-                if (_timer <= 0)
-                {
-                    _flying = false;
-                    SetState(State.Idle);
-                }
-            }*/
             
             if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange) 
                 SetState(State.Idle);

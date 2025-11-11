@@ -21,6 +21,13 @@ namespace EnemiesScripts
             crowLight.enabled = true;
         }
 
+        protected override void RestartEnemy()
+        {
+            base.RestartEnemy();
+            attackHitbox.SetActive(true);
+            crowLight.enabled = true;
+        }
+
         protected override void IdleState()
         {
             base.IdleState();

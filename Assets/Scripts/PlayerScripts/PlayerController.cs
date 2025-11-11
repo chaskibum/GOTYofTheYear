@@ -368,7 +368,8 @@ namespace PlayerScripts
         private void PlayerPossessed()
         {
             print("CALLING PLAYER POSSESSED");
-            InvokeRepeating(nameof(GetRandomDirection), 0f, 2.5f);
+            // InvokeRepeating(nameof(GetRandomDirection), 0f, 2.5f);
+            GetRandomDirection();
             SetState(State.Possessed);
             _isPossessed = true;
         }
@@ -546,6 +547,7 @@ namespace PlayerScripts
             _cooldown = 0f;
             CancelInvoke();
             StopCoroutine(LockStateForSeconds(data.deathAnimationTime));
+            EndAttack();
             SetState(State.Idle);
         }
         

@@ -20,6 +20,12 @@ namespace EnemiesScripts
             base.Update();
         }
 
+        protected override void Attack()
+        {
+            base.Attack();
+            attackHitbox.SetActive(true);
+        }
+
         protected override void ResetEnemy()
         {
             base.ResetEnemy();

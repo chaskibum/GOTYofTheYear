@@ -121,7 +121,7 @@ namespace EnemiesScripts
             
             foreach (GameObject obj in objects)
             {
-                obj.transform.position = new Vector3(10, 23, 0);
+                obj.transform.localPosition = new Vector3(0, 23, 0);
                 obj.SetActive(false);
             }
         }
