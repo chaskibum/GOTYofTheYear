@@ -137,9 +137,10 @@ namespace PlayerScripts
         
         private void IdleState()
         {
+            _body.gravityScale = data.regularGravity;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-
+            
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
         }

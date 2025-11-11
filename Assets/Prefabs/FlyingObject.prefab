@@ -49,7 +49,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 3959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -5263,7 +5263,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
 --- !u!114 &3228940157421932396
 MonoBehaviour:
@@ -5491,7 +5491,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 3959
+    m_Bits: 3831
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -5526,3 +5526,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 9e6528769a3a4bc4bba17676368b8d9d, type: 2}
   enemy: {fileID: 0}
   visuals: {fileID: 7762624340419800210}
+  particles: {fileID: 0}

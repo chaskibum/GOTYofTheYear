@@ -151,8 +151,8 @@ namespace EnemiesScripts
             if (AttackTimer <= 0f)
             {
                 EndAttack();
-                AttackTimer = data.attackAnimationTime;
-                SetState(State.Chase);
+                /*AttackTimer = data.attackAnimationTime;
+                SetState(State.Chase);*/
             }
             // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
@@ -199,6 +199,8 @@ namespace EnemiesScripts
         {
             // Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
+            AttackTimer = data.attackAnimationTime;
+            SetState(State.Chase);
         }
         
         public virtual void GetHit()
