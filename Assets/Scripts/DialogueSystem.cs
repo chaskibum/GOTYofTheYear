@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PlayerScripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogueSystem : MonoBehaviour, IInteractable
 {
@@ -16,6 +17,8 @@ public class DialogueSystem : MonoBehaviour, IInteractable
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(3, 5)] private List<string> dialogueList;
+    [SerializeField] private bool endingDialogue;
+    [SerializeField] private SpriteRenderer fadeToBlack;
     
     [Header("Flip")]
     private bool _playerToTheRight;
@@ -52,14 +55,30 @@ public class DialogueSystem : MonoBehaviour, IInteractable
 
     private void ExitDialogue()
     {
-        _dialogueStarted = false;
-        interactPrompt.SetActive(true);
-        dialoguePanel.SetActive(false);
-        _player.inDialog = false;
-        _canSpeak = false;
-        Invoke(nameof(CanSpeakAgain), 0.7f);
+        if (endingDialogue) StartCoroutine(EndGame());
+        else
+        {
+            _dialogueStarted = false;
+            interactPrompt.SetActive(true);
+            dialoguePanel.SetActive(false);
+            _player.inDialog = false;
+            _canSpeak = false;
+            Invoke(nameof(CanSpeakAgain), 0.7f);
+        }
     }
 
+    private IEnumerator EndGame()
+    {
+        while (fadeToBlack.color.a < 1)
+        {
+            fadeToBlack.color = new Color(0, 0, 0, fadeToBlack.color.a + Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+
+        print("fade finished!");
+        SceneManager.LoadScene("MainMenu");
+    }
+    
     private void CanSpeakAgain()
     {
         _canSpeak = true;
