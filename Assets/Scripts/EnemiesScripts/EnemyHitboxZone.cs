@@ -9,8 +9,10 @@ namespace EnemiesScripts
 
         [SerializeField] private EnemyController enemy;
         [SerializeField] private SpriteRenderer visuals;
+        [SerializeField] private GameObject particles;
         
         private int _rotation;
+        private int _particlesRotation;
 
         private void Update()
         {
@@ -30,8 +32,10 @@ namespace EnemiesScripts
             if (!enemy || enemy.GetCanAttack) return;
 
             _rotation = visuals.flipX ? 180 : 0;
+            _particlesRotation = visuals.flipX ? 135 : -45;
 
             transform.parent.localRotation = Quaternion.Euler(0, 0, _rotation);
+            if (particles) particles.transform.localRotation = Quaternion.Euler(0, 0, _particlesRotation);
         }
     }
 }

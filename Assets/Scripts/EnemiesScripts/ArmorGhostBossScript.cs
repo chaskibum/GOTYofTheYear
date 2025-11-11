@@ -25,6 +25,7 @@ namespace EnemiesScripts
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(false);
                 lockDoor.transform.position = _startingLockPosition;
+                Animator?.SetBool("Attacking", false);
 
                 if (_spawnCoroutine != null)
                 {
@@ -44,6 +45,7 @@ namespace EnemiesScripts
         {
             base.RestartEnemy();
             unlockableSkill.SetActive(false);
+            Animator?.SetBool("Attacking", false);
         }
 
         protected override void ChaseState()
@@ -64,7 +66,6 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            EndAttack();
             
             if (Hp > 0) AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
             else
@@ -81,9 +82,16 @@ namespace EnemiesScripts
         protected override void Attack()
         {
             if (!CanAttack) return;
+            Animator?.SetBool("Attacking", true);
             Body.linearVelocityX = 0f;
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             base.Attack();
+        }
+        
+        protected override void EndAttack()
+        {
+            base.EndAttack();
+            Animator?.SetBool("Attacking", false);
         }
         
         protected override IEnumerator EndFeedback()

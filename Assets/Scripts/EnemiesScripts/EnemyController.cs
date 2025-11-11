@@ -184,7 +184,7 @@ namespace EnemiesScripts
         protected virtual void Attack()
         {
             // Animator?.SetBool("Attacking", true);
-            attackHitbox.SetActive(true);
+            // attackHitbox.SetActive(true);
             CanAttack = false;
             StartCoroutine(nameof(CanAttackAgain));
         }

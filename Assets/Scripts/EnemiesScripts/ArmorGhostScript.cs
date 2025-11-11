@@ -6,7 +6,19 @@ namespace EnemiesScripts
     {
         [SerializeField] private GameObject attack;
         private float _rotation;
-        
+
+        protected override void ResetEnemy()
+        {
+            base.ResetEnemy();
+            Animator?.SetBool("Attacking", false);
+        }
+
+        protected override void RestartEnemy()
+        {
+            base.RestartEnemy();
+            Animator?.SetBool("Attacking", false);
+        }
+
         protected override void ChaseState()
         {
             if (Vector3.Distance(Body.position, PlayerPos) < 1f)
@@ -24,8 +36,15 @@ namespace EnemiesScripts
         protected override void Attack()
         {
             if (!CanAttack) return;
+            Animator?.SetBool("Attacking", true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             base.Attack();
+        }
+
+        protected override void EndAttack()
+        {
+            base.EndAttack();
+            Animator?.SetBool("Attacking", false);
         }
     }
 }
