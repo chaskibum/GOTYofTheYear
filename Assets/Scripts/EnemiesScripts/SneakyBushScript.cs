@@ -36,6 +36,7 @@ namespace EnemiesScripts
         {
             base.ResetEnemy();
             Animator?.SetBool("Attacking", false);
+            EndAttack();
         }
 
         public override void GetHit()

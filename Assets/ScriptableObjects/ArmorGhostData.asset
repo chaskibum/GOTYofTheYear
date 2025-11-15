@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArmorGhostData
   m_EditorClassIdentifier: 
   baseHp: 5
-  damage: 50
+  damage: 30
   moveSpeed: 2.5
   attackAnimationTime: 1.8
   attackCooldown: 3

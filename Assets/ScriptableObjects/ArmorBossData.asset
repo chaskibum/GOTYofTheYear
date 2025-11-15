@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArmorBossData
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyData
   baseHp: 25
-  damage: 60
+  damage: 40
   moveSpeed: 3
   attackAnimationTime: 1.8
   attackCooldown: 4.5

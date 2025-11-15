@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CrowBossData
   m_EditorClassIdentifier: 
   baseHp: 19
-  damage: 35
-  moveSpeed: 5
+  damage: 25
+  moveSpeed: 5.5
   attackAnimationTime: 0
   attackCooldown: 0
   detectionRange: 20
   attackRange: 0
   pushForce: 2
   pushTime: 0.2
-  stepAwayForce: 1
+  stepAwayForce: 1.2

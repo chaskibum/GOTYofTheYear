@@ -72,6 +72,7 @@ namespace PlayerScripts
         private readonly UnityEvent _onPlayerPossessed = new UnityEvent();
         private readonly UnityEvent _onPlayerExorcised = new UnityEvent();
         private readonly UnityEvent _onPlayerRevived = new UnityEvent();
+        private readonly UnityEvent _onPlayerImmunity = new UnityEvent();
         
         private void Start()
         {
@@ -442,10 +443,11 @@ namespace PlayerScripts
         private void CheckImmunitySkillInput()
         {
             if (!_immuneSkillUnlocked) return;
-            // if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.X))
             if (Input.GetButtonDown("ImmuneSkill") && !_isPossessed)
             {
                 ActivateImmunity();
+                print("activated");
+                _onPlayerImmunity.Invoke();
             }
         }
 
@@ -620,6 +622,8 @@ namespace PlayerScripts
         public PlayerVisuals GetPlayerVisuals => visuals;
         
         public bool GetIsPossessed => _isPossessed;
+        
+        public bool GetIsImmune => _isImmune;
 
         #endregion
 
@@ -662,6 +666,8 @@ namespace PlayerScripts
         public UnityEvent GetPlayerExorcisedEvent => _onPlayerExorcised;
         
         public UnityEvent GetPlayerRevived => _onPlayerRevived;
+        
+        public UnityEvent GetPlayerImmunity => _onPlayerImmunity;
 
         #endregion
     }

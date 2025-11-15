@@ -39,6 +39,7 @@ namespace EnemiesScripts
 
         public override void GetHit()
         {
+            if (Vector3.Distance(transform.position, PlayerPos) > data.detectionRange + 3) return;
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
 
             StateTimer = data.pushTime;

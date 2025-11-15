@@ -87,7 +87,6 @@ namespace EnemiesScripts
             Hp = data.baseHp;
             Body.linearVelocity = Vector2.zero;
             CanAttack = true;
-            // Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(true);
             gameObject.SetActive(true);

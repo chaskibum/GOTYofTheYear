@@ -40,6 +40,7 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
+            attackHitbox.SetActive(true);
             unlockableSkill.SetActive(false);
             wentUp = false;
         }
@@ -85,12 +86,12 @@ namespace EnemiesScripts
         {
             if (!wentUp)
             {
-                modifyPosition += 5;
+                modifyPosition += 6;
                 wentUp = true;
             }
             else
             {
-                modifyPosition -= 5;
+                modifyPosition -= 6;
                 wentUp = false;
             }
         }

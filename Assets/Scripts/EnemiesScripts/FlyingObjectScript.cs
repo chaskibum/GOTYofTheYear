@@ -16,7 +16,6 @@ namespace EnemiesScripts
             if (!_flying)
             {
                 GetPlayerPosition();
-                print("obteniendo la pos del player");
             }
             
             UpdateState();
