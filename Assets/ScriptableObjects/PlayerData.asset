@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHp: 100
   startingLives: 3
-  baseLives: 6
+  baseLives: 3
   moveSpeed: 6
   regularGravity: 2
   fallGravity: 2
@@ -31,4 +31,4 @@ MonoBehaviour:
   attackCooldown: 0.9
   immunityTime: 1
   shieldDuration: 3
-  shieldCooldown: 4
+  shieldCooldown: 15
