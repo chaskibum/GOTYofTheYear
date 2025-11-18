@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ResetObjectPosition : MonoBehaviour
@@ -9,11 +10,30 @@ public class ResetObjectPosition : MonoBehaviour
     private void Start()
     {
         _originalPosition = transform.position;
-        GameManager.Instance.GetGameRestarted?.AddListener(ResetPosition);
-        GameManager.Instance.GetPlayerRespawn?.AddListener(ResetPosition);
-        GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetPosition);
-        GameManager.Instance.GetResetObjects?.AddListener(ResetPosition);
-        
+        AddListeners(true);
+    }
+
+    private void OnDisable()
+    {
+        AddListeners(false);
+    }
+
+    private void AddListeners(bool add)
+    {
+        if (add)
+        {
+            GameManager.Instance.GetGameRestarted?.AddListener(ResetPosition);
+            GameManager.Instance.GetPlayerRespawn?.AddListener(ResetPosition);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetPosition);
+            GameManager.Instance.GetResetObjects?.AddListener(ResetPosition);
+        }
+        else
+        {
+            GameManager.Instance.GetGameRestarted?.RemoveListener(ResetPosition);
+            GameManager.Instance.GetPlayerRespawn?.RemoveListener(ResetPosition);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetPosition);
+            GameManager.Instance.GetResetObjects?.RemoveListener(ResetPosition);
+        }
     }
 
     private void Update()

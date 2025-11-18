@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HealingSpot : MonoBehaviour, IInteractable
@@ -9,11 +10,29 @@ public class HealingSpot : MonoBehaviour, IInteractable
     {
         _animator = GetComponent<Animator>();
         ResetAnimations();
-        GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
-        GameManager.Instance.GetPlayerRespawn?.AddListener(ResetAnimations);
-        GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
+        AddListeners(true);
     }
-    
+
+    private void OnDisable()
+    {
+        AddListeners(false);
+    }
+
+    private void AddListeners(bool add)
+    {
+        if (add)
+        {
+            GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
+            GameManager.Instance.GetPlayerRespawn?.AddListener(ResetAnimations);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
+        }
+        else
+        {
+            GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
+            GameManager.Instance.GetPlayerRespawn?.RemoveListener(ResetAnimations);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
+        }
+    }
     
     private void OnTriggerStay2D(Collider2D other)
     {

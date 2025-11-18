@@ -1,3 +1,4 @@
+using System;
 using PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -38,6 +39,12 @@ public class GameManager : MonoBehaviour
     {
         _onGameOver.AddListener(GameOverScreen);
         _onGameRestart.AddListener(RestartGameEvent);
+    }
+
+    private void OnDisable()
+    {
+        _onGameOver.RemoveListener(GameOverScreen);
+        _onGameRestart.RemoveListener(RestartGameEvent);
     }
 
     private void GameOverScreen()

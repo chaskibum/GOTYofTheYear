@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using PlayerScripts;
 using TMPro;
@@ -51,11 +52,30 @@ namespace EnemiesScripts
             Player = GameManager.Instance.GetPlayer;
             if (wallsCollider) wallsCollider.enabled = true;
             
-            GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
-            GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
-            GameManager.Instance.GetGameRestarted.AddListener(RestartEnemy);
+            AddListeners(true);
         }
-        
+
+        private void OnDisable()
+        {
+            AddListeners(false);
+        }
+
+        private void AddListeners(bool add)
+        {
+            if (add)
+            {
+                GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
+                GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
+                GameManager.Instance.GetGameRestarted.AddListener(RestartEnemy);
+            }
+            else
+            {
+                GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
+                GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
+                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
+            }
+        }
+
         protected virtual void Update()
         {
             CalculateDirection();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -22,11 +23,34 @@ namespace PlayerScripts
             _lives = PlayerPrefs.GetInt("Lives");
             healthBar.SetMaxHealth(_hp);
             
-            GameManager.Instance.GetHpAmountChanged?.AddListener(TakeDamage);
-            GameManager.Instance.GetCollectablePicked?.AddListener(AddExtraLife);
-            GameManager.Instance.GetPlayerRespawn?.AddListener(Respawn);
-            GameManager.Instance.GetGameRestarted?.AddListener(RestartGame);
-            GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(Revive);
+            AddListeners(true);
+        }
+
+        private void OnDisable()
+        {
+            AddListeners(false);
+        }
+        
+        private void AddListeners(bool add)
+        {
+            var player = GameManager.Instance.GetPlayer;
+
+            if (add)
+            {
+                GameManager.Instance.GetHpAmountChanged?.AddListener(TakeDamage);
+                GameManager.Instance.GetCollectablePicked?.AddListener(AddExtraLife);
+                GameManager.Instance.GetPlayerRespawn?.AddListener(Respawn);
+                GameManager.Instance.GetGameRestarted?.AddListener(RestartGame);
+                player.GetPlayerRevived?.AddListener(Revive);
+            }
+            else
+            {
+                GameManager.Instance.GetHpAmountChanged?.RemoveListener(TakeDamage);
+                GameManager.Instance.GetCollectablePicked?.RemoveListener(AddExtraLife);
+                GameManager.Instance.GetPlayerRespawn?.RemoveListener(Respawn);
+                GameManager.Instance.GetGameRestarted?.RemoveListener(RestartGame);
+                player.GetPlayerRevived?.RemoveListener(Revive);
+            }
         }
 
         private void Respawn()

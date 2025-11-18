@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -36,6 +37,11 @@ public class SkillCollectable : MonoBehaviour
         }
         
         GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

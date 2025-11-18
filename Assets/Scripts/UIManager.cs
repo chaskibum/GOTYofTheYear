@@ -1,3 +1,4 @@
+using System;
 using PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,20 +23,42 @@ public class UIManager : MonoBehaviour
     
     private void Start()
     {
-        GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
-        GameManager.Instance.GetGameRestarted.AddListener(RestartUI);
-        GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
-        GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
-        GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
+        AddListeners(true);
         if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
         
         _player = GameManager.Instance.GetPlayer;
-        _player.GetPlayerRevived?.AddListener(ResetUI);
         _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
         
         int lives = _player.GetPlayerLives;
 
         UpdateLife(lives);
+    }
+
+    private void OnDisable()
+    {
+        AddListeners(false);
+    }
+
+    private void AddListeners(bool add)
+    {
+        if (add)
+        {
+            GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
+            GameManager.Instance.GetGameRestarted.AddListener(RestartUI);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
+            GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
+            GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
+            _player.GetPlayerRevived?.AddListener(ResetUI);
+        }
+        else
+        {
+            GameManager.Instance.GetGameOverEvent.RemoveListener(ShowGameOverScreen);
+            GameManager.Instance.GetGameRestarted.RemoveListener(RestartUI);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
+            GameManager.Instance.GetLifeAmountChanged.RemoveListener(UpdateLife);
+            GameManager.Instance.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
+            _player.GetPlayerRevived?.RemoveListener(ResetUI);
+        }
     }
 
     private void Update()

@@ -42,6 +42,8 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     private void OnDisable()
     {
         OnCollisionEvent -= HandleAnimations;
+        GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
+        GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
     }
 
     private void OnTriggerStay2D(Collider2D other)

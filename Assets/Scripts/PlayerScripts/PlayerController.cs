@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace PlayerScripts
 {
@@ -84,20 +86,18 @@ namespace PlayerScripts
             _hp = data.baseHp;
             _attackCooldown = data.attackCooldown;
             
-            GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
+            AddListeners(true);
             
             // Skills
-            GameManager.Instance.GetDashUnlocked.AddListener(UnlockDash);
             if (PlayerPrefs.GetString("DashUnlocked") == "Dash") UnlockDash();
-            GameManager.Instance.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
             if (PlayerPrefs.GetString("DoubleJumpUnlocked") == "DoubleJump") UnlockDoubleJump();
-            GameManager.Instance.GetImmunityUnlocked.AddListener(UnlockImmunity);
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") UnlockImmunity();
-            // GameManager.Instance.GetPlayerRespawn.AddListener(Respawn);
-            _onPlayerHit.AddListener(GetHit);
-            _onPlayerPossessed.AddListener(PlayerPossessed);
-            _onPlayerRevived.AddListener(Revive);
 
+            HandleRespawnOnStart();
+        }
+
+        private void HandleRespawnOnStart()
+        {
             if (!PlayerPrefs.HasKey("XPosition"))
             {
                 PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
@@ -111,7 +111,38 @@ namespace PlayerScripts
                 transform.position = _respawnPosition;
             }
         }
+
+        private void OnDisable()
+        {
+            AddListeners(false);
+        }
         
+        private void AddListeners(bool add)
+        {
+            var player = GameManager.Instance.GetPlayer;
+
+            if (add)
+            {
+                GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
+                GameManager.Instance.GetDashUnlocked.AddListener(UnlockDash);
+                GameManager.Instance.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
+                GameManager.Instance.GetImmunityUnlocked.AddListener(UnlockImmunity);
+                _onPlayerHit.AddListener(GetHit);
+                _onPlayerPossessed.AddListener(PlayerPossessed);
+                _onPlayerRevived.AddListener(Revive);
+            }
+            else
+            {
+                GameManager.Instance.GetGameRestarted.RemoveListener(RestartGame);
+                GameManager.Instance.GetDashUnlocked.RemoveListener(UnlockDash);
+                GameManager.Instance.GetDoubleJumpUnlocked.RemoveListener(UnlockDoubleJump);
+                GameManager.Instance.GetImmunityUnlocked.RemoveListener(UnlockImmunity);
+                _onPlayerHit.RemoveListener(GetHit);
+                _onPlayerPossessed.RemoveListener(PlayerPossessed);
+                _onPlayerRevived.RemoveListener(Revive);
+            }
+        }
+
         private void Update()
         {
             _cooldown -= Time.deltaTime;

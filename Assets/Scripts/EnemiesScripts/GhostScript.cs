@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -10,6 +11,11 @@ namespace EnemiesScripts
         {
             base.Start();
             Player.GetPlayerExorcisedEvent?.AddListener(GetHit);
+        }
+
+        private void OnDisable()
+        {
+            Player.GetPlayerExorcisedEvent?.RemoveListener(GetHit);
         }
 
         protected override void Update()
