@@ -359,8 +359,14 @@ namespace PlayerScripts
             
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
             
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
+            // AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
             _animator.SetBool(Jumping, true);
+        }
+
+        public void PlayJumpSound()
+        {
+            if (Time.timeScale == 1)
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
         }
 
         private void CheckIfIsFalling()
