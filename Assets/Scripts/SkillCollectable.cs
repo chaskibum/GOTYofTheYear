@@ -68,7 +68,7 @@ public class SkillCollectable : MonoBehaviour
         _sprite.enabled = false;
         _collider.enabled = false;
         panel.SetActive(true);
-        Invoke(nameof(HideText), 1f);
+        Invoke(nameof(HideText), 3f);
     }
 
     private void HideText()

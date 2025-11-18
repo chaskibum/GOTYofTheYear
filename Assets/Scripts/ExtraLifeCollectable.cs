@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -41,7 +40,7 @@ public class ExtraLifeCollectable : MonoBehaviour
             _sprite.enabled = false;
             _collider.enabled = false;
             panel.SetActive(true);
-            Invoke(nameof(HideText), 1f);
+            Invoke(nameof(HideText), 3f);
         }
         else
         {
@@ -49,7 +48,7 @@ public class ExtraLifeCollectable : MonoBehaviour
             _collider.enabled = false;
             panel.SetActive(true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed, false, 0.9f);
-            Invoke(nameof(HideText), 1f);
+            Invoke(nameof(HideText), 3f);
             GameManager.Instance.GetCollectablePicked?.Invoke();
             PlayerPrefs.SetString("Taken", name);
         }
