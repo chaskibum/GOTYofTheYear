@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4da568a8ed8450647bb363c595b92573
+guid: 5a07fb236bc188543b85446cb425d8aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8905915915138653498
-    second: MENU PRINCIPAL1_0
+      213: -6948177292259051040
+    second: PersonajeIdle1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.52270305, y: 0.32238254}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MENU PRINCIPAL1_0
+      name: PersonajeIdle1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 361
+        y: 317
+        width: 280
+        height: 369
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3d5659d65b289b70800000000000000
-      internalID: 8905915915138653498
+      spriteID: 0e9b672d09d139f90800000000000000
+      internalID: -6948177292259051040
       vertices: []
       indices: 
       edges: []
@@ -139,7 +139,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MENU PRINCIPAL1_0: 8905915915138653498
+      PersonajeIdle1_0: -6948177292259051040
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
