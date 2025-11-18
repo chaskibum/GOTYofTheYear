@@ -105,7 +105,11 @@ namespace PlayerScripts
                 RestartGame();
             }
             else
-                transform.position = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
+            {
+                _respawnPosition = new Vector3(PlayerPrefs.GetFloat("XPosition"), PlayerPrefs.GetFloat("YPosition"), 0f);
+                _mainRespawnPosition = new Vector3(PlayerPrefs.GetFloat("MainXPosition"), PlayerPrefs.GetFloat("MainYPosition"), 0f);
+                transform.position = _respawnPosition;
+            }
         }
         
         private void Update()
@@ -446,7 +450,6 @@ namespace PlayerScripts
             if (Input.GetButtonDown("ImmuneSkill") && !_isPossessed)
             {
                 ActivateImmunity();
-                print("activated");
                 _onPlayerImmunity.Invoke();
             }
         }
@@ -542,7 +545,6 @@ namespace PlayerScripts
         {
             print("Revive: " + _mainRespawnPosition);
             transform.position = _mainRespawnPosition;
-            // SetRespawnPosition(_mainRespawnPosition);
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
             _body.gravityScale = data.regularGravity;
@@ -649,7 +651,6 @@ namespace PlayerScripts
             
             PlayerPrefs.SetFloat("MainXPosition", 0);
             PlayerPrefs.SetFloat("MainYPosition", 0);
-            
             
             PlayerPrefs.SetInt("Lives", data.startingLives);
             PlayerPrefs.SetInt("BaseLives", data.startingLives);

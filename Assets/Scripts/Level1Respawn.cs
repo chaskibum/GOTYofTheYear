@@ -8,6 +8,5 @@ public class Level1Respawn : RespawnManager
         _respawnPos = new Vector3(41f, -9.35f, 0f);
         _currentRespawn = "Level1Respawn";
         globalLight.intensity = 0.6f;
-        
     }
 }

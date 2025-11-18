@@ -5020,7 +5020,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: dce8d987193ac2b45a589b8a9a2de074, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -5271,7 +5271,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -5479,9 +5479,9 @@ MonoBehaviour:
   attackHitbox: {fileID: 8756755338566658112}
   attackHurtbox: {fileID: 1207505907987047259}
   stateText: {fileID: 6356648528669148754}
+  wallsCollider: {fileID: 0}
   particles: {fileID: 7695004738326358881}
   idleSounds: {fileID: 5381792072788326190}
-  IsBoss: 0
   crowLight: {fileID: 3855294013440335192}
 --- !u!1 &8339383124014994451
 GameObject:
@@ -5703,3 +5703,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 82e810403305e864ca07fed1ec048bcd, type: 2}
   enemy: {fileID: 0}
   visuals: {fileID: 7762624340419800210}
+  particles: {fileID: 0}
