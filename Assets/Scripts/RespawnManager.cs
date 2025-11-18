@@ -16,8 +16,14 @@ public abstract class RespawnManager : MonoBehaviour
     {
         _player = GameManager.Instance.GetPlayer;
         _player.GetPlayerRevived?.AddListener(Revive);
-        GameManager.Instance.GetGameRestarted?.AddListener(DeactivateEnemies);
+        GameManager.Instance.GetGameRestarted?.AddListener(ReloadLevel);
         DeactivateEnemies();
+    }
+
+    private void ReloadLevel()
+    {
+        DeactivateEnemies();
+        globalLight.intensity = 0.5f;
     }
 
     protected void DeactivateEnemies()

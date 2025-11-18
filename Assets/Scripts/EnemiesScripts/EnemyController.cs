@@ -70,9 +70,9 @@ namespace EnemiesScripts
             }
             else
             {
-                GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
+                /*GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
                 GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
-                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
+                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);*/
             }
         }
 
@@ -100,6 +100,7 @@ namespace EnemiesScripts
 
         private void Respawn()
         {
+            print("respawning");
             StopCoroutine(nameof(Disappear));
             if (wallsCollider) wallsCollider.enabled = true;
             CurrentState = State.Idle;

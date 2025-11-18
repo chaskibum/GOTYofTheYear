@@ -157,6 +157,8 @@ MonoBehaviour:
   dialoguePanel: {fileID: 7633229673682375166}
   dialogueText: {fileID: 4000212990029005163}
   dialogueList: []
+  endingDialogue: 0
+  fadeToBlack: {fileID: 0}
 --- !u!95 &2995075747971858342
 Animator:
   serializedVersion: 7
@@ -244,11 +246,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MIJO! Haceme un favor. Preciso algo hallado en el fondo del bosque, y el
-    camino es peligroso...
+  m_text: "MIJO! Hola c\xF3mo est\xE1s?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 35109db7434b2ab4bb9674d29999328d, type: 2}
-  m_sharedMaterial: {fileID: -3994810053233657497, guid: 35109db7434b2ab4bb9674d29999328d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
+  m_sharedMaterial: {fileID: -2345810495039490867, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
