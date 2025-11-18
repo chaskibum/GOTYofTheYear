@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
 
     private void AddListeners(bool add)
     {
+        _player = GameManager.Instance.GetPlayer;
+        
         if (add)
         {
             GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);

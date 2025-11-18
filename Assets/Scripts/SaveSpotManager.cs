@@ -29,7 +29,6 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
     {
         if (_isInRange)
         {
-            print("HOLA ESTOY EN RANGO");
             Interact();
         }
     }

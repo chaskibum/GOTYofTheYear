@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +10,8 @@ namespace PlayerScripts
         private static readonly int Moving = Animator.StringToHash("Moving");
         private static readonly int Attacking = Animator.StringToHash("Attacking");
         private static readonly int Jumping = Animator.StringToHash("Jumping");
+        private static readonly int Dashing = Animator.StringToHash("Dashing");
+        private static readonly int Possessed = Animator.StringToHash("Possessed");
 
         // We link the PlayerData Scriptable Object to the Player
         [SerializeField] private PlayerData data;
@@ -173,6 +174,7 @@ namespace PlayerScripts
         
         private void IdleState()
         {
+            _animator.SetBool(Dashing, false);
             _body.gravityScale = data.regularGravity;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
@@ -405,7 +407,7 @@ namespace PlayerScripts
         private void PlayerPossessed()
         {
             print("CALLING PLAYER POSSESSED");
-            // InvokeRepeating(nameof(GetRandomDirection), 0f, 2.5f);
+            _animator.SetBool(Possessed, true);
             GetRandomDirection();
             SetState(State.Possessed);
             _isPossessed = true;
@@ -418,6 +420,7 @@ namespace PlayerScripts
 
         public void Exorcised()
         {
+            _animator.SetBool(Possessed, false);
             _onPlayerExorcised.Invoke();
             _inputCount = 0;
             _isPossessed = false;
@@ -505,6 +508,7 @@ namespace PlayerScripts
         private void Dash()
         {
             if (!_canDash) return;
+            _animator.SetBool(Dashing, true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
@@ -516,6 +520,7 @@ namespace PlayerScripts
 
         private void EndDash()
         {
+            _animator.SetBool(Dashing, false);
             _body.gravityScale = data.regularGravity;
             _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
             SetState(_isOnFloor ? State.Idle : State.Jump);
