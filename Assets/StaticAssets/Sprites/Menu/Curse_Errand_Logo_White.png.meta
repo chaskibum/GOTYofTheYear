@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 488cf6b23d22ea642aa2c8ec941b519d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8614451086315383218
+    second: Curse_Errand_Logo_White_0
+  - first:
+      213: -6729272188447007422
+    second: Curse_Errand_Logo_White_1
+  - first:
+      213: -8291025462827338072
+    second: Curse_Errand_Logo_White_2
+  - first:
+      213: -1558813909048961704
+    second: Curse_Errand_Logo_White_3
+  - first:
+      213: -6506703946385207957
+    second: Curse_Errand_Logo_White_4
+  - first:
+      213: 1492197475045608832
+    second: Curse_Errand_Logo_White_5
+  - first:
+      213: 1823226078730871316
+    second: Curse_Errand_Logo_White_6
+  - first:
+      213: 6234458436499145237
+    second: Curse_Errand_Logo_White_7
+  - first:
+      213: 4378020482097608395
+    second: Curse_Errand_Logo_White_8
+  - first:
+      213: -3589005367869876227
+    second: Curse_Errand_Logo_White_9
+  - first:
+      213: 147756792018756678
+    second: Curse_Errand_Logo_White_10
+  - first:
+      213: -2633329606241344517
+    second: Curse_Errand_Logo_White_11
+  - first:
+      213: -6847617465189046037
+    second: Curse_Errand_Logo_White_12
+  - first:
+      213: -3683113193098401875
+    second: Curse_Errand_Logo_White_13
+  - first:
+      213: -6739022963888147895
+    second: Curse_Errand_Logo_White_14
+  - first:
+      213: -2406243222448823716
+    second: Curse_Errand_Logo_White_15
+  - first:
+      213: -9077556699627761671
+    second: Curse_Errand_Logo_White_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 237
+        width: 134
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b96ec62f9dac8770800000000000000
+      internalID: 8614451086315383218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_1
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 240
+        width: 67
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d53ba0992dc92a0800000000000000
+      internalID: -6729272188447007422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_2
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 242
+        width: 52
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a63570f44c50fc80800000000000000
+      internalID: -8291025462827338072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_3
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 194
+        width: 119
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 855d238320bfd5ae0800000000000000
+      internalID: -1558813909048961704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_4
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 307
+        width: 141
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6dc3191c3b83b5a0800000000000000
+      internalID: -6506703946385207957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_5
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 193
+        width: 79
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08d04d292b955b410800000000000000
+      internalID: 1492197475045608832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 241
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4126bff65766d4910800000000000000
+      internalID: 1823226078730871316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_7
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 47
+        width: 188
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 512087a9aee358650800000000000000
+      internalID: 6234458436499145237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_8
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 197
+        width: 65
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc6ffc6ce6ad1cc30800000000000000
+      internalID: 4378020482097608395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_9
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 196
+        width: 46
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df7552f12aa413ec0800000000000000
+      internalID: -3589005367869876227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_10
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 197
+        width: 62
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644ed6df400fc0200800000000000000
+      internalID: 147756792018756678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_11
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 196
+        width: 52
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf32773dca8847bd0800000000000000
+      internalID: -2633329606241344517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_12
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 54
+        width: 47
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be865a5123068f0a0800000000000000
+      internalID: -6847617465189046037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_13
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 54
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da7a0d99014f2ecc0800000000000000
+      internalID: -3683113193098401875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_14
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 50
+        width: 75
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9423f38b15e2a72a0800000000000000
+      internalID: -6739022963888147895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_15
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 54
+        width: 63
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c522fbab98e4b9ed0800000000000000
+      internalID: -2406243222448823716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curse_Errand_Logo_White_16
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 54
+        width: 78
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ff4832d64a060280800000000000000
+      internalID: -9077556699627761671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Curse_Errand_Logo_White_0: 8614451086315383218
+      Curse_Errand_Logo_White_1: -6729272188447007422
+      Curse_Errand_Logo_White_10: 147756792018756678
+      Curse_Errand_Logo_White_11: -2633329606241344517
+      Curse_Errand_Logo_White_12: -6847617465189046037
+      Curse_Errand_Logo_White_13: -3683113193098401875
+      Curse_Errand_Logo_White_14: -6739022963888147895
+      Curse_Errand_Logo_White_15: -2406243222448823716
+      Curse_Errand_Logo_White_16: -9077556699627761671
+      Curse_Errand_Logo_White_2: -8291025462827338072
+      Curse_Errand_Logo_White_3: -1558813909048961704
+      Curse_Errand_Logo_White_4: -6506703946385207957
+      Curse_Errand_Logo_White_5: 1492197475045608832
+      Curse_Errand_Logo_White_6: 1823226078730871316
+      Curse_Errand_Logo_White_7: 6234458436499145237
+      Curse_Errand_Logo_White_8: 4378020482097608395
+      Curse_Errand_Logo_White_9: -3589005367869876227
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

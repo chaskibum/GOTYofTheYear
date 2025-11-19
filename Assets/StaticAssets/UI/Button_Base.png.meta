@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 4da568a8ed8450647bb363c595b92573
+guid: 5132f9711301d4041bbd7b79fe6837bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8905915915138653498
-    second: MENU PRINCIPAL1_0
+      213: 89881996876820253
+    second: Button_Base_0
+  - first:
+      213: -918346430220447068
+    second: Button_Base_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +55,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 114, y: 59, z: 115, w: 57}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MENU PRINCIPAL1_0
+      name: Button_Base_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 114
+        height: 107
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3d5659d65b289b70800000000000000
-      internalID: 8905915915138653498
+      spriteID: d1fab8f23335f3100800000000000000
+      internalID: 89881996876820253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_Base_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 17
+        width: 114
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a256fd89c06143f0800000000000000
+      internalID: -918346430220447068
       vertices: []
       indices: 
       edges: []
@@ -139,7 +164,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MENU PRINCIPAL1_0: 8905915915138653498
+      Button_Base_0: 89881996876820253
+      Button_Base_1: -918346430220447068
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
