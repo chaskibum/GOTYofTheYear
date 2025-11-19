@@ -10,13 +10,14 @@ public abstract class RespawnManager : MonoBehaviour
     [SerializeField] protected GameObject levelEnemies;
     private PlayerController _player;
     protected Vector3 _respawnPos;
-    protected string _currentRespawn;
+    // protected string _currentRespawn;
 
     private void Start()
     {
         _player = GameManager.Instance.GetPlayer;
         _player.GetPlayerRevived?.AddListener(Revive);
-        GameManager.Instance.GetGameRestarted?.AddListener(ReloadLevel);
+        GameManager.Instance.GetPlayerRespawn?.AddListener(DeactivateEnemies);
+        GameManager.Instance.GetGameRestarted?.AddListener(ReloadLevel); 
         DeactivateEnemies();
     }
 
@@ -26,48 +27,49 @@ public abstract class RespawnManager : MonoBehaviour
         globalLight.intensity = 0.5f;
     }
 
-    protected void DeactivateEnemies()
+    private void ActivateEnemies()
     {
+        StartCoroutine(SpawnEnemies(true));
+    }
+    
+    private void DeactivateEnemies()
+    {
+        if (PlayerPrefs.GetString("Respawn") == name) return;
         StartCoroutine(SpawnEnemies(false));
     }
 
     private void OnDisable()
     {
         _player.GetPlayerRevived?.RemoveListener(Revive);
-        GameManager.Instance.GetGameRestarted?.RemoveListener(DeactivateEnemies);
+        GameManager.Instance.GetGameRestarted?.RemoveListener(ReloadLevel);
+        GameManager.Instance.GetPlayerRespawn?.RemoveListener(DeactivateEnemies);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        StartCoroutine(SpawnEnemies(true));
+        ActivateEnemies();
     }
 
     protected IEnumerator SpawnEnemies(bool spawn)
     {
+        if (spawn) levelEnemies.gameObject.SetActive(true);
         foreach (Transform enemy in levelEnemies.transform)
         {
-            if (spawn)
-            {
-                enemy.gameObject.SetActive(true);
-                yield return new WaitForSecondsRealtime(0.1f);
-            }
-            else
-            {
-                enemy.gameObject.SetActive(false);
-                yield return new WaitForSecondsRealtime(0.1f);
-            }
+            enemy.gameObject.SetActive(spawn);
+            yield return new WaitForSecondsRealtime(0.1f);
         }
+        if (!spawn && PlayerPrefs.GetString("Respawn") != name) levelEnemies.gameObject.SetActive(false);
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        _currentRespawn = "";
+        PlayerPrefs.SetString("Respawn", "");
         StartCoroutine(SpawnEnemies(false));
     }
 
     private void Revive()
     {
-        if (_currentRespawn == name)
+        if (PlayerPrefs.GetString("Respawn") == name)
         {
             _player.SetRespawnPosition(_respawnPos);
             _player.SetMainRespawnPosition(_respawnPos);

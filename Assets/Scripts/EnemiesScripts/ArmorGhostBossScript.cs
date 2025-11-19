@@ -17,6 +17,14 @@ namespace EnemiesScripts
         
         private bool BossSlain;
 
+        protected override void Start()
+        {
+            base.Start();
+            if (PlayerPrefs.GetString("ArmorDead") == "yes")
+                // Die();
+                gameObject.SetActive(false);
+        }
+
         protected override void ResetEnemy()
         {
             if (!BossSlain)
@@ -44,6 +52,7 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
+            PlayerPrefs.SetString("ArmorDead", "no");
             unlockableSkill.SetActive(false);
             Animator?.SetBool("Attacking", false);
         }
@@ -70,13 +79,20 @@ namespace EnemiesScripts
             if (Hp > 0) AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
             else
             {
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
-                BossSlain = true;
-                unlockableSkill?.SetActive(true);
-                lockDoor.SetActive(false);
-                foreach (GameObject enemy in enemies)
-                    Destroy(enemy);
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            SetState(State.Die);
+            PlayerPrefs.SetString("ArmorDead", "yes");
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
+            BossSlain = true;
+            unlockableSkill?.SetActive(true);
+            lockDoor.SetActive(false);
+            foreach (GameObject enemy in enemies)
+                Destroy(enemy);
         }
 
         protected override void Attack()

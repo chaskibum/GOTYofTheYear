@@ -15,9 +15,16 @@ namespace EnemiesScripts
         [SerializeField] private List<GameObject> waves;
         private Coroutine _waveCoroutine;
 
+        protected override void Start()
+        {
+            base.Start();
+            if (PlayerPrefs.GetString("CrowDead") == "yes") 
+                // Die();
+                gameObject.SetActive(false);
+        }
+        
         protected override void ResetEnemy()
         {
-            
             if (!BossSlain)
             {
                 base.ResetEnemy();
@@ -40,6 +47,7 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
+            PlayerPrefs.SetString("CrowDead", "no");
             attackHitbox.SetActive(true);
             unlockableSkill.SetActive(false);
             wentUp = false;
@@ -101,11 +109,18 @@ namespace EnemiesScripts
             base.GetHit();
             if (Hp <= 0)
             {
-                BossSlain = true;
-                unlockableSkill.SetActive(true);
-                foreach (GameObject wave in waves)
-                    Destroy(wave);
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            SetState(State.Die);
+            PlayerPrefs.SetString("CrowDead", "yes");
+            BossSlain = true;
+            unlockableSkill.SetActive(true);
+            foreach (GameObject wave in waves)
+                Destroy(wave);
         }
 
         protected override IEnumerator EndFeedback()

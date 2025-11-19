@@ -313,7 +313,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 0.27058825}
+      maxColor: {r: 0, g: 0.9308512, b: 1, a: 0.3137255}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5120,6 +5120,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 9e6528769a3a4bc4bba17676368b8d9d, type: 2}
   enemy: {fileID: 0}
   visuals: {fileID: 0}
+  particles: {fileID: 0}
 --- !u!114 &4582310455824954614
 MonoBehaviour:
   m_ObjectHideFlags: 0

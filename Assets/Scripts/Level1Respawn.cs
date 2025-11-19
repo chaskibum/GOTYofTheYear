@@ -6,8 +6,7 @@ public class Level1Respawn : RespawnManager
     {
         base.OnTriggerEnter2D(other);
         _respawnPos = mainRespawn.transform.position;
-        _currentRespawn = "Level1Respawn";
+        PlayerPrefs.SetString("Respawn", "Level1RespawnZone");
         globalLight.intensity = 0.5f;
-        //levelEnemies.SetActive(true);
     }
 }
