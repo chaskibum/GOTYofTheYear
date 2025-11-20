@@ -246,7 +246,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "MIJO! Hola c\xF3mo est\xE1s?"
+  m_text: "Necesito que te abras paso a trav\xE9s de 3 \xE1reas, y conseguir los
+    ingredientes que debo tener... para crear un hechizo que deshaga la maldici\xF3n
+    por siempre 123456."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
   m_sharedMaterial: {fileID: -2345810495039490867, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
@@ -526,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7674688956239476855
 RectTransform:
   m_ObjectHideFlags: 0

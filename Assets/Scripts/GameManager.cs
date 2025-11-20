@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
     private void RestartGameEvent()
     {
         Time.timeScale = 1;
-        // PARA BORRAR
-        wonScreen.SetActive(false);
         _gameOver = false;
         canWin = false;
     }
