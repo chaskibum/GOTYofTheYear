@@ -55,7 +55,7 @@ namespace EnemiesScripts
             AddListeners(true);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             AddListeners(false);
         }
@@ -70,9 +70,9 @@ namespace EnemiesScripts
             }
             else
             {
-                /*GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
+                GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
                 GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
-                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);*/
+                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
             }
         }
 
@@ -236,7 +236,7 @@ namespace EnemiesScripts
 
         private void PlayHitFeedback()
         {
-            Visuals.color = new Color(1000, 1000, 1000);
+            Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
         }

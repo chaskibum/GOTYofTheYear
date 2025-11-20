@@ -95,7 +95,7 @@ namespace PlayerScripts
         
         private void PlayHitFeedback()
         {
-            visuals.color = new Color(1000, 1000, 1000);
+            visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
         }

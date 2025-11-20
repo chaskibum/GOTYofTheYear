@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -30,6 +29,8 @@ namespace EnemiesScripts
         public void PlayAttackSound()
         {
             AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
+            particles.Clear();
+            particles.Play();
         }
 
         protected override void ResetEnemy()
@@ -67,6 +68,7 @@ namespace EnemiesScripts
         {
             base.EndAttack();
             Animator?.SetBool("Attacking", false);
+            particles.Stop();
         }
     }
 }
