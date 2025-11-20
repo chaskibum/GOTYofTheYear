@@ -17,10 +17,13 @@ namespace EnemiesScripts
 
         protected override void Start()
         {
+            print("hola!");
             base.Start();
-            if (PlayerPrefs.GetString("CrowDead") == "yes") 
-                // Die();
+            if (PlayerPrefs.GetString("CrowDead") == "yes")
+            {
+                print("chau");
                 gameObject.SetActive(false);
+            }
         }
         
         protected override void ResetEnemy()
@@ -48,6 +51,7 @@ namespace EnemiesScripts
         {
             base.RestartEnemy();
             PlayerPrefs.SetString("CrowDead", "no");
+            print("restarted!");
             attackHitbox.SetActive(true);
             unlockableSkill.SetActive(false);
             wentUp = false;
