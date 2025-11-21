@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ExtraLifeCollectable : MonoBehaviour
 {
     private SpriteRenderer _sprite;
     private BoxCollider2D _collider;
+    private Light2D _light;
 
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject text;
@@ -16,11 +18,11 @@ public class ExtraLifeCollectable : MonoBehaviour
     {
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
+        _light = GetComponentInChildren<Light2D>();
         
         if (PlayerPrefs.GetString("Taken") == name)
         {
-            _sprite.enabled = false;
-            _collider.enabled = false;
+            Hide();
         }
         
         GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
@@ -37,21 +39,26 @@ public class ExtraLifeCollectable : MonoBehaviour
         {
             GameManager.Instance.canWin = true;
             text.GetComponent<TextMeshProUGUI>().text = "Item final conseguido!";
-            _sprite.enabled = false;
-            _collider.enabled = false;
+            Hide();
             panel.SetActive(true);
             Invoke(nameof(HideText), 3f);
         }
         else
         {
-            _sprite.enabled = false;
-            _collider.enabled = false;
+            Hide();
             panel.SetActive(true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed, false, 0.9f);
             Invoke(nameof(HideText), 3f);
             GameManager.Instance.GetCollectablePicked?.Invoke();
             PlayerPrefs.SetString("Taken", name);
         }
+    }
+
+    private void Hide()
+    {
+        _sprite.enabled = false;
+        _collider.enabled = false;
+        _light.enabled = false;
     }
 
     private void HideText()

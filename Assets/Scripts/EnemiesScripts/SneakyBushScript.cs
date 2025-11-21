@@ -46,6 +46,7 @@ namespace EnemiesScripts
             if (Hp <= 0)
             {
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
+                particles.Stop();
                 Animator?.SetBool("Attacking", false);
             }
         }
