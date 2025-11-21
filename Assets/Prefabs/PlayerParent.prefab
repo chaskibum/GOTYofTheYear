@@ -137,8 +137,8 @@ MonoBehaviour:
   playerTarget: {fileID: 9065315658519123801}
   visuals: {fileID: 4559264885470363141}
   shieldVisuals: {fileID: 2159586467150094698}
-  _dashUnlocked: 0
-  _doubleJumpUnlocked: 0
+  _dashUnlocked: 1
+  _doubleJumpUnlocked: 1
   _immuneSkillUnlocked: 0
   inDialog: 0
 --- !u!114 &3028596203003872494

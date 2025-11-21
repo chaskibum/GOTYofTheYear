@@ -26,6 +26,7 @@ MonoBehaviour:
   jumpDuration: 0.5
   dashSpeed: 15
   dashDuration: 0.2
+  dashCooldown: 0.8
   dashGravity: 0
   attackSpeed: 0.8
   attackCooldown: 0.9

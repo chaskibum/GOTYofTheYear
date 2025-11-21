@@ -38,6 +38,7 @@ namespace PlayerScripts
         [Header("Dash")]
         [SerializeField] private bool _dashUnlocked;
         private bool _canDash;
+        private float _dashTimer;
         
         [Header("Jump")]
         [SerializeField] private bool _doubleJumpUnlocked;
@@ -148,6 +149,7 @@ namespace PlayerScripts
         {
             _cooldown -= Time.deltaTime;
             _attackCooldown -= Time.deltaTime;
+            _dashTimer -= Time.deltaTime;
             CheckIfGrounded();
             
             if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
@@ -294,13 +296,20 @@ namespace PlayerScripts
                 _isOnFloor = true;
                 _coyoteCounter = data.coyoteTime; // Reseteamos el tiempo de coyote
                 _body.gravityScale = data.regularGravity;
-                if (_dashUnlocked) _canDash = true;
+                if (_dashUnlocked && _dashTimer <= 0)
+                {
+                    _canDash = true;
+                }
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
             }
             else // Si el raycast no toca el suelo...
             {
-                if (_isOnFloor) // Acabamos de dejar el suelo
+                if (_isOnFloor)
+                {
+                    // Acabamos de dejar el suelo
                     _coyoteCounter = data.coyoteTime;
+                    _canDash = true;
+                } 
 
                 _isOnFloor = false;
                 _coyoteCounter -= Time.deltaTime;
@@ -477,7 +486,7 @@ namespace PlayerScripts
         
         private void CheckDashInput()
         {
-            if (Input.GetButtonDown("Dash") && !_isAttacking && !_isPossessed)
+            if (Input.GetButtonDown("Dash") && !_isAttacking && !_isPossessed && _canDash)
             {
                 Dash();
             }
@@ -512,7 +521,8 @@ namespace PlayerScripts
         }
         private void Dash()
         {
-            if (!_canDash) return;
+            // if (!_canDash) return;
+            _dashTimer = data.dashCooldown;
             _animator.SetBool(Dashing, true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
             _body.linearVelocity = Vector2.zero;

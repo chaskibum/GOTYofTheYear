@@ -23,6 +23,7 @@ namespace PlayerScripts
         [Header("Dash")]
         public float dashSpeed;
         public float dashDuration;
+        public float dashCooldown = 0.4f;
         public float dashGravity;
         
 
