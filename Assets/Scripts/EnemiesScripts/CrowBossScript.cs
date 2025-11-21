@@ -13,16 +13,20 @@ namespace EnemiesScripts
 
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private List<GameObject> waves;
+        [SerializeField] private HealthBar healthBar;
         private Coroutine _waveCoroutine;
 
         protected override void Start()
         {
-            print("hola!");
             base.Start();
             if (PlayerPrefs.GetString("CrowDead") == "yes")
             {
-                print("chau");
                 gameObject.SetActive(false);
+            }
+            else
+            {
+                healthBar.SetMaxHealth(data.baseHp);
+                healthBar.SetHealth(data.baseHp);
             }
         }
         
@@ -31,6 +35,8 @@ namespace EnemiesScripts
             if (!BossSlain)
             {
                 base.ResetEnemy();
+                healthBar.SetHealth(Hp);
+                healthBar.transform.parent.gameObject.SetActive(false);
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(true);
                 wentUp = false;
@@ -50,6 +56,9 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
+            healthBar.transform.parent.gameObject.SetActive(false);
+            healthBar.SetMaxHealth(data.baseHp);
+            healthBar.SetHealth(data.baseHp);
             PlayerPrefs.SetString("CrowDead", "no");
             print("restarted!");
             attackHitbox.SetActive(true);
@@ -115,11 +124,17 @@ namespace EnemiesScripts
             {
                 Die();
             }
+            else
+            {
+                healthBar.transform.parent.gameObject.SetActive(true);
+                healthBar.SetHealth(Hp);
+            }
         }
 
         private void Die()
         {
             SetState(State.Die);
+            healthBar.transform.parent.gameObject.SetActive(false);
             PlayerPrefs.SetString("CrowDead", "yes");
             BossSlain = true;
             unlockableSkill.SetActive(true);

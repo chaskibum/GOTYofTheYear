@@ -11,6 +11,7 @@ namespace EnemiesScripts
         [SerializeField] private GameObject lockDoor;
         [SerializeField] private List<GameObject> enemies;
         [SerializeField] private List<GameObject> objects;
+        [SerializeField] private HealthBar healthBar;
         private Coroutine _spawnCoroutine;
         private Vector3 _startingLockPosition = new Vector3(214, -111, 0);
         private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
@@ -23,6 +24,11 @@ namespace EnemiesScripts
             if (PlayerPrefs.GetString("ArmorDead") == "yes")
                 // Die();
                 gameObject.SetActive(false);
+            else
+            {
+                healthBar.SetMaxHealth(data.baseHp);
+                healthBar.SetHealth(data.baseHp);
+            }
         }
 
         protected override void ResetEnemy()
@@ -30,6 +36,8 @@ namespace EnemiesScripts
             if (!BossSlain)
             {
                 base.ResetEnemy();
+                healthBar.SetHealth(Hp);
+                healthBar.transform.parent.gameObject.SetActive(false);
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(false);
                 lockDoor.transform.position = _startingLockPosition;
@@ -52,6 +60,9 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
+            healthBar.transform.parent.gameObject.SetActive(false);
+            healthBar.SetMaxHealth(data.baseHp);
+            healthBar.SetHealth(data.baseHp);
             PlayerPrefs.SetString("ArmorDead", "no");
             unlockableSkill.SetActive(false);
             Animator?.SetBool("Attacking", false);
@@ -60,6 +71,7 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             base.ChaseState();
+            healthBar.transform.parent.gameObject.SetActive(true);
 
             if (_spawnCoroutine == null)
             {
@@ -75,8 +87,12 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            
-            if (Hp > 0) AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
+
+            if (Hp > 0)
+            {
+                healthBar.SetHealth(Hp);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
+            }
             else
             {
                 Die();
@@ -86,6 +102,7 @@ namespace EnemiesScripts
         private void Die()
         {
             SetState(State.Die);
+            healthBar.transform.parent.gameObject.SetActive(false);
             PlayerPrefs.SetString("ArmorDead", "yes");
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             BossSlain = true;
