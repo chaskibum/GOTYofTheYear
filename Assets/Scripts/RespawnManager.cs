@@ -16,14 +16,14 @@ public abstract class RespawnManager : MonoBehaviour
     {
         _player = GameManager.Instance.GetPlayer;
         _player.GetPlayerRevived?.AddListener(Revive);
-        GameManager.Instance.GetPlayerRespawn?.AddListener(DeactivateEnemies);
+        // GameManager.Instance.GetPlayerRespawn?.AddListener(DeactivateEnemies);
         GameManager.Instance.GetGameRestarted?.AddListener(ReloadLevel); 
-        DeactivateEnemies();
+        // DeactivateEnemies();
     }
 
     private void ReloadLevel()
     {
-        DeactivateEnemies();
+        // DeactivateEnemies();
         globalLight.intensity = 0.5f;
     }
 
@@ -47,7 +47,7 @@ public abstract class RespawnManager : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        ActivateEnemies();
+        // ActivateEnemies();
     }
 
     protected IEnumerator SpawnEnemies(bool spawn)
@@ -64,7 +64,7 @@ public abstract class RespawnManager : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         PlayerPrefs.SetString("Respawn", "");
-        StartCoroutine(SpawnEnemies(false));
+        // StartCoroutine(SpawnEnemies(false));
     }
 
     private void Revive()

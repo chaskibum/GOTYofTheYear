@@ -412,7 +412,6 @@ namespace PlayerScripts
         
         private void PlayerPossessed()
         {
-            print("CALLING PLAYER POSSESSED");
             _animator.SetBool(Possessed, true);
             GetRandomDirection();
             SetState(State.Possessed);
