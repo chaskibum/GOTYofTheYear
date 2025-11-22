@@ -19,7 +19,7 @@ public class Totem : MonoBehaviour, IInteractable
             _animator.SetBool("Active", true);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         AddListeners(false);
     }

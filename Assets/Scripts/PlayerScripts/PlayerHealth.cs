@@ -26,7 +26,7 @@ namespace PlayerScripts
             AddListeners(true);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             AddListeners(false);
         }

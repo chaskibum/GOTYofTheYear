@@ -44,7 +44,7 @@ public class ApplyMovement : MonoBehaviour
             
             if (Vector2.Distance(_body.position, positions[_targetIndex].position) < 0.01f)
             {
-                if (positions.Count == 1) Destroy(this);
+                if (positions.Count == 1) enabled = false;
                 else
                 {
                     // Guardamos la x de la posicion actual

@@ -114,7 +114,7 @@ namespace PlayerScripts
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             AddListeners(false);
         }

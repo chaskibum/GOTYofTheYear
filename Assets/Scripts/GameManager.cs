@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         _onGameRestart.AddListener(RestartGameEvent);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _onGameOver.RemoveListener(GameOverScreen);
         _onGameRestart.RemoveListener(RestartGameEvent);

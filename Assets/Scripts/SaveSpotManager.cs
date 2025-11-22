@@ -38,7 +38,7 @@ public class SaveSpotManager : MonoBehaviour, IInteractable
         OnCollisionEvent += HandleAnimations;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         OnCollisionEvent -= HandleAnimations;
         GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);

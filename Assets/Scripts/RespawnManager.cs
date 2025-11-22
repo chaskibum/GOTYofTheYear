@@ -38,7 +38,7 @@ public abstract class RespawnManager : MonoBehaviour
         StartCoroutine(SpawnEnemies(false));
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _player.GetPlayerRevived?.RemoveListener(Revive);
         GameManager.Instance.GetGameRestarted?.RemoveListener(ReloadLevel);

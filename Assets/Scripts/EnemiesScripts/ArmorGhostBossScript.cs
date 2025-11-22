@@ -181,7 +181,7 @@ namespace EnemiesScripts
         protected override void DieState()
         {
             base.DieState();
-            StopCoroutine(_spawnCoroutine);
+            DeactivateCoroutine();
             _spawnCoroutine = null;
         }
     }

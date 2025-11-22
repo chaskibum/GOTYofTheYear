@@ -6,14 +6,16 @@ namespace EnemiesScripts
     public class GhostScript : EnemyController
     {
         protected float StateTimer = 0;
+        private ApplyMovement _movementScript;
 
         protected override void Start()
         {
             base.Start();
             Player.GetPlayerExorcisedEvent?.AddListener(GetHit);
+            TryGetComponent(out _movementScript);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Player.GetPlayerExorcisedEvent?.RemoveListener(GetHit);
         }
@@ -36,6 +38,7 @@ namespace EnemiesScripts
         {
             base.ResetEnemy();
             attackHitbox.SetActive(true);
+            if (_movementScript) _movementScript.enabled = true;
         }
 
         protected override void GetPlayerPosition()

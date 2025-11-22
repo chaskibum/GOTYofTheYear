@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
         UpdateLife(lives);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         AddListeners(false);
     }
@@ -101,9 +101,9 @@ public class UIManager : MonoBehaviour
     private void ResetBossHealthBars()
     {
         bossHealthBars.SetActive(true);
-        foreach (GameObject healthBar in bossHealthBars.transform)
+        foreach (Transform healthBar in bossHealthBars.transform)
         {
-            healthBar.SetActive(false);
+            healthBar.gameObject.SetActive(false);
         }
     }
 

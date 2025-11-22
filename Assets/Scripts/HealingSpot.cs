@@ -13,7 +13,7 @@ public class HealingSpot : MonoBehaviour, IInteractable
         AddListeners(true);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         AddListeners(false);
     }

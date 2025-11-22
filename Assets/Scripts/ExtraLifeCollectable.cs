@@ -28,7 +28,7 @@ public class ExtraLifeCollectable : MonoBehaviour
         GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
     }
