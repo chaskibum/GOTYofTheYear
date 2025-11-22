@@ -308,7 +308,7 @@ namespace PlayerScripts
                 {
                     // Acabamos de dejar el suelo
                     _coyoteCounter = data.coyoteTime;
-                    _canDash = true;
+                    if (_dashUnlocked) _canDash = true;
                 } 
 
                 _isOnFloor = false;
