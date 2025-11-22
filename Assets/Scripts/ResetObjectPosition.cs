@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ResetObjectPosition : MonoBehaviour
@@ -13,7 +12,7 @@ public class ResetObjectPosition : MonoBehaviour
         AddListeners(true);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         AddListeners(false);
     }
@@ -38,7 +37,7 @@ public class ResetObjectPosition : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) ResetPosition();
+        // if (Input.GetKeyDown(KeyCode.R)) ResetPosition();
         sprite.transform.eulerAngles += new Vector3(0, 0, 0.5f);
     }
 

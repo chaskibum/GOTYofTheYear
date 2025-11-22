@@ -15,7 +15,7 @@ namespace EnemiesScripts
             _player.GetPlayerImmunity.AddListener(DeactivateColliders);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _player.GetPlayerImmunity.RemoveListener(DeactivateColliders);
         }

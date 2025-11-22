@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Transform livesContainer;
+    [SerializeField] private GameObject bossHealthBars;
 
     [SerializeField] private GameObject cooldownBar;
     private Slider _cooldownBarSlider;
@@ -86,6 +87,7 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         reviveButton.SetActive(false);
         optionsButton.SetActive(true);
+        ResetBossHealthBars();
         if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
         else cooldownBar.SetActive(false);
         
@@ -94,6 +96,15 @@ public class UIManager : MonoBehaviour
         int baseLives = _player.GetPlayerData.baseLives;
 
         UpdateLife(baseLives);
+    }
+
+    private void ResetBossHealthBars()
+    {
+        bossHealthBars.SetActive(true);
+        foreach (GameObject healthBar in bossHealthBars.transform)
+        {
+            healthBar.SetActive(false);
+        }
     }
 
     private void RestartUI()
@@ -148,12 +159,14 @@ public class UIManager : MonoBehaviour
             pauseMenuUI.SetActive(true);
             HighlightSliderButton();
             optionsButton.SetActive(false);
+            bossHealthBars.SetActive(false);
         }
         else
         {
             Time.timeScale = 1f;
             pauseMenuUI.SetActive(false);
             optionsButton.SetActive(true);
+            bossHealthBars.SetActive(true);
         }
     }
 

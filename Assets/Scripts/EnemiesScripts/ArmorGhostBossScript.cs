@@ -22,7 +22,6 @@ namespace EnemiesScripts
         {
             base.Start();
             if (PlayerPrefs.GetString("ArmorDead") == "yes")
-                // Die();
                 gameObject.SetActive(false);
             else
             {
@@ -43,11 +42,7 @@ namespace EnemiesScripts
                 lockDoor.transform.position = _startingLockPosition;
                 Animator?.SetBool("Attacking", false);
 
-                if (_spawnCoroutine != null)
-                {
-                    StopCoroutine(_spawnCoroutine);
-                    _spawnCoroutine = null;
-                }
+                DeactivateCoroutine();
                 
                 foreach (GameObject enemy in enemies)
                     enemy.SetActive(false);
@@ -63,9 +58,11 @@ namespace EnemiesScripts
             healthBar.transform.parent.gameObject.SetActive(false);
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
+            lockDoor.transform.position = _startingLockPosition;
             PlayerPrefs.SetString("ArmorDead", "no");
             unlockableSkill.SetActive(false);
             Animator?.SetBool("Attacking", false);
+            DeactivateCoroutine();
         }
 
         protected override void ChaseState()
@@ -151,6 +148,16 @@ namespace EnemiesScripts
                 RelocateObjects();
                 
                 if (_spawnCoroutine != null) StartCoroutine(nameof(SpawnEnemies));
+            }
+        }
+
+        private void DeactivateCoroutine()
+        {
+            if (_spawnCoroutine != null)
+            {
+                // RelocateObjects();
+                StopCoroutine(_spawnCoroutine);
+                _spawnCoroutine = null;
             }
         }
 
