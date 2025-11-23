@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -100,11 +101,11 @@ namespace PlayerScripts
 
         private void HandleRespawnOnStart()
         {
-            if (!PlayerPrefs.HasKey("XPosition"))
+            if (PlayerPrefs.GetFloat("XPosition") == 0)
             {
                 PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
                 PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
-                RestartGame();
+                GameManager.Instance.RevivePlayer();
             }
             else
             {
@@ -147,6 +148,7 @@ namespace PlayerScripts
 
         private void Update()
         {
+            print(_body.gravityScale);
             _cooldown -= Time.deltaTime;
             _attackCooldown -= Time.deltaTime;
             _dashTimer -= Time.deltaTime;
@@ -521,13 +523,11 @@ namespace PlayerScripts
         }
         private void Dash()
         {
-            // if (!_canDash) return;
             _dashTimer = data.dashCooldown;
             _animator.SetBool(Dashing, true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
-            // _body.AddForce(new Vector2(direction * data.dashSpeed, 0f), ForceMode2D.Impulse);
             _body.linearVelocityX = direction * data.dashSpeed;
             _canDash = false;
             SetState(State.Dash);

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameplayElements;
+using Managers;
 using UnityEngine;
 
 namespace EnemiesScripts

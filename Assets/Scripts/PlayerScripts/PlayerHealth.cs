@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using GameplayElements;
+using Managers;
 using UnityEngine;
 
 namespace PlayerScripts

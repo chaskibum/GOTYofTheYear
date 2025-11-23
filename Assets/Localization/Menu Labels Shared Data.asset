@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: menu.close
     m_Metadata:
       m_Items: []
+  - m_Id: 1437625801957376
+    m_Key: menu.optionsButton
+    m_Metadata:
+      m_Items: []
   - m_Id: 7954992390144
     m_Key: menu.options
     m_Metadata:

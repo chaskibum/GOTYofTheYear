@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7954984001536
-    m_Localized: 'Sonidos:'
+    m_Localized: 'Sonido:'
     m_Metadata:
       m_Items: []
   - m_Id: 7954988195840
@@ -35,11 +35,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390144
-    m_Localized: Opciones
+    m_Localized: '- Opciones -'
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390145
-    m_Localized: Pausa
+    m_Localized: '- Pausa -'
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390146
@@ -73,6 +73,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 7954992390153
     m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1437625801957376
+    m_Localized: Opciones
     m_Metadata:
       m_Items: []
   references:

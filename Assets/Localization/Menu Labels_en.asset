@@ -19,7 +19,64 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 7954992390152
-    m_Localized: Errand Failed
+    m_Localized: Recado Fallido
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954929475584
+    m_Localized: Jugar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954984001536
+    m_Localized: 'Sonido:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954988195840
+    m_Localized: "M\xFAsica:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954988195841
+    m_Localized: Cerrar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390144
+    m_Localized: '- Opciones -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390145
+    m_Localized: '- Pausa -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390146
+    m_Localized: Reiniciar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390147
+    m_Localized: "Esto reiniciar\xE1 todo tu progreso y te llevar\xE1 al comienzo
+      del juego. \xBFDe verdad quer\xE9s reiniciar?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390148
+    m_Localized: "S\xED, reiniciar juego"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390149
+    m_Localized: No, continuar juego
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390150
+    m_Localized: Revivir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390151
+    m_Localized: "Men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7954992390153
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1437625801957376
+    m_Localized: Opciones
     m_Metadata:
       m_Items: []
   references:
