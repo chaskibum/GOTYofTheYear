@@ -33,14 +33,10 @@ namespace GameplayElements
             if (add)
             {
                 GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
-                /*GameManager.Instance.GetPlayerRespawn?.AddListener(ResetAnimations);
-            GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);*/
             }
             else
             {
                 GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
-                /*GameManager.Instance.GetPlayerRespawn?.RemoveListener(ResetAnimations);
-            GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);*/
             }
         }
     

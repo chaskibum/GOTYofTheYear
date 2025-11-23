@@ -146,7 +146,6 @@ namespace PlayerScripts
 
         private void Update()
         {
-            print(_body.gravityScale);
             _cooldown -= Time.deltaTime;
             _attackCooldown -= Time.deltaTime;
             _dashTimer -= Time.deltaTime;

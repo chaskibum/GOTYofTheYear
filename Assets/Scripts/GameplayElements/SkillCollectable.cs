@@ -1,6 +1,6 @@
 using Managers;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameplayElements
 {
@@ -8,9 +8,12 @@ namespace GameplayElements
     {
         private SpriteRenderer _sprite;
         private BoxCollider2D _collider;
+        private UIManager _uiManager;
 
         [SerializeField] private GameObject panel;
-        [SerializeField] private GameObject text;
+
+        [SerializeField] private Button closeButton;
+        // [SerializeField] private GameObject text;
     
         // PARA BORRAR DESPUÉS
         [SerializeField] private bool dashCollectable = false;
@@ -21,6 +24,7 @@ namespace GameplayElements
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
+            _uiManager = GameManager.Instance.GetUIManager;
         
             if (PlayerPrefs.GetString("DashUnlocked") == name)
             {
@@ -41,6 +45,14 @@ namespace GameplayElements
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
         }
 
+        private void Update()
+        {
+            if (panel.activeInHierarchy)
+            {
+                CheckCloseInput();
+            }
+        }
+
         private void OnDestroy()
         {
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
@@ -50,19 +62,19 @@ namespace GameplayElements
         {
             if (dashCollectable)
             {
-                text.GetComponent<TextMeshProUGUI>().text = "Dash desbloqueado!";
+                // text.GetComponent<TextMeshProUGUI>().text = "Dash desbloqueado!";
                 PlayerPrefs.SetString("DashUnlocked", name);
                 GameManager.Instance.GetDashUnlocked?.Invoke();
             }
             else if (doubleJumpCollectable)
             {
-                text.GetComponent<TextMeshProUGUI>().text = "Doble salto desbloqueado!";
+                // text.GetComponent<TextMeshProUGUI>().text = "Doble salto desbloqueado!";
                 PlayerPrefs.SetString("DoubleJumpUnlocked", name);
                 GameManager.Instance.GetDoubleJumpUnlocked?.Invoke();
             }
             else if (immunityCollectable)
             {
-                text.GetComponent<TextMeshProUGUI>().text = "Amuleto de inmunidad desbloqueado!";
+                // text.GetComponent<TextMeshProUGUI>().text = "Amuleto de inmunidad desbloqueado!";
                 PlayerPrefs.SetString("ImmunityUnlocked", name);
                 GameManager.Instance.GetImmunityUnlocked?.Invoke();
             }
@@ -70,13 +82,31 @@ namespace GameplayElements
             _sprite.enabled = false;
             _collider.enabled = false;
             panel.SetActive(true);
-            Invoke(nameof(HideText), 3f);
+            Time.timeScale = 0;
+            closeButton.Select();
+            _uiManager.inMenu = true;
+            // Invoke(nameof(HideText), 3f);
+        }
+        
+        private void CheckCloseInput()
+        {
+            if (Input.GetButtonDown("Cancel"))
+            {
+                ClosePanel();
+            }
+        }
+        
+        public void ClosePanel()
+        {
+            Time.timeScale = 1;
+            panel.SetActive(false);
+            _uiManager.inMenu = false;
         }
 
-        private void HideText()
+        /*private void HideText()
         {
             panel.SetActive(false);
-        }
+        }*/
 
         private void ResetCollectable()
         {

@@ -20,6 +20,7 @@ namespace Managers
         private Slider _cooldownBarSlider;
     
         private bool _isPaused = false;
+        public bool inMenu = false;
 
         private PlayerController _player;
     
@@ -67,6 +68,7 @@ namespace Managers
 
         private void Update()
         {
+            if (inMenu) return;
             if (Input.GetButtonDown("Cancel") && !uSurePanel.activeInHierarchy) HandlePause();
 
             _cooldownBarSlider.value = _player.GetCooldown * -1;
@@ -114,8 +116,7 @@ namespace Managers
             reviveButton.SetActive(false);
             optionsButton.SetActive(true);
             cooldownBar.SetActive(false);
-        
-            // if (pauseMenuUI.activeInHierarchy) HandlePause();
+            
             HandlePause();
         
             int baseLives = _player.GetPlayerData.baseLives;

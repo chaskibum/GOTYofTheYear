@@ -21,6 +21,7 @@ namespace Managers
         private readonly UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
         [SerializeField] private PlayerController player;
+        [SerializeField] private UIManager uiManager;
 
         // PARA BORRAR
         public bool canWin = false;
@@ -95,6 +96,8 @@ namespace Managers
         #endregion
     
         public PlayerController GetPlayer => player;
+        
+        public UIManager GetUIManager => uiManager;
     
         public bool GetGameOver => _gameOver;
     }
