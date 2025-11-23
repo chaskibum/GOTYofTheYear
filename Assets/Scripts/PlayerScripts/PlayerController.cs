@@ -103,8 +103,6 @@ namespace PlayerScripts
         {
             if (PlayerPrefs.GetFloat("XPosition") == 0)
             {
-                PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
-                PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
                 GameManager.Instance.RevivePlayer();
             }
             else
