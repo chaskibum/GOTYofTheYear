@@ -271,8 +271,6 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -294,7 +292,6 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 285662925
   m_SortingLayer: 5
   m_SortingOrder: 1
@@ -443,6 +440,10 @@ PrefabInstance:
     - target: {fileID: 5721757259522890655, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_Name
       value: InteractPrompt (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721757259522890655, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -133,7 +133,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3, y: 1}
+  m_Size: {x: 3, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &5795583855151453471
 MonoBehaviour:
@@ -150,3 +150,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 81336c3dfe2231a4493f70c0169031fa, type: 2}
   enemy: {fileID: 0}
   visuals: {fileID: 0}
+  particles: {fileID: 0}
