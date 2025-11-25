@@ -12,6 +12,7 @@ namespace EnemiesScripts
         private float ChaseTimer;
         private bool wentUp;
         private int modifyPosition;
+        private bool chillidoPlayed;
 
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private List<GameObject> waves;
@@ -42,6 +43,7 @@ namespace EnemiesScripts
                 unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(true);
                 wentUp = false;
+                chillidoPlayed = false;
                 modifyPosition = 0;
 
                 if (_waveCoroutine != null)
@@ -66,6 +68,7 @@ namespace EnemiesScripts
             attackHitbox.SetActive(true);
             unlockableSkill.SetActive(false);
             wentUp = false;
+            chillidoPlayed = false;
         }
 
         private IEnumerator WaveSpawner()
@@ -94,6 +97,12 @@ namespace EnemiesScripts
 
             if (_waveCoroutine == null)
                 _waveCoroutine = StartCoroutine(WaveSpawner());
+            
+            /*if (modifyPosition == 0 && !chillidoPlayed)
+            {
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Chillido);
+                chillidoPlayed = true;
+            }*/
                 
             ChaseTimer += Time.deltaTime;
             if (ChaseTimer >= data.stepAwayForce)
@@ -111,6 +120,7 @@ namespace EnemiesScripts
             {
                 modifyPosition += 6;
                 wentUp = true;
+                chillidoPlayed = false;
             }
             else
             {

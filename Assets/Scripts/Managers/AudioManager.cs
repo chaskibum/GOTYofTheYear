@@ -43,6 +43,7 @@ namespace Managers
             BushDeath,
             CrowScream,
             BushAlert,
+            Chillido,
         }
     
         [SerializeField] List<AudioClip> audioClips;
