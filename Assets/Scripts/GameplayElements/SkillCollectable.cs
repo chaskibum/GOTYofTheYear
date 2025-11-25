@@ -13,7 +13,6 @@ namespace GameplayElements
         [SerializeField] private GameObject panel;
 
         [SerializeField] private Button closeButton;
-        // [SerializeField] private GameObject text;
     
         // PARA BORRAR DESPUÉS
         [SerializeField] private bool dashCollectable = false;
@@ -62,19 +61,16 @@ namespace GameplayElements
         {
             if (dashCollectable)
             {
-                // text.GetComponent<TextMeshProUGUI>().text = "Dash desbloqueado!";
                 PlayerPrefs.SetString("DashUnlocked", name);
                 GameManager.Instance.GetDashUnlocked?.Invoke();
             }
             else if (doubleJumpCollectable)
             {
-                // text.GetComponent<TextMeshProUGUI>().text = "Doble salto desbloqueado!";
                 PlayerPrefs.SetString("DoubleJumpUnlocked", name);
                 GameManager.Instance.GetDoubleJumpUnlocked?.Invoke();
             }
             else if (immunityCollectable)
             {
-                // text.GetComponent<TextMeshProUGUI>().text = "Amuleto de inmunidad desbloqueado!";
                 PlayerPrefs.SetString("ImmunityUnlocked", name);
                 GameManager.Instance.GetImmunityUnlocked?.Invoke();
             }
@@ -85,7 +81,6 @@ namespace GameplayElements
             Time.timeScale = 0;
             closeButton.Select();
             _uiManager.inMenu = true;
-            // Invoke(nameof(HideText), 3f);
         }
         
         private void CheckCloseInput()
@@ -102,11 +97,6 @@ namespace GameplayElements
             panel.SetActive(false);
             _uiManager.inMenu = false;
         }
-
-        /*private void HideText()
-        {
-            panel.SetActive(false);
-        }*/
 
         private void ResetCollectable()
         {

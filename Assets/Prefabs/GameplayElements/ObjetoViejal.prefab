@@ -233,9 +233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c9c1571cdfe224aa3429dd9add63ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viejalObject: {fileID: 0}
+  panel: {fileID: 0}
   interactPrompt: {fileID: 661460029876802948}
   closeButton: {fileID: 0}
+  objectLight: {fileID: 45566504354874612}
+  Viejal1: 0
+  Viejal2: 0
+  Viejal3: 0
 --- !u!1001 &5064924008973258267
 PrefabInstance:
   m_ObjectHideFlags: 0
