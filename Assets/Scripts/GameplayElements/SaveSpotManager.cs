@@ -94,6 +94,7 @@ namespace GameplayElements
             _lastSavedRespawnPosition = transform.position;
             GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
+            print("pasan cosas raras?");
             GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
         }
 
