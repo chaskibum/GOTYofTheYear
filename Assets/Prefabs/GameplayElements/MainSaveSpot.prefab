@@ -127,7 +127,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5189439109130646860, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 40778d7bfa49582488aa27fc2c809f61, type: 3}
+  m_Resource: {fileID: 8300000, guid: 373b1ba5731bced42974dd7b463f2420, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -137,10 +137,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 20
   MaxDistance: 200
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMainRespawn: 1
-  activatingSound: {fileID: 0}
+  activatingSound: {fileID: 4763243754486790783}
   interactPrompt: {fileID: 6013563566009361272}
 --- !u!95 &8806924894571561258
 Animator:

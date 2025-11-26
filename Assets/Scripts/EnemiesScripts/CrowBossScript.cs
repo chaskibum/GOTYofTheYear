@@ -17,6 +17,7 @@ namespace EnemiesScripts
         [SerializeField] private GameObject unlockableSkill;
         [SerializeField] private List<GameObject> waves;
         [SerializeField] private HealthBar healthBar;
+        [SerializeField] private AudioSource chillido;
         private Coroutine _waveCoroutine;
 
         protected override void Start()
@@ -98,11 +99,11 @@ namespace EnemiesScripts
             if (_waveCoroutine == null)
                 _waveCoroutine = StartCoroutine(WaveSpawner());
             
-            /*if (modifyPosition == 0 && !chillidoPlayed)
+            if (modifyPosition == 0 && !chillidoPlayed)
             {
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.Chillido);
+                chillido.Play();
                 chillidoPlayed = true;
-            }*/
+            }
                 
             ChaseTimer += Time.deltaTime;
             if (ChaseTimer >= data.stepAwayForce)

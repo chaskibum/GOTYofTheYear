@@ -74,7 +74,6 @@ namespace GameplayElements
 
         private void CheckInteractInput()
         {
-            // if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
             if (Input.GetButtonDown("Interact"))
             {
                 Interact();
@@ -93,8 +92,7 @@ namespace GameplayElements
         {
             _lastSavedRespawnPosition = transform.position;
             GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.MainCheckpointActivated);
-            print("pasan cosas raras?");
+            PlayActivatingSound();
             GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
         }
 
@@ -117,6 +115,7 @@ namespace GameplayElements
 
         public void PlayActivatingSound()
         {
+            if (!activatingSound) return;
             activatingSound.Play();
         }
     
@@ -127,14 +126,5 @@ namespace GameplayElements
             _animator.SetBool("Activated", false);
             Invoke(nameof(ActivateRespawn), 0.1f);
         }
-    
-        /*private void RestartAnimations()
-    {
-        if (!_animator) return;
-        
-        _animator.SetBool("Activated", false);
-        
-        Invoke(nameof(ActivateRespawn), 0.1f);
-    }*/
     }
 }
