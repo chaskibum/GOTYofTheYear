@@ -103,8 +103,8 @@ namespace Managers
 
         public void ChangeMusicVolume()
         {
-            if (sfxSlider.value < -39f) audioMixer.SetFloat("MusicVolume", -60f);
-            else audioMixer.SetFloat("MusicVolume", sfxSlider.value);
+            if (musicSlider.value < -39f) audioMixer.SetFloat("MusicVolume", -60f);
+            else audioMixer.SetFloat("MusicVolume", musicSlider.value);
         }
 
         public void ChangeSfxVolume()

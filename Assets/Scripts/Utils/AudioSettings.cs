@@ -26,6 +26,7 @@ namespace Utils
         {
             sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
             StartCoroutine(EnableSoundAfterLoading());
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         }
     
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -43,6 +44,11 @@ namespace Utils
         public void SetPlayerSfxPref()
         {
             PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
+        }
+        
+        public void SetPlayerMusicPref()
+        {
+            PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         }
     
         public bool GetIsLoading => _isLoading;

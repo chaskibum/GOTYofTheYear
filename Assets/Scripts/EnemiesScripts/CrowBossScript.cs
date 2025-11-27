@@ -18,6 +18,12 @@ namespace EnemiesScripts
         [SerializeField] private List<GameObject> waves;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private AudioSource chillido;
+        [SerializeField] private AudioSource painScream;
+        [SerializeField] private AudioSource drums1;
+        [SerializeField] private AudioSource drums2;
+        [SerializeField] private AudioSource songEnding;
+        [SerializeField] private AudioSource spookySound1;
+        [SerializeField] private AudioSource spookySound2;
         private Coroutine _waveCoroutine;
 
         protected override void Start()
@@ -46,16 +52,23 @@ namespace EnemiesScripts
                 wentUp = false;
                 chillidoPlayed = false;
                 modifyPosition = 0;
+                RestartSongs();
 
-                if (_waveCoroutine != null)
-                {
-                    StopCoroutine(_waveCoroutine);
-                    _waveCoroutine = null;
-                }
-                
-                foreach (GameObject wave in waves)
-                    wave.SetActive(false);
+                DeactivateWaves();
             }
+        }
+
+        private void DeactivateWaves()
+        {
+            if (_waveCoroutine != null)
+            {
+                StopCoroutine(_waveCoroutine);
+                _waveCoroutine = null;
+                
+            }
+            foreach (GameObject wave in waves)
+                if (wave)
+                    wave.SetActive(false);
         }
 
         protected override void RestartEnemy()
@@ -70,6 +83,9 @@ namespace EnemiesScripts
             unlockableSkill.SetActive(false);
             wentUp = false;
             chillidoPlayed = false;
+            modifyPosition = 0;
+            RestartSongs();
+            DeactivateWaves();
         }
 
         private IEnumerator WaveSpawner()
@@ -80,7 +96,9 @@ namespace EnemiesScripts
                 {
                     yield return new WaitUntil(() => Hp % 4 == 0);
                     wave.SetActive(true);
-                    AudioManager.Instance.PlayClip(AudioManager.AudioList.CrowScream);
+                    painScream.Play();
+                    if (Hp < data.baseHp / 2)
+                        drums1.loop = false;
                     yield return new WaitWhile(() => Hp % 4 == 0);
                 }
             }
@@ -104,6 +122,11 @@ namespace EnemiesScripts
                 chillido.Play();
                 chillidoPlayed = true;
             }
+            
+            if (!drums1.isPlaying && Hp > data.baseHp / 2)
+                drums1.Play();
+            else if (!drums1.isPlaying && !drums2.isPlaying && Hp < data.baseHp / 2)
+                drums2.Play();
                 
             ChaseTimer += Time.deltaTime;
             if (ChaseTimer >= data.stepAwayForce)
@@ -151,8 +174,13 @@ namespace EnemiesScripts
             PlayerPrefs.SetString("CrowDead", "yes");
             BossSlain = true;
             unlockableSkill.SetActive(true);
-            foreach (GameObject wave in waves)
-                Destroy(wave);
+            RestartSongs();
+            songEnding.Play();
+            spookySound1.Stop();
+            spookySound2.Stop();
+            /*foreach (GameObject wave in waves)
+                Destroy(wave);*/
+            DeactivateWaves();
         }
 
         protected override IEnumerator EndFeedback()
@@ -160,6 +188,16 @@ namespace EnemiesScripts
             yield return new WaitForSecondsRealtime(0.05f);
             Visuals.color = new Color(0.5f, 1, 0.5f);
             Time.timeScale = 1;
+        }
+
+        private void RestartSongs()
+        {
+            spookySound1.Play();
+            spookySound2.Play();
+            drums1.loop = true;
+            drums1.Stop();
+            drums2.Stop();
+            songEnding.Stop();
         }
     }
 }
