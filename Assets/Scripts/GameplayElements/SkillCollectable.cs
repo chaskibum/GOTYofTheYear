@@ -67,7 +67,7 @@ namespace GameplayElements
             _sprite.enabled = true;
             if (jump)
             {
-                transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 2, 1, 2)
+                transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 1.5f, 1, 1f)
                     .OnComplete(() => _collider.enabled = true);
             }
             else

@@ -57,8 +57,6 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,7 +78,6 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 563985417
   m_SortingLayer: 8
   m_SortingOrder: 0
@@ -157,8 +154,12 @@ MonoBehaviour:
   dialoguePanel: {fileID: 7633229673682375166}
   dialogueText: {fileID: 4000212990029005163}
   dialogueList: []
+  disappearAfterDialogue: 0
+  timeToDisappear: 0
+  hideVieja: 0
   endingDialogue: 0
   fadeToBlack: {fileID: 0}
+  dash: {fileID: 0}
 --- !u!95 &2995075747971858342
 Animator:
   serializedVersion: 7

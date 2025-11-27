@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -71,6 +72,7 @@ namespace PlayerScripts
         private bool _isPossessed;
         private int _inputCount;
         private float _randomPossessedDirection;
+        private Camera _cam;
         
         [Header("Events")]
         private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
@@ -85,6 +87,7 @@ namespace PlayerScripts
             _animator = gameObject.GetComponent<Animator>();
             _playerHealth = GetComponent<PlayerHealth>();
             _weapon = playerWeapon.GetComponent<PlayerWeapon>();
+            _cam = Camera.main;
 
             _hp = data.baseHp;
             _attackCooldown = data.attackCooldown;
@@ -407,6 +410,7 @@ namespace PlayerScripts
             if (_hp <= 0)
             {
                 SetState(State.Die);
+                _cam.DOShakePosition(0.6f, 1f);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
                 if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
             }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using GameplayElements;
 using Managers;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace EnemiesScripts
         private bool wentUp;
         private int modifyPosition;
         private bool chillidoPlayed;
+        private Camera _cam;
 
         [SerializeField] private SkillCollectable unlockableSkill;
         [SerializeField] private List<GameObject> waves;
@@ -40,6 +42,7 @@ namespace EnemiesScripts
                 healthBar.SetMaxHealth(data.baseHp);
                 healthBar.SetHealth(data.baseHp);
             }
+            _cam = Camera.main;
         }
         
         protected override void ResetEnemy()
@@ -100,6 +103,7 @@ namespace EnemiesScripts
                     yield return new WaitUntil(() => Hp % 4 == 0);
                     wave.SetActive(true);
                     painScream.Play();
+                    _cam.DOShakePosition(1.2f, 1f);
                     if (Hp < data.baseHp / 2)
                         drums1.loop = false;
                     yield return new WaitWhile(() => Hp % 4 == 0);

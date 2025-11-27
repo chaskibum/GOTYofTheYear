@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using GameplayElements;
 using Managers;
 
@@ -8,7 +9,7 @@ namespace EnemiesScripts
 {
     public class ArmorGhostBossScript : EnemyController
     {
-        [SerializeField] private GameObject unlockableSkill;
+        [SerializeField] private SkillCollectable unlockableSkill;
         [SerializeField] private GameObject attack;
         [SerializeField] private GameObject lockDoor;
         [SerializeField] private List<GameObject> enemies;
@@ -19,6 +20,7 @@ namespace EnemiesScripts
         private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
         
         private bool BossSlain;
+        private Camera _cam;
 
         protected override void Start()
         {
@@ -30,6 +32,7 @@ namespace EnemiesScripts
                 healthBar.SetMaxHealth(data.baseHp);
                 healthBar.SetHealth(data.baseHp);
             }
+            _cam = Camera.main;
         }
 
         protected override void ResetEnemy()
@@ -39,10 +42,10 @@ namespace EnemiesScripts
                 base.ResetEnemy();
                 healthBar.SetHealth(Hp);
                 healthBar.transform.parent.gameObject.SetActive(false);
-                unlockableSkill.SetActive(false);
                 attackHitbox.SetActive(false);
                 lockDoor.transform.position = _startingLockPosition;
                 Animator?.SetBool("Attacking", false);
+                unlockableSkill.HideSkill();
 
                 DeactivateCoroutine();
                 
@@ -62,9 +65,9 @@ namespace EnemiesScripts
             healthBar.SetHealth(data.baseHp);
             lockDoor.transform.position = _startingLockPosition;
             PlayerPrefs.SetString("ArmorDead", "no");
-            unlockableSkill.SetActive(false);
             Animator?.SetBool("Attacking", false);
             DeactivateCoroutine();
+            unlockableSkill.HideSkill();
         }
 
         protected override void ChaseState()
@@ -105,7 +108,7 @@ namespace EnemiesScripts
             PlayerPrefs.SetString("ArmorDead", "yes");
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             BossSlain = true;
-            unlockableSkill?.SetActive(true);
+            unlockableSkill.Activate();
             lockDoor.SetActive(false);
             foreach (GameObject enemy in enemies)
                 Destroy(enemy);
@@ -139,6 +142,7 @@ namespace EnemiesScripts
             {
                 yield return new WaitForSeconds(Random.Range(5f, 8f));
                 objects[Random.Range(0, objects.Count)].SetActive(true);
+                _cam.DOShakePosition(1.2f, 1f);
                 Animator?.SetBool("Screaming", true);
                 SetState(State.Idle);
                 StartCoroutine(LockStateForSeconds(1.5f));
