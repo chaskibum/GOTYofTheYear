@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameplayElements;
 using Managers;
 using PlayerScripts;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,8 +22,11 @@ namespace Utils
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField, TextArea(3, 5)] private List<string> dialogueList;
+        [SerializeField] private bool disappearAfterDialogue;
+        [SerializeField] private float timeToDisappear;
         [SerializeField] private bool endingDialogue;
         [SerializeField] private SpriteRenderer fadeToBlack;
+        [SerializeField] private GameObject dash;
     
         [Header("Flip")]
         private bool _playerToTheRight;
@@ -66,8 +71,19 @@ namespace Utils
                 dialoguePanel.SetActive(false);
                 _player.inDialog = false;
                 _canSpeak = false;
-                Invoke(nameof(CanSpeakAgain), 0.7f);
+                if (!disappearAfterDialogue)
+                    Invoke(nameof(CanSpeakAgain), 0.7f);
+                else
+                {
+                    if (!_player.GetDashUnlocked)
+                        dash.SetActive(true);
+                }
             }
+        }
+
+        private void Disappear()
+        {
+            gameObject.SetActive(false);
         }
 
         private IEnumerator EndGame()

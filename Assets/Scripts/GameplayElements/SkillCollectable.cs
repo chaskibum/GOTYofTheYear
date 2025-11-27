@@ -1,3 +1,5 @@
+using System.Collections;
+using DG.Tweening;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +21,7 @@ namespace GameplayElements
         [SerializeField] private bool doubleJumpCollectable = false;
         [SerializeField] private bool immunityCollectable = false;
 
-        private void Start()
+        private IEnumerator Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
@@ -40,8 +42,11 @@ namespace GameplayElements
                 _sprite.enabled = false;
                 _collider.enabled = false;
             }
-        
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
+
+            yield return new WaitForSeconds(0.5f);
+            transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 2, 1, 2);
         }
 
         private void Update()

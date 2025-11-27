@@ -674,6 +674,8 @@ namespace PlayerScripts
         public bool GetIsPossessed => _isPossessed;
         
         public bool GetIsImmune => _isImmune;
+        
+        public bool GetDashUnlocked => _dashUnlocked;
 
         #endregion
 
