@@ -24,19 +24,27 @@ namespace Utils
         [SerializeField, TextArea(3, 5)] private List<string> dialogueList;
         [SerializeField] private bool disappearAfterDialogue;
         [SerializeField] private float timeToDisappear;
+        [SerializeField] private bool hideVieja;
         [SerializeField] private bool endingDialogue;
         [SerializeField] private SpriteRenderer fadeToBlack;
-        [SerializeField] private GameObject dash;
+        [SerializeField] private SkillCollectable dash;
     
         [Header("Flip")]
         private bool _playerToTheRight;
         private PlayerController _player;
         private SpriteRenderer _sprite;
 
-        private void Start()
+        private IEnumerator Start()
         {
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
+            
+            if (hideVieja) gameObject.SetActive(false);
+            GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
+            
+            yield return new WaitForSeconds(0.1f);
+            if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
+            if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
         }
 
         void Update()
@@ -66,19 +74,37 @@ namespace Utils
             if (endingDialogue) StartCoroutine(EndGame());
             else
             {
-                _dialogueStarted = false;
-                interactPrompt.SetActive(true);
-                dialoguePanel.SetActive(false);
-                _player.inDialog = false;
+                DeactivateDialog();
                 _canSpeak = false;
                 if (!disappearAfterDialogue)
                     Invoke(nameof(CanSpeakAgain), 0.7f);
                 else
                 {
                     if (!_player.GetDashUnlocked)
-                        dash.SetActive(true);
+                        dash.Activate(true);
                 }
             }
+        }
+
+        private void DeactivateDialog()
+        {
+            _dialogueStarted = false;
+            interactPrompt.SetActive(true);
+            dialoguePanel.SetActive(false);
+            _player.inDialog = false;
+        }
+
+        private void ResetDialogues()
+        {
+            DeactivateDialog();
+            gameObject.SetActive(true);
+            _canSpeak = true;
+            /*if (disappearAfterDialogue)
+            {
+                gameObject.SetActive(true);
+                _canSpeak = true;
+            }*/
+            if (hideVieja) gameObject.SetActive(false);
         }
 
         private void Disappear()

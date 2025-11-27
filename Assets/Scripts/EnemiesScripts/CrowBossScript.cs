@@ -14,7 +14,7 @@ namespace EnemiesScripts
         private int modifyPosition;
         private bool chillidoPlayed;
 
-        [SerializeField] private GameObject unlockableSkill;
+        [SerializeField] private SkillCollectable unlockableSkill;
         [SerializeField] private List<GameObject> waves;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private AudioSource chillido;
@@ -49,7 +49,7 @@ namespace EnemiesScripts
                 base.ResetEnemy();
                 healthBar.SetHealth(Hp);
                 healthBar.transform.parent.gameObject.SetActive(false);
-                unlockableSkill.SetActive(false);
+                unlockableSkill.HideSkill();
                 attackHitbox.SetActive(true);
                 wentUp = false;
                 chillidoPlayed = false;
@@ -82,7 +82,7 @@ namespace EnemiesScripts
             PlayerPrefs.SetString("CrowDead", "no");
             print("restarted!");
             attackHitbox.SetActive(true);
-            unlockableSkill.SetActive(false);
+            unlockableSkill.HideSkill();
             wentUp = false;
             chillidoPlayed = false;
             modifyPosition = 0;
@@ -180,7 +180,7 @@ namespace EnemiesScripts
             healthBar.transform.parent.gameObject.SetActive(false);
             PlayerPrefs.SetString("CrowDead", "yes");
             BossSlain = true;
-            unlockableSkill.SetActive(true);
+            unlockableSkill.Activate();
             RestartSongs();
             songEnding.Play();
             spookySound1.Stop();

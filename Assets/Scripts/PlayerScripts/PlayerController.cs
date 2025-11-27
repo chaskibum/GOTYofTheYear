@@ -676,6 +676,8 @@ namespace PlayerScripts
         public bool GetIsImmune => _isImmune;
         
         public bool GetDashUnlocked => _dashUnlocked;
+        
+        public bool GetDoubleJumpUnlocked => _doubleJumpUnlocked;
 
         #endregion
 

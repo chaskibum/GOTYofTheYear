@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using Managers;
 using UnityEngine;
@@ -11,6 +10,7 @@ namespace GameplayElements
         private SpriteRenderer _sprite;
         private BoxCollider2D _collider;
         private UIManager _uiManager;
+        private Vector3 _startPosition;
 
         [SerializeField] private GameObject panel;
 
@@ -21,13 +21,15 @@ namespace GameplayElements
         [SerializeField] private bool doubleJumpCollectable = false;
         [SerializeField] private bool immunityCollectable = false;
 
-        private IEnumerator Start()
+        private void Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
             _uiManager = GameManager.Instance.GetUIManager;
+            _startPosition = transform.position;
         
-            if (PlayerPrefs.GetString("DashUnlocked") == name)
+            HideSkill();
+            /*if (PlayerPrefs.GetString("DashUnlocked") == name)
             {
                 _sprite.enabled = false;
                 _collider.enabled = false;
@@ -41,12 +43,9 @@ namespace GameplayElements
             {
                 _sprite.enabled = false;
                 _collider.enabled = false;
-            }
+            }*/
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
-
-            yield return new WaitForSeconds(0.5f);
-            transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 2, 1, 2);
         }
 
         private void Update()
@@ -60,6 +59,21 @@ namespace GameplayElements
         private void OnDestroy()
         {
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
+        }
+
+        public void Activate(bool jump = false)
+        {
+            gameObject.SetActive(true);
+            _sprite.enabled = true;
+            if (jump)
+            {
+                transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 2, 1, 2)
+                    .OnComplete(() => _collider.enabled = true);
+            }
+            else
+            {
+                _collider.enabled = true;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -80,8 +94,7 @@ namespace GameplayElements
                 GameManager.Instance.GetImmunityUnlocked?.Invoke();
             }
         
-            _sprite.enabled = false;
-            _collider.enabled = false;
+            HideSkill();
             panel.SetActive(true);
             Time.timeScale = 0;
             closeButton.Select();
@@ -95,6 +108,12 @@ namespace GameplayElements
                 ClosePanel();
             }
         }
+
+        public void HideSkill()
+        {
+            _sprite.enabled = false;
+            _collider.enabled = false;
+        }
         
         public void ClosePanel()
         {
@@ -105,8 +124,8 @@ namespace GameplayElements
 
         private void ResetCollectable()
         {
-            _sprite.enabled = true;
-            _collider.enabled = true;
+            HideSkill();
+            transform.position = _startPosition;
             PlayerPrefs.SetString("DashUnlocked", "");
             PlayerPrefs.SetString("DoubleJumpUnlocked", "");
             PlayerPrefs.SetString("ImmunityUnlocked", "");
