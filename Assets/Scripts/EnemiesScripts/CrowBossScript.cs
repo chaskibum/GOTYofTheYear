@@ -32,6 +32,8 @@ namespace EnemiesScripts
             if (PlayerPrefs.GetString("CrowDead") == "yes")
             {
                 gameObject.SetActive(false);
+                spookySound1.Stop();
+                spookySound2.Stop();
             }
             else
             {
@@ -90,6 +92,7 @@ namespace EnemiesScripts
 
         private IEnumerator WaveSpawner()
         {
+            print("hola!!!");
             if (!BossSlain)
             {
                 foreach (GameObject wave in waves)
@@ -114,8 +117,12 @@ namespace EnemiesScripts
         {
             base.ChaseState();
 
+            
+            print("Antes: " + _waveCoroutine);
             if (_waveCoroutine == null)
                 _waveCoroutine = StartCoroutine(WaveSpawner());
+            
+            print("Despues: " + _waveCoroutine);
             
             if (modifyPosition == 0 && !chillidoPlayed)
             {

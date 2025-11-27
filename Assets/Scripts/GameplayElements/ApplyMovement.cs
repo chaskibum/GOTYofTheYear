@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 namespace GameplayElements
@@ -13,12 +15,24 @@ namespace GameplayElements
     
         private SpriteRenderer _sprite;
         private Rigidbody2D _body;
-    
 
         private void Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _body = GetComponent<Rigidbody2D>();
+            GameManager.Instance.GetPlayerRespawn.AddListener(ResetPosition);
+            GameManager.Instance.GetGameRestarted.AddListener(ResetPosition);
+        }
+
+        private void ResetPosition()
+        {
+            _targetIndex = 0;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetPosition);
+            GameManager.Instance.GetGameRestarted.RemoveListener(ResetPosition);
         }
 
         private void FixedUpdate()
