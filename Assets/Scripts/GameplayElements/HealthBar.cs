@@ -1,3 +1,5 @@
+using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +12,7 @@ namespace GameplayElements
         private float _maxHealth;
         private float _currentHealth;
         private float _targetHealth;
-
+        
         public void SetMaxHealth(float value)
         {
             _maxHealth = value;
@@ -23,7 +25,9 @@ namespace GameplayElements
         private void Update()
         {
             if (_targetHealth > 0)
+            {
                 _currentHealth = Mathf.Lerp(_currentHealth, _targetHealth, Time.deltaTime * lerpSpeed);
+            }
             else 
                 _currentHealth = _targetHealth;
             UpdateBar();

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameplayElements;
-using Managers;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -19,6 +18,7 @@ namespace EnemiesScripts
         [SerializeField] private SkillCollectable unlockableSkill;
         [SerializeField] private List<GameObject> waves;
         [SerializeField] private HealthBar healthBar;
+        [SerializeField] private CanvasGroup healthGroup;
         [SerializeField] private AudioSource chillido;
         [SerializeField] private AudioSource painScream;
         [SerializeField] private AudioSource drums1;
@@ -50,13 +50,14 @@ namespace EnemiesScripts
             if (!BossSlain)
             {
                 base.ResetEnemy();
-                healthBar.SetHealth(Hp);
-                healthBar.transform.parent.gameObject.SetActive(false);
+                healthBar.SetHealth(data.baseHp);
                 unlockableSkill.HideSkill();
                 attackHitbox.SetActive(true);
                 wentUp = false;
                 chillidoPlayed = false;
                 modifyPosition = 0;
+                healthGroup.gameObject.SetActive(true);
+                healthGroup.alpha = 0;
                 RestartSongs();
 
                 DeactivateWaves();
@@ -79,7 +80,8 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
-            healthBar.transform.parent.gameObject.SetActive(false);
+            healthGroup.gameObject.SetActive(true);
+            healthGroup.alpha = 0;
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
             PlayerPrefs.SetString("CrowDead", "no");
@@ -121,6 +123,8 @@ namespace EnemiesScripts
         {
             base.ChaseState();
 
+            if (healthGroup.alpha < 1)
+                healthGroup.DOFade(1, 1.5f);
             
             print("Antes: " + _waveCoroutine);
             if (_waveCoroutine == null)
@@ -173,7 +177,6 @@ namespace EnemiesScripts
             }
             else
             {
-                healthBar.transform.parent.gameObject.SetActive(true);
                 healthBar.SetHealth(Hp);
             }
         }
@@ -181,7 +184,7 @@ namespace EnemiesScripts
         private void Die()
         {
             SetState(State.Die);
-            healthBar.transform.parent.gameObject.SetActive(false);
+            healthGroup.gameObject.SetActive(false);
             PlayerPrefs.SetString("CrowDead", "yes");
             BossSlain = true;
             unlockableSkill.Activate();

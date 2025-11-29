@@ -15,6 +15,7 @@ namespace EnemiesScripts
         [SerializeField] private List<GameObject> enemies;
         [SerializeField] private List<GameObject> objects;
         [SerializeField] private HealthBar healthBar;
+        [SerializeField] private CanvasGroup healthGroup;
         private Coroutine _spawnCoroutine;
         private Vector3 _startingLockPosition = new Vector3(214, -111, 0);
         private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
@@ -41,7 +42,8 @@ namespace EnemiesScripts
             {
                 base.ResetEnemy();
                 healthBar.SetHealth(Hp);
-                healthBar.transform.parent.gameObject.SetActive(false);
+                healthGroup.gameObject.SetActive(true);
+                healthGroup.alpha = 0;
                 attackHitbox.SetActive(false);
                 lockDoor.transform.position = _startingLockPosition;
                 Animator?.SetBool("Attacking", false);
@@ -60,7 +62,8 @@ namespace EnemiesScripts
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
-            healthBar.transform.parent.gameObject.SetActive(false);
+            healthGroup.gameObject.SetActive(true);
+            healthGroup.alpha = 0;
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
             lockDoor.transform.position = _startingLockPosition;
@@ -73,7 +76,9 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             base.ChaseState();
-            healthBar.transform.parent.gameObject.SetActive(true);
+            
+            if (healthGroup.alpha < 1)
+                healthGroup.DOFade(1, 1.5f);
 
             if (_spawnCoroutine == null)
             {
@@ -104,7 +109,7 @@ namespace EnemiesScripts
         private void Die()
         {
             SetState(State.Die);
-            healthBar.transform.parent.gameObject.SetActive(false);
+            healthGroup.gameObject.SetActive(false);
             PlayerPrefs.SetString("ArmorDead", "yes");
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             BossSlain = true;

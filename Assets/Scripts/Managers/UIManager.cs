@@ -90,7 +90,6 @@ namespace Managers
             gameOverPanel.SetActive(false);
             reviveButton.SetActive(false);
             optionsButton.SetActive(true);
-            ResetBossHealthBars();
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
             else cooldownBar.SetActive(false);
         
