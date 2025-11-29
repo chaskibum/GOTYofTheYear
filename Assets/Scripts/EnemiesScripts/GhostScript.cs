@@ -51,6 +51,8 @@ namespace EnemiesScripts
         {
             if (Vector3.Distance(transform.position, PlayerPos) > data.detectionRange + 3) return;
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
+            
+            PlayHitFeedback();
 
             StateTimer = data.pushTime;
             

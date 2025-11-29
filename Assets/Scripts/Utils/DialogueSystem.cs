@@ -61,7 +61,7 @@ namespace Utils
 
         private void CheckInteractInput()
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("GameInteract"))
             {
                 Interact();
                 CalculateDirection();

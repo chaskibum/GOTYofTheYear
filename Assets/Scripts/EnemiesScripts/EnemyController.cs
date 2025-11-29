@@ -234,7 +234,7 @@ namespace EnemiesScripts
             SetState(Hp <= 0 ? State.Die : State.GetHit);
         }
 
-        private void PlayHitFeedback()
+        protected void PlayHitFeedback()
         {
             Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;

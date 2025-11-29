@@ -410,7 +410,7 @@ namespace PlayerScripts
             if (_hp <= 0)
             {
                 SetState(State.Die);
-                _cam.DOShakePosition(0.6f, 1f);
+                _cam.DOShakePosition(0.4f, 0.5f);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
                 if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
             }
