@@ -16,6 +16,7 @@ namespace Utils
         private int _dialogueIndex;
         private const float DialogueSpeed = 0.05f;
         private bool _canSpeak = true;
+        private bool _lastDialogue;
 
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private GameObject dialoguePanel;
@@ -25,6 +26,7 @@ namespace Utils
         [SerializeField] private float timeToDisappear;
         [SerializeField] private bool hideVieja;
         [SerializeField] private bool endingDialogue;
+        [SerializeField] private bool repeatLastDialogue;
         [SerializeField] private SpriteRenderer fadeToBlack;
         [SerializeField] private SkillCollectable dash;
     
@@ -75,6 +77,7 @@ namespace Utils
             {
                 DeactivateDialog();
                 _canSpeak = false;
+                if (repeatLastDialogue) _lastDialogue = true;
                 if (!disappearAfterDialogue)
                     Invoke(nameof(CanSpeakAgain), 0.7f);
                 else
@@ -150,7 +153,7 @@ namespace Utils
         {
             _dialogueStarted = true;
             GameManager.Instance.GetPlayer.inDialog = true;
-            _dialogueIndex = 0;
+            _dialogueIndex = !_lastDialogue ? 0 : dialogueList.Count - 1;
             _player.inDialog = true;
             interactPrompt.SetActive(false);
             dialoguePanel.SetActive(true);
