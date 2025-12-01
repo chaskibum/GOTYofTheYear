@@ -1,4 +1,5 @@
 using System.Collections;
+using GameplayElements;
 using Managers;
 using PlayerScripts;
 using TMPro;
@@ -28,6 +29,7 @@ namespace EnemiesScripts
         protected Vector2 Direction;
         protected float AttackTimer;
         protected bool CanAttack = true;
+        protected bool _isDying = false;
         
         protected Rigidbody2D Body;
         protected SpriteRenderer Visuals;
@@ -67,17 +69,17 @@ namespace EnemiesScripts
                 GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
                 GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
                 GameManager.Instance.GetGameRestarted.AddListener(RestartEnemy);
+                return;
             }
-            else
-            {
-                GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
-                GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
-                GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
-            }
+
+            GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
+            GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
         }
 
         protected virtual void Update()
         {
+            if (_isDying) return;
             CalculateDirection();
             GetPlayerPosition();
             UpdateState();
@@ -110,6 +112,7 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(true);
             gameObject.SetActive(true);
+            if (Animator) Animator.enabled = true;
             
             var color = Visuals.color;
             color.a = 1;
@@ -170,8 +173,6 @@ namespace EnemiesScripts
             if (AttackTimer <= 0f)
             {
                 EndAttack();
-                /*AttackTimer = data.attackAnimationTime;
-                SetState(State.Chase);*/
             }
             // Si no la activamos y hacemos que no se pueda volver a atacar hasta en cierto tiempo
             else
@@ -193,10 +194,25 @@ namespace EnemiesScripts
         
         protected virtual void DieState()
         {
-            attackHitbox.SetActive(false);
+            /*attackHitbox.SetActive(false);
             attackHurtbox.SetActive(false);
             if (wallsCollider) wallsCollider.enabled = false;
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
+            StartCoroutine(nameof(Disappear));*/
+            
+            if (_isDying) return;
+            _isDying = true;
+
+            // Stop animations
+            if (Animator) Animator.enabled = false;
+            
+            // Apply UP Force
+            // Body.AddForce(Vector2.up * 0.5f, ForceMode2D.Impulse);
+            
+            attackHitbox.SetActive(false);
+            attackHurtbox.SetActive(false);
+            if (wallsCollider) wallsCollider.enabled = false;
+            // Body.linearVelocity = Vector2.zero;
             StartCoroutine(nameof(Disappear));
         }
         
@@ -251,7 +267,7 @@ namespace EnemiesScripts
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
         protected IEnumerator Disappear()
         {
-            while (Visuals.color.a > 0)
+            /*while (Visuals.color.a > 0)
             {
                 var color = Visuals.color;
                 color.a -= 0.02f;
@@ -266,7 +282,26 @@ namespace EnemiesScripts
             }
 
             yield return new WaitForSeconds(10f);
+            gameObject.SetActive(false);*/
+            
+            while (Visuals.color.a > 0)
+            {
+                var color = Visuals.color;
+                color.a -= 0.02f;
+                Visuals.color = color;
+                Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            if (particles && idleSounds)
+            {
+                particles?.Stop();
+                idleSounds?.Stop();
+            }
+
+            yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);
+            _isDying = false;
         }
         
         protected IEnumerator LockStateForSeconds(float duration)

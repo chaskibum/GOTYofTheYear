@@ -20,6 +20,9 @@ namespace EnemiesScripts
             base.ResetEnemy();
             attackHitbox.SetActive(true);
             crowLight.enabled = true;
+            
+            if (MovementScript)
+                MovementScript.enabled = true;
         }
 
         protected override void RestartEnemy()
@@ -27,6 +30,9 @@ namespace EnemiesScripts
             base.RestartEnemy();
             attackHitbox.SetActive(true);
             crowLight.enabled = true;
+            
+            if (MovementScript)
+                MovementScript.enabled = true;
         }
 
         protected override void IdleState()
@@ -39,6 +45,9 @@ namespace EnemiesScripts
         {
             base.DieState();
             crowLight.enabled = false;
+            
+            if (MovementScript)
+                MovementScript.enabled = false;
         }
     }
 }

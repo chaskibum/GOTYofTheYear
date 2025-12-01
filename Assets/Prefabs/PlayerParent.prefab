@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64250473553342079}
   - component: {fileID: 3028596203003872494}
   - component: {fileID: 6459462257761885613}
+  - component: {fileID: 2089459118786035139}
   m_Layer: 8
   m_Name: PlayerParent
   m_TagString: Player
@@ -169,6 +170,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &2089459118786035139
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317187331235201566}
+  m_Enabled: 1
 --- !u!1 &771243613734746391
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponLight: {fileID: 3428681753357913383}
+  powerupParticles: {fileID: 0}
   facingRight: 1
 --- !u!1 &3124715332231526973
 GameObject:

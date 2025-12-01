@@ -125,7 +125,6 @@ namespace Utils
                 var color = _sprite.color;
                 color.a = color.a - 0.01f;
                 _sprite.color = color;
-                print(color.a);
                 yield return new WaitForEndOfFrame();
             }
             gameObject.SetActive(false);

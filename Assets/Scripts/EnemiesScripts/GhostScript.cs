@@ -88,7 +88,7 @@ namespace EnemiesScripts
         protected override void DieState()
         {
             base.DieState();
-            StopAllCoroutines();
+            // StopAllCoroutines();
         }
     }
 }
