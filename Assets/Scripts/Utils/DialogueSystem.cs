@@ -84,6 +84,11 @@ namespace Utils
                 {
                     if (!_player.GetDashUnlocked)
                         dash.Activate(true);
+                    else
+                    {
+                        Invoke(nameof(CanSpeakAgain), 0.7f);
+                        StartCoroutine(nameof(Disappear));
+                    }
                 }
             }
         }
@@ -109,8 +114,20 @@ namespace Utils
             if (hideVieja) gameObject.SetActive(false);
         }
 
-        private void Disappear()
+        private IEnumerator Disappear()
         {
+            yield return new WaitForSeconds(timeToDisappear);
+            DeactivateDialog();
+            interactPrompt.SetActive(true);
+            AudioManager.Instance.StopClip();
+            while (_sprite.color.a > 0)
+            {
+                var color = _sprite.color;
+                color.a = color.a - 0.01f;
+                _sprite.color = color;
+                print(color.a);
+                yield return new WaitForEndOfFrame();
+            }
             gameObject.SetActive(false);
         }
 
