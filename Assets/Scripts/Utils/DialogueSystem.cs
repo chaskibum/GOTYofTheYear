@@ -138,8 +138,7 @@ namespace Utils
                 fadeToBlack.color = new Color(0, 0, 0, fadeToBlack.color.a + Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
-
-            print("fade finished!");
+            
             SceneManager.LoadScene("MainMenu");
         }
     
