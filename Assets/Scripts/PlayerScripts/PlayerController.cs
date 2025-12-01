@@ -478,7 +478,6 @@ namespace PlayerScripts
                 Jump();
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
-                _animator.SetBool(Jumping, false);
                 _animator.SetBool(DoubleJumping, true);
             }
         }
