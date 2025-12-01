@@ -13,6 +13,7 @@ namespace GameplayElements
 
         [SerializeField] private bool isMainRespawn;
         [SerializeField] private AudioSource activatingSound;
+        [SerializeField] private AudioSource torchSound;
         [SerializeField] private GameObject interactPrompt;
     
         private bool _isInRange;
@@ -117,6 +118,7 @@ namespace GameplayElements
         {
             if (!activatingSound) return;
             activatingSound.Play();
+            if (torchSound) torchSound.Play();
         }
     
         private void ResetAnimations()

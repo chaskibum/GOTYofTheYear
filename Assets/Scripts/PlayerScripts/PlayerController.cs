@@ -14,6 +14,8 @@ namespace PlayerScripts
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Dashing = Animator.StringToHash("Dashing");
         private static readonly int Possessed = Animator.StringToHash("Possessed");
+        private static readonly int GotHit = Animator.StringToHash("Get Hit");
+        private static readonly int DoubleJumping = Animator.StringToHash("DoubleJumping");
 
         // We link the PlayerData Scriptable Object to the Player
         [SerializeField] private PlayerData data;
@@ -53,7 +55,6 @@ namespace PlayerScripts
         [SerializeField] private bool _immuneSkillUnlocked;
         private float _cooldown = 0f;
         
-
         [Header("Properties")] 
         private int _hp;
         private Vector3 _respawnPosition;
@@ -159,6 +160,7 @@ namespace PlayerScripts
             {
                 _animator.SetBool(Moving, false);
                 _animator.SetBool(Jumping, false);
+                _animator.SetBool(DoubleJumping, false);
                 _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
                 return;
             }
@@ -179,12 +181,14 @@ namespace PlayerScripts
         private void IdleState()
         {
             _animator.SetBool(Dashing, false);
+            _animator.SetBool(GotHit, false);
             _body.gravityScale = data.regularGravity;
             if (_xInput != 0) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
+            _animator.SetBool(DoubleJumping, false);
         }
         
         private void MoveState()
@@ -218,8 +222,12 @@ namespace PlayerScripts
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
             _jumpKeyTimePressed = 0f;
-            
-            if (_isOnFloor) SetState(State.Idle);
+
+            if (_isOnFloor)
+            {
+                _animator.SetTrigger("TouchedFloor");
+                SetState(State.Idle);
+            }
         }
         
         private void AttackState()
@@ -244,6 +252,7 @@ namespace PlayerScripts
             _isImmune = true;
             CancelInvoke(nameof(EndDash));
             Invoke(nameof(EndImmunityTime), data.immunityTime);
+            // _animator.SetBool(GotHit, false);
             SetState(State.Idle);
         }
         
@@ -369,9 +378,6 @@ namespace PlayerScripts
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
-            
-            PlayJumpSound();
-            _animator.SetBool(Jumping, true);
         }
 
         private void PlayJumpSound()
@@ -409,14 +415,16 @@ namespace PlayerScripts
 
             if (_hp <= 0)
             {
+                _animator.SetTrigger("Died");
                 SetState(State.Die);
-                _cam.DOShakePosition(0.4f, 0.5f);
+                if (GetPlayerLives >= 1) _cam.DOShakePosition(0.4f, 0.5f);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
                 if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
             }
             else
             {
                 SetState(State.GetHit);
+                _animator.SetBool(GotHit, true);
                 _body.gravityScale = data.regularGravity;
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
             }
@@ -461,6 +469,8 @@ namespace PlayerScripts
                 Jump();
                 _lastJumpPressedTime = -Mathf.Infinity;
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
+                _animator.SetBool(Jumping, true);
+                PlayJumpSound();
             }
             // Sino, si el jugador esta en el aire y puede hacer doble salto -> saltar en el aire
             else if ((!_isOnFloor && _canDoubleJump) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
@@ -468,6 +478,8 @@ namespace PlayerScripts
                 Jump();
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
+                _animator.SetBool(Jumping, false);
+                _animator.SetBool(DoubleJumping, true);
             }
         }
 
