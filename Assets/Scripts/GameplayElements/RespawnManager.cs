@@ -13,7 +13,6 @@ namespace GameplayElements
         [SerializeField] protected GameObject levelEnemies;
         private PlayerController _player;
         protected Vector3 _respawnPos;
-        // protected string _currentRespawn;
 
         private void Start()
         {

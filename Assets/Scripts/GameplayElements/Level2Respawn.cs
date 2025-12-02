@@ -9,7 +9,6 @@ namespace GameplayElements
             base.OnTriggerEnter2D(other);
             _respawnPos = mainRespawn.transform.position;
             PlayerPrefs.SetString("Respawn", "Level2RespawnZone");
-            globalLight.intensity = 0.3f;
         }
     }
 }
