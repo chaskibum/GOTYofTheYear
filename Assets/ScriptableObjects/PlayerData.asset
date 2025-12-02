@@ -32,4 +32,5 @@ MonoBehaviour:
   attackCooldown: 0.9
   immunityTime: 1
   shieldDuration: 3
-  shieldCooldown: 15
+  baseShieldCooldown: 15
+  shieldCooldown: 9

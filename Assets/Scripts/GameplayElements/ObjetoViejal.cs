@@ -81,7 +81,7 @@ namespace GameplayElements
 
         private void CheckInteractInput()
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("GameInteract"))
             {
                 Interact();
             }
@@ -108,7 +108,8 @@ namespace GameplayElements
             panel.SetActive(false);
             _justClosed = true;
             _uiManager.inMenu = false;
-            gameObject.SetActive(false);
+            
+            HideObject();
             
             if (Viejal1)
             {
@@ -125,7 +126,7 @@ namespace GameplayElements
                 PlayerPrefs.SetString("Viejal3", name);
                 print("viejal 3 saved");
             }
-        }
+        } 
         
         private void ResetCollectable()
         {

@@ -31,6 +31,7 @@ namespace Managers
         
             _player = GameManager.Instance.GetPlayer;
             _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
+            ChangeCooldownSliderMin();
         
             int lives = _player.GetPlayerLives;
 
@@ -54,16 +55,15 @@ namespace Managers
                 GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
                 GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
                 _player.GetPlayerRevived?.AddListener(ResetUI);
+                return;
             }
-            else
-            {
-                GameManager.Instance.GetGameOverEvent.RemoveListener(ShowGameOverScreen);
-                GameManager.Instance.GetGameRestarted.RemoveListener(RestartUI);
-                GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
-                GameManager.Instance.GetLifeAmountChanged.RemoveListener(UpdateLife);
-                GameManager.Instance.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
-                _player.GetPlayerRevived?.RemoveListener(ResetUI);
-            }
+
+            GameManager.Instance.GetGameOverEvent.RemoveListener(ShowGameOverScreen);
+            GameManager.Instance.GetGameRestarted.RemoveListener(RestartUI);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
+            GameManager.Instance.GetLifeAmountChanged.RemoveListener(UpdateLife);
+            GameManager.Instance.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
+            _player.GetPlayerRevived?.RemoveListener(ResetUI);
         }
 
         private void Update()
@@ -115,6 +115,7 @@ namespace Managers
             reviveButton.SetActive(false);
             optionsButton.SetActive(true);
             cooldownBar.SetActive(false);
+            ChangeCooldownSliderMin(true);
             
             HandlePause();
         
@@ -179,6 +180,14 @@ namespace Managers
         public void HighlightSliderButton()
         {
             slider.Select();
+        }
+
+        public void ChangeCooldownSliderMin(bool reset = false)
+        {
+            if (reset) 
+                _cooldownBarSlider.minValue = _player.GetPlayerData.baseShieldCooldown * -1;
+            else
+                _cooldownBarSlider.minValue = _player.GetPlayerData.shieldCooldown * -1;
         }
     }
 }

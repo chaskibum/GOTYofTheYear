@@ -33,6 +33,7 @@ namespace PlayerScripts
         public float attackCooldown = 1f;
         public float immunityTime = 1f;
         public float shieldDuration = 3f;
+        public float baseShieldCooldown = 15f;
         public float shieldCooldown = 15f;
     }
 }

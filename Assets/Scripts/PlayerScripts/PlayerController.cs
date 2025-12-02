@@ -590,6 +590,8 @@ namespace PlayerScripts
             SetRespawnPosition(Vector3.zero);
             transform.position = _respawnPosition;
             _hp = data.baseHp;
+            data.shieldCooldown = data.baseShieldCooldown;
+            _cooldown = data.shieldCooldown;
             _body.linearVelocity = new Vector2(0, 0);
             EndImmunityTime();
             _cooldown = 0f;
