@@ -180,7 +180,6 @@ namespace Utils
             dialogueText.text = string.Empty;
             foreach (char ch in dialogueList[_dialogueIndex])
             {
-                // AudioManager.Instance.PlayClip(AudioManager.AudioList.Dialog, true, 0.8f);
                 AudioManager.Instance.PlayDialogSound();
                 dialogueText.text += ch;
                 yield return new WaitForSecondsRealtime(DialogueSpeed);

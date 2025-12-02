@@ -79,7 +79,7 @@ namespace EnemiesScripts
 
         protected virtual void Update()
         {
-            if (_isDying) return;
+            // if (_isDying) return;
             CalculateDirection();
             GetPlayerPosition();
             UpdateState();
@@ -200,14 +200,14 @@ namespace EnemiesScripts
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             StartCoroutine(nameof(Disappear));*/
             
-            if (_isDying) return;
-            _isDying = true;
+            /*if (_isDying) return;
+            _isDying = true;*/
 
             // Stop animations
             if (Animator) Animator.enabled = false;
             
             // Apply UP Force
-            // Body.AddForce(Vector2.up * 0.5f, ForceMode2D.Impulse);
+            Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(false);
@@ -289,7 +289,7 @@ namespace EnemiesScripts
                 var color = Visuals.color;
                 color.a -= 0.02f;
                 Visuals.color = color;
-                Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
+                // Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.01f);
             }
 
@@ -301,7 +301,7 @@ namespace EnemiesScripts
 
             yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);
-            _isDying = false;
+            // _isDying = false;
         }
         
         protected IEnumerator LockStateForSeconds(float duration)

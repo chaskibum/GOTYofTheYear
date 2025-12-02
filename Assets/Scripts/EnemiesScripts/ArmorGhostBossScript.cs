@@ -66,6 +66,7 @@ namespace EnemiesScripts
             healthGroup.alpha = 0;
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
+            BossSlain = false;
             lockDoor.transform.position = _startingLockPosition;
             PlayerPrefs.SetString("ArmorDead", "no");
             Animator?.SetBool("Attacking", false);
@@ -114,9 +115,9 @@ namespace EnemiesScripts
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             BossSlain = true;
             unlockableSkill.Activate();
-            lockDoor.SetActive(false);
             foreach (GameObject enemy in enemies)
-                Destroy(enemy);
+                if (enemy)
+                    enemy.SetActive(false);
         }
 
         protected override void Attack()
@@ -191,6 +192,7 @@ namespace EnemiesScripts
         protected override void DieState()
         {
             base.DieState();
+            lockDoor.transform.position = Vector3.Lerp(lockDoor.transform.position, _startingLockPosition, 3 * Time.deltaTime);
             DeactivateCoroutine();
             _spawnCoroutine = null;
         }

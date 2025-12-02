@@ -70,7 +70,6 @@ namespace EnemiesScripts
             {
                 StopCoroutine(_waveCoroutine);
                 _waveCoroutine = null;
-                
             }
             foreach (GameObject wave in waves)
                 if (wave)
@@ -85,7 +84,7 @@ namespace EnemiesScripts
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
             PlayerPrefs.SetString("CrowDead", "no");
-            print("restarted!");
+            BossSlain = false;
             attackHitbox.SetActive(true);
             unlockableSkill.HideSkill();
             wentUp = false;
@@ -97,7 +96,6 @@ namespace EnemiesScripts
 
         private IEnumerator WaveSpawner()
         {
-            print("hola!!!");
             if (!BossSlain)
             {
                 foreach (GameObject wave in waves)
@@ -126,11 +124,8 @@ namespace EnemiesScripts
             if (healthGroup.alpha < 1)
                 healthGroup.DOFade(1, 1.5f);
             
-            print("Antes: " + _waveCoroutine);
             if (_waveCoroutine == null)
                 _waveCoroutine = StartCoroutine(WaveSpawner());
-            
-            print("Despues: " + _waveCoroutine);
             
             if (modifyPosition == 0 && !chillidoPlayed)
             {
