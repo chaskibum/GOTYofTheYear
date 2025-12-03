@@ -92,6 +92,7 @@ namespace PlayerScripts
 
             _hp = data.baseHp;
             _attackCooldown = data.attackCooldown;
+            data.immunityTime = data.baseImmunityTime;
             
             AddListeners(true);
             
@@ -436,6 +437,7 @@ namespace PlayerScripts
             GetRandomDirection();
             SetState(State.Possessed);
             _isPossessed = true;
+            data.immunityTime = 0.5f;
         }
 
         private void GetRandomDirection()
@@ -449,6 +451,7 @@ namespace PlayerScripts
             _onPlayerExorcised.Invoke();
             _inputCount = 0;
             _isPossessed = false;
+            data.immunityTime = data.baseImmunityTime;
             SetState(State.Idle);
         }
 
@@ -582,6 +585,7 @@ namespace PlayerScripts
             _isPossessed = false;
             _inputCount = 0;
             _cooldown = 0f;
+            Exorcised();
             SetState(State.Idle);
         }
 
@@ -608,7 +612,6 @@ namespace PlayerScripts
         
         private void Revive()
         {
-            print("Revive: " + _mainRespawnPosition);
             transform.position = _mainRespawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
@@ -618,6 +621,7 @@ namespace PlayerScripts
             CancelInvoke();
             StopCoroutine(LockStateForSeconds(data.deathAnimationTime));
             EndAttack();
+            Exorcised();
             SetState(State.Idle);
         }
         

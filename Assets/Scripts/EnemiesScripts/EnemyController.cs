@@ -80,8 +80,9 @@ namespace EnemiesScripts
         protected virtual void Update()
         {
             // if (_isDying) return;
-            CalculateDirection();
             GetPlayerPosition();
+            if (CurrentState == State.Chase)
+                CalculateDirection();
             UpdateState();
         }
 
@@ -213,7 +214,7 @@ namespace EnemiesScripts
             attackHurtbox.SetActive(false);
             if (wallsCollider) wallsCollider.enabled = false;
             // Body.linearVelocity = Vector2.zero;
-            StartCoroutine(nameof(Disappear));
+            // StartCoroutine(nameof(Disappear));
         }
         
         protected virtual void Attack()
@@ -247,7 +248,15 @@ namespace EnemiesScripts
             PlayHitFeedback();
             
             Hp -= 1;
-            SetState(Hp <= 0 ? State.Die : State.GetHit);
+            if (Hp <= 0)
+            {
+                SetState(State.Die);
+                StartCoroutine(nameof(Disappear));
+            }
+            else
+            {
+                SetState(State.GetHit);
+            }
         }
 
         protected void PlayHitFeedback()

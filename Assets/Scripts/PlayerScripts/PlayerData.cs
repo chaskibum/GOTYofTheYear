@@ -31,6 +31,7 @@ namespace PlayerScripts
         public float attackSpeed = 1f;
 
         public float attackCooldown = 1f;
+        public float baseImmunityTime = 1f;
         public float immunityTime = 1f;
         public float shieldDuration = 3f;
         public float baseShieldCooldown = 15f;
