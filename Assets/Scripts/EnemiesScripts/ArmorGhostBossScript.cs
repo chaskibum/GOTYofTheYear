@@ -50,12 +50,6 @@ namespace EnemiesScripts
                 unlockableSkill.HideSkill();
 
                 DeactivateCoroutine();
-                
-                foreach (GameObject enemy in enemies)
-                    enemy.SetActive(false);
-                
-                foreach (GameObject obj in objects)
-                    obj.SetActive(false);
             }
         }
         
@@ -142,7 +136,7 @@ namespace EnemiesScripts
             Time.timeScale = 1;
         }
 
-        private IEnumerator SpawnEnemies()
+        /*private IEnumerator SpawnEnemies()
         {
             if (!BossSlain)
             {
@@ -161,6 +155,33 @@ namespace EnemiesScripts
                 
                 if (_spawnCoroutine != null) StartCoroutine(nameof(SpawnEnemies));
             }
+        }*/
+        
+        private IEnumerator SpawnEnemies()
+        {
+            while (!BossSlain)
+            {
+                yield return new WaitForSeconds(Random.Range(5f, 8f));
+
+                if (BossSlain) break;
+
+                objects[Random.Range(0, objects.Count)].SetActive(true);
+                _cam.DOShakePosition(1.2f, 1f);
+                Animator?.SetBool("Screaming", true);
+                SetState(State.Idle);
+                StartCoroutine(LockStateForSeconds(1.5f));
+                
+                yield return new WaitForSeconds(Random.Range(10f, 15f));
+
+                if (BossSlain) break;
+
+                enemies[Random.Range(0, enemies.Count)].SetActive(true);
+                Animator?.SetBool("Screaming", true);
+                SetState(State.Idle);
+                StartCoroutine(LockStateForSeconds(1.5f));
+                RelocateObjects();
+            }
+            _spawnCoroutine = null;
         }
 
         private void DeactivateCoroutine()
@@ -170,6 +191,11 @@ namespace EnemiesScripts
                 StopCoroutine(_spawnCoroutine);
                 _spawnCoroutine = null;
             }
+            foreach (GameObject enemy in enemies)
+                enemy.SetActive(false);
+                
+            foreach (GameObject obj in objects)
+                obj.SetActive(false);
         }
 
         public void StopScreaming()
