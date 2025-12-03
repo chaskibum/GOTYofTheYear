@@ -437,7 +437,7 @@ namespace PlayerScripts
             GetRandomDirection();
             SetState(State.Possessed);
             _isPossessed = true;
-            data.immunityTime = 0.5f;
+            // data.immunityTime = 0.5f;
         }
 
         private void GetRandomDirection()
