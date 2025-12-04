@@ -4777,8 +4777,6 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4801,7 +4799,6 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1624547825
   m_SortingLayer: 6
   m_SortingOrder: -1
@@ -4992,8 +4989,6 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5015,9 +5010,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 563985417
-  m_SortingLayer: 8
+  m_SortingLayerID: 285662925
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -302543470009414886, guid: 0768d34fd9bb71d42aa856ac8e78eee4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5237,7 +5231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3148000048206802777
 Transform:
   m_ObjectHideFlags: 0
@@ -5266,7 +5260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyHitboxZone
   data: {fileID: 11400000, guid: 36cf0a006dd245845819421bd9cc92e7, type: 2}
-  enemy: {fileID: 4895063448023783790}
+  enemy: {fileID: 0}
   visuals: {fileID: 8537085411284441249}
   particles: {fileID: 685835171948556640}
 --- !u!58 &5911654539999505092
@@ -5322,7 +5316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3945177372009226556
 Transform:
   m_ObjectHideFlags: 0
@@ -5386,7 +5380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640a697d760f6794dbda4f17d13c9f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyHurtboxZone
-  enemy: {fileID: 4895063448023783790}
+  enemy: {fileID: 0}
 --- !u!1 &8997410836336835747
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,7 +5429,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8997410836336835747}
   m_BodyType: 1
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -5501,10 +5495,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35465d42ace98ee4dab39df822320023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.FinalBossScript
-  data: {fileID: 11400000, guid: 36cf0a006dd245845819421bd9cc92e7, type: 2}
-  attackHitbox: {fileID: 7411646054583810614}
-  attackHurtbox: {fileID: 7712554649313147072}
-  stateText: {fileID: 291520216686102322}
-  wallsCollider: {fileID: 5188892211379199530}
-  particles: {fileID: 0}
-  idleSounds: {fileID: 0}
+  hitbox: {fileID: 0}

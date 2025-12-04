@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FinalBossData
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.EnemyData
   baseHp: 30
-  damage: 40
-  moveSpeed: 2
+  damage: 30
+  moveSpeed: 5
   attackAnimationTime: 0
   attackCooldown: 4
   detectionRange: 0
