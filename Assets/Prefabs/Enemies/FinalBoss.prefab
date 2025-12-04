@@ -5442,7 +5442,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -5495,4 +5495,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35465d42ace98ee4dab39df822320023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.FinalBossScript
-  hitbox: {fileID: 0}
+  hitbox: {fileID: 5911654539999505092}

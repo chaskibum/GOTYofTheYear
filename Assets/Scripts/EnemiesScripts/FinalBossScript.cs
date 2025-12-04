@@ -67,10 +67,11 @@ namespace EnemiesScripts
             GetPlayerPosition();
             CalculateDirection();
             _sprite.flipX = !_playerToTheRight;
-            
+
+            // Mathf.Randint(0, 2);
             transform.DOPath(_horizontalPath, 4f, PathType.CatmullRom)
                 .SetEase(Ease.Linear)
-                .SetLoops(15);
+                .SetLoops(1);
         }
         
         private void CalculateDirection()

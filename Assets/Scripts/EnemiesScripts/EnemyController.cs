@@ -62,7 +62,7 @@ namespace EnemiesScripts
             AddListeners(false);
         }
 
-        private void AddListeners(bool add)
+        protected void AddListeners(bool add)
         {
             if (add)
             {
