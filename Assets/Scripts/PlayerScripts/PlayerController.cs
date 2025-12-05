@@ -16,8 +16,7 @@ namespace PlayerScripts
         private static readonly int Possessed = Animator.StringToHash("Possessed");
         private static readonly int GotHit = Animator.StringToHash("Get Hit");
         private static readonly int DoubleJumping = Animator.StringToHash("DoubleJumping");
-
-        // We link the PlayerData Scriptable Object to the Player
+        
         [SerializeField] private PlayerData data;
         
         [SerializeField] private LayerMask groundLayer;
@@ -27,6 +26,7 @@ namespace PlayerScripts
         [SerializeField] private Transform playerTarget;
         [SerializeField] private PlayerVisuals visuals;
         [SerializeField] private GameObject shieldVisuals;
+        [SerializeField] private ParticleSystem jumpParticles;
         
         private Animator _animator;
         private PlayerHealth _playerHealth;
@@ -482,7 +482,7 @@ namespace PlayerScripts
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
                 _animator.SetBool(DoubleJumping, true);
-                print("estoy DOBLESALTANDO");
+                jumpParticles.Play();
             }
         }
 
