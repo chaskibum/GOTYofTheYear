@@ -1,5 +1,9 @@
+using System;
 using PlayerScripts;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 namespace Managers
@@ -9,6 +13,7 @@ namespace Managers
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject reviveButton;
         [SerializeField] private GameObject optionsButton;
+        [SerializeField] private TMP_Dropdown languageDropdown;
         [SerializeField] private GameObject uSurePanel;
         [SerializeField] private Slider slider;
         [SerializeField] private Button button;
@@ -54,6 +59,7 @@ namespace Managers
                 GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
                 GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
                 GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
+                languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
                 _player.GetPlayerRevived?.AddListener(ResetUI);
                 return;
             }
@@ -63,6 +69,7 @@ namespace Managers
             GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
             GameManager.Instance.GetLifeAmountChanged.RemoveListener(UpdateLife);
             GameManager.Instance.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
+            languageDropdown.onValueChanged.RemoveListener(OnLanguageChanged);
             _player.GetPlayerRevived?.RemoveListener(ResetUI);
         }
 
@@ -107,6 +114,16 @@ namespace Managers
             {
                 healthBar.gameObject.SetActive(false);
             }
+        }
+
+        public void OnLanguageChanged(int language)
+        {
+            Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("es");
+            if (language == 1)
+                newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+            
+            print(newLocale);
+            LocalizationSettings.SelectedLocale = newLocale;
         }
 
         private void RestartUI()

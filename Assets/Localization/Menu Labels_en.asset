@@ -23,11 +23,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7954929475584
-    m_Localized: Jugar
+    m_Localized: Play
     m_Metadata:
       m_Items: []
   - m_Id: 7954984001536
-    m_Localized: 'Sonido:'
+    m_Localized: 'Sound:'
     m_Metadata:
       m_Items: []
   - m_Id: 7954988195840

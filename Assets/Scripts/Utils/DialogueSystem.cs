@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameplayElements;
 using Managers;
 using PlayerScripts;
+using ScriptableObjects.Dialogues;
 using TMPro;
+using UnityEditor.Localization.Editor;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 namespace Utils
@@ -17,19 +22,28 @@ namespace Utils
         private const float DialogueSpeed = 0.05f;
         private bool _canSpeak = true;
         private bool _lastDialogue;
+        private bool _isSpanish = true;
+        private List<String> _selectedDialogues = new List<String>();
 
+        [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
-        [SerializeField, TextArea(3, 5)] private List<string> dialogueList;
+        [SerializeField, TextArea(3, 5)] private List<String> dialogueList;
+        [Header("ViejaOptions")]
         [SerializeField] private bool disappearAfterDialogue;
         [SerializeField] private float timeToDisappear;
         [SerializeField] private bool hideVieja;
-        [SerializeField] private bool endingDialogue;
         [SerializeField] private bool repeatLastDialogue;
+        [Header("Ending")]
+        [SerializeField] private bool endingDialogue;
         [SerializeField] private SpriteRenderer fadeToBlack;
+        
         [SerializeField] private SkillCollectable dash;
-    
+
+        [SerializeField] private DialoguesData dialogueES;
+        [SerializeField] private DialoguesData dialogueEN;
+        
         [Header("Flip")]
         private bool _playerToTheRight;
         private PlayerController _player;
@@ -37,6 +51,8 @@ namespace Utils
 
         private IEnumerator Start()
         {
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
             
@@ -46,6 +62,21 @@ namespace Utils
             yield return new WaitForSeconds(0.1f);
             if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
             if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
+
+            if (LocalizationSettings.SelectedLocale.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+                _selectedDialogues = dialogueEN.dialogues;
+            }
+            else
+            {
+                _selectedDialogues = dialogueES.dialogues;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            LocalizationSettings.SelectedLocaleChanged -= LanguageChanged;
         }
 
         void Update()
@@ -58,6 +89,20 @@ namespace Utils
             else
             {
                 interactPrompt.SetActive(false);
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+                _selectedDialogues = dialogueEN.dialogues;
+            }
+            else
+            {
+                _isSpanish = true;
+                _selectedDialogues = dialogueES.dialogues;
             }
         }
 
@@ -155,12 +200,13 @@ namespace Utils
         public void Interact()
         {
             if (!_dialogueStarted) StartDialogue();
-            else if (dialogueText.text == dialogueList[_dialogueIndex]) NextLine();
+            // dialogueScriptable
+            else if (dialogueText.text == _selectedDialogues[_dialogueIndex]) NextLine();
             else
             {
                 StopAllCoroutines();
                 dialogueText.text = string.Empty;
-                dialogueText.text = dialogueList[_dialogueIndex];
+                dialogueText.text = _selectedDialogues[_dialogueIndex];
             }
         }
 
@@ -168,7 +214,7 @@ namespace Utils
         {
             _dialogueStarted = true;
             GameManager.Instance.GetPlayer.inDialog = true;
-            _dialogueIndex = !_lastDialogue ? 0 : dialogueList.Count - 1;
+            _dialogueIndex = !_lastDialogue ? 0 : _selectedDialogues.Count - 1;
             _player.inDialog = true;
             interactPrompt.SetActive(false);
             dialoguePanel.SetActive(true);
@@ -178,7 +224,7 @@ namespace Utils
         private IEnumerator WriteDialogue()
         {
             dialogueText.text = string.Empty;
-            foreach (char ch in dialogueList[_dialogueIndex])
+            foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
                 AudioManager.Instance.PlayDialogSound();
                 dialogueText.text += ch;
@@ -188,7 +234,7 @@ namespace Utils
 
         private void NextLine()
         {
-            if (_dialogueIndex < dialogueList.Count - 1)
+            if (_dialogueIndex < _selectedDialogues.Count - 1)
             {
                 _dialogueIndex++;
                 StartCoroutine(WriteDialogue());

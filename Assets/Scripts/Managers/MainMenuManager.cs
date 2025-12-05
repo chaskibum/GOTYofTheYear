@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,6 +14,13 @@ namespace Managers
         private void Start()
         {
             HighlightPlayButton();
+            
+            Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+            /*if (language == 1)
+                newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");*/
+            
+            print(newLocale);
+            LocalizationSettings.SelectedLocale = newLocale;
         }
     
         public void Play()

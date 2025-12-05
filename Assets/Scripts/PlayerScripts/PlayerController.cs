@@ -373,9 +373,9 @@ namespace PlayerScripts
             if (_state == State.Possessed) return;
             
             _isOnFloor = false;
+            _body.gravityScale = data.regularGravity;
             SetState(State.Jump);
             
-            _body.gravityScale = data.regularGravity;
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
             
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
@@ -482,6 +482,7 @@ namespace PlayerScripts
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
                 _animator.SetBool(DoubleJumping, true);
+                print("estoy DOBLESALTANDO");
             }
         }
 

@@ -49,13 +49,17 @@ public class ViejaBossFight : EnemyController
     protected override IEnumerator EndFeedback()
     {
         yield return new WaitForSecondsRealtime(0.15f);
-        Visuals.color = new Color(50, 50, 50);
+        Visuals.color = new Color(100, 100, 100);
         Time.timeScale = 1;
     }
 
     private void ChangePosition()
     {
-        _newPos = positions[Random.Range(0, positions.Length)];
+        if (Hp == 1)
+            _newPos = positions[^1];
+        else 
+            _newPos = positions[Random.Range(0, positions.Length - 1)];
+        
         if (_newPos != _actualPos)
         {
             _actualPos = _newPos;
