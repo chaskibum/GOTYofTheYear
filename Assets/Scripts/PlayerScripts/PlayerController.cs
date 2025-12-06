@@ -558,6 +558,7 @@ namespace PlayerScripts
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
             _body.linearVelocityX = direction * data.dashSpeed;
             _canDash = false;
+            _jumpKeyTimePressed = 0f;
             Invoke(nameof(EndDash), data.dashDuration);
             SetState(State.Dash);
         }
