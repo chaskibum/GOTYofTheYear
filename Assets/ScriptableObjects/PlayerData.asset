@@ -25,11 +25,12 @@ MonoBehaviour:
   jumpBufferTime: 0.1
   jumpDuration: 0.5
   dashSpeed: 15
-  dashDuration: 0.2
+  dashDuration: 0.25
   dashCooldown: 0.8
   dashGravity: 0
   attackSpeed: 0.8
   attackCooldown: 0.9
+  baseImmunityTime: 1
   immunityTime: 1
   shieldDuration: 3
   baseShieldCooldown: 15

@@ -191,6 +191,7 @@ namespace PlayerScripts
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
             _animator.SetBool(DoubleJumping, false);
+            _animator.SetBool(Falling, false);
         }
         
         private void MoveState()
@@ -210,9 +211,11 @@ namespace PlayerScripts
             if (_xInput != 0) Move();
 
             _jumpKeyTimePressed += Time.deltaTime;
-            
+
             if (JumpReleased() || _jumpKeyTimePressed > data.jumpDuration)
+            {
                 SetState(State.Fall);
+            }
             
             CheckIfIsFalling();
         }
@@ -224,7 +227,10 @@ namespace PlayerScripts
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
             _jumpKeyTimePressed = 0f;
+            // _animator.SetBool(Jumping, false);
             _animator.SetBool(Falling, true);
+            _animator.SetBool(Dashing, false);
+            _animator.SetBool(DoubleJumping, false);
 
             if (_isOnFloor)
             {
@@ -247,7 +253,7 @@ namespace PlayerScripts
         private void DashState()
         {
             _body.gravityScale = data.dashGravity;
-            Invoke(nameof(EndDash), data.dashDuration);
+            // Invoke(nameof(EndDash), data.dashDuration);
         }
         
         private void GetHitState()
@@ -482,8 +488,10 @@ namespace PlayerScripts
             else if ((!_isOnFloor && _canDoubleJump) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
+                _jumpKeyTimePressed = 0f;
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
+                _animator.SetBool(Falling, false);
                 _animator.SetBool(DoubleJumping, true);
                 jumpParticles.Play();
             }
@@ -543,12 +551,14 @@ namespace PlayerScripts
         private void Dash()
         {
             _dashTimer = data.dashCooldown;
+            _animator.SetBool(Falling, false);
             _animator.SetBool(Dashing, true);
             AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
             _body.linearVelocityX = direction * data.dashSpeed;
             _canDash = false;
+            Invoke(nameof(EndDash), data.dashDuration);
             SetState(State.Dash);
         }
 
