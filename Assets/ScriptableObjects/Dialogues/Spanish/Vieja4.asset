@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja4
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - "OJO! (cof)\\nSiento algo horrible adelante. Pero uno de mis ingredientes est\xE1
+    ah\xED. Ayudame a conseguirlo, por favor!"
+  - "No te olvides de activar el t\xF3tem, a la derecha. Si ocurriese una tragedia,
+    ning\xFAn Dios permita, te ser\xE1 de gran ayuda."
+  - "El otro t\xF3tem se encuentra cerca del pueblo, seguro ya lo cruzaste. Hasta
+    no activar este, aqu\xE9l permanecer\xE1 bloqueado. Tenlo en cuenta m\xE1s adelante!"

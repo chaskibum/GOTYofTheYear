@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja12
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - Estaba pensando, Mijo...
+  - "Hacer todo este recorrido fue (cof) duro para m\xED."
+  - "Pas\xE9 por lugares que no quer\xEDa, despert\xE9 recuerdos que cre\xED haber
+    borrado."
+  - "De hecho no s\xE9 c\xF3mo llegu\xE9 hasta este lugar tan espantoso. Me siento
+    tan lejos de casa..."
+  - Quisiera volver a casa.

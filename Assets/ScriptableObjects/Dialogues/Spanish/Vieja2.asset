@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja2
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - Fogatas como estas son perfectas para descansar tras un arduo recorrido. Te recomiendo
+    hacerlo cada vez que te cruces con una.
+  - AH! (cof, cof) casi lo olvido.
+  - "Con la maldici\xF3n aparecieron grandes poderes, que acechan en lo que una vez
+    fue mi amado pueblo y sus afueras. "
+  - "Es posible extraer de ellos parte de sus habilidades. Las precisar\xE1s para
+    satisfacer mi recado... comenzando por esta."

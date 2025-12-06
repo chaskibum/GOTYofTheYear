@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja10
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - Cuidado Mijo.
+  - "Este fue el lugar de una terrible batalla, la \xFAltima que mi tribu vi\xF3,
+    la que puso un fin a nuestra lucha."
+  - "Era solo una ni\xF1a cuando ocurri\xF3. Trat\xE9 de ayudar, de protegerlos a
+    todos pero... esa noche la muerte estaba en el aire, y ninguno de nuestros Dioses
+    baj\xF3 a ayudarnos."
+  - "No recuerdo mucho sobre este lugar, ni siquiera s\xE9 c\xF3mo sal\xED con vida.
+    Quiz\xE1 sea mejor as\xED, olvidar."

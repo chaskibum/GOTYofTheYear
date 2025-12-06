@@ -29,7 +29,6 @@ namespace Utils
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
-        [SerializeField, TextArea(3, 5)] private List<String> dialogueList;
         [Header("ViejaOptions")]
         [SerializeField] private bool disappearAfterDialogue;
         [SerializeField] private float timeToDisappear;
@@ -151,11 +150,6 @@ namespace Utils
             DeactivateDialog();
             gameObject.SetActive(true);
             _canSpeak = true;
-            /*if (disappearAfterDialogue)
-            {
-                gameObject.SetActive(true);
-                _canSpeak = true;
-            }*/
             if (hideVieja) gameObject.SetActive(false);
         }
 
@@ -163,7 +157,7 @@ namespace Utils
         {
             yield return new WaitForSeconds(timeToDisappear);
             DeactivateDialog();
-            interactPrompt.SetActive(true);
+            interactPrompt.SetActive(false);
             AudioManager.Instance.StopClip();
             while (_sprite.color.a > 0)
             {

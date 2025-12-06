@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja5
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - "Est\xE1s bien mijo? Escuch\xE9 un griter\xEDo por ah\xED."
+  - "Estaba a punto de bajar y ayudarte! (COF, COF).\\nAunque no me cab\xEDa duda
+    de que el Guardi\xE1n de la Orden se las iba a manejar."
+  - "Veo que extrajiste el poder de esa cosa horrible. Con \xE9l podr\xE1s avanzar
+    hacia los campos de entrenamiento, a mi izquierda."
+  - "Ver\xE1s que es una zona muy divertida, jejeje."

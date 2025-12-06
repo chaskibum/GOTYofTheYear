@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja6
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - Veo que superaste al fantasma de uno de los guerreros. Tienes muy buen potencial...
+  - Ejem.
+  - "Te cruzar\xE1s unos cu\xE1ntos de ellos. Hace d\xE9cadas, esto era el hogar
+    de una tribu guerrera. Los hombres peleaban, las mujeres curaban."
+  - "Cuando las batallas se pusieron dif\xEDciles, la tribu necesit\xF3 algo m\xE1s
+    que les diera la ventaja frente a sus contrincantes."
+  - "Fue as\xED como las mujeres de la tribu comenzaron a indagar sobre viejas creencias
+    y poderes sobrehumanos."
+  - 'Nadie supo ver los peligros de jugar con algo tan grande... '
