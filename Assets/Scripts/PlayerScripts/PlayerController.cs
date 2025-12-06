@@ -16,7 +16,8 @@ namespace PlayerScripts
         private static readonly int Possessed = Animator.StringToHash("Possessed");
         private static readonly int GotHit = Animator.StringToHash("Get Hit");
         private static readonly int DoubleJumping = Animator.StringToHash("DoubleJumping");
-        
+        private static readonly int Falling = Animator.StringToHash("Falling");
+
         [SerializeField] private PlayerData data;
         
         [SerializeField] private LayerMask groundLayer;
@@ -223,9 +224,11 @@ namespace PlayerScripts
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
             _jumpKeyTimePressed = 0f;
+            _animator.SetBool(Falling, true);
 
             if (_isOnFloor)
             {
+                _animator.SetBool(Falling, false);
                 _animator.SetTrigger("TouchedFloor");
                 SetState(State.Idle);
             }

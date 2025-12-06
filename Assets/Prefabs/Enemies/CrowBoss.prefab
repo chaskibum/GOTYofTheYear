@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1620060555511929708, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: fc70ac3eea0799a46b212219ea7e8470, type: 3}
+  m_Resource: {fileID: 8300000, guid: df009ab161db07a4e9266a4fc5386300, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -190,7 +190,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1620060555511929708, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: baf6dc144eb441946b8eb2cf3448984f, type: 3}
+  m_Resource: {fileID: 8300000, guid: b77a5d97d5d6a8646ac6281bc57edc9a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -484,7 +484,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1620060555511929708, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 32f21a1ff6f90d641a8b892640af1726, type: 3}
+  m_Resource: {fileID: 8300000, guid: a79a37cb5c695c6439313399105e8a25, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -993,11 +993,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   healthBar: {fileID: 0}
+  healthGroup: {fileID: 0}
   chillido: {fileID: 2992086620238849407}
   painScream: {fileID: 7557714592586205392}
   drums1: {fileID: 2301283360945468319}
   drums2: {fileID: 7083405793881872171}
   songEnding: {fileID: 8365765904875338998}
+  spookySound1: {fileID: 0}
+  spookySound2: {fileID: 0}
 --- !u!198 &6713189264583578586 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7695004738326358881, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
