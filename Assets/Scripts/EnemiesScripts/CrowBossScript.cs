@@ -34,6 +34,7 @@ namespace EnemiesScripts
             if (PlayerPrefs.GetString("CrowDead") == "yes")
             {
                 gameObject.SetActive(false);
+                BossSlain = true;
                 spookySound1.Stop();
                 spookySound2.Stop();
             }

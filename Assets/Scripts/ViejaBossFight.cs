@@ -1,5 +1,6 @@
 using System.Collections;
 using EnemiesScripts;
+using GameplayElements;
 using Managers;
 using UnityEngine;
 
@@ -11,16 +12,8 @@ public class ViejaBossFight : EnemyController
 
     protected override void Start()
     {
-        foreach (var pos in positions)
-        {
-            print(pos.position);
-        }
-        
         Body = GetComponent<Rigidbody2D>();
         Visuals = GetComponentInChildren<SpriteRenderer>();
-        // TryGetComponent(out Animator);
-        // 1Player = GameManager.Instance.GetPlayer;
-        // if (wallsCollider) wallsCollider.enabled = true;
             
         AddListeners(true);
     }
@@ -39,11 +32,10 @@ public class ViejaBossFight : EnemyController
         PlayHitFeedback();
             
         Hp -= 1;
-        if (Hp <= 0) print("ded, u win");
+        if (Hp <= 0) 
+            print("ded, u win");
         else
-        {
             Invoke(nameof(ChangePosition), 0.05f);
-        }
     }
     
     protected override IEnumerator EndFeedback()
@@ -67,9 +59,14 @@ public class ViejaBossFight : EnemyController
             Visuals.color = Color.white;
         }
         else
-        {
-            print("justo la misma...");
             ChangePosition();
-        }
+    }
+
+    protected override void Respawn()
+    {
+        transform.position = StartingPosition;
+        Hp = data.baseHp;
+        Body.linearVelocity = Vector2.zero;
+        Visuals.color = Color.white;
     }
 }

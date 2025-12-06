@@ -101,7 +101,7 @@ namespace EnemiesScripts
             Respawn();
         }
 
-        private void Respawn()
+        protected virtual void Respawn()
         {
             StopCoroutine(nameof(Disappear));
             if (wallsCollider) wallsCollider.enabled = true;

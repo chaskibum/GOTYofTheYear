@@ -27,7 +27,10 @@ namespace EnemiesScripts
         {
             base.Start();
             if (PlayerPrefs.GetString("ArmorDead") == "yes")
+            {
                 gameObject.SetActive(false);
+                BossSlain = true;
+            }
             else
             {
                 healthBar.SetMaxHealth(data.baseHp);
