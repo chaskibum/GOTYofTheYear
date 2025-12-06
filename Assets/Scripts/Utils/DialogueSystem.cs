@@ -17,6 +17,7 @@ namespace Utils
     public class DialogueSystem : MonoBehaviour, IInteractable
     {
         private bool _isInRange;
+        private bool _showInteractPrompt = true;
         private bool _dialogueStarted;
         private int _dialogueIndex;
         private const float DialogueSpeed = 0.05f;
@@ -55,12 +56,7 @@ namespace Utils
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
             
-            if (hideVieja) gameObject.SetActive(false);
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
-            
-            yield return new WaitForSeconds(0.1f);
-            if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
-            if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
 
             if (LocalizationSettings.SelectedLocale.ToString() != "Spanish (es)")
             {
@@ -71,6 +67,11 @@ namespace Utils
             {
                 _selectedDialogues = dialogueES.dialogues;
             }
+            
+            if (hideVieja) gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
+            if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
+            if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
         }
 
         private void OnDestroy()
@@ -83,7 +84,8 @@ namespace Utils
             if (_isInRange)
             {
                 if (_canSpeak) CheckInteractInput();
-                interactPrompt.SetActive(true);
+                if (_showInteractPrompt) interactPrompt.SetActive(true);
+                else interactPrompt.SetActive(false);
             }
             else
             {
@@ -140,7 +142,6 @@ namespace Utils
         private void DeactivateDialog()
         {
             _dialogueStarted = false;
-            interactPrompt.SetActive(true);
             dialoguePanel.SetActive(false);
             _player.inDialog = false;
         }
@@ -157,7 +158,7 @@ namespace Utils
         {
             yield return new WaitForSeconds(timeToDisappear);
             DeactivateDialog();
-            interactPrompt.SetActive(false);
+            _showInteractPrompt = false;
             AudioManager.Instance.StopClip();
             while (_sprite.color.a > 0)
             {
@@ -182,6 +183,8 @@ namespace Utils
     
         private void CanSpeakAgain()
         {
+            _showInteractPrompt = true;
+            interactPrompt.SetActive(true);
             _canSpeak = true;
         }
     
@@ -194,7 +197,6 @@ namespace Utils
         public void Interact()
         {
             if (!_dialogueStarted) StartDialogue();
-            // dialogueScriptable
             else if (dialogueText.text == _selectedDialogues[_dialogueIndex]) NextLine();
             else
             {
@@ -210,7 +212,7 @@ namespace Utils
             GameManager.Instance.GetPlayer.inDialog = true;
             _dialogueIndex = !_lastDialogue ? 0 : _selectedDialogues.Count - 1;
             _player.inDialog = true;
-            interactPrompt.SetActive(false);
+            _showInteractPrompt = false;
             dialoguePanel.SetActive(true);
             StartCoroutine(WriteDialogue());
         }

@@ -20,11 +20,17 @@ namespace EnemiesScripts
         private Vector3[] _verticalPath;
         private Vector3[] _horizontalPath;
 
+        [Header("Attacks")]
+        [SerializeField] private GameObject attack1;
+
+        private Animator _attack1Animator;
+
 
         private void Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
+            _attack1Animator = attack1.GetComponent<Animator>();
             
             _player = GameManager.Instance.GetPlayer;
             

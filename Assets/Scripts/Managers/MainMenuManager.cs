@@ -15,12 +15,12 @@ namespace Managers
         {
             HighlightPlayButton();
             
-            Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+            /*Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
             /*if (language == 1)
-                newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");*/
+                newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");#1#
             
             print(newLocale);
-            LocalizationSettings.SelectedLocale = newLocale;
+            LocalizationSettings.SelectedLocale = newLocale;*/
         }
     
         public void Play()

@@ -48,13 +48,13 @@ namespace GameplayElements
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
         }
 
-        private void Update()
+        /*private void Update()
         {
             if (panel.activeInHierarchy)
             {
                 CheckCloseInput();
             }
-        }
+        }*/
 
         private void OnDestroy()
         {
@@ -101,13 +101,13 @@ namespace GameplayElements
             _uiManager.inMenu = true;
         }
         
-        private void CheckCloseInput()
+        /*private void CheckCloseInput()
         {
             if (Input.GetButtonDown("Cancel"))
             {
                 ClosePanel();
             }
-        }
+        }*/
 
         public void HideSkill()
         {

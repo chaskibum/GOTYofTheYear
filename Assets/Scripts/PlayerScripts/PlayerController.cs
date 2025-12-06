@@ -227,7 +227,7 @@ namespace PlayerScripts
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
             _jumpKeyTimePressed = 0f;
-            // _animator.SetBool(Jumping, false);
+            _animator.SetBool(Jumping, false);
             _animator.SetBool(Falling, true);
             _animator.SetBool(Dashing, false);
             _animator.SetBool(DoubleJumping, false);
