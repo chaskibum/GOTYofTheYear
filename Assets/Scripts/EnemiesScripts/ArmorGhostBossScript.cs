@@ -23,6 +23,11 @@ namespace EnemiesScripts
         private bool BossSlain;
         private Camera _cam;
 
+        [Header("Music")]
+        [SerializeField] private AudioSource musicStart;
+        [SerializeField] private AudioSource musicLoop;
+        [SerializeField] private AudioSource musicEnd;
+
         protected override void Start()
         {
             base.Start();
@@ -47,10 +52,12 @@ namespace EnemiesScripts
                 healthBar.SetHealth(Hp);
                 healthGroup.gameObject.SetActive(true);
                 healthGroup.alpha = 0;
+                musicStart.volume = 1;
                 attackHitbox.SetActive(false);
                 lockDoor.transform.position = _startingLockPosition;
                 Animator?.SetBool("Attacking", false);
                 unlockableSkill.HideSkill();
+                StopMusic();
 
                 DeactivateCoroutine();
             }
@@ -61,6 +68,7 @@ namespace EnemiesScripts
             base.RestartEnemy();
             healthGroup.gameObject.SetActive(true);
             healthGroup.alpha = 0;
+            musicStart.volume = 1;
             healthBar.SetMaxHealth(data.baseHp);
             healthBar.SetHealth(data.baseHp);
             BossSlain = false;
@@ -69,14 +77,18 @@ namespace EnemiesScripts
             Animator?.SetBool("Attacking", false);
             DeactivateCoroutine();
             unlockableSkill.HideSkill();
+            StopMusic();
         }
 
         protected override void ChaseState()
         {
             base.ChaseState();
-            
+
             if (healthGroup.alpha < 1)
-                healthGroup.DOFade(1, 1.5f);
+            {
+                PlayMusic();
+                healthGroup.DOFade(1, 0.5f);
+            }
 
             if (_spawnCoroutine == null)
             {
@@ -87,6 +99,22 @@ namespace EnemiesScripts
             {
                 lockDoor.transform.position = Vector3.Lerp(lockDoor.transform.position, _targetLockPosition, 3 * Time.deltaTime);
             }
+        }
+
+        private void PlayMusic()
+        {
+            if (!musicStart.isPlaying)
+            {
+                musicStart.Play();
+                Invoke(nameof(PlayLoop), 3.05f);
+            }
+        }
+
+        private void PlayLoop()
+        {
+            musicStart.volume = 0;
+            if (!musicLoop.isPlaying)
+                musicLoop.Play();
         }
 
         public override void GetHit()
@@ -112,6 +140,8 @@ namespace EnemiesScripts
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             BossSlain = true;
             unlockableSkill.Activate();
+            musicLoop.Stop();
+            musicEnd.Play();
             foreach (GameObject enemy in enemies)
                 if (enemy)
                     enemy.SetActive(false);
@@ -195,6 +225,13 @@ namespace EnemiesScripts
                 obj.transform.localPosition = new Vector3(0, 23, 0);
                 obj.SetActive(false);
             }
+        }
+
+        private void StopMusic()
+        {
+            musicStart.Stop();
+            musicLoop.Stop();
+            musicEnd.Stop();
         }
 
         protected override void DieState()

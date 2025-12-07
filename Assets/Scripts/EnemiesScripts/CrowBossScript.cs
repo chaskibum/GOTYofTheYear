@@ -105,7 +105,7 @@ namespace EnemiesScripts
                     wave.SetActive(true);
                     painScream.Play();
                     _cam.DOShakePosition(1.2f, 1f);
-                    if (Hp < data.baseHp / 2)
+                    if (Hp < data.baseHp / 2 + 1)
                         drums1.loop = false;
                     yield return new WaitWhile(() => Hp % 4 == 0);
                 }
@@ -136,7 +136,7 @@ namespace EnemiesScripts
             
             if (!drums1.isPlaying && Hp > data.baseHp / 2)
                 drums1.Play();
-            else if (!drums1.isPlaying && !drums2.isPlaying && Hp < data.baseHp / 2)
+            else if (!drums1.isPlaying && !drums2.isPlaying && Hp < data.baseHp / 2 + 1)
                 drums2.Play();
                 
             ChaseTimer += Time.deltaTime;
