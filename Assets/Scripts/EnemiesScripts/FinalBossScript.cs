@@ -4,6 +4,7 @@ using DG.Tweening;
 using Managers;
 using PlayerScripts;
 using UnityEngine;
+using Utils;
 
 namespace EnemiesScripts
 {
@@ -13,10 +14,13 @@ namespace EnemiesScripts
         private Rigidbody2D _rb;
         private Animator _animator;
         private Vector3 _originalPos;
+        private Vector3 _thunderPos;
+        private bool _standStill;
         private bool _coroutineStarted = false;
         private Coroutine _babitaCoroutine;
         [SerializeField] private GameObject _vieja;
         [SerializeField] private Collider2D hitbox;
+        [SerializeField] private GlobalLightManager globalLight;
         
         
         private PlayerController _player;
@@ -32,13 +36,16 @@ namespace EnemiesScripts
         [Header("Attacks")]
         [SerializeField] private FinalBossBabita attack1;
         [SerializeField] private FinalBossBabita attack2;
-
+        [SerializeField] private FinalBossThunder thunder1;
+        [SerializeField] private FinalBossThunder thunder2;
+        
         private void Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _originalPos = transform.position;
+            _thunderPos = new Vector3(582, -58, 0);
             
             _player = GameManager.Instance.GetPlayer;
             
@@ -72,13 +79,16 @@ namespace EnemiesScripts
             _movementPattern.Pause();
             DeactivateCoroutine();
             Disappear();
+            thunder1.HideThunders();
+            thunder2.HideThunders();
+            globalLight.ChangeLight(0.1f);
         }
 
         private void Update()
         {
             GetPlayerPosition();
             
-            if (!_vieja.activeInHierarchy && _coroutineStarted)
+            if (!_vieja.activeInHierarchy && _coroutineStarted && !_standStill)
                 transform.position = Vector3.MoveTowards(transform.position, _playerPos, _speed * Time.deltaTime);
         }
         
@@ -98,16 +108,17 @@ namespace EnemiesScripts
             else _movementPattern.Play();
             if (_babitaCoroutine == null)
             {
-                _babitaCoroutine = StartCoroutine(nameof(BavitAttack));
+                _babitaCoroutine = StartCoroutine(nameof(BabitAttack));
                 _coroutineStarted = true;
             }
         }
 
-        private IEnumerator BavitAttack()
+        private IEnumerator BabitAttack()
         {
             while (true)
             {
                 Appear();
+                _standStill = false;
                 yield return new WaitForSeconds(2f);
                 StartCoroutine(attack1.BabAttack());
                 _animator.SetTrigger("Attack");
@@ -121,6 +132,15 @@ namespace EnemiesScripts
                 yield return new WaitForSeconds(1.5f);
                 Disappear();
                 yield return new WaitForSeconds(8f);
+                _standStill = true;
+                transform.position = _thunderPos;
+                Appear();
+                globalLight.ChangeLight(0);
+                yield return new WaitForSeconds(1f);
+                StartCoroutine(thunder1.ThunderAttack());
+                StartCoroutine(thunder2.ThunderAttack());
+                yield return new WaitForSeconds(6f);
+                globalLight.ChangeLight(0.1f);
             }
         }
 
@@ -158,9 +178,9 @@ namespace EnemiesScripts
         private void MoveAround(bool moveHorizontal)
         {
             var path = moveHorizontal ? _horizontalPath : _verticalPath;
-            _movementPattern = _sprite.transform.DOLocalPath(path, 5f, PathType.CatmullRom)
+            _movementPattern = _sprite.transform.DOLocalPath(path, 10f, PathType.CatmullRom)
                 .SetEase(Ease.Linear)
-                .SetLoops(7)
+                .SetLoops(3)
                 .OnComplete(() => MoveAround(!moveHorizontal));
         }
 

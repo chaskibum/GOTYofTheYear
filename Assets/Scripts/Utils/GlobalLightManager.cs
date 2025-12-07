@@ -14,5 +14,10 @@ namespace Utils
         {
             DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, intensity, 2f);
         }
+
+        public void ChangeLight(float targetIntensity)
+        {
+            DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, targetIntensity, 1f);
+        }
     }
 }

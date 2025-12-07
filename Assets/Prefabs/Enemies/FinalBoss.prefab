@@ -5475,8 +5475,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesScripts.FinalBossScript
   _vieja: {fileID: 0}
   hitbox: {fileID: 5911654539999505092}
+  globalLight: {fileID: 0}
   attack1: {fileID: 0}
   attack2: {fileID: 0}
+  thunder1: {fileID: 0}
+  thunder2: {fileID: 0}
 --- !u!95 &952318330979097159
 Animator:
   serializedVersion: 7
