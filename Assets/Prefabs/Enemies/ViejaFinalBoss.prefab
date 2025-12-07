@@ -84,6 +84,14 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[11]'
+      value: 1624547825
+      objectReference: {fileID: 0}
     - target: {fileID: 4167647778853895782, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: enemy
       value: 
@@ -116,6 +124,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e4613a5ec8c1cd0489d3501eeb9d4f59, type: 3}
+    - target: {fileID: 7762624340419800210, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762624340419800210, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762624340419800210, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1624547825
+      objectReference: {fileID: 0}
     - target: {fileID: 8756755338566658112, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: m_IsActive
       value: 0

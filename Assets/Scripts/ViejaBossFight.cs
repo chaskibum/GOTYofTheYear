@@ -7,6 +7,7 @@ using UnityEngine;
 public class ViejaBossFight : EnemyController
 {
     [SerializeField] private Transform[] positions;
+    [SerializeField] private FinalBossScript finalBoss;
     private Transform _newPos;
     private Transform _actualPos;
 
@@ -25,6 +26,7 @@ public class ViejaBossFight : EnemyController
 
     public override void GetHit()
     {
+        if (Hp == 10) finalBoss.StartFight();
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
             
         AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);

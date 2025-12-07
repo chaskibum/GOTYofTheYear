@@ -6,7 +6,6 @@ using Managers;
 using PlayerScripts;
 using ScriptableObjects.Dialogues;
 using TMPro;
-using UnityEditor.Localization.Editor;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -150,6 +149,7 @@ namespace Utils
         {
             DeactivateDialog();
             gameObject.SetActive(true);
+            _sprite.color = new Color(1, 1, 1, 1);
             _canSpeak = true;
             if (hideVieja) gameObject.SetActive(false);
         }

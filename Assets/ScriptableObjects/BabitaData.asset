@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BabitaData
   m_EditorClassIdentifier: 
   baseHp: 0
-  damage: 10
+  damage: 15
   moveSpeed: 0
   attackAnimationTime: 0
   attackCooldown: 0

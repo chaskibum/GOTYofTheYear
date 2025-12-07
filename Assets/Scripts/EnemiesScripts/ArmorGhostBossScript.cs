@@ -138,27 +138,6 @@ namespace EnemiesScripts
             Visuals.color = new Color(0.5f, 1, 0.5f);
             Time.timeScale = 1;
         }
-
-        /*private IEnumerator SpawnEnemies()
-        {
-            if (!BossSlain)
-            {
-                yield return new WaitForSeconds(Random.Range(5f, 8f));
-                objects[Random.Range(0, objects.Count)].SetActive(true);
-                _cam.DOShakePosition(1.2f, 1f);
-                Animator?.SetBool("Screaming", true);
-                SetState(State.Idle);
-                StartCoroutine(LockStateForSeconds(1.5f));
-                yield return new WaitForSeconds(Random.Range(10f, 15f));
-                enemies[Random.Range(0, enemies.Count)].SetActive(true);
-                Animator?.SetBool("Screaming", true);
-                SetState(State.Idle);
-                StartCoroutine(LockStateForSeconds(1.5f));
-                RelocateObjects();
-                
-                if (_spawnCoroutine != null) StartCoroutine(nameof(SpawnEnemies));
-            }
-        }*/
         
         private IEnumerator SpawnEnemies()
         {
