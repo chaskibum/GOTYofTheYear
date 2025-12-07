@@ -77,6 +77,10 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: m_LightVolumeEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: m_PointLightInnerRadius
       value: 7
       objectReference: {fileID: 0}
@@ -86,7 +90,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 12
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[5]'
+      value: -1080253557
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[6]'
+      value: 1837120567
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[7]'
+      value: -433247013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[8]'
+      value: -433247013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[9]'
+      value: -433247013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[10]'
+      value: 1624547825
       objectReference: {fileID: 0}
     - target: {fileID: 3855294013440335192, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: 'm_ApplyToSortingLayers.Array.data[11]'
@@ -180,6 +208,7 @@ MonoBehaviour:
   particles: {fileID: 0}
   idleSounds: {fileID: 0}
   positions: []
+  finalBoss: {fileID: 0}
 --- !u!95 &9048100334882644364
 Animator:
   serializedVersion: 7
