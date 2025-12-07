@@ -139,7 +139,7 @@ namespace EnemiesScripts
                 yield return new WaitForSeconds(1f);
                 StartCoroutine(thunder1.ThunderAttack());
                 StartCoroutine(thunder2.ThunderAttack());
-                yield return new WaitForSeconds(6f);
+                yield return new WaitForSeconds(8f);
                 globalLight.ChangeLight(0.1f);
             }
         }
