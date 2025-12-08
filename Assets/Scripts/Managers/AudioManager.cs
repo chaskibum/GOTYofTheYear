@@ -48,6 +48,7 @@ namespace Managers
             BushAlert,
             Chillido,
             Totem,
+            ViejaDeath,
         }
     
         [SerializeField] List<AudioClip> audioClips;

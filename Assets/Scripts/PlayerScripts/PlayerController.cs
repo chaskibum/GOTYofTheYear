@@ -168,6 +168,12 @@ namespace PlayerScripts
                 _animator.SetBool(Moving, false);
                 _animator.SetBool(Jumping, false);
                 _animator.SetBool(DoubleJumping, false);
+                _animator.SetBool(Falling, false);
+                AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+
+                if (stateInfo.IsName("PlayerFall")) {
+                    _animator.SetTrigger("TouchedFloor");
+                }
                 _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
                 return;
             }

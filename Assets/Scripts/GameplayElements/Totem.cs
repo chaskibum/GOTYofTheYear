@@ -79,13 +79,13 @@ namespace GameplayElements
             _player.transform.position = teletransport.transform.position;
             teletransport.TryGetComponent(out Animator animator);
             animator.SetBool("Active", true);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.Totem);
         }
 
         public void SaveActivatedStatus()
         {
             if (!startActivated)
             {
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.Totem);
                 PlayerPrefs.SetString(name, name);
             }
         }

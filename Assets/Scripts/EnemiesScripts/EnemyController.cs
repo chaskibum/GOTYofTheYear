@@ -195,12 +195,6 @@ namespace EnemiesScripts
         
         protected virtual void DieState()
         {
-            /*attackHitbox.SetActive(false);
-            attackHurtbox.SetActive(false);
-            if (wallsCollider) wallsCollider.enabled = false;
-            Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
-            StartCoroutine(nameof(Disappear));*/
-            
             /*if (_isDying) return;
             _isDying = true;*/
 
@@ -213,14 +207,10 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(false);
             if (wallsCollider) wallsCollider.enabled = false;
-            // Body.linearVelocity = Vector2.zero;
-            // StartCoroutine(nameof(Disappear));
         }
         
         protected virtual void Attack()
         {
-            // Animator?.SetBool("Attacking", true);
-            // attackHitbox.SetActive(true);
             CanAttack = false;
             StartCoroutine(nameof(CanAttackAgain));
         }
@@ -233,7 +223,6 @@ namespace EnemiesScripts
 
         protected virtual void EndAttack()
         {
-            // Animator?.SetBool("Attacking", false);
             attackHitbox.SetActive(false);
             AttackTimer = data.attackAnimationTime;
             SetState(State.Chase);
@@ -276,29 +265,11 @@ namespace EnemiesScripts
         // PARA BORRAR DESPUÉS (cuando tengamos la animación de muerte)
         protected IEnumerator Disappear()
         {
-            /*while (Visuals.color.a > 0)
-            {
-                var color = Visuals.color;
-                color.a -= 0.02f;
-                Visuals.color = color;
-                yield return new WaitForSeconds(0.05f);
-            }
-
-            if (particles && idleSounds)
-            {
-                particles?.Stop();
-                idleSounds?.Stop();
-            }
-
-            yield return new WaitForSeconds(10f);
-            gameObject.SetActive(false);*/
-            
             while (Visuals.color.a > 0)
             {
                 var color = Visuals.color;
                 color.a -= 0.02f;
                 Visuals.color = color;
-                // Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.01f);
             }
 
