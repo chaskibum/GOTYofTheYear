@@ -171,7 +171,9 @@ namespace Managers
         public void HandlePause()
         {
             _isPaused = !_isPaused;
-    
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            
             if (_isPaused)
             {
                 Time.timeScale = 0f;

@@ -1,7 +1,9 @@
+using DG.Tweening;
 using PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -26,6 +28,8 @@ namespace Managers
         // PARA BORRAR
         public bool canWin = false;
         [SerializeField] private GameObject wonScreen;
+
+        [SerializeField] private Image fade;
     
         private bool _gameOver = false;
 
@@ -41,6 +45,10 @@ namespace Managers
         {
             _onGameOver.AddListener(GameOverScreen);
             _onGameRestart.AddListener(RestartGameEvent);
+
+            fade.DOFade(0f, 2f);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDestroy()
@@ -58,7 +66,8 @@ namespace Managers
         // PARA CAMBIAR DESPUÉS
         public void RestartGame()
         {
-            _onGameRestart?.Invoke();
+            Time.timeScale = 1;
+            fade.DOFade(1f, 1f).SetEase(Ease.InCirc).OnComplete(() => _onGameRestart?.Invoke());
         }
 
         public void RevivePlayer()
@@ -69,6 +78,8 @@ namespace Managers
 
         private void RestartGameEvent()
         {
+            if (Time.timeScale == 0) uiManager.HandlePause();
+            fade.DOFade(0f, 2f).SetEase(Ease.InCirc);
             Time.timeScale = 1;
             _gameOver = false;
             canWin = false;
@@ -76,7 +87,8 @@ namespace Managers
     
         public void BackToMainMenu()
         {
-            SceneManager.LoadScene("MainMenu");
+            uiManager.HandlePause();
+            fade.DOFade(1f, 1f).SetEase(Ease.InCirc).OnComplete(() => SceneManager.LoadScene("MainMenu"));
         }
 
         #region Events

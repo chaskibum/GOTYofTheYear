@@ -23,6 +23,9 @@ namespace Managers
     
         public enum AudioList
         {
+            MenuPlay,
+            MenuPress,
+            MenuSelect,
             MainCheckpointActivated,
             FireCheckpointActivated,
             Dialog1,
@@ -80,7 +83,7 @@ namespace Managers
 
         private int RandomStep()
         {
-            return Random.Range(5, 7);
+            return Random.Range(8, 10);
         }
     
         public void PlayDialogSound()
@@ -113,6 +116,21 @@ namespace Managers
             else audioMixer.SetFloat("SFXVolume", sfxSlider.value);
 
             if (!settings.GetIsLoading) PlayClip(AudioList.PlayerAttack, true, 1f, false);
+        }
+
+        public void OnPlayButtonPressed()
+        {
+            PlayClip(AudioList.MenuPlay);
+        }
+
+        public void OnButtonSelected()
+        {
+            PlayClip(AudioList.MenuSelect);
+        }
+
+        public void OnButtonPressed()
+        {
+            PlayClip(AudioList.MenuPress);
         }
     }
 }
