@@ -205,7 +205,7 @@ namespace Utils
             _player.inDialog = true;
             _showInteractPrompt = false;
             dialoguePanel.SetActive(true);
-            StartCoroutine(WriteDialogue());
+            //StartCoroutine(WriteDialogue());
         }
 
         private IEnumerator WriteDialogue()
@@ -224,7 +224,7 @@ namespace Utils
             if (_dialogueIndex < _selectedDialogues.Count - 1)
             {
                 _dialogueIndex++;
-                StartCoroutine(WriteDialogue());
+                //StartCoroutine(WriteDialogue());
             }
             else
             {
