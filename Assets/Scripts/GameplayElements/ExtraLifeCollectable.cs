@@ -38,23 +38,12 @@ namespace GameplayElements
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (isGameWonCollectable)
-            {
-                GameManager.Instance.canWin = true;
-                text.GetComponent<TextMeshProUGUI>().text = "Item final conseguido!";
-                Hide();
-                panel.SetActive(true);
-                Invoke(nameof(HideText), 3f);
-            }
-            else
-            {
-                Hide();
-                panel.SetActive(true);
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed, false, 0.9f);
-                Invoke(nameof(HideText), 3f);
-                GameManager.Instance.GetCollectablePicked?.Invoke();
-                PlayerPrefs.SetString("Taken", name);
-            }
+            Hide();
+            panel.SetActive(true);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.ExtraLifeGrabbed, false, 0.9f);
+            Invoke(nameof(HideText), 3f);
+            GameManager.Instance.GetCollectablePicked?.Invoke();
+            PlayerPrefs.SetString("Taken", name);
         }
 
         private void Hide()

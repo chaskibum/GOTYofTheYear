@@ -198,5 +198,7 @@ namespace EnemiesScripts
         {
             _playerPos = _player.GetPlayerTarget;
         }
+        
+        public Animator GetAnimator => _animator;
     }
 }

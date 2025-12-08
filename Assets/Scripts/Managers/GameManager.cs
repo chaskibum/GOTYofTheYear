@@ -12,6 +12,7 @@ namespace Managers
         public static GameManager Instance { get; private set; }
     
         private readonly UnityEvent _onGameOver = new UnityEvent();
+        private readonly UnityEvent _onGameWon = new UnityEvent();
         private readonly UnityEvent _onGameRestart = new UnityEvent();
         private readonly UnityEvent _onPlayerRespawn = new UnityEvent();
         private readonly UnityEvent _onCollectablePicked = new UnityEvent();
@@ -24,14 +25,13 @@ namespace Managers
 
         [SerializeField] private PlayerController player;
         [SerializeField] private UIManager uiManager;
-
-        // PARA BORRAR
-        public bool canWin = false;
+        
         [SerializeField] private GameObject wonScreen;
 
         [SerializeField] private Image fade;
     
         private bool _gameOver = false;
+        private bool _gameWon = false;
 
         private void Awake()
         {
@@ -44,6 +44,7 @@ namespace Managers
         private void Start()
         {
             _onGameOver.AddListener(GameOverScreen);
+            _onGameWon.AddListener(PlayEnding);
             _onGameRestart.AddListener(RestartGameEvent);
 
             fade.DOFade(0f, 2f).SetEase(Ease.InBack);
@@ -55,6 +56,17 @@ namespace Managers
         {
             _onGameOver.RemoveListener(GameOverScreen);
             _onGameRestart.RemoveListener(RestartGameEvent);
+        }
+
+        private void PlayEnding()
+        {
+            _gameWon = true;
+            Invoke(nameof(EndingFade), 1f);
+        }
+
+        private void EndingFade()
+        {
+            fade.DOFade(1f, 3f).SetEase(Ease.OutBack).OnComplete((() => fade.DOFade(0f, 3f)));
         }
 
         private void GameOverScreen()
@@ -82,7 +94,6 @@ namespace Managers
             fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Time.timeScale = 1;
             _gameOver = false;
-            canWin = false;
         }
     
         public void BackToMainMenu()
@@ -94,6 +105,7 @@ namespace Managers
         #region Events
 
         public UnityEvent GetGameOverEvent => _onGameOver;
+        public UnityEvent GetGameWonEvent => _onGameWon;
         public UnityEvent GetGameRestarted => _onGameRestart;
         public UnityEvent GetPlayerRespawn => _onPlayerRespawn;
         public UnityEvent GetCollectablePicked => _onCollectablePicked;
@@ -112,5 +124,7 @@ namespace Managers
         public UIManager GetUIManager => uiManager;
     
         public bool GetGameOver => _gameOver;
+        
+        public bool GetGameWon => _gameWon;
     }
 }

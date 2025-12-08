@@ -8,6 +8,7 @@ public class ViejaBossFight : EnemyController
 {
     [SerializeField] private Transform[] positions;
     [SerializeField] private FinalBossScript finalBoss;
+    [SerializeField] private GameObject viejaEnding;
     private Transform _newPos;
     private Transform _actualPos;
 
@@ -26,7 +27,7 @@ public class ViejaBossFight : EnemyController
 
     public override void GetHit()
     {
-        if (Hp == 10) finalBoss.StartFight();
+        if (Hp == data.baseHp) finalBoss.StartFight();
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
             
         AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
@@ -34,10 +35,19 @@ public class ViejaBossFight : EnemyController
         PlayHitFeedback();
             
         Hp -= 1;
-        if (Hp <= 0) 
-            print("ded, u win");
+        if (Hp <= 0)
+        {
+            finalBoss.GetAnimator.SetTrigger("Die");
+            GameManager.Instance.GetGameWonEvent.Invoke();
+            Invoke(nameof(EndGame), 3f);
+        }
         else
             Invoke(nameof(ChangePosition), 0.05f);
+    }
+
+    private void EndGame()
+    {
+        viejaEnding.SetActive(true);
     }
     
     protected override IEnumerator EndFeedback()

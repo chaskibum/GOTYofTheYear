@@ -60,6 +60,7 @@ namespace PlayerScripts
         private int _hp;
         private Vector3 _respawnPosition;
         private Vector3 _mainRespawnPosition;
+        private Vector3 _endingPosition;
         private bool _canChangeState = true;
         public bool inDialog = false;
         private bool _isImmune;
@@ -91,6 +92,8 @@ namespace PlayerScripts
             _weapon = playerWeapon.GetComponent<PlayerWeapon>();
             _cam = Camera.main;
 
+            _endingPosition = new Vector3(545, -74.5f, 0);
+            
             _hp = data.baseHp;
             _attackCooldown = data.attackCooldown;
             data.immunityTime = data.baseImmunityTime;
@@ -134,6 +137,7 @@ namespace PlayerScripts
                 GameManager.Instance.GetDashUnlocked.AddListener(UnlockDash);
                 GameManager.Instance.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
                 GameManager.Instance.GetImmunityUnlocked.AddListener(UnlockImmunity);
+                GameManager.Instance.GetGameWonEvent.AddListener(GameWon);
                 _onPlayerHit.AddListener(GetHit);
                 _onPlayerPossessed.AddListener(PlayerPossessed);
                 _onPlayerRevived.AddListener(Revive);
@@ -144,6 +148,7 @@ namespace PlayerScripts
                 GameManager.Instance.GetDashUnlocked.RemoveListener(UnlockDash);
                 GameManager.Instance.GetDoubleJumpUnlocked.RemoveListener(UnlockDoubleJump);
                 GameManager.Instance.GetImmunityUnlocked.RemoveListener(UnlockImmunity);
+                GameManager.Instance.GetGameWonEvent.RemoveListener(GameWon);
                 _onPlayerHit.RemoveListener(GetHit);
                 _onPlayerPossessed.RemoveListener(PlayerPossessed);
                 _onPlayerRevived.RemoveListener(Revive);
@@ -157,7 +162,7 @@ namespace PlayerScripts
             _dashTimer -= Time.deltaTime;
             CheckIfGrounded();
             
-            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState) return;
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.GetGameWon) return;
             if (inDialog)
             {
                 _animator.SetBool(Moving, false);
@@ -685,6 +690,18 @@ namespace PlayerScripts
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
             _body.sharedMaterial = material;
+        }
+
+        private void GameWon()
+        {
+            _body.linearVelocity = new Vector2(0, 0);
+            SetState(State.Idle);
+            Invoke(nameof(EndGame), 3f);
+        }
+
+        private void EndGame()
+        {
+            transform.position = _endingPosition;
         }
 
         #region GetProperties
