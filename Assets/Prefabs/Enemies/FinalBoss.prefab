@@ -5011,7 +5011,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 285662925
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -302543470009414886, guid: 0768d34fd9bb71d42aa856ac8e78eee4, type: 3}
   m_Color: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   m_FlipX: 0
@@ -5476,6 +5476,7 @@ MonoBehaviour:
   _vieja: {fileID: 0}
   hitbox: {fileID: 5911654539999505092}
   globalLight: {fileID: 0}
+  speed: 0
   attack1: {fileID: 0}
   attack2: {fileID: 0}
   thunder1: {fileID: 0}

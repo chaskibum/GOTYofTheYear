@@ -49,6 +49,13 @@ namespace Managers
             Chillido,
             Totem,
             ViejaDeath,
+            CalderoDeath,
+            CalderoAttack1,
+            CalderoAttack2,
+            CalderoAttack3,
+            ThunderAttack,
+            Babita1,
+            Babita2,
         }
     
         [SerializeField] List<AudioClip> audioClips;

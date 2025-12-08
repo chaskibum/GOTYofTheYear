@@ -135,13 +135,20 @@ namespace EnemiesScripts
                 _standStill = false;
                 yield return new WaitForSeconds(2f);
                 StartCoroutine(attack1.BabAttack());
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack1);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita1);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(10f);
                 StartCoroutine(attack2.BabAttack());
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack2);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita2);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(13.5f);
                 StartCoroutine(attack1.BabAttack());
                 StartCoroutine(attack2.BabAttack());
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack3);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita1);
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita2);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(1.5f);
                 Disappear();
@@ -153,6 +160,7 @@ namespace EnemiesScripts
                 yield return new WaitForSeconds(1f);
                 StartCoroutine(thunder1.ThunderAttack());
                 StartCoroutine(thunder2.ThunderAttack());
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.ThunderAttack);
                 yield return new WaitForSeconds(8f);
                 globalLight.ChangeLight(0.1f);
             }

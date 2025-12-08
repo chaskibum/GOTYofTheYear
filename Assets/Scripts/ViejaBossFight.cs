@@ -29,7 +29,7 @@ public class ViejaBossFight : EnemyController
     {
         if (Hp == data.baseHp) finalBoss.StartFight();
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
-            
+        
         AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
 
         PlayHitFeedback();
@@ -50,6 +50,7 @@ public class ViejaBossFight : EnemyController
     {
         viejaEnding.SetActive(true);
         finalBoss.DeactivateCoroutine();
+        AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
     }
     
     protected override IEnumerator EndFeedback()
