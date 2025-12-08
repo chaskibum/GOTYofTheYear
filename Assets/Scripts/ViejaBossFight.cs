@@ -82,5 +82,6 @@ public class ViejaBossFight : EnemyController
         Hp = data.baseHp;
         Body.linearVelocity = Vector2.zero;
         Visuals.color = Color.white;
+        print(Hp);
     }
 }
