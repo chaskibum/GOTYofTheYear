@@ -85,6 +85,7 @@ namespace GameplayElements
         {
             if (!startActivated)
             {
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.Totem);
                 PlayerPrefs.SetString(name, name);
             }
         }

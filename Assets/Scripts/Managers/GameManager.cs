@@ -46,7 +46,7 @@ namespace Managers
             _onGameOver.AddListener(GameOverScreen);
             _onGameRestart.AddListener(RestartGameEvent);
 
-            fade.DOFade(0f, 2f);
+            fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -79,7 +79,7 @@ namespace Managers
         private void RestartGameEvent()
         {
             if (Time.timeScale == 0) uiManager.HandlePause();
-            fade.DOFade(0f, 2f).SetEase(Ease.InCirc);
+            fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Time.timeScale = 1;
             _gameOver = false;
             canWin = false;

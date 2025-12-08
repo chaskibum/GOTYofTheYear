@@ -81,7 +81,7 @@ namespace EnemiesScripts
             Disappear();
             thunder1.HideThunders();
             thunder2.HideThunders();
-            globalLight.ChangeLight(0.1f);
+            if (_standStill) globalLight.ChangeLight(0.1f);
         }
 
         private void Update()

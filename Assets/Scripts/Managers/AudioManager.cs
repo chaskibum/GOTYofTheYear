@@ -47,6 +47,7 @@ namespace Managers
             CrowScream,
             BushAlert,
             Chillido,
+            Totem,
         }
     
         [SerializeField] List<AudioClip> audioClips;
@@ -95,7 +96,7 @@ namespace Managers
 
         private int RandomDialog()
         {
-            return Random.Range(2, 4);
+            return Random.Range(5, 7);
         }
 
         public void StopClip()
