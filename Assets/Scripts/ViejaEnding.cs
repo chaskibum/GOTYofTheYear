@@ -1,25 +1,22 @@
-using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ViejaEnding : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer fadeToBlack;
+    [SerializeField] private Image fade;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        fade.color = Color.black;
+        AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack);
+        print("mataste a la vieja!");
+        Invoke(nameof(BackToMenu), 5f);
     }
-    
-    private IEnumerator EndGame()
+
+    private void BackToMenu()
     {
-        yield return new WaitForSeconds(5);
-        while (fadeToBlack.color.a < 1)
-        {
-            fadeToBlack.color = new Color(0, 0, 0, fadeToBlack.color.a + Time.deltaTime);
-            yield return new WaitForEndOfFrame();
-        }
-            
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -31,7 +31,7 @@ namespace Managers
         [SerializeField] private Image fade;
     
         private bool _gameOver = false;
-        private bool _gameWon = false;
+        public bool gameWon = false;
 
         private void Awake()
         {
@@ -56,11 +56,12 @@ namespace Managers
         {
             _onGameOver.RemoveListener(GameOverScreen);
             _onGameRestart.RemoveListener(RestartGameEvent);
+            _onGameWon.RemoveListener(PlayEnding);
         }
 
         private void PlayEnding()
         {
-            _gameWon = true;
+            gameWon = true;
             Invoke(nameof(EndingFade), 1f);
         }
 
@@ -124,7 +125,5 @@ namespace Managers
         public UIManager GetUIManager => uiManager;
     
         public bool GetGameOver => _gameOver;
-        
-        public bool GetGameWon => _gameWon;
     }
 }

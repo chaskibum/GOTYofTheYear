@@ -162,7 +162,7 @@ namespace PlayerScripts
             _dashTimer -= Time.deltaTime;
             CheckIfGrounded();
             
-            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.GetGameWon) return;
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
             if (inDialog)
             {
                 _animator.SetBool(Moving, false);
@@ -695,13 +695,16 @@ namespace PlayerScripts
         private void GameWon()
         {
             _body.linearVelocity = new Vector2(0, 0);
-            SetState(State.Idle);
+            _isImmune = true;
             Invoke(nameof(EndGame), 3f);
         }
 
         private void EndGame()
         {
+            GameManager.Instance.gameWon = false;
+            _animator.SetTrigger("TouchedFloor");
             transform.position = _endingPosition;
+            _isImmune = false;
         }
 
         #region GetProperties

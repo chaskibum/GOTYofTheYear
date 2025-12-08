@@ -30,8 +30,8 @@ namespace EnemiesScripts
         [Header("Wandering Paths")]
         private Vector3[] _verticalPath;
         private Vector3[] _horizontalPath;
-        private float _speed = 8f;
         private Tween _movementPattern;
+        public float speed;
 
         [Header("Attacks")]
         [SerializeField] private FinalBossBabita attack1;
@@ -46,10 +46,13 @@ namespace EnemiesScripts
             _animator = GetComponent<Animator>();
             _originalPos = transform.position;
             _thunderPos = new Vector3(582, -58, 0);
+            _standStill = false;
+            speed = 8f;
             
             _player = GameManager.Instance.GetPlayer;
             
             CreatePaths();
+            ShowAttacks();
             AddListeners(true);
         }
         
@@ -82,6 +85,8 @@ namespace EnemiesScripts
             thunder1.HideThunders();
             thunder2.HideThunders();
             if (_standStill) globalLight.ChangeLight(0.1f);
+            speed = 8f;
+            ShowAttacks();
         }
 
         private void Update()
@@ -89,13 +94,14 @@ namespace EnemiesScripts
             GetPlayerPosition();
             
             if (!_vieja.activeInHierarchy && _coroutineStarted && !_standStill)
-                transform.position = Vector3.MoveTowards(transform.position, _playerPos, _speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _playerPos, speed * Time.deltaTime);
         }
         
-        private void DeactivateCoroutine()
+        public void DeactivateCoroutine()
         {
             if (_babitaCoroutine != null)
             {
+                ShowAttacks(false);
                 StopCoroutine(_babitaCoroutine);
                 _babitaCoroutine = null;
                 _coroutineStarted = false;
@@ -111,6 +117,14 @@ namespace EnemiesScripts
                 _babitaCoroutine = StartCoroutine(nameof(BabitAttack));
                 _coroutineStarted = true;
             }
+        }
+
+        private void ShowAttacks(bool show = true)
+        {
+            attack1.gameObject.SetActive(show);
+            attack2.gameObject.SetActive(show);
+            thunder1.gameObject.SetActive(show);
+            thunder2.gameObject.SetActive(show);
         }
 
         private IEnumerator BabitAttack()

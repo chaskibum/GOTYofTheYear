@@ -40,6 +40,7 @@ public class ViejaBossFight : EnemyController
             finalBoss.GetAnimator.SetTrigger("Die");
             GameManager.Instance.GetGameWonEvent.Invoke();
             Invoke(nameof(EndGame), 3f);
+            finalBoss.speed += 8f;
         }
         else
             Invoke(nameof(ChangePosition), 0.05f);
@@ -48,6 +49,7 @@ public class ViejaBossFight : EnemyController
     private void EndGame()
     {
         viejaEnding.SetActive(true);
+        finalBoss.DeactivateCoroutine();
     }
     
     protected override IEnumerator EndFeedback()

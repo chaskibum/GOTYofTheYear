@@ -9,7 +9,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using UnityEngine.SceneManagement;
 
 namespace Utils
 {
@@ -36,6 +35,7 @@ namespace Utils
         [SerializeField] private bool repeatLastDialogue;
         [Header("Ending")]
         [SerializeField] private bool endingDialogue;
+        [SerializeField] private GameObject viejaHitbox;
         [SerializeField] private SpriteRenderer fadeToBlack;
         
         [SerializeField] private SkillCollectable dash;
@@ -117,23 +117,19 @@ namespace Utils
 
         private void ExitDialogue()
         {
-            if (endingDialogue) StartCoroutine(EndGame());
+            DeactivateDialog();
+            _canSpeak = false;
+            if (repeatLastDialogue) _lastDialogue = true;
+            if (!disappearAfterDialogue)
+                Invoke(nameof(CanSpeakAgain), 0.7f);
             else
             {
-                DeactivateDialog();
-                _canSpeak = false;
-                if (repeatLastDialogue) _lastDialogue = true;
-                if (!disappearAfterDialogue)
-                    Invoke(nameof(CanSpeakAgain), 0.7f);
+                if (!_player.GetDashUnlocked)
+                    dash.Activate(true);
                 else
                 {
-                    if (!_player.GetDashUnlocked)
-                        dash.Activate(true);
-                    else
-                    {
-                        Invoke(nameof(CanSpeakAgain), 0.7f);
-                        StartCoroutine(nameof(Disappear));
-                    }
+                    Invoke(nameof(CanSpeakAgain), 0.7f);
+                    StartCoroutine(nameof(Disappear));
                 }
             }
         }
@@ -143,6 +139,7 @@ namespace Utils
             _dialogueStarted = false;
             dialoguePanel.SetActive(false);
             _player.inDialog = false;
+            if (endingDialogue) ActivateCollider();
         }
 
         private void ResetDialogues()
@@ -170,15 +167,9 @@ namespace Utils
             gameObject.SetActive(false);
         }
 
-        private IEnumerator EndGame()
+        private void ActivateCollider()
         {
-            while (fadeToBlack.color.a < 1)
-            {
-                fadeToBlack.color = new Color(0, 0, 0, fadeToBlack.color.a + Time.deltaTime);
-                yield return new WaitForEndOfFrame();
-            }
-            
-            SceneManager.LoadScene("MainMenu");
+            viejaHitbox.SetActive(true);
         }
     
         private void CanSpeakAgain()
