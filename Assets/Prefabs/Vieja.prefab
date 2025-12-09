@@ -153,13 +153,16 @@ MonoBehaviour:
   interactPrompt: {fileID: 7855507270747092505}
   dialoguePanel: {fileID: 7633229673682375166}
   dialogueText: {fileID: 4000212990029005163}
-  dialogueList: []
   disappearAfterDialogue: 0
   timeToDisappear: 0
   hideVieja: 0
+  repeatLastDialogue: 0
   endingDialogue: 0
+  viejaHitbox: {fileID: 0}
   fadeToBlack: {fileID: 0}
   dash: {fileID: 0}
+  dialogueES: {fileID: 0}
+  dialogueEN: {fileID: 0}
 --- !u!95 &2995075747971858342
 Animator:
   serializedVersion: 7
@@ -193,6 +196,8 @@ GameObject:
   - component: {fileID: 3261852080432571036}
   - component: {fileID: 8562208562575618971}
   - component: {fileID: 4000212990029005163}
+  - component: {fileID: 4044086005493616221}
+  - component: {fileID: 2633586488231597758}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -248,8 +253,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Necesito que te abras paso a trav\xE9s de 3 \xE1reas, y conseguir los
-    ingredientes que debo tener... para crear un hechizo que deshaga la maldici\xF3n
-    por siempre 123456."
+    ingredientes que debo tener... <color=yellow>para crear un hechizo</color> que
+    deshaga la maldici\xF3n por <wave>siempre 123456.</wave>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
   m_sharedMaterial: {fileID: -2345810495039490867, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
@@ -320,6 +325,113 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4044086005493616221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190731608662247953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf9594e2a3b8eb4eaf3cc57f263076f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTextEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCharacterShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartWriter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopWriter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnWaitStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnWaitEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFinishWriter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSkipWriter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResetWriter:
+    m_PersistentCalls:
+      m_Calls: []
+  keywordDatabase: {fileID: 0}
+  sceneKeywordDatabase: {fileID: 0}
+  database: {fileID: 0}
+  maySkip: 1
+  writeOnStart: 1
+  writeOnNewText: 1
+  useScaledTime: 1
+  delays:
+    delay: 0.035
+    whitespaceDelay: 0
+    whitespaceDelayType: 0
+    linebreakDelay: 0
+    linebreakDelayType: 0
+    punctuationDelay: 0
+    punctuationDelayType: 0
+    visibleDelay: 0
+    visibleDelayType: 0
+  sceneCommands:
+    _serializedList: []
+  useDefaultDatabase: 0
+  useDefaultKeywordDatabase: 0
+  initDatabase: 1
+  eventsEnabled: 0
+  commandsEnabled: 1
+--- !u!114 &2633586488231597758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190731608662247953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64cc8a40f9848a54c94bf232155b0b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: f0a33761ff6919d4a9979ee36980a29d, type: 2}
+  context:
+    scaleAnimations: 1
+    scaleUniformly: 1
+    useScaledTime: 1
+    tmpAnimator: {fileID: 2633586488231597758}
+  updateFrom: 0
+  animateOnStart: 1
+  animationsOverride: 0
+  defaultAnimationsStrings: []
+  defaultShowAnimationsStrings: []
+  defaultHideAnimationsStrings: []
+  excludedCharacters: 
+  excludedCharactersShow: 
+  excludedCharactersHide: 
+  excludePunctuation: 0
+  excludePunctuationShow: 0
+  excludePunctuationHide: 0
+  sceneKeywordDatabase: {fileID: 0}
+  keywordDatabase: {fileID: 0}
+  sceneAnimations:
+    _serializedList: []
+  sceneShowAnimations:
+    _serializedList: []
+  sceneHideAnimations:
+    _serializedList: []
+  preview: 1
+  useDefaultDatabase: 1
+  useDefaultKeywordDatabase: 0
+  initDatabase: 1
+  previewUpdatesPerSecond: 60
+  previewTimeScale: 1
 --- !u!1 &3345125259074771729
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7674688956239476855
 RectTransform:
   m_ObjectHideFlags: 0
