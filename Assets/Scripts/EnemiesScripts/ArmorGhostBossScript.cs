@@ -23,10 +23,12 @@ namespace EnemiesScripts
         private bool BossSlain;
         private Camera _cam;
 
-        [Header("Music")]
+        [Header("Audio")]
         [SerializeField] private AudioSource musicStart;
         [SerializeField] private AudioSource musicLoop;
         [SerializeField] private AudioSource musicEnd;
+        [SerializeField] private AudioSource swordAttack;
+        [SerializeField] private AudioSource scream;
 
         protected override void Start()
         {
@@ -152,7 +154,7 @@ namespace EnemiesScripts
             if (!CanAttack) return;
             Animator?.SetBool("Attacking", true);
             Body.linearVelocityX = 0f;
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorBossAttack, false, 0.8f);
             base.Attack();
         }
         
@@ -178,7 +180,9 @@ namespace EnemiesScripts
                 if (BossSlain) break;
 
                 objects[Random.Range(0, objects.Count)].SetActive(true);
+                swordAttack.Play();
                 _cam.DOShakePosition(1.2f, 1f);
+                scream.Play();
                 Animator?.SetBool("Screaming", true);
                 SetState(State.Idle);
                 StartCoroutine(LockStateForSeconds(1.5f));
@@ -188,6 +192,7 @@ namespace EnemiesScripts
                 if (BossSlain) break;
 
                 enemies[Random.Range(0, enemies.Count)].SetActive(true);
+                scream.Play();
                 Animator?.SetBool("Screaming", true);
                 SetState(State.Idle);
                 StartCoroutine(LockStateForSeconds(1.5f));

@@ -56,6 +56,10 @@ namespace Managers
             ThunderAttack,
             Babita1,
             Babita2,
+            ArmorBossAttack,
+            ArmorBossSwordAttack,
+            ArmorBossScream,
+            HealingTree,
         }
     
         [SerializeField] List<AudioClip> audioClips;

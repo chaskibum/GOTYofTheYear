@@ -6,6 +6,8 @@ namespace GameplayElements
 {
     public class HealingSpot : MonoBehaviour, IInteractable
     {
+        [SerializeField] private AudioSource healSound;
+        
         private Animator _animator;
         private bool _isInRange;
 
@@ -71,6 +73,7 @@ namespace GameplayElements
         public void Interact()
         {
             if (_animator.GetBool("Used")) return;
+            healSound.Play();
             GameManager.Instance.GetPlayer.Heal();
             _animator.SetBool("Used", true);
         }
