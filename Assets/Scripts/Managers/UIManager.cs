@@ -17,7 +17,7 @@ namespace Managers
         [SerializeField] private GameObject uSurePanel;
         [SerializeField] private Slider slider;
         [SerializeField] private Button button;
-        [SerializeField] private GameObject pauseMenuUI;
+        [SerializeField] public GameObject pauseMenuUI;
         [SerializeField] private Transform livesContainer;
         [SerializeField] private GameObject bossHealthBars;
 

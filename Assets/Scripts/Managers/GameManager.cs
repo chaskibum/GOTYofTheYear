@@ -91,7 +91,8 @@ namespace Managers
 
         private void RestartGameEvent()
         {
-            if (Time.timeScale == 0) uiManager.HandlePause();
+            // if (Time.timeScale == 0) uiManager.HandlePause();
+            uiManager.pauseMenuUI.SetActive(false);
             fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Time.timeScale = 1;
             _gameOver = false;
