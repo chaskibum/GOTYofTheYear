@@ -14,6 +14,7 @@ namespace Managers
     {
         [SerializeField] private Button playButton;
         [SerializeField] private Slider slider;
+        [SerializeField] private Button closeButton;
         [SerializeField] private Image fade;
     
         private void Start()
@@ -59,6 +60,11 @@ namespace Managers
         public void HighlightPlayButton()
         {
             playButton.Select();
+        }
+        
+        public void HighlightCloseButton()
+        {
+            closeButton.Select();
         }
 
         public void HighlightVolumeSlider()
