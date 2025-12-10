@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Ay Mijo! Tus rodillas quedaron peor que las m\xEDas."
+  - "<jump>Ay <color=#FF00FF>Mijo</color>!</jump> Tus rodillas quedaron peor que
+    las m\xEDas."
   - "\xBFTe ca\xEDste? No te culpo. En esta zona los guerreros entrenaban sus aptitudes
     f\xEDsicas. Muy pocos superaban la prueba."
   - "Era tan divertido verlos intentar e intentar... Desde lejos y en silencio, claro.
     Nada deb\xEDa interrumpir el entrenamiento. "
-  - "Estaba prohibido acercarse, me daba terror hacerlo. Pero recuerdo venir con
-    alguien, quien siempre me convenc\xEDa. Volv\xEDamos a casa corriendo horas m\xE1s
-    tarde, entre risas."
-  - Fue hace tanto tiempo que a veces ni recuerdo que fui esa persona...
+  - "Estaba prohibido acercarse, me daba terror hacerlo. Pero <color=yellow>recuerdo
+    venir con alguien</color=yellow>, quien siempre me convenc\xEDa. Volv\xEDamos
+    a casa corriendo horas m\xE1s tarde, entre risas."
+  - <wave amplitude=2>Fue hace tanto tiempo que a veces ni recuerdo que fui esa persona...</wave>

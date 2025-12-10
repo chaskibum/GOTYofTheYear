@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - Cuidado Mijo.
-  - "Este fue el lugar de una terrible batalla, la \xFAltima que mi tribu vi\xF3,
-    la que puso un fin a nuestra lucha."
-  - "Era solo una ni\xF1a cuando ocurri\xF3. Trat\xE9 de ayudar, de protegerlos a
-    todos pero... esa noche la muerte estaba en el aire, y ninguno de nuestros Dioses
-    baj\xF3 a ayudarnos."
+  - Cuidado <color=#FF00FF>Mijo</color>.
+  - "Este fue el lugar de una <color=#00FFFF>terrible batalla</color>, la \xFAltima
+    que mi tribu vi\xF3, la que puso un fin a nuestra lucha."
+  - "<color=yellow>Era solo una ni\xF1a</color=yellow> cuando ocurri\xF3. Trat\xE9
+    de ayudar, de protegerlos a todos pero... esa noche la muerte estaba en el aire,
+    y ninguno de nuestros Dioses baj\xF3 a ayudarnos."
   - "No recuerdo mucho sobre este lugar, ni siquiera s\xE9 c\xF3mo sal\xED con vida.
-    Quiz\xE1 sea mejor as\xED, olvidar."
+    <wave amplitude=2>Quiz\xE1 sea mejor as\xED, olvidar.</wave>"

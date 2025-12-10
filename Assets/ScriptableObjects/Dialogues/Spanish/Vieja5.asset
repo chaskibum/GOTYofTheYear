@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Est\xE1s bien mijo? Escuch\xE9 un griter\xEDo por ah\xED."
-  - "Estaba a punto de bajar y ayudarte! (COF, COF).\\nAunque no me cab\xEDa duda
-    de que el Guardi\xE1n de la Orden se las iba a manejar."
+  - "Est\xE1s bien <color=#FF00FF>Mijo</color>? Escuch\xE9 un griter\xEDo por ah\xED."
+  - "Estaba a punto de bajar y ayudarte! <shake>(COF, COF)</shake>.\\nAunque no me
+    cab\xEDa duda de que el <color=#FF00FF>Guardi\xE1n de la Orden</color> se las
+    iba a manejar."
   - "Veo que extrajiste el poder de esa cosa horrible. Con \xE9l podr\xE1s avanzar
     hacia los campos de entrenamiento, a mi izquierda."
-  - "Ver\xE1s que es una zona muy divertida, jejeje."
+  - "Ver\xE1s que es una zona muy divertida, <shear>jejeje</shear>."

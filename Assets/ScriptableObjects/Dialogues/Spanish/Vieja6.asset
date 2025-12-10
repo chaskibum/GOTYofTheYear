@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - Veo que superaste al fantasma de uno de los guerreros. Tienes muy buen potencial...
+  - Veo que superaste al fantasma de uno de los guerreros. <sketchy>Tienes muy buen
+    potencial...</sketchy>
   - Ejem.
   - "Te cruzar\xE1s unos cu\xE1ntos de ellos. Hace d\xE9cadas, esto era el hogar
     de una tribu guerrera. Los hombres peleaban, las mujeres curaban."
@@ -22,4 +23,4 @@ MonoBehaviour:
     que les diera la ventaja frente a sus contrincantes."
   - "Fue as\xED como las mujeres de la tribu comenzaron a indagar sobre viejas creencias
     y poderes sobrehumanos."
-  - 'Nadie supo ver los peligros de jugar con algo tan grande... '
+  - 'Nadie supo ver los peligros de jugar con algo tan <sketchy>grande</sketchy>... '

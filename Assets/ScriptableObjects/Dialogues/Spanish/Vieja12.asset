@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - Estaba pensando, Mijo...
+  - <wave amplitude=2>Estaba pensando, <color=#FF00FF>Mijo</color>...</wave>
   - "Hacer todo este recorrido fue (cof) duro para m\xED."
   - "Pas\xE9 por lugares que no quer\xEDa, despert\xE9 recuerdos que cre\xED haber
     borrado."
-  - "De hecho no s\xE9 c\xF3mo llegu\xE9 hasta este lugar tan espantoso. Me siento
-    tan lejos de casa..."
+  - "De hecho <color=yellow>no s\xE9 c\xF3mo llegu\xE9 hasta este lugar tan espantoso</color=yellow>.
+    Me siento tan lejos de casa..."
   - Quisiera volver a casa.

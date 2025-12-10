@@ -5,6 +5,7 @@ using GameplayElements;
 using Managers;
 using PlayerScripts;
 using ScriptableObjects.Dialogues;
+using TMPEffects.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -18,11 +19,14 @@ namespace Utils
         private bool _showInteractPrompt = true;
         private bool _dialogueStarted;
         private int _dialogueIndex;
-        private const float DialogueSpeed = 0.05f;
+        private const float DialogueSpeed = 0.02f;
         private bool _canSpeak = true;
         private bool _lastDialogue;
         private bool _isSpanish = true;
         private List<String> _selectedDialogues = new List<String>();
+        private bool _isTyping;
+        private Coroutine _writingSound;
+        private TMPWriter _writer;
 
         [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
@@ -54,6 +58,7 @@ namespace Utils
             
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
+            _writer = dialoguePanel.GetComponentInChildren<TMPWriter>();
             
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
 
@@ -185,7 +190,7 @@ namespace Utils
             _sprite.flipX = _playerToTheRight ? false : true;
         }
 
-        public void Interact()
+        /*public void Interact()
         {
             if (!_dialogueStarted) StartDialogue();
             else if (dialogueText.text == _selectedDialogues[_dialogueIndex]) NextLine();
@@ -195,6 +200,27 @@ namespace Utils
                 dialogueText.text = string.Empty;
                 dialogueText.text = _selectedDialogues[_dialogueIndex];
             }
+        }*/
+        
+        public void Interact()
+        {
+            // if (!_dialogueStarted) StartDialogue();
+            if (_isTyping)
+            {
+                CompleteDialogue();
+                return;
+            }
+            if (!_dialogueStarted) StartDialogue();
+            else NextLine();
+            
+            
+            /*else if (_writingSound != null)
+            {
+                StopCoroutine(_writingSound);
+                _writingSound = null;
+                
+                dialogueText.text = _selectedDialogues[_dialogueIndex];
+            }*/
         }
 
         private void StartDialogue()
@@ -205,30 +231,83 @@ namespace Utils
             _player.inDialog = true;
             _showInteractPrompt = false;
             dialoguePanel.SetActive(true);
-            //StartCoroutine(WriteDialogue());
+            StartCoroutine(WriteDialogue());
         }
 
-        private IEnumerator WriteDialogue()
+        /*private IEnumerator WriteDialogue()
         {
             dialogueText.text = string.Empty;
+            dialogueText.text = _selectedDialogues[_dialogueIndex];
             foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
                 AudioManager.Instance.PlayDialogSound();
-                dialogueText.text += ch;
                 yield return new WaitForSecondsRealtime(DialogueSpeed);
             }
+        }*/
+        
+        private IEnumerator WriteDialogue()
+        {
+            _isTyping = true;
+            
+            dialogueText.text = string.Empty;
+            dialogueText.text = _selectedDialogues[_dialogueIndex];
+            //dialogueText.maxVisibleCharacters = 0;
+
+            foreach (char ch in _selectedDialogues[_dialogueIndex])
+            {
+                //dialogueText.maxVisibleCharacters++;
+                AudioManager.Instance.PlayDialogSound();
+                yield return new WaitForSecondsRealtime(DialogueSpeed);
+
+                if (!_isTyping) yield break;
+            }
+            
+            _isTyping = false;
+            _writingSound = null;
         }
 
-        private void NextLine()
+        /*private void NextLine()
         {
             if (_dialogueIndex < _selectedDialogues.Count - 1)
             {
                 _dialogueIndex++;
-                //StartCoroutine(WriteDialogue());
+                StartCoroutine(WriteDialogue());
             }
             else
             {
                 ExitDialogue();
+            }
+        }*/
+        
+        private void NextLine()
+        {
+            if (_writingSound != null)
+            {
+                StopCoroutine(_writingSound);
+                _writingSound = null;
+            }
+            if (_dialogueIndex < _selectedDialogues.Count - 1)
+            {
+                _dialogueIndex++;
+                dialogueText.text = _selectedDialogues[_dialogueIndex];
+                _writingSound = StartCoroutine(WriteDialogue());
+            }
+            else
+            {
+                ExitDialogue();
+            }
+        }
+        
+        private void CompleteDialogue()
+        {
+            _isTyping = false;
+            // dialogueText.maxVisibleCharacters = dialogueText.textInfo.characterCount;
+            _writer.SkipWriter();
+
+            if (_writingSound != null)
+            {
+                StopCoroutine(_writingSound);
+                _writingSound = null;
             }
         }
 

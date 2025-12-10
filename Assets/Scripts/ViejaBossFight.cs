@@ -1,11 +1,14 @@
 using System.Collections;
 using EnemiesScripts;
-using GameplayElements;
 using Managers;
 using UnityEngine;
 
 public class ViejaBossFight : EnemyController
 {
+    [Header("Audio")]
+    [SerializeField] private AudioSource lastHitSound;
+    [SerializeField] private AudioSource possessedSound;
+    
     [SerializeField] private Transform[] positions;
     [SerializeField] private FinalBossScript finalBoss;
     [SerializeField] private GameObject viejaEnding;
@@ -16,6 +19,8 @@ public class ViejaBossFight : EnemyController
     {
         Body = GetComponent<Rigidbody2D>();
         Visuals = GetComponentInChildren<SpriteRenderer>();
+        
+        possessedSound.volume = 0.4f;
             
         AddListeners(true);
     }
@@ -27,7 +32,11 @@ public class ViejaBossFight : EnemyController
 
     public override void GetHit()
     {
-        if (Hp == data.baseHp) finalBoss.StartFight();
+        if (Hp == data.baseHp)
+        {
+            finalBoss.StartFight();
+            possessedSound.volume = 1f;
+        }
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
         
         AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
@@ -39,6 +48,8 @@ public class ViejaBossFight : EnemyController
         {
             finalBoss.GetAnimator.SetTrigger("Die");
             GameManager.Instance.GetGameWonEvent.Invoke();
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
+            lastHitSound.Play();
             Invoke(nameof(EndGame), 3f);
             finalBoss.speed += 8f;
         }
@@ -50,7 +61,6 @@ public class ViejaBossFight : EnemyController
     {
         viejaEnding.SetActive(true);
         finalBoss.DeactivateCoroutine();
-        AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
     }
     
     protected override IEnumerator EndFeedback()
@@ -83,6 +93,6 @@ public class ViejaBossFight : EnemyController
         Hp = data.baseHp;
         Body.linearVelocity = Vector2.zero;
         Visuals.color = Color.white;
-        print(Hp);
+        possessedSound.volume = 0.4f;
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   language: 0
   dialogues:
   - "Agradeceme despu\xE9s! Tu trabajo est\xE1 reci\xE9n comenzando."
-  - "Ahhh... nada como el calorcito de una fogata para mis viejas y fr\xEDas manos."
+  - "<wave amplitude=4>Ahhh...</wave> nada como el calorcito de una fogata para mis
+    viejas y fr\xEDas manos."

@@ -73,6 +73,11 @@ namespace Managers
                 Destroy(gameObject);
         }
 
+        private void Start()
+        {
+
+        }
+
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)
         {
             sfxSource.volume = volume;

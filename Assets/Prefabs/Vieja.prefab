@@ -426,7 +426,7 @@ MonoBehaviour:
     _serializedList: []
   sceneHideAnimations:
     _serializedList: []
-  preview: 1
+  preview: 0
   useDefaultDatabase: 1
   useDefaultKeywordDatabase: 0
   initDatabase: 1
@@ -551,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7674688956239476855
 RectTransform:
   m_ObjectHideFlags: 0

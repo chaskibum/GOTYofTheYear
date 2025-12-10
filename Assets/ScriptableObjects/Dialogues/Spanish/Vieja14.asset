@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Mijo... \xBFQu\xE9 pas\xF3?"
-  - Mi cuerpo se siente muy raro... Mi cabeza... (COF, COF).
+  - "<color=#FF00FF>Mijo...</color> \xBFQu\xE9 pas\xF3?"
+  - Mi cuerpo se siente muy raro... Mi cabeza... <shake>(COF, COF)</shake>.
   - "Ja... \xBFTan vieja estoy? \xBFSer\xE1 que ya lleg\xF3 mi momento?"
-  - "Siento algo muy retorcido dentro de mi. Parece que siempre estuvo ah\xED, pero
-    solo ahora lo noto."
-  - "No merezco vivir. Estoy lista... Cumpl\xED con lo que viniste a hacer. Borr\xE1
-    la maldad de estas tierras de una vez por todas."
+  - "Siento algo muy <color=#00FFFF>retorcido</color> dentro de mi. Parece que siempre
+    estuvo ah\xED, pero solo ahora lo noto."
+  - "No merezco vivir. Estoy lista... Cumpl\xED con lo que viniste a hacer. <color=yellow>Borr\xE1
+    la maldad de estas tierras de una vez por todas.</color=yellow>"

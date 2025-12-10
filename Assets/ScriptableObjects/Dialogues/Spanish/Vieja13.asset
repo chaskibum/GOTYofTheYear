@@ -14,15 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Hola de nuevo, Guardi\xE1n de la Orden.\\nNos encontramos al final de tu recorrido."
+  - "<sketchy>Hola de nuevo, Guardi\xE1n de la Orden.\\nNos encontramos al final
+    de tu recorrido.</sketchy>"
   - "Estoy a un solo paso de completar el hechizo. Te preguntar\xE1s d\xF3nde est\xE1
-    el \xFAltimo ingrediente... Me encuentro hablando con \xE9l en este instante."
+    el \xFAltimo ingrediente... <sketchy>Me encuentro hablando con \xE9l en este
+    instante.</sketchy>"
   - "Solo el alma de un verdadero guerrero me dar\xE1 el poder de vagar libremente,
-    sin necesidad de este viejo e in\xFAtil recipiente. "
-  - "El \xFAnico recipiente que qued\xF3 tras aquella guerra en la que intent\xE9
+    sin necesidad de este <sketchy>viejo</sketchy> e <sketchy>in\xFAtil</sketchy>
+    recipiente. "
+  - "El \xFAnico recipiente que qued\xF3 tras aqu\xE9l combate en el que intent\xE9
     llevar a los guerreros de la tribu al l\xEDmite, descubrir el m\xE1ximo de sus
-    potenciales... Solo para verlos morir uno por uno. "
+    potenciales... Solo para verlos <dangle>morir</dangle> uno por uno. "
   - "Finalmente apareci\xF3 alguien digno, alguien capaz de darme la libertad que
     llevo tantos a\xF1os deseando."
   - "No sabes cu\xE1nto he esperado este momento... "
-  - Ahora... DAME TU ALMA!
+  - Ahora... <shake>DAME TU ALMA!</shake>

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "MIJO! No esperaba verte por ac\xE1. Por estas zonas me adentraba al bosque,
-    a jugar. "
-  - "El bosque est\xE1 lleno de caminos interconectados, pero desde que aparecieron
-    estas enredaderas se ha vuelto imposible cruzar."
+  - "<shake><color=#FF00FF>MIJO!</color> </shake>No esperaba verte por ac\xE1. Por
+    estas zonas me adentraba al bosque, a jugar. "
+  - "El bosque est\xE1 lleno de <color=#FF00FF>caminos interconectados</color>, pero
+    desde que aparecieron estas <color=#00FFFF>enredaderas</color> se ha vuelto imposible
+    cruzar."
   - Si tan solo nada pudiese tocarme, aunque sea durante unos segundos...

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "OJO! (cof)\\nSiento algo horrible adelante. Pero uno de mis ingredientes est\xE1
-    ah\xED. Ayudame a conseguirlo, por favor!"
-  - "No te olvides de activar el t\xF3tem, a la derecha. Si ocurriese una tragedia,
-    ning\xFAn Dios permita, te ser\xE1 de gran ayuda."
-  - "El otro t\xF3tem se encuentra cerca del pueblo, seguro ya lo cruzaste. Hasta
-    no activar este, aqu\xE9l permanecer\xE1 bloqueado. Tenlo en cuenta m\xE1s adelante!"
+  - "<shake>OJO! (cof)</shake>\\nSiento algo horrible adelante. Pero uno de mis <color=yellow>ingredientes</color=yellow>
+    est\xE1 ah\xED. Ayudame a conseguirlo, por favor!"
+  - "No te olvides de <color=#FF00FF><grow>activar el t\xF3tem</grow></color>, a
+    la derecha. Si ocurriese una tragedia, ning\xFAn Dios permita, te ser\xE1 de
+    gran ayuda."
+  - "El otro t\xF3tem se encuentra cerca del pueblo, seguro ya lo cruzaste. <color=#FF00FF><grow>Hasta
+    no activar este, aqu\xE9l permanecer\xE1 bloqueado</grow></color>. Tenlo en cuenta
+    m\xE1s adelante!"

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Recuerda, cuando est\xE9s perdido en la oscuridad... Sigue la luz."
+  - "Recuerda, cuando est\xE9s perdido en la oscuridad... <color=#FF00FF>Sigue la
+    luz</color>."

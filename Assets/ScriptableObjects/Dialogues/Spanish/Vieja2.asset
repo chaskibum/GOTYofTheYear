@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - Fogatas como estas son perfectas para descansar tras un arduo recorrido. Te recomiendo
-    hacerlo cada vez que te cruces con una.
-  - AH! (cof, cof) casi lo olvido.
-  - "Con la maldici\xF3n aparecieron grandes poderes, que acechan en lo que una vez
-    fue mi amado pueblo y sus afueras. "
-  - "Es posible extraer de ellos parte de sus habilidades. Las precisar\xE1s para
-    satisfacer mi recado... comenzando por esta."
+  - <color=#FF00FF>Fogatas</color> como estas son perfectas para <color=#FF00FF>descansar</color>
+    tras un arduo recorrido. Te recomiendo hacerlo cada vez que te cruces con una.
+  - <shake>AH! (cof, cof)</shake> casi lo olvido.
+  - "Con la <color=#00FFFF>maldici\xF3n</color> aparecieron grandes poderes, que
+    acechan en lo que una vez fue mi amado pueblo y sus afueras. "
+  - "Es posible extraer de ellos parte de sus <color=#FF00FF>habilidades</color>.
+    Las precisar\xE1s para satisfacer mi recado... <jump>comenzando por esta.</jump>"

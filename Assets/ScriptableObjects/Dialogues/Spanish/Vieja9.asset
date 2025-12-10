@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Veo que pudiste atravesar las enredaderas. Excelente, Guardi\xE1n. Quiz\xE1s
-    seas quien pueda ayudarme despu\xE9s de todo."
+  - "Veo que pudiste atravesar las enredaderas. <sketchy>Excelente, Guardi\xE1n</sketchy>.
+    Quiz\xE1s seas quien pueda ayudarme despu\xE9s de todo."
   - "El final est\xE1 muy cerca. Por ahora solo queda avanzar, y el \xFAltimo ingrediente
     ser\xE1 m\xEDo..."

@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "<color=yellow>MIJO!</color> Al fin lleg\xE1s. Necesito tu ayuda urgentemente."
-  - "(Esa tal \"Orden\" s\xED que es r\xE1pida...)"
-  - "Ver\xE1s... El pueblo est\xE1 maldito, por algo malvado que no deja que los
-    <sketchy>muertos descansen en paz.</sketchy>"
-  - "Tus poderes como <color=yellow>Guardian</color> ser\xE1n \xFAtiles, pero estoy
-    en busca de una (cof, cof) soluci\xF3n m\xE1s permanente."
-  - "Necesito que te abras paso a trav\xE9s de <sketchy><color=yellow>3 \xE1reas,
-    y conseguir los ingredientes</color></sketchy> que debo tener... para lanzar
-    un hechizo que deshaga la maldici\xF3n por siempre."
-  - "And\xE1 nom\xE1s! No queda mucho tiempo, especialmente para mi..."
+  - "<color=#FF00FF><sketchy>MIJO!</sketchy></color> Al fin lleg\xE1s. Necesito tu
+    ayuda urgentemente."
+  - "(Esa tal <color=#FF00FF>\"Orden\" </color> s\xED que es r\xE1pida...)"
+  - "Ver\xE1s... <color=#00FFFF>El pueblo est\xE1 maldito</color>, por algo malvado
+    que no deja que los muertos descansen en paz."
+  - "Tus poderes como <color=#FF00FF>Guardi\xE1n</color> ser\xE1n \xFAtiles, pero
+    estoy en busca de una <shake>(cof, cof)</shake> soluci\xF3n m\xE1s permanente."
+  - "Necesito que te abras paso a trav\xE9s de <color=yellow>3 \xE1reas</color>,
+    y conseguir los <color=yellow>ingredientes</color> que debo tener... para lanzar
+    un <color=yellow>hechizo que deshaga la maldici\xF3n</color> por siempre."
+  - "And\xE1 nom\xE1s! No queda mucho tiempo, <wave amplitude=2>especialmente para
+    mi...</wave>"
