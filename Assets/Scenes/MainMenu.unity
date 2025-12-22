@@ -356,7 +356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sonido, Testing
+  m_text: Sonido, Testeo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cfd2aad134652be4eaf397e73d49aee6, type: 2}
   m_sharedMaterial: {fileID: -4148783184830035637, guid: cfd2aad134652be4eaf397e73d49aee6, type: 2}
@@ -3305,7 +3305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Arte, Level Design
+  m_text: "Arte, Dise\xF1o de Nivel"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cfd2aad134652be4eaf397e73d49aee6, type: 2}
   m_sharedMaterial: {fileID: -4148783184830035637, guid: cfd2aad134652be4eaf397e73d49aee6, type: 2}
