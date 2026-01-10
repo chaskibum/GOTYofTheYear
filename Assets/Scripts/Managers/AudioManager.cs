@@ -17,6 +17,8 @@ namespace Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicSource;
 
+        public AudioSource finalBossMusic;
+
         [SerializeField] private AudioSettings settings;
 
         // [SerializeField] private GameObject mainMenuOptionsPanel;
@@ -60,6 +62,7 @@ namespace Managers
             ArmorBossSwordAttack,
             ArmorBossScream,
             HealingTree,
+            BossKill,
         }
     
         [SerializeField] List<AudioClip> audioClips;
@@ -75,7 +78,7 @@ namespace Managers
 
         private void Start()
         {
-
+            finalBossMusic.volume = 0.8f;
         }
 
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)

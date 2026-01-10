@@ -13,6 +13,7 @@ namespace GameplayElements
         [SerializeField] private bool startActivated;
         [SerializeField] private GameObject teletransport;
         [SerializeField] private GameObject interactPrompt;
+        [SerializeField] private AudioSource activeSound;
 
         private void Start()
         {
@@ -79,7 +80,7 @@ namespace GameplayElements
             _player.transform.position = teletransport.transform.position;
             teletransport.TryGetComponent(out Animator animator);
             animator.SetBool("Active", true);
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.Totem);
+            activeSound.Play();
         }
 
         public void SaveActivatedStatus()

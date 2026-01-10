@@ -700,7 +700,8 @@ namespace PlayerScripts
 
         private void GameWon()
         {
-            _body.linearVelocity = new Vector2(0, 0);
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x / 2, _body.linearVelocity.y / 2);
+            _body.gravityScale = data.dashGravity;
             _isImmune = true;
             Invoke(nameof(EndGame), 3f);
         }
@@ -709,8 +710,14 @@ namespace PlayerScripts
         {
             GameManager.Instance.gameWon = false;
             _animator.SetTrigger("TouchedFloor");
+            _body.gravityScale = data.regularGravity;
             transform.position = _endingPosition;
             _isImmune = false;
+        }
+
+        public void StopInputs()
+        {
+            _canChangeState = false;
         }
 
         #region GetProperties

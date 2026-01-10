@@ -18,6 +18,7 @@ namespace EnemiesScripts
         private bool _standStill;
         private bool _coroutineStarted = false;
         private Coroutine _babitaCoroutine;
+        private Camera _cam;
         [SerializeField] private GameObject _vieja;
         [SerializeField] private Collider2D hitbox;
         [SerializeField] private GlobalLightManager globalLight;
@@ -48,6 +49,7 @@ namespace EnemiesScripts
             _thunderPos = new Vector3(582, -58, 0);
             _standStill = false;
             speed = 8f;
+            _cam = Camera.main;
             
             _player = GameManager.Instance.GetPlayer;
             
@@ -105,6 +107,12 @@ namespace EnemiesScripts
                 StopCoroutine(_babitaCoroutine);
                 _babitaCoroutine = null;
                 _coroutineStarted = false;
+                if (_cam.orthographicSize != 7f)
+                {
+                    DOTween.PauseAll();
+                    _cam.DOOrthoSize(7f, 1.5f);
+                    globalLight.ChangeLight(0.1f);
+                }
             }
         }
 
@@ -137,11 +145,13 @@ namespace EnemiesScripts
                 StartCoroutine(attack1.BabAttack());
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack1);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita1);
+                _cam.DOShakePosition(.6f, .6f);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(10f);
                 StartCoroutine(attack2.BabAttack());
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack2);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita2);
+                _cam.DOShakePosition(.6f, .6f);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(13.5f);
                 StartCoroutine(attack1.BabAttack());
@@ -149,6 +159,7 @@ namespace EnemiesScripts
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoAttack3);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita1);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.Babita2);
+                _cam.DOShakePosition(.6f, .6f);
                 _animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(1.5f);
                 Disappear();
@@ -158,10 +169,14 @@ namespace EnemiesScripts
                 Appear();
                 globalLight.ChangeLight(0);
                 yield return new WaitForSeconds(1f);
+                _cam.transform.position = _thunderPos;
                 StartCoroutine(thunder1.ThunderAttack());
                 StartCoroutine(thunder2.ThunderAttack());
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.ThunderAttack);
+                _cam.DOShakePosition(8f, 0.2f);
+                _cam.DOOrthoSize(23f, 1.5f);
                 yield return new WaitForSeconds(8f);
+                _cam.DOOrthoSize(7f, 3f);
                 globalLight.ChangeLight(0.1f);
             }
         }

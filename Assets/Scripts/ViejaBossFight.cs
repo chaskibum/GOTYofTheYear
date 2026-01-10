@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using EnemiesScripts;
 using Managers;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class ViejaBossFight : EnemyController
     
     [SerializeField] private Transform[] positions;
     [SerializeField] private FinalBossScript finalBoss;
+    [SerializeField] private ParticleSystem deathParticles;
     [SerializeField] private GameObject viejaEnding;
     private Transform _newPos;
     private Transform _actualPos;
@@ -23,11 +25,6 @@ public class ViejaBossFight : EnemyController
         possessedSound.volume = 0.4f;
             
         AddListeners(true);
-    }
-
-    protected override void Update()
-    {
-        
     }
 
     public override void GetHit()
@@ -47,11 +44,15 @@ public class ViejaBossFight : EnemyController
         if (Hp <= 0)
         {
             finalBoss.GetAnimator.SetTrigger("Die");
+            deathParticles.Play();
             GameManager.Instance.GetGameWonEvent.Invoke();
             AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
+            Camera.main.DOShakePosition(1.8f, 1.2f);
+            possessedSound.volume = 0f;
+            AudioManager.Instance.finalBossMusic.volume = 0f;
             lastHitSound.Play();
             Invoke(nameof(EndGame), 3f);
-            finalBoss.speed += 8f;
+            finalBoss.speed = 0f;
         }
         else
             Invoke(nameof(ChangePosition), 0.05f);
@@ -61,13 +62,17 @@ public class ViejaBossFight : EnemyController
     {
         viejaEnding.SetActive(true);
         finalBoss.DeactivateCoroutine();
+        Time.timeScale = 1f;
     }
     
     protected override IEnumerator EndFeedback()
     {
         yield return new WaitForSecondsRealtime(0.15f);
         Visuals.color = new Color(100, 100, 100);
-        Time.timeScale = 1;
+        if (Hp <= 0)
+            Time.timeScale = 0.3f;
+        else
+            Time.timeScale = 1;
     }
 
     private void ChangePosition()

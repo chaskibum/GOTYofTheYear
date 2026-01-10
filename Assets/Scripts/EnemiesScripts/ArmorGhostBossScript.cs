@@ -16,6 +16,7 @@ namespace EnemiesScripts
         [SerializeField] private List<GameObject> objects;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private CanvasGroup healthGroup;
+        [SerializeField] private ParticleSystem deathParticles;
         private Coroutine _spawnCoroutine;
         private Vector3 _startingLockPosition = new Vector3(214, -111, 0);
         private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
@@ -131,6 +132,7 @@ namespace EnemiesScripts
             else
             {
                 Die();
+                Invoke(nameof(StopSlowMotion), 0.5f);
             }
         }
 
@@ -140,10 +142,12 @@ namespace EnemiesScripts
             healthGroup.gameObject.SetActive(false);
             PlayerPrefs.SetString("ArmorDead", "yes");
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.BossKill);
             BossSlain = true;
             unlockableSkill.Activate();
             musicLoop.Stop();
             musicEnd.Play();
+            deathParticles.Play();
             foreach (GameObject enemy in enemies)
                 if (enemy)
                     enemy.SetActive(false);
@@ -168,7 +172,10 @@ namespace EnemiesScripts
         {
             yield return new WaitForSecondsRealtime(0.05f);
             Visuals.color = new Color(0.5f, 1, 0.5f);
-            Time.timeScale = 1;
+            if (CurrentState == State.Die)
+                Time.timeScale = 0.3f;
+            else
+                Time.timeScale = 1;
         }
         
         private IEnumerator SpawnEnemies()
@@ -245,6 +252,12 @@ namespace EnemiesScripts
             lockDoor.transform.position = Vector3.Lerp(lockDoor.transform.position, _startingLockPosition, 3 * Time.deltaTime);
             DeactivateCoroutine();
             _spawnCoroutine = null;
+        }
+        
+        private void StopSlowMotion()
+        {
+            Time.timeScale = 1f;
+            print(Time.timeScale);
         }
     }
 }

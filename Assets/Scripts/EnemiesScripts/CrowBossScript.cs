@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameplayElements;
+using Managers;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -24,6 +25,7 @@ namespace EnemiesScripts
         [SerializeField] private AudioSource drums1;
         [SerializeField] private AudioSource drums2;
         [SerializeField] private AudioSource songEnding;
+        [SerializeField] private ParticleSystem deathParticles;
         [SerializeField] private AudioSource spookySound1;
         [SerializeField] private AudioSource spookySound2;
         private Coroutine _waveCoroutine;
@@ -170,6 +172,7 @@ namespace EnemiesScripts
             if (Hp <= 0)
             {
                 Die();
+                Invoke(nameof(StopSlowMotion), 0.5f);
             }
             else
             {
@@ -186,8 +189,10 @@ namespace EnemiesScripts
             unlockableSkill.Activate();
             RestartSongs();
             songEnding.Play();
+            deathParticles.Play();
             spookySound1.Stop();
             spookySound2.Stop();
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.BossKill);
             /*foreach (GameObject wave in waves)
                 Destroy(wave);*/
             DeactivateWaves();
@@ -197,7 +202,10 @@ namespace EnemiesScripts
         {
             yield return new WaitForSecondsRealtime(0.05f);
             Visuals.color = new Color(0.5f, 1, 0.5f);
-            Time.timeScale = 1;
+            if (CurrentState == State.Die)
+                Time.timeScale = 0.3f;
+            else
+                Time.timeScale = 1;
         }
 
         private void RestartSongs()
@@ -208,6 +216,12 @@ namespace EnemiesScripts
             drums1.Stop();
             drums2.Stop();
             songEnding.Stop();
+        }
+
+        private void StopSlowMotion()
+        {
+            Time.timeScale = 1f;
+            print(Time.timeScale);
         }
     }
 }
