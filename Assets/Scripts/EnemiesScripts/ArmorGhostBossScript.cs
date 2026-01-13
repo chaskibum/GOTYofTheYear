@@ -86,6 +86,8 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             base.ChaseState();
+            
+            Animator?.SetBool("Hit", false);
 
             if (healthGroup.alpha < 1)
             {

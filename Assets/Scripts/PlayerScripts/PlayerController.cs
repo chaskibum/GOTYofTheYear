@@ -74,6 +74,7 @@ namespace PlayerScripts
 
         private bool _isPossessed;
         private int _inputCount;
+        private int _exorciseInputTarget = 20;
         private float _randomPossessedDirection;
         private Camera _cam;
         
@@ -161,6 +162,13 @@ namespace PlayerScripts
             _attackCooldown -= Time.deltaTime;
             _dashTimer -= Time.deltaTime;
             CheckIfGrounded();
+
+            if (_isPossessed)
+            {
+                ExorciseInputs();
+                if (_inputCount >= _exorciseInputTarget) Exorcised();
+                print(_inputCount);
+            }
             
             if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
             if (inDialog)
@@ -281,14 +289,7 @@ namespace PlayerScripts
         {
             _body.linearVelocity = new Vector2(_randomPossessedDirection * data.moveSpeed, _body.linearVelocity.y);
 
-            if (Input.GetButtonDown("Jump")) _inputCount += 1;
-            if (Input.GetButtonDown("Horizontal")) _inputCount += 1;
-            if (Input.GetButtonDown("Attack")) _inputCount += 1;
-            if (Input.GetButtonDown("Dash")) _inputCount += 1;
-            if (Input.GetButtonDown("ImmuneSkill")) _inputCount += 1;
-            if (_inputCount >= 10) Exorcised();
-            
-            print(_inputCount);
+            // if (_inputCount >= 15) Exorcised();
         }
         
         private void DieState()
@@ -463,6 +464,15 @@ namespace PlayerScripts
         private void GetRandomDirection()
         {
             _randomPossessedDirection = Random.value < 0.5f ? -1f : 1f;
+        }
+        
+        private void ExorciseInputs()
+        {
+            if (Input.GetButtonDown("Jump")) _inputCount += 1;
+            if (Input.GetButtonDown("Horizontal")) _inputCount += 1;
+            if (Input.GetButtonDown("Attack")) _inputCount += 1;
+            if (Input.GetButtonDown("Dash")) _inputCount += 1;
+            if (Input.GetButtonDown("ImmuneSkill")) _inputCount += 1;
         }
 
         public void Exorcised()
