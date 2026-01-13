@@ -191,6 +191,7 @@ namespace EnemiesScripts
         {
             yield return new WaitForSeconds(data.pushTime);
             Body.linearVelocity = Vector2.zero;
+            if (Animator.GetBool("Hit")) Animator.SetBool("Hit", false);
             SetState(State.Chase);
         }
         
@@ -200,7 +201,7 @@ namespace EnemiesScripts
             _isDying = true;*/
 
             // Stop animations
-            // if (Animator) Animator.enabled = false;
+            // Invoke(nameof(StopAnimations), 0.1f);
             
             // Apply UP Force
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
@@ -208,6 +209,11 @@ namespace EnemiesScripts
             attackHitbox.SetActive(false);
             attackHurtbox.SetActive(false);
             if (wallsCollider) wallsCollider.enabled = false;
+        }
+
+        private void StopAnimations()
+        {
+            if (Animator) Animator.enabled = false;
         }
         
         protected virtual void Attack()
@@ -240,6 +246,8 @@ namespace EnemiesScripts
             Hp -= 1;
             if (Hp <= 0)
             {
+                // Stop animations
+                Invoke(nameof(StopAnimations), 0.1f);
                 SetState(State.Die);
                 StartCoroutine(nameof(Disappear));
             }
@@ -252,6 +260,7 @@ namespace EnemiesScripts
         protected void PlayHitFeedback()
         {
             Animator.SetTrigger("Hit");
+            Animator.SetBool("Hit", true);
             Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
@@ -260,6 +269,7 @@ namespace EnemiesScripts
         protected virtual IEnumerator EndFeedback()
         {
             yield return new WaitForSecondsRealtime(0.05f);
+            Animator.SetBool("Hit", false);
             Visuals.color = Color.white;
             Time.timeScale = 1;
         }

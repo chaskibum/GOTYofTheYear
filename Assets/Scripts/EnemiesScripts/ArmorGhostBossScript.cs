@@ -226,6 +226,7 @@ namespace EnemiesScripts
         {
             SetState(State.Chase);
             Animator?.SetBool("Screaming", false);
+            Animator?.SetBool("Hit", false);
         }
 
         private void RelocateObjects()
@@ -249,6 +250,7 @@ namespace EnemiesScripts
         protected override void DieState()
         {
             base.DieState();
+            Animator?.SetBool("Hit", true);
             lockDoor.transform.position = Vector3.Lerp(lockDoor.transform.position, _startingLockPosition, 3 * Time.deltaTime);
             DeactivateCoroutine();
             _spawnCoroutine = null;
