@@ -259,8 +259,8 @@ namespace EnemiesScripts
 
         protected void PlayHitFeedback()
         {
-            Animator.SetTrigger("Hit");
-            Animator.SetBool("Hit", true);
+            Animator?.SetTrigger("Hit");
+            Animator?.SetBool("Hit", true);
             Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));

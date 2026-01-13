@@ -169,12 +169,12 @@ namespace EnemiesScripts
                 Appear();
                 globalLight.ChangeLight(0);
                 yield return new WaitForSeconds(1f);
-                _cam.transform.position = _thunderPos;
+                // _cam.transform.position = _thunderPos;
                 StartCoroutine(thunder1.ThunderAttack());
                 StartCoroutine(thunder2.ThunderAttack());
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.ThunderAttack);
-                _cam.DOShakePosition(8f, 0.2f);
-                _cam.DOOrthoSize(23f, 1.5f);
+                _cam.DOShakePosition(0.1f, 2f);
+                _cam.DOOrthoSize(14f, 1.5f);
                 yield return new WaitForSeconds(8f);
                 _cam.DOOrthoSize(7f, 3f);
                 globalLight.ChangeLight(0.1f);
