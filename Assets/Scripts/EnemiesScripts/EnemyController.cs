@@ -211,7 +211,7 @@ namespace EnemiesScripts
             if (wallsCollider) wallsCollider.enabled = false;
         }
 
-        private void StopAnimations()
+        protected void StopAnimations()
         {
             if (Animator) Animator.enabled = false;
         }

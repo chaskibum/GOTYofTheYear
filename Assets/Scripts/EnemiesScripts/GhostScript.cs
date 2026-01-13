@@ -59,7 +59,15 @@ namespace EnemiesScripts
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack);
             
             Hp -= 1;
-            SetState(Hp <= 0 ? State.Die : State.GetHit);
+            if (Hp <= 0)
+            {
+                Invoke(nameof(StopAnimations), 0.1f);
+                SetState(State.Die);
+            }
+            else
+            {
+                SetState(State.GetHit);
+            }
         }
 
         protected override void GetHitState()
