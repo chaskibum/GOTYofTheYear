@@ -75,6 +75,11 @@ public class ViejaBossFight : EnemyController
             Time.timeScale = 1;
     }
 
+    protected override void GetPlayerPosition()
+    {
+        
+    }
+
     private void ChangePosition()
     {
         if (Hp == 1)

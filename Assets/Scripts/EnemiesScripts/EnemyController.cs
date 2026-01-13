@@ -51,6 +51,7 @@ namespace EnemiesScripts
             Body = GetComponent<Rigidbody2D>();
             Visuals = GetComponentInChildren<SpriteRenderer>();
             TryGetComponent(out Animator);
+            if (!Animator) Visuals.TryGetComponent(out Animator);
             Player = GameManager.Instance.GetPlayer;
             if (wallsCollider) wallsCollider.enabled = true;
             
@@ -199,7 +200,7 @@ namespace EnemiesScripts
             _isDying = true;*/
 
             // Stop animations
-            if (Animator) Animator.enabled = false;
+            // if (Animator) Animator.enabled = false;
             
             // Apply UP Force
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
@@ -250,6 +251,7 @@ namespace EnemiesScripts
 
         protected void PlayHitFeedback()
         {
+            Animator.SetTrigger("Hit");
             Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
