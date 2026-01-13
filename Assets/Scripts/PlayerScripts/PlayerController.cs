@@ -286,9 +286,9 @@ namespace PlayerScripts
             if (Input.GetButtonDown("Attack")) _inputCount += 1;
             if (Input.GetButtonDown("Dash")) _inputCount += 1;
             if (Input.GetButtonDown("ImmuneSkill")) _inputCount += 1;
-            if (_inputCount >= 25) Exorcised();
+            if (_inputCount >= 10) Exorcised();
             
-            // print(_inputCount);
+            print(_inputCount);
         }
         
         private void DieState()

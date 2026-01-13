@@ -13,7 +13,6 @@ namespace EnemiesScripts
         {
             base.Start();
             TryGetComponent(out MovementScript);
-            print(Animator);
         }
 
         protected override void ResetEnemy()
