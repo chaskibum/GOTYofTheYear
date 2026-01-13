@@ -5535,6 +5535,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.53333336
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.9803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.023529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.53333336
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.9803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.023529414
+      objectReference: {fileID: 0}
     - target: {fileID: 5843219307088588512, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -5547,6 +5571,14 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 1418193824020403633}
+    - target: {fileID: 6457424030430394566, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457424030430394566, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6742330375259608976, guid: a28910142082b1d479b1221a8d9be548, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5657,6 +5689,7 @@ MonoBehaviour:
   stateText: {fileID: 2988538908866731646}
   wallsCollider: {fileID: 4437259404135306101}
   particles: {fileID: 0}
+  hitParticles: {fileID: 3593039501331067041}
   idleSounds: {fileID: 0}
   unlockableSkill: {fileID: 0}
   attack: {fileID: 3891411048349249427}
@@ -5733,6 +5766,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!198 &3593039501331067041 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3645681403179775282, guid: a28910142082b1d479b1221a8d9be548, type: 3}
+  m_PrefabInstance: {fileID: 235600638993483155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3891411048349249427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3838214993714407936, guid: a28910142082b1d479b1221a8d9be548, type: 3}

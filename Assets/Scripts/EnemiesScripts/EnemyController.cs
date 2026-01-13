@@ -17,6 +17,7 @@ namespace EnemiesScripts
         
         [Header("Details")]
         [SerializeField] protected ParticleSystem particles;
+        [SerializeField] protected ParticleSystem hitParticles;
         [SerializeField] protected AudioSource idleSounds;
         
         public enum State { Idle, Chase, Attack, GetHit, Die, }
@@ -44,6 +45,7 @@ namespace EnemiesScripts
             StartingPosition = transform.position;
             AttackTimer = data.attackAnimationTime;
             Hp = data.baseHp;
+            hitParticles?.Pause();
         }
 
         protected virtual void Start()
@@ -261,6 +263,8 @@ namespace EnemiesScripts
         {
             Animator?.SetTrigger("Hit");
             Animator?.SetBool("Hit", true);
+            // hitParticles?.Pause();
+            hitParticles?.Play();
             Visuals.color = new Color(5, 5, 5);
             Time.timeScale = 0;
             StartCoroutine(nameof(EndFeedback));
