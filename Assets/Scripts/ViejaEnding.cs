@@ -9,6 +9,12 @@ public class ViejaEnding : MonoBehaviour
     [SerializeField] private Image fade;
     [SerializeField] private AudioSource rain;
 
+    [SerializeField] private GameObject viejaEnding;
+    [SerializeField] private GameObject viejaGoodEnding;
+    [SerializeField] private GameObject vieja1;
+    [SerializeField] private GameObject vieja2;
+    [SerializeField] private GameObject vieja3;
+
     private void Start()
     {
         rain.volume = 0.8f;
@@ -17,10 +23,13 @@ public class ViejaEnding : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         fade.color = Color.black;
-        // AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack);
-        // AudioManager.Instance.StopClip();
-        rain.volume = -0.5f;
+        rain.volume = 0f;
         rain.DOFade(1f, 8f);
+        viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
+        vieja1.GetComponent<BoxCollider2D>().enabled = false;
+        vieja2.GetComponent<BoxCollider2D>().enabled = false;
+        vieja3.GetComponent<BoxCollider2D>().enabled = false;
+        viejaGoodEnding.GetComponent<BoxCollider2D>().enabled = false;
         AudioManager.Instance.PlayClip(AudioManager.AudioList.ViejaDeath);
         GameManager.Instance.GetPlayer.StopInputs();
         GameManager.Instance.GetUIManager.inMenu = true;

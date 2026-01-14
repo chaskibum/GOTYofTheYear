@@ -62,6 +62,7 @@ namespace PlayerScripts
         private Vector3 _mainRespawnPosition;
         private Vector3 _endingPosition;
         private bool _canChangeState = true;
+        private bool _detectInputs;
         public bool inDialog = false;
         private bool _isImmune;
         private bool _isAttacking;
@@ -722,11 +723,13 @@ namespace PlayerScripts
             _animator.SetTrigger("TouchedFloor");
             _body.gravityScale = data.regularGravity;
             transform.position = _endingPosition;
+            visuals.facingRight = true;
             _isImmune = false;
         }
 
         public void StopInputs()
         {
+            _animator.SetBool("Moving", false);
             _canChangeState = false;
         }
 

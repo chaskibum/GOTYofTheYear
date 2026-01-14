@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using GameplayElements;
 using Managers;
 using PlayerScripts;
@@ -10,6 +11,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Utils
 {
@@ -21,7 +24,9 @@ namespace Utils
         private int _dialogueIndex;
         private const float DialogueSpeed = 0.02f;
         private bool _canSpeak = true;
+        private bool _blockDialogue = false;
         private bool _lastDialogue;
+        private int _goodEndingItems = 0;
         private bool _isSpanish = true;
         private List<String> _selectedDialogues = new List<String>();
         private bool _isTyping;
@@ -39,11 +44,17 @@ namespace Utils
         [SerializeField] private bool repeatLastDialogue;
         [Header("Ending")]
         [SerializeField] private bool endingDialogue;
+        [SerializeField] private bool goodEndingDialogue;
         [SerializeField] private GameObject viejaHitbox;
-        [SerializeField] private SpriteRenderer fadeToBlack;
+        [SerializeField] private Image fadeToBlack;
+        [SerializeField] private GameObject viejaEnding;
+        [SerializeField] private GameObject vieja1;
+        [SerializeField] private GameObject vieja2;
+        [SerializeField] private GameObject vieja3;
+        [SerializeField] private GameObject viejaGoodEnding;
         
+        [Header("Others")]
         [SerializeField] private SkillCollectable dash;
-
         [SerializeField] private DialoguesData dialogueES;
         [SerializeField] private DialoguesData dialogueEN;
         
@@ -144,7 +155,91 @@ namespace Utils
             _dialogueStarted = false;
             dialoguePanel.SetActive(false);
             _player.inDialog = false;
-            if (endingDialogue) ActivateCollider();
+            
+            if (endingDialogue)
+            {
+                ActivateCollider();
+                
+                
+                if (name == "Vieja2")
+                {
+                    if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
+                    {
+                        viejaGoodEnding.gameObject.SetActive(true);
+                        vieja3.gameObject.SetActive(false);
+                        return;
+                    }
+                }
+                if (name == "Vieja3")
+                {
+                    if (PlayerPrefs.GetString("Viejal1") == "Viejal1" || PlayerPrefs.GetString("Viejal2") == "Viejal2")
+                    {
+                        viejaGoodEnding.gameObject.SetActive(true);
+                        vieja3.gameObject.SetActive(false);
+                        return;
+                    }
+                    else
+                    {
+                        // viejaEnding.transform.localPosition = new Vector3(548.82f, -74.5f, 0);
+                        viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
+                    }
+                }
+                
+                if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && !vieja1.activeInHierarchy)
+                {
+                    /*var vector3 = viejaEnding.transform.localPosition;
+                    vector3.x = vector3.x + 30;
+                    viejaEnding.transform.localPosition = vector3;*/
+                    viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
+                    viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    
+                    vieja1.gameObject.SetActive(true);
+                    return;
+                }
+                if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && !vieja2.activeInHierarchy)
+                {
+                    /*var vectorEnding = viejaEnding.transform.localPosition;
+                    vectorEnding.x = vectorEnding.x + 30;
+                    viejaEnding.transform.localPosition = vectorEnding;*/
+                    viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
+                    viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    
+                    var vector3 = vieja1.transform.localPosition;
+                    vector3.x = vector3.x + 30;
+                    vieja1.transform.localPosition = vector3;
+                    vieja2.gameObject.SetActive(true);
+                    return;
+                }
+                if (PlayerPrefs.GetString("Viejal3") == "Viejal3" && !vieja3.activeInHierarchy)
+                {
+                    /*var vectorEnding = viejaEnding.transform.localPosition;
+                    vectorEnding.x = vectorEnding.x + 30;
+                    viejaEnding.transform.localPosition = vectorEnding;*/
+                    viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
+                    viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    
+                    var vector3 = vieja1.transform.localPosition;
+                    vector3.x = vector3.x + 30;
+                    vieja1.transform.localPosition = vector3;
+                    
+                    var vector = vieja2.transform.localPosition;
+                    vector.x = vector.x + 30;
+                    vieja2.transform.localPosition = vector;
+                    vieja3.gameObject.SetActive(true);
+                    return;
+                }
+            }
+        }
+
+        private void EndGame()
+        {
+            fadeToBlack.DOFade(1, 5f);
+            Invoke(nameof(BackToMenu), 5.5f);
+        }
+
+        private void BackToMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
         }
 
         private void ResetDialogues()
@@ -179,6 +274,7 @@ namespace Utils
     
         private void CanSpeakAgain()
         {
+            if (_blockDialogue) return;
             _showInteractPrompt = true;
             interactPrompt.SetActive(true);
             _canSpeak = true;
@@ -189,22 +285,9 @@ namespace Utils
             _playerToTheRight = _player.GetPlayerPosition.x > transform.position.x;
             _sprite.flipX = _playerToTheRight ? false : true;
         }
-
-        /*public void Interact()
-        {
-            if (!_dialogueStarted) StartDialogue();
-            else if (dialogueText.text == _selectedDialogues[_dialogueIndex]) NextLine();
-            else
-            {
-                StopAllCoroutines();
-                dialogueText.text = string.Empty;
-                dialogueText.text = _selectedDialogues[_dialogueIndex];
-            }
-        }*/
         
         public void Interact()
         {
-            // if (!_dialogueStarted) StartDialogue();
             if (_isTyping)
             {
                 CompleteDialogue();
@@ -212,15 +295,6 @@ namespace Utils
             }
             if (!_dialogueStarted) StartDialogue();
             else NextLine();
-            
-            
-            /*else if (_writingSound != null)
-            {
-                StopCoroutine(_writingSound);
-                _writingSound = null;
-                
-                dialogueText.text = _selectedDialogues[_dialogueIndex];
-            }*/
         }
 
         private void StartDialogue()
@@ -233,17 +307,6 @@ namespace Utils
             dialoguePanel.SetActive(true);
             StartCoroutine(WriteDialogue());
         }
-
-        /*private IEnumerator WriteDialogue()
-        {
-            dialogueText.text = string.Empty;
-            dialogueText.text = _selectedDialogues[_dialogueIndex];
-            foreach (char ch in _selectedDialogues[_dialogueIndex])
-            {
-                AudioManager.Instance.PlayDialogSound();
-                yield return new WaitForSecondsRealtime(DialogueSpeed);
-            }
-        }*/
         
         private IEnumerator WriteDialogue()
         {
@@ -251,11 +314,9 @@ namespace Utils
             
             dialogueText.text = string.Empty;
             dialogueText.text = _selectedDialogues[_dialogueIndex];
-            //dialogueText.maxVisibleCharacters = 0;
 
             foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
-                //dialogueText.maxVisibleCharacters++;
                 AudioManager.Instance.PlayDialogSound();
                 yield return new WaitForSecondsRealtime(DialogueSpeed);
 
@@ -265,19 +326,6 @@ namespace Utils
             _isTyping = false;
             _writingSound = null;
         }
-
-        /*private void NextLine()
-        {
-            if (_dialogueIndex < _selectedDialogues.Count - 1)
-            {
-                _dialogueIndex++;
-                StartCoroutine(WriteDialogue());
-            }
-            else
-            {
-                ExitDialogue();
-            }
-        }*/
         
         private void NextLine()
         {
@@ -294,6 +342,13 @@ namespace Utils
             }
             else
             {
+                if (goodEndingDialogue)
+                {
+                    _canSpeak = false;
+                    GameManager.Instance.GetPlayer.StopInputs();
+                    Invoke(nameof(EndGame), 3f);
+                    return;
+                }
                 ExitDialogue();
             }
         }
@@ -301,7 +356,6 @@ namespace Utils
         private void CompleteDialogue()
         {
             _isTyping = false;
-            // dialogueText.maxVisibleCharacters = dialogueText.textInfo.characterCount;
             _writer.SkipWriter();
 
             if (_writingSound != null)

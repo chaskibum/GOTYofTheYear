@@ -266,6 +266,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 976559614990452674, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: lengthInSec
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976559614990452674, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3047588560742125279, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -470,11 +478,13 @@ MonoBehaviour:
   stateText: {fileID: 0}
   wallsCollider: {fileID: 0}
   particles: {fileID: 0}
+  hitParticles: {fileID: 7900859234525644109}
   idleSounds: {fileID: 0}
   lastHitSound: {fileID: 7235092048364815382}
   possessedSound: {fileID: 5696868209918905212}
   positions: []
   finalBoss: {fileID: 0}
+  deathParticles: {fileID: 0}
   viejaEnding: {fileID: 0}
 --- !u!95 &9048100334882644364
 Animator:
@@ -501,6 +511,11 @@ Animator:
 --- !u!4 &5360171899549617232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3047588560742125279, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
+  m_PrefabInstance: {fileID: 6928808192776045199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7900859234525644109 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 976559614990452674, guid: 2f6fd7fc22f014945a65c9c00f679119, type: 3}
   m_PrefabInstance: {fileID: 6928808192776045199}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8136313952418882004 stripped

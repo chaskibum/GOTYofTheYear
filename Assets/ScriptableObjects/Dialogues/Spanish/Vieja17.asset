@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja17
+  m_EditorClassIdentifier: 
+  language: 0
+  dialogues:
+  - "Unos binoculares... \xBFpor qu\xE9 me mostr\xE1s esto? Ni siquiera sirven, est\xE1n
+    rotos. Aunque..."
+  - '*Los da vuelta*'
+  - SELENE! Ese era su nombre. El nombre de mi mejor amiga. Ahora recuerdo...
+  - "Con ella jugaba a las mu\xF1ecas en el bosque."
+  - "Con ella espi\xE1bamos a los guerreros mientras entrenaban."
+  - Recuerdo nuestras aventuras, lo divertido que era estar juntas. Recuerdo haberle
+    hecho una promesa...
