@@ -47,8 +47,6 @@ namespace EnemiesScripts
             {
                 if (babita == null) continue;
                 babita.Play();
-                // babita.transform.DOKill();
-                // babita.transform.DOBlendableLocalRotateBy(new Vector3(0, 0, 360), duration).SetEase(Ease.Linear);
             }
 
             foreach (var brillito in brillitos)

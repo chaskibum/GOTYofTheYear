@@ -45,6 +45,8 @@ namespace Utils
         [Header("Ending")]
         [SerializeField] private bool endingDialogue;
         [SerializeField] private bool goodEndingDialogue;
+        [SerializeField] private ParticleSystem entranceThunder;
+        [SerializeField] private AudioSource thunderSound;
         [SerializeField] private GameObject viejaHitbox;
         [SerializeField] private Image fadeToBlack;
         [SerializeField] private GameObject viejaEnding;
@@ -329,6 +331,13 @@ namespace Utils
         
         private void NextLine()
         {
+            if (name == "ViejaEvil" && _dialogueIndex == _selectedDialogues.Count - 2)
+            {
+                entranceThunder.Play();
+                thunderSound.Play();
+                entranceThunder.transform.parent.GetComponent<PolygonCollider2D>().enabled = true;
+                Invoke(nameof(ShakeCamera), 0.6f);
+            }
             if (_writingSound != null)
             {
                 StopCoroutine(_writingSound);
@@ -351,6 +360,11 @@ namespace Utils
                 }
                 ExitDialogue();
             }
+        }
+
+        private void ShakeCamera()
+        {
+            Camera.main.DOShakePosition(0.5f, 2f);
         }
         
         private void CompleteDialogue()

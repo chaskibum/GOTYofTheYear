@@ -14,6 +14,7 @@ public class ViejaBossFight : EnemyController
     [SerializeField] private FinalBossScript finalBoss;
     [SerializeField] private ParticleSystem deathParticles;
     [SerializeField] private GameObject viejaEnding;
+    [SerializeField] private ParticleSystem entranceThunder;
     private Transform _newPos;
     private Transform _actualPos;
 
@@ -45,6 +46,7 @@ public class ViejaBossFight : EnemyController
         {
             finalBoss.GetAnimator.SetTrigger("Die");
             deathParticles.Play();
+            entranceThunder.Stop();
             GameManager.Instance.GetGameWonEvent.Invoke();
             AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
             Camera.main.DOShakePosition(1.8f, 1.2f);
@@ -77,7 +79,7 @@ public class ViejaBossFight : EnemyController
 
     protected override void GetPlayerPosition()
     {
-        
+        // DONT ERASE (resets the basic logic, otherwise it bugs)
     }
 
     private void ChangePosition()
