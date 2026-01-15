@@ -29,32 +29,9 @@ namespace GameplayElements
             _startPosition = transform.position;
         
             HideSkill();
-            /*if (PlayerPrefs.GetString("DashUnlocked") == name)
-            {
-                _sprite.enabled = false;
-                _collider.enabled = false;
-            }
-            else if (PlayerPrefs.GetString("DoubleJumpUnlocked") == name)
-            {
-                _sprite.enabled = false;
-                _collider.enabled = false;
-            }
-            else if (PlayerPrefs.GetString("ImmunityUnlocked") == name)
-            {
-                _sprite.enabled = false;
-                _collider.enabled = false;
-            }*/
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
         }
-
-        /*private void Update()
-        {
-            if (panel.activeInHierarchy)
-            {
-                CheckCloseInput();
-            }
-        }*/
 
         private void OnDestroy()
         {
@@ -72,8 +49,15 @@ namespace GameplayElements
             }
             else
             {
-                _collider.enabled = true;
+                _sprite.DOFade(0f, 0f);
+                _sprite.DOFade(1f, 2f);
+                Invoke(nameof(ActivateCollider), 2f);
             }
+        }
+
+        private void ActivateCollider()
+        {
+            _collider.enabled = true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -100,14 +84,6 @@ namespace GameplayElements
             closeButton.Select();
             _uiManager.inMenu = true;
         }
-        
-        /*private void CheckCloseInput()
-        {
-            if (Input.GetButtonDown("Cancel"))
-            {
-                ClosePanel();
-            }
-        }*/
 
         public void HideSkill()
         {

@@ -13,17 +13,20 @@ namespace EnemiesScripts
         
         [SerializeField] private float duration;
 
+        [SerializeField] private ParticleSystem[] babitas;
+        [SerializeField] private ParticleSystem[] brillitos;
+
         private void Awake()
         {
             _sprites = GetComponentsInChildren<SpriteRenderer>();
             transform.position = basePosition;
         }
-        
+
         public IEnumerator BabAttack()
         {
             FadeIn();
             transform.DOMove(targetPosition, duration).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(duration - 0.5f);
+            yield return new WaitForSeconds(duration);
             FadeOut();
             yield return new WaitForSeconds(1f);
             transform.position = basePosition;
@@ -31,19 +34,27 @@ namespace EnemiesScripts
 
         private void FadeOut()
         {
-            foreach (var babita in _sprites)
+            foreach (var brillito in brillitos)
             {
-                if (babita == null) continue;
-                babita.DOFade(0f, 1f);
+                if (brillito == null) continue;
+                brillito.Stop();
             }
         }
 
         private void FadeIn()
         {
-            foreach (var babita in _sprites)
+            foreach (var babita in babitas)
             {
                 if (babita == null) continue;
-                babita.DOFade(1f, 1f);
+                babita.Play();
+                // babita.transform.DOKill();
+                // babita.transform.DOBlendableLocalRotateBy(new Vector3(0, 0, 360), duration).SetEase(Ease.Linear);
+            }
+
+            foreach (var brillito in brillitos)
+            {
+                if (brillito == null) continue;
+                brillito.Play();
             }
         }
     }

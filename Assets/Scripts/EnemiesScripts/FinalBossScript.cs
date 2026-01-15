@@ -109,9 +109,11 @@ namespace EnemiesScripts
                 _coroutineStarted = false;
                 if (_cam.orthographicSize != 7f)
                 {
-                    DOTween.PauseAll();
+                    DOTween.Pause(_cam);
+                    globalLight.PauseLightChange();
                     _cam.DOOrthoSize(7f, 1.5f);
                     globalLight.ChangeLight(0.1f);
+                    print("changing global light");
                 }
             }
         }

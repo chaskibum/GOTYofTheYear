@@ -261,7 +261,6 @@ namespace EnemiesScripts
         private void StopSlowMotion()
         {
             Time.timeScale = 1f;
-            print(Time.timeScale);
         }
     }
 }

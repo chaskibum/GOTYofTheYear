@@ -19,5 +19,12 @@ namespace Utils
         {
             DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, targetIntensity, 1f);
         }
+
+        public void PauseLightChange()
+        {
+            DOTween.Pause(globalLight);
+        }
+        
+        public float LightIntensity => globalLight.intensity;
     }
 }
