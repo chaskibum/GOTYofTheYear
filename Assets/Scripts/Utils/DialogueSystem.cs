@@ -54,6 +54,7 @@ namespace Utils
         [SerializeField] private GameObject vieja2;
         [SerializeField] private GameObject vieja3;
         [SerializeField] private GameObject viejaGoodEnding;
+        private int _viejalIndex = 0;
         
         [Header("Others")]
         [SerializeField] private SkillCollectable dash;
@@ -162,13 +163,16 @@ namespace Utils
             {
                 ActivateCollider();
                 
+                vieja1.gameObject.SetActive(true);
+                vieja2.gameObject.SetActive(true);
+                vieja3.gameObject.SetActive(true);
                 
                 if (name == "Vieja2")
                 {
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
                     {
                         viejaGoodEnding.gameObject.SetActive(true);
-                        vieja3.gameObject.SetActive(false);
+                        vieja2.gameObject.SetActive(false);
                         return;
                     }
                 }
@@ -182,55 +186,54 @@ namespace Utils
                     }
                     else
                     {
-                        // viejaEnding.transform.localPosition = new Vector3(548.82f, -74.5f, 0);
                         viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
                     }
                 }
                 
-                if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && !vieja1.activeInHierarchy)
+                if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1.transform.localPosition.x != 548.82f)
                 {
-                    /*var vector3 = viejaEnding.transform.localPosition;
-                    vector3.x = vector3.x + 30;
-                    viejaEnding.transform.localPosition = vector3;*/
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    vieja1.gameObject.SetActive(true);
+                    TraerVieja(vieja1);
                     return;
                 }
-                if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && !vieja2.activeInHierarchy)
+                if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && vieja2.transform.localPosition.x != 548.82f)
                 {
-                    /*var vectorEnding = viejaEnding.transform.localPosition;
-                    vectorEnding.x = vectorEnding.x + 30;
-                    viejaEnding.transform.localPosition = vectorEnding;*/
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    var vector3 = vieja1.transform.localPosition;
-                    vector3.x = vector3.x + 30;
-                    vieja1.transform.localPosition = vector3;
-                    vieja2.gameObject.SetActive(true);
+                    AlejarVieja(vieja1);
+                    vieja1.gameObject.SetActive(false);
+                    TraerVieja(vieja2);
                     return;
                 }
-                if (PlayerPrefs.GetString("Viejal3") == "Viejal3" && !vieja3.activeInHierarchy)
+                if (PlayerPrefs.GetString("Viejal3") == "Viejal3" && vieja3.transform.localPosition.x != 548.82f)
                 {
-                    /*var vectorEnding = viejaEnding.transform.localPosition;
-                    vectorEnding.x = vectorEnding.x + 30;
-                    viejaEnding.transform.localPosition = vectorEnding;*/
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    var vector3 = vieja1.transform.localPosition;
-                    vector3.x = vector3.x + 30;
-                    vieja1.transform.localPosition = vector3;
-                    
-                    var vector = vieja2.transform.localPosition;
-                    vector.x = vector.x + 30;
-                    vieja2.transform.localPosition = vector;
-                    vieja3.gameObject.SetActive(true);
+                    vieja1.gameObject.SetActive(false);
+                    vieja2.gameObject.SetActive(false);
+                    AlejarVieja(vieja2);
+                    TraerVieja(vieja3);
                     return;
                 }
             }
+        }
+        
+        private void AlejarVieja(GameObject vieja)
+        {
+            var pos = vieja.transform.localPosition;
+            pos.x += 30;
+            vieja.transform.localPosition = pos;
+        }
+        
+        private void TraerVieja(GameObject vieja)
+        {
+            var pos = vieja.transform.localPosition;
+            pos.x -= 30;
+            vieja.transform.localPosition = pos;
         }
 
         private void EndGame()

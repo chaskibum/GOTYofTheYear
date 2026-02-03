@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "\xBFQu\xE9? \xBFSe pensaron que lo del drag\xF3n era joda?"
-  - "Sac\xE1 la cara de sorprendido Felipe..."
-  - ejjejejejje
+  - "<color=yellow>Nuevo jefe de DLC desbloqueado...</color=yellow> disfr\xFAtalo
+    el <color=yellow>30 de febrero.</color=yellow>"
+  - Nah, hablando en serio Mijo...
+  - <color=yellow>Gracias por jugar :)</color=yellow>

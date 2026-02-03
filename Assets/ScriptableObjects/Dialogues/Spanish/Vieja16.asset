@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Esta mu\xF1eca... \xBFpara m\xED?"
+  - "Esta <color=#FF00FF>mu\xF1eca...</color> \xBFpara m\xED?"
   - Es preciosa.
-  - "(snif) Oh... ese aroma... me recuerda a alguien muy preciada para mi. No logro
-    recordar qui\xE9n, aunque me duela la cabeza de intentarlo."
+  - "(snif) Oh... ese <color=yellow>aroma...</color> me recuerda a alguien muy preciada
+    para mi. No logro recordar qui\xE9n, aunque me duela la cabeza de intentarlo."

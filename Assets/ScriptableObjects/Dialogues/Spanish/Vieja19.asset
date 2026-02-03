@@ -15,5 +15,6 @@ MonoBehaviour:
   language: 0
   dialogues:
   - "Mantendr\xE9 mi promesa, Selene. Mientras yo viva, vos tambi\xE9n lo har\xE1s."
-  - Mijo...
+  - <color=yellow>Este Recado Maldito llega a su fin.</color>
+  - <color=#FF00FF>Mijo...</color>
   - "\xBFGusta una tacita de caf\xE9?"

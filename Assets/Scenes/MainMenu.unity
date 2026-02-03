@@ -1424,7 +1424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &459937121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1440,9 +1440,9 @@ RectTransform:
   - {fileID: 1282387009}
   m_Father: {fileID: 2087177455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -488}
   m_SizeDelta: {x: 256, y: 122}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &459937122
@@ -5280,6 +5280,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   sfxSource: {fileID: 372991839}
   musicSource: {fileID: 1601041619}
+  finalBossMusic: {fileID: 0}
   settings: {fileID: 1265508581}
   audioClips:
   - {fileID: 8300000, guid: 85e90ea4f673bf94993719514eed4814, type: 3}

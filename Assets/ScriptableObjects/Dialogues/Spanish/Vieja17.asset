@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Unos binoculares... \xBFpor qu\xE9 me mostr\xE1s esto? Ni siquiera sirven, est\xE1n
-    rotos. Aunque..."
+  - "Unos <color=#FF00FF>binoculares...</color> \xBFpor qu\xE9 me mostr\xE1s esto?
+    Ni siquiera sirven, est\xE1n rotos. Aunque..."
   - '*Los da vuelta*'
-  - SELENE! Ese era su nombre. El nombre de mi mejor amiga. Ahora recuerdo...
+  - <color=yellow>SELENE!</color> Ese era su nombre. El nombre de <color=yellow>mi
+    mejor amiga.</color> Ahora recuerdo...
   - "Con ella jugaba a las mu\xF1ecas en el bosque."
   - "Con ella espi\xE1bamos a los guerreros mientras entrenaban."
   - Recuerdo nuestras aventuras, lo divertido que era estar juntas. Recuerdo haberle

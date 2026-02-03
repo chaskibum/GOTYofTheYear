@@ -15,7 +15,8 @@ MonoBehaviour:
   language: 0
   dialogues:
   - Eh, esto...
-  - "Este es el retrato que le regal\xE9 a Selene para su cumplea\xF1os!"
-  - "As\xED que as\xED era su rostro... \xBFC\xF3mo pude olvidarlo?"
+  - "Este es el <color=#FF00FF>retrato</color> que le regal\xE9 a Selene para su
+    cumplea\xF1os!"
+  - "As\xED que <color=yellow>as\xED era su rostro...</color> \xBFC\xF3mo pude olvidarlo?"
   - "Creo que s\xE9 d\xF3nde conseguiste esto. S\xE9 qu\xE9 fue lo que pas\xF3, por
     qu\xE9 intent\xE9 borrar todo de mi mente."
