@@ -163,16 +163,16 @@ namespace Utils
             {
                 ActivateCollider();
                 
-                vieja1.gameObject.SetActive(true);
-                vieja2.gameObject.SetActive(true);
-                vieja3.gameObject.SetActive(true);
+                if (vieja1) vieja1.gameObject.SetActive(true);
+                if (vieja2) vieja2.gameObject.SetActive(true);
+                if (vieja3) vieja3.gameObject.SetActive(true);
                 
                 if (name == "Vieja2")
                 {
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
                     {
                         viejaGoodEnding.gameObject.SetActive(true);
-                        vieja2.gameObject.SetActive(false);
+                        Destroy(vieja2);
                         return;
                     }
                 }
@@ -181,7 +181,7 @@ namespace Utils
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" || PlayerPrefs.GetString("Viejal2") == "Viejal2")
                     {
                         viejaGoodEnding.gameObject.SetActive(true);
-                        vieja3.gameObject.SetActive(false);
+                        Destroy(vieja3);
                         return;
                     }
                     else
@@ -190,7 +190,7 @@ namespace Utils
                     }
                 }
                 
-                if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1.transform.localPosition.x != 548.82f)
+                if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1 && vieja1.transform.localPosition.x != 548.82f)
                 {
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
@@ -198,13 +198,13 @@ namespace Utils
                     TraerVieja(vieja1);
                     return;
                 }
-                if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && vieja2.transform.localPosition.x != 548.82f)
+                if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && vieja2 && vieja2.transform.localPosition.x != 548.82f)
                 {
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    AlejarVieja(vieja1);
-                    vieja1.gameObject.SetActive(false);
+                    //AlejarVieja(vieja1);
+                    Destroy(vieja1);
                     TraerVieja(vieja2);
                     return;
                 }
@@ -213,9 +213,9 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    vieja1.gameObject.SetActive(false);
-                    vieja2.gameObject.SetActive(false);
-                    AlejarVieja(vieja2);
+                    //Destroy(vieja1);
+                    Destroy(vieja2);
+                    //AlejarVieja(vieja2);
                     TraerVieja(vieja3);
                     return;
                 }
