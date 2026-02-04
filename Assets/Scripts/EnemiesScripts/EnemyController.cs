@@ -1,5 +1,4 @@
 using System.Collections;
-using GameplayElements;
 using Managers;
 using PlayerScripts;
 using TMPro;
@@ -82,7 +81,6 @@ namespace EnemiesScripts
 
         protected virtual void Update()
         {
-            // if (_isDying) return;
             GetPlayerPosition();
             if (CurrentState == State.Chase)
                 CalculateDirection();
@@ -199,12 +197,6 @@ namespace EnemiesScripts
         
         protected virtual void DieState()
         {
-            /*if (_isDying) return;
-            _isDying = true;*/
-
-            // Stop animations
-            // Invoke(nameof(StopAnimations), 0.1f);
-            
             // Apply UP Force
             Body.AddForce(Vector2.up * 0.1f, ForceMode2D.Impulse);
             
@@ -250,6 +242,7 @@ namespace EnemiesScripts
             {
                 // Stop animations
                 Invoke(nameof(StopAnimations), 0.1f);
+                AudioManager.Instance.MuteAttackSound();
                 SetState(State.Die);
                 StartCoroutine(nameof(Disappear));
             }
@@ -297,7 +290,6 @@ namespace EnemiesScripts
 
             yield return new WaitForSeconds(10f);
             gameObject.SetActive(false);
-            // _isDying = false;
         }
         
         protected IEnumerator LockStateForSeconds(float duration)

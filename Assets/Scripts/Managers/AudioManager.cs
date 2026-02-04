@@ -125,6 +125,14 @@ namespace Managers
             sfxSource.loop = false;
         }
 
+        public void MuteAttackSound()
+        {
+            if (sfxSource.isPlaying && sfxSource.clip == audioClips[(int)AudioList.ArmorAttack])
+            {
+                sfxSource.Stop();
+            }
+        }
+
         public void ChangeMusicVolume()
         {
             if (musicSlider.value < -39f) audioMixer.SetFloat("MusicVolume", -60f);

@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using Managers;
 using UnityEngine;
 
@@ -5,6 +6,11 @@ namespace EnemiesScripts
 {
     public class SneakyBushScript : EnemyController
     {
+        [Header("Audio")] 
+        [SerializeField] private SoundID attackSound;
+        [SerializeField] private SoundID hurtSound;
+        [SerializeField] private SoundID deathSound;
+        
         protected override void IdleState()
         {
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
@@ -29,7 +35,8 @@ namespace EnemiesScripts
 
         public void PlayAttackSound()
         {
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
+            // AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
+            BroAudio.Play(attackSound);
             particles.Clear();
             particles.Play();
         }
@@ -46,9 +53,15 @@ namespace EnemiesScripts
             base.GetHit();
             if (Hp <= 0)
             {
-                AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
+                // AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
+                BroAudio.Stop(attackSound);
+                BroAudio.Play(deathSound);
                 particles.Stop();
                 Animator?.SetBool("Attacking", false);
+            }
+            else
+            {
+                BroAudio.Play(hurtSound);
             }
         }
 

@@ -111,12 +111,13 @@ namespace EnemiesScripts
             if (!musicStart.isPlaying)
             {
                 musicStart.Play();
-                Invoke(nameof(PlayLoop), 3.05f);
+                StartCoroutine(PlayLoop());
             }
         }
 
-        private void PlayLoop()
+        private IEnumerator PlayLoop()
         {
+            yield return new WaitForSecondsRealtime(3.05f);
             musicStart.volume = 0;
             if (!musicLoop.isPlaying)
                 musicLoop.Play();

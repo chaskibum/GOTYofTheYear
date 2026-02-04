@@ -5179,6 +5179,18 @@ MonoBehaviour:
   particles: {fileID: 3612090542603498629}
   hitParticles: {fileID: 7136951772383922106}
   idleSounds: {fileID: 0}
+  attackSound:
+    ID: 1073741827
+    _sourceAsset: {fileID: 11400000, guid: af59112e782dabb4291999a879b32489, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2260937899754086122}
+  hurtSound:
+    ID: 1073741828
+    _sourceAsset: {fileID: 11400000, guid: af59112e782dabb4291999a879b32489, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2260937899754086122}
+  deathSound:
+    ID: 1073741829
+    _sourceAsset: {fileID: 11400000, guid: af59112e782dabb4291999a879b32489, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2260937899754086122}
 --- !u!1 &3855080162455854337
 GameObject:
   m_ObjectHideFlags: 0
