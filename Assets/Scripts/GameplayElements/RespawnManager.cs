@@ -13,16 +13,13 @@ namespace GameplayElements
         [SerializeField] protected GameObject levelEnemies;
         private PlayerController _player;
         protected Vector3 _respawnPos;
-        
-        private GameManager _gm;
 
         private void Start()
         {
-            _gm = GameManager.Instance;
-            _player = _gm.GetPlayer;
+            _player = GameManager.Instance.GetPlayer;
             _player.GetPlayerRevived?.AddListener(Revive);
             // GameManager.Instance.GetPlayerRespawn?.AddListener(DeactivateEnemies);
-            _gm.GetGameRestarted?.AddListener(ReloadLevel); 
+            GameManager.Instance.GetGameRestarted?.AddListener(ReloadLevel); 
             // DeactivateEnemies();
         }
 
@@ -46,8 +43,8 @@ namespace GameplayElements
         private void OnDestroy()
         {
             _player.GetPlayerRevived?.RemoveListener(Revive);
-            _gm.GetGameRestarted?.RemoveListener(ReloadLevel);
-            _gm.GetPlayerRespawn?.RemoveListener(DeactivateEnemies);
+            GameManager.Instance.GetGameRestarted?.RemoveListener(ReloadLevel);
+            GameManager.Instance.GetPlayerRespawn?.RemoveListener(DeactivateEnemies);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)

@@ -17,8 +17,6 @@ namespace GameplayElements
         [SerializeField] private GameObject interactPrompt;
     
         private bool _isInRange;
-        
-        private GameManager _gm;
 
         private void Awake()
         {
@@ -27,9 +25,8 @@ namespace GameplayElements
 
         private void Start()
         {
-            _gm = GameManager.Instance;
-           _gm.GetGameRestarted?.AddListener(ResetAnimations);
-            _gm.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
+            GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
             Invoke(nameof(ActivateRespawn), 0.1f);
         }
 
@@ -49,8 +46,8 @@ namespace GameplayElements
         private void OnDestroy()
         {
             OnCollisionEvent -= HandleAnimations;
-            _gm.GetGameRestarted?.RemoveListener(ResetAnimations);
-            _gm.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
+            GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
+            GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -95,15 +92,15 @@ namespace GameplayElements
         private void ActivateMainRespawn()
         {
             _lastSavedRespawnPosition = transform.position;
-            _gm.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
+            GameManager.Instance.GetPlayer.SetMainRespawnPosition(_lastSavedRespawnPosition);
             PlayActivatingSound();
-            _gm.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
+            GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
         }
 
         private void ActivateBonfireRespawn()
         {
             _lastSavedRespawnPosition = transform.position;
-            _gm.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
+            GameManager.Instance.GetPlayer.SetRespawnPosition(_lastSavedRespawnPosition);
         }
 
         private void HandleAnimations(SaveSpotManager activated)

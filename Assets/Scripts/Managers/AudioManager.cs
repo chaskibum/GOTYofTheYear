@@ -20,6 +20,8 @@ namespace Managers
         public AudioSource finalBossMusic;
 
         [SerializeField] private AudioSettings settings;
+
+        // [SerializeField] private GameObject mainMenuOptionsPanel;
     
         public enum AudioList
         {

@@ -31,7 +31,6 @@ namespace PlayerScripts
         
         private Animator _animator;
         private PlayerHealth _playerHealth;
-        private GameManager _gm;
 
         #region States
         public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, Dash }
@@ -94,7 +93,6 @@ namespace PlayerScripts
             _playerHealth = GetComponent<PlayerHealth>();
             _weapon = playerWeapon.GetComponent<PlayerWeapon>();
             _cam = Camera.main;
-            _gm = GameManager.Instance;
 
             _endingPosition = new Vector3(545, -74.5f, 0);
             
@@ -116,7 +114,7 @@ namespace PlayerScripts
         {
             if (PlayerPrefs.GetFloat("XPosition") == 0)
             {
-                _gm.RevivePlayer();
+                GameManager.Instance.RevivePlayer();
             }
             else
             {
@@ -133,26 +131,26 @@ namespace PlayerScripts
         
         private void AddListeners(bool add)
         {
-            var player = _gm.GetPlayer;
+            var player = GameManager.Instance.GetPlayer;
 
             if (add)
             {
-                _gm.GetGameRestarted.AddListener(RestartGame);
-                _gm.GetDashUnlocked.AddListener(UnlockDash);
-                _gm.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
-                _gm.GetImmunityUnlocked.AddListener(UnlockImmunity);
-                _gm.GetGameWonEvent.AddListener(GameWon);
+                GameManager.Instance.GetGameRestarted.AddListener(RestartGame);
+                GameManager.Instance.GetDashUnlocked.AddListener(UnlockDash);
+                GameManager.Instance.GetDoubleJumpUnlocked.AddListener(UnlockDoubleJump);
+                GameManager.Instance.GetImmunityUnlocked.AddListener(UnlockImmunity);
+                GameManager.Instance.GetGameWonEvent.AddListener(GameWon);
                 _onPlayerHit.AddListener(GetHit);
                 _onPlayerPossessed.AddListener(PlayerPossessed);
                 _onPlayerRevived.AddListener(Revive);
             }
             else
             {
-                _gm.GetGameRestarted.RemoveListener(RestartGame);
-                _gm.GetDashUnlocked.RemoveListener(UnlockDash);
-                _gm.GetDoubleJumpUnlocked.RemoveListener(UnlockDoubleJump);
-                _gm.GetImmunityUnlocked.RemoveListener(UnlockImmunity);
-                _gm.GetGameWonEvent.RemoveListener(GameWon);
+                GameManager.Instance.GetGameRestarted.RemoveListener(RestartGame);
+                GameManager.Instance.GetDashUnlocked.RemoveListener(UnlockDash);
+                GameManager.Instance.GetDoubleJumpUnlocked.RemoveListener(UnlockDoubleJump);
+                GameManager.Instance.GetImmunityUnlocked.RemoveListener(UnlockImmunity);
+                GameManager.Instance.GetGameWonEvent.RemoveListener(GameWon);
                 _onPlayerHit.RemoveListener(GetHit);
                 _onPlayerPossessed.RemoveListener(PlayerPossessed);
                 _onPlayerRevived.RemoveListener(Revive);
@@ -173,7 +171,7 @@ namespace PlayerScripts
                 print(_inputCount);
             }
             
-            if (_gm.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || _gm.gameWon) return;
+            if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
             if (inDialog)
             {
                 _animator.SetBool(Moving, false);
@@ -436,7 +434,7 @@ namespace PlayerScripts
                 _body.linearVelocityY = data.pushForce;
             }
             
-            _gm.GetHpAmountChanged?.Invoke(_hp);
+            GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
             if (_hp <= 0)
             {
@@ -444,7 +442,7 @@ namespace PlayerScripts
                 SetState(State.Die);
                 if (GetPlayerLives >= 1) _cam.DOShakePosition(0.4f, 0.5f);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDeath);
-                if (!_gm.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
+                if (!GameManager.Instance.GetGameOver) Invoke(nameof(Respawn), data.deathAnimationTime);
             }
             else
             {
@@ -615,7 +613,7 @@ namespace PlayerScripts
         #region RespawnLogic
         private void Respawn()
         {
-            _gm.GetPlayerRespawn.Invoke();
+            GameManager.Instance.GetPlayerRespawn.Invoke();
             transform.position = _respawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
@@ -721,7 +719,7 @@ namespace PlayerScripts
 
         private void EndGame()
         {
-            _gm.gameWon = false;
+            GameManager.Instance.gameWon = false;
             _animator.SetTrigger("TouchedFloor");
             _body.gravityScale = data.regularGravity;
             transform.position = _endingPosition;

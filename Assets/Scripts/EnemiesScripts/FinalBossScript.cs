@@ -40,11 +40,8 @@ namespace EnemiesScripts
         [SerializeField] private FinalBossThunder thunder1;
         [SerializeField] private FinalBossThunder thunder2;
         
-        private GameManager _gm;
-        
         private void Start()
         {
-            _gm = GameManager.Instance;
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
@@ -54,7 +51,7 @@ namespace EnemiesScripts
             speed = 8f;
             _cam = Camera.main;
             
-            _player = _gm.GetPlayer;
+            _player = GameManager.Instance.GetPlayer;
             
             CreatePaths();
             ShowAttacks();
@@ -65,15 +62,15 @@ namespace EnemiesScripts
         {
             if (add)
             {
-                _gm.GetPlayerRespawn.AddListener(ResetEnemy);
-                _gm.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
-                _gm.GetGameRestarted.AddListener(ResetEnemy);
+                GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
+                GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
+                GameManager.Instance.GetGameRestarted.AddListener(ResetEnemy);
                 return;
             }
 
-            _gm.GetPlayerRespawn.RemoveListener(ResetEnemy);
-            _gm.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
-            _gm.GetGameRestarted.RemoveListener(ResetEnemy);
+            GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
+            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
+            GameManager.Instance.GetGameRestarted.RemoveListener(ResetEnemy);
         }
 
         private void OnDestroy()
