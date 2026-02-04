@@ -213,7 +213,7 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    //Destroy(vieja1);
+                    if (vieja1) Destroy(vieja1);
                     Destroy(vieja2);
                     //AlejarVieja(vieja2);
                     TraerVieja(vieja3);
