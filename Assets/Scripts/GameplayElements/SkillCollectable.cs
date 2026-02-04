@@ -21,21 +21,24 @@ namespace GameplayElements
         [SerializeField] private bool doubleJumpCollectable = false;
         [SerializeField] private bool immunityCollectable = false;
 
+        private GameManager _gm;
+
         private void Start()
         {
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
-            _uiManager = GameManager.Instance.GetUIManager;
+            _gm = GameManager.Instance;
+            _uiManager = _gm.GetUIManager;
             _startPosition = transform.position;
         
             HideSkill();
 
-            GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
+            _gm.GetGameRestarted?.AddListener(ResetCollectable);
         }
 
         private void OnDestroy()
         {
-            GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
+            _gm.GetGameRestarted?.RemoveListener(ResetCollectable);
         }
 
         public void Activate(bool jump = false)
@@ -44,7 +47,7 @@ namespace GameplayElements
             _sprite.enabled = true;
             if (jump)
             {
-                transform.DOJump(GameManager.Instance.GetPlayer.GetPlayerTarget, 1.5f, 1, 1f)
+                transform.DOJump(_gm.GetPlayer.GetPlayerTarget, 1.5f, 1, 1f)
                     .OnComplete(() => _collider.enabled = true);
             }
             else
@@ -65,17 +68,17 @@ namespace GameplayElements
             if (dashCollectable)
             {
                 PlayerPrefs.SetString("DashUnlocked", name);
-                GameManager.Instance.GetDashUnlocked?.Invoke();
+                _gm.GetDashUnlocked?.Invoke();
             }
             else if (doubleJumpCollectable)
             {
                 PlayerPrefs.SetString("DoubleJumpUnlocked", name);
-                GameManager.Instance.GetDoubleJumpUnlocked?.Invoke();
+                _gm.GetDoubleJumpUnlocked?.Invoke();
             }
             else if (immunityCollectable)
             {
                 PlayerPrefs.SetString("ImmunityUnlocked", name);
-                GameManager.Instance.GetImmunityUnlocked?.Invoke();
+                _gm.GetImmunityUnlocked?.Invoke();
             }
         
             HideSkill();

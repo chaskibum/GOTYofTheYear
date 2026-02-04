@@ -28,13 +28,15 @@ namespace Managers
         public bool inMenu = false;
 
         private PlayerController _player;
+        private GameManager _gm;
     
         private void Start()
         {
             AddListeners(true);
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
         
-            _player = GameManager.Instance.GetPlayer;
+            _gm = GameManager.Instance;
+            _player = _gm.GetPlayer;
             _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
             ChangeCooldownSliderMin();
         
@@ -50,25 +52,25 @@ namespace Managers
 
         private void AddListeners(bool add)
         {
-            _player = GameManager.Instance.GetPlayer;
+            _player = _gm.GetPlayer;
         
             if (add)
             {
-                GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
-                GameManager.Instance.GetGameRestarted.AddListener(RestartUI);
-                GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
-                GameManager.Instance.GetLifeAmountChanged.AddListener(UpdateLife);
-                GameManager.Instance.GetImmunityUnlocked?.AddListener(ShowCooldown);
+                _gm.GetGameOverEvent.AddListener(ShowGameOverScreen);
+                _gm.GetGameRestarted.AddListener(RestartUI);
+                _gm.GetPlayer.GetPlayerRevived.AddListener(ResetUI);
+                _gm.GetLifeAmountChanged.AddListener(UpdateLife);
+                _gm.GetImmunityUnlocked?.AddListener(ShowCooldown);
                 languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
                 _player.GetPlayerRevived?.AddListener(ResetUI);
                 return;
             }
 
-            GameManager.Instance.GetGameOverEvent.RemoveListener(ShowGameOverScreen);
-            GameManager.Instance.GetGameRestarted.RemoveListener(RestartUI);
-            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
-            GameManager.Instance.GetLifeAmountChanged.RemoveListener(UpdateLife);
-            GameManager.Instance.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
+            _gm.GetGameOverEvent.RemoveListener(ShowGameOverScreen);
+            _gm.GetGameRestarted.RemoveListener(RestartUI);
+            _gm.GetPlayer.GetPlayerRevived.RemoveListener(ResetUI);
+            _gm.GetLifeAmountChanged.RemoveListener(UpdateLife);
+            _gm.GetImmunityUnlocked?.RemoveListener(ShowCooldown);
             languageDropdown.onValueChanged.RemoveListener(OnLanguageChanged);
             _player.GetPlayerRevived?.RemoveListener(ResetUI);
         }
@@ -161,7 +163,7 @@ namespace Managers
             }
             else
             {
-                GameManager.Instance.GetGameOverEvent?.Invoke();
+                _gm.GetGameOverEvent?.Invoke();
                 reviveButton.SetActive(true);
                 reviveButton.GetComponent<Button>().Select();
                 optionsButton.SetActive(false);

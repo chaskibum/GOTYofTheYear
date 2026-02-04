@@ -15,10 +15,13 @@ namespace PlayerScripts
         
         private int _hp;
         private int _lives;
+
+        private GameManager _gm;
         
         private void Start()
         {
-            _player = GameManager.Instance.GetPlayer;
+            _gm = GameManager.Instance;
+            _player = _gm.GetPlayer;
             _data = _player.GetPlayerData;
             
             _hp = _data.baseHp;
@@ -35,22 +38,22 @@ namespace PlayerScripts
         
         private void AddListeners(bool add)
         {
-            var player = GameManager.Instance.GetPlayer;
+            var player = _gm.GetPlayer;
 
             if (add)
             {
-                GameManager.Instance.GetHpAmountChanged?.AddListener(TakeDamage);
-                GameManager.Instance.GetCollectablePicked?.AddListener(AddExtraLife);
-                GameManager.Instance.GetPlayerRespawn?.AddListener(Respawn);
-                GameManager.Instance.GetGameRestarted?.AddListener(RestartGame);
+                _gm.GetHpAmountChanged?.AddListener(TakeDamage);
+                _gm.GetCollectablePicked?.AddListener(AddExtraLife);
+                _gm.GetPlayerRespawn?.AddListener(Respawn);
+                _gm.GetGameRestarted?.AddListener(RestartGame);
                 player.GetPlayerRevived?.AddListener(Revive);
             }
             else
             {
-                GameManager.Instance.GetHpAmountChanged?.RemoveListener(TakeDamage);
-                GameManager.Instance.GetCollectablePicked?.RemoveListener(AddExtraLife);
-                GameManager.Instance.GetPlayerRespawn?.RemoveListener(Respawn);
-                GameManager.Instance.GetGameRestarted?.RemoveListener(RestartGame);
+                _gm.GetHpAmountChanged?.RemoveListener(TakeDamage);
+                _gm.GetCollectablePicked?.RemoveListener(AddExtraLife);
+                _gm.GetPlayerRespawn?.RemoveListener(Respawn);
+                _gm.GetGameRestarted?.RemoveListener(RestartGame);
                 player.GetPlayerRevived?.RemoveListener(Revive);
             }
         }
@@ -68,7 +71,7 @@ namespace PlayerScripts
             healthBar.SetMaxHealth(_hp);
             _lives = _data.startingLives;
             _data.baseLives = _data.startingLives;
-            GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
+            _gm.GetLifeAmountChanged?.Invoke(_lives);
         }
 
         private void Revive()
@@ -76,7 +79,7 @@ namespace PlayerScripts
             _hp = _data.baseHp;
             healthBar.SetMaxHealth(_hp);
             _lives = _data.baseLives;
-            GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
+            _gm.GetLifeAmountChanged?.Invoke(_lives);
         }
 
         private void TakeDamage(int hp)
@@ -86,8 +89,8 @@ namespace PlayerScripts
             if (hp <= 0)
             {
                 _lives -= 1;
-                GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
-                GameManager.Instance.GetPlayer.SavePlayerStats();
+                _gm.GetLifeAmountChanged?.Invoke(_lives);
+                _gm.GetPlayer.SavePlayerStats();
             }
             else
             {
@@ -113,8 +116,8 @@ namespace PlayerScripts
         {
             _lives += 1;
             _data.baseLives += 1;
-            GameManager.Instance.GetLifeAmountChanged?.Invoke(_lives);
-            GameManager.Instance.GetPlayer.SavePlayerStats();
+            _gm.GetLifeAmountChanged?.Invoke(_lives);
+            _gm.GetPlayer.SavePlayerStats();
         }
         
         public int GetPlayerLives => _lives;

@@ -15,13 +15,16 @@ namespace GameplayElements
     
         private SpriteRenderer _sprite;
         private Rigidbody2D _body;
+        
+        private GameManager _gm;
 
         private void Start()
         {
+            _gm = GameManager.Instance;
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _body = GetComponent<Rigidbody2D>();
-            GameManager.Instance.GetPlayerRespawn.AddListener(ResetPosition);
-            GameManager.Instance.GetGameRestarted.AddListener(ResetPosition);
+            _gm.GetPlayerRespawn.AddListener(ResetPosition);
+            _gm.GetGameRestarted.AddListener(ResetPosition);
         }
 
         private void ResetPosition()
@@ -31,8 +34,8 @@ namespace GameplayElements
 
         private void OnDestroy()
         {
-            GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetPosition);
-            GameManager.Instance.GetGameRestarted.RemoveListener(ResetPosition);
+            _gm.GetPlayerRespawn.RemoveListener(ResetPosition);
+            _gm.GetGameRestarted.RemoveListener(ResetPosition);
         }
 
         private void FixedUpdate()

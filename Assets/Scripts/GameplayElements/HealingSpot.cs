@@ -10,10 +10,13 @@ namespace GameplayElements
         
         private Animator _animator;
         private bool _isInRange;
+        
+        private GameManager _gm;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
+            _gm = GameManager.Instance;
             ResetAnimations();
             AddListeners(true);
         }
@@ -27,15 +30,15 @@ namespace GameplayElements
         {
             if (add)
             {
-                GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
-                GameManager.Instance.GetPlayerRespawn?.AddListener(ResetAnimations);
-                GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
+                _gm.GetGameRestarted?.AddListener(ResetAnimations);
+                _gm.GetPlayerRespawn?.AddListener(ResetAnimations);
+                _gm.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
             }
             else
             {
-                GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
-                GameManager.Instance.GetPlayerRespawn?.RemoveListener(ResetAnimations);
-                GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
+                _gm.GetGameRestarted?.RemoveListener(ResetAnimations);
+                _gm.GetPlayerRespawn?.RemoveListener(ResetAnimations);
+                _gm.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
             }
         }
     
@@ -74,7 +77,7 @@ namespace GameplayElements
         {
             if (_animator.GetBool("Used")) return;
             healSound.Play();
-            GameManager.Instance.GetPlayer.Heal();
+            _gm.GetPlayer.Heal();
             _animator.SetBool("Used", true);
         }
     

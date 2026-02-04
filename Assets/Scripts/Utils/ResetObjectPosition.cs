@@ -7,10 +7,13 @@ namespace Utils
     {
         private Vector3 _originalPosition;
         [SerializeField] private SpriteRenderer sprite;
+        
+        private GameManager _gm;
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Start()
         {
+            _gm = GameManager.Instance;
             _originalPosition = transform.position;
             AddListeners(true);
         }
@@ -24,23 +27,22 @@ namespace Utils
         {
             if (add)
             {
-                GameManager.Instance.GetGameRestarted?.AddListener(ResetPosition);
-                GameManager.Instance.GetPlayerRespawn?.AddListener(ResetPosition);
-                GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetPosition);
-                GameManager.Instance.GetResetObjects?.AddListener(ResetPosition);
+                _gm.GetGameRestarted?.AddListener(ResetPosition);
+                _gm.GetPlayerRespawn?.AddListener(ResetPosition);
+                _gm.GetPlayer.GetPlayerRevived?.AddListener(ResetPosition);
+                _gm.GetResetObjects?.AddListener(ResetPosition);
             }
             else
             {
-                GameManager.Instance.GetGameRestarted?.RemoveListener(ResetPosition);
-                GameManager.Instance.GetPlayerRespawn?.RemoveListener(ResetPosition);
-                GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetPosition);
-                GameManager.Instance.GetResetObjects?.RemoveListener(ResetPosition);
+                _gm.GetGameRestarted?.RemoveListener(ResetPosition);
+                _gm.GetPlayerRespawn?.RemoveListener(ResetPosition);
+                _gm.GetPlayer.GetPlayerRevived?.RemoveListener(ResetPosition);
+                _gm.GetResetObjects?.RemoveListener(ResetPosition);
             }
         }
 
         private void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.R)) ResetPosition();
             sprite.transform.eulerAngles += new Vector3(0, 0, 0.5f);
         }
 

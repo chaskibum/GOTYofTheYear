@@ -38,6 +38,8 @@ namespace EnemiesScripts
         protected PlayerController Player;
         protected Vector3 PlayerPos;
         protected bool PlayerToTheRight;
+        
+        private GameManager _gm;
 
         protected void Awake()
         {
@@ -49,11 +51,12 @@ namespace EnemiesScripts
 
         protected virtual void Start()
         {
+            _gm = GameManager.Instance;
             Body = GetComponent<Rigidbody2D>();
             Visuals = GetComponentInChildren<SpriteRenderer>();
             TryGetComponent(out Animator);
             if (!Animator) Visuals.TryGetComponent(out Animator);
-            Player = GameManager.Instance.GetPlayer;
+            Player = _gm.GetPlayer;
             if (wallsCollider) wallsCollider.enabled = true;
             
             AddListeners(true);
@@ -68,15 +71,15 @@ namespace EnemiesScripts
         {
             if (add)
             {
-                GameManager.Instance.GetPlayerRespawn.AddListener(ResetEnemy);
-                GameManager.Instance.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
-                GameManager.Instance.GetGameRestarted.AddListener(RestartEnemy);
+                _gm.GetPlayerRespawn.AddListener(ResetEnemy);
+                _gm.GetPlayer.GetPlayerRevived.AddListener(ResetEnemy);
+                _gm.GetGameRestarted.AddListener(RestartEnemy);
                 return;
             }
 
-            GameManager.Instance.GetPlayerRespawn.RemoveListener(ResetEnemy);
-            GameManager.Instance.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
-            GameManager.Instance.GetGameRestarted.RemoveListener(RestartEnemy);
+            _gm.GetPlayerRespawn.RemoveListener(ResetEnemy);
+            _gm.GetPlayer.GetPlayerRevived.RemoveListener(ResetEnemy);
+            _gm.GetGameRestarted.RemoveListener(RestartEnemy);
         }
 
         protected virtual void Update()
