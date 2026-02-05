@@ -242,7 +242,6 @@ namespace EnemiesScripts
             {
                 // Stop animations
                 Invoke(nameof(StopAnimations), 0.1f);
-                AudioManager.Instance.MuteAttackSound();
                 SetState(State.Die);
                 StartCoroutine(nameof(Disappear));
             }
