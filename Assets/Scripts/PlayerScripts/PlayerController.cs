@@ -3,6 +3,8 @@ using DG.Tweening;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace PlayerScripts
@@ -51,6 +53,7 @@ namespace PlayerScripts
         private float _lastJumpPressedTime;
         private float _jumpKeyTimePressed;
         private bool _canDoubleJump;
+        private bool _jumpHeld;
         
         [Header("Immunity Skill")]
         [SerializeField] private bool _immuneSkillUnlocked;
@@ -71,7 +74,7 @@ namespace PlayerScripts
         
         private Rigidbody2D _body;
 
-        private float _xInput;
+        private Vector2 _xInput;
 
         private bool _isPossessed;
         private int _inputCount;
@@ -187,12 +190,6 @@ namespace PlayerScripts
                 return;
             }
             
-            CheckJumpInput();
-            CheckImmunitySkillInput();
-            CheckDashInput();
-            CheckMovementInput();
-            CheckAttackInput();
-            
             UpdateState();
             UpdatePhysicsState();
         }
@@ -205,7 +202,7 @@ namespace PlayerScripts
             _animator.SetBool(Dashing, false);
             _animator.SetBool(GotHit, false);
             _body.gravityScale = data.regularGravity;
-            if (_xInput != 0) SetState(State.Move);
+            if (_xInput != Vector2.zero) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
             
             _animator.SetBool(Moving, false);
@@ -218,7 +215,7 @@ namespace PlayerScripts
         {
             CheckIfIsFalling();
             
-            if (_xInput == 0) SetState(State.Idle);
+            if (_xInput == Vector2.zero) SetState(State.Idle);
             
             Move();
             
@@ -228,11 +225,11 @@ namespace PlayerScripts
         
         private void JumpState()
         {
-            if (_xInput != 0) Move();
+            if (_xInput != Vector2.zero) Move();
 
             _jumpKeyTimePressed += Time.deltaTime;
 
-            if (JumpReleased() || _jumpKeyTimePressed > data.jumpDuration)
+            if (!_jumpHeld || _jumpKeyTimePressed > data.jumpDuration)
             {
                 SetState(State.Fall);
             }
@@ -242,7 +239,7 @@ namespace PlayerScripts
         
         private void FallState()
         {
-            if (_xInput != 0) Move();
+            if (_xInput != Vector2.zero) Move();
             
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
@@ -372,7 +369,7 @@ namespace PlayerScripts
         private void Move()
         {
             if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
-            else _body.linearVelocity = new Vector2(_xInput * data.moveSpeed, _body.linearVelocity.y);
+            else _body.linearVelocity = new Vector2(_xInput.x * data.moveSpeed, _body.linearVelocity.y);
         }
         
         public void PlayStepSound()
@@ -385,10 +382,10 @@ namespace PlayerScripts
             return Input.GetButtonDown("Jump");
         }
 
-        private bool JumpReleased()
+        /*private bool JumpReleased()
         {
             return Input.GetButtonUp("Jump");
-        }
+        }*/
 
         private void Jump()
         {
@@ -438,6 +435,7 @@ namespace PlayerScripts
 
             if (_hp <= 0)
             {
+                GamepadVibration.Instance.Rumble(0.6f, 0.9f, 0.6f);
                 _animator.SetTrigger("Died");
                 SetState(State.Die);
                 if (GetPlayerLives >= 1) _cam.DOShakePosition(0.4f, 0.5f);
@@ -459,7 +457,6 @@ namespace PlayerScripts
             GetRandomDirection();
             SetState(State.Possessed);
             _isPossessed = true;
-            // data.immunityTime = 0.5f;
         }
 
         private void GetRandomDirection()
@@ -490,12 +487,21 @@ namespace PlayerScripts
 
         #region CheckInput
 
-        private void CheckJumpInput()
+        public void OnJump(InputAction.CallbackContext ctx)
         {
+            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
             if (_isAttacking || _isPossessed) return;
-            
-            if (JumpPressed())
+
+            if (ctx.started)
+            {
+                _jumpHeld = true;
                 _lastJumpPressedTime = Time.time;
+            }
+
+            if (ctx.canceled)
+            {
+                _jumpHeld = false;
+            }
             
             // Si el jugador está en el piso o dentro de la ventana del coyote time -> puede saltar
             if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
@@ -519,34 +525,37 @@ namespace PlayerScripts
             }
         }
 
-        private void CheckMovementInput()
+        public void OnMove(InputAction.CallbackContext ctx)
         {
+            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
             if (_isPossessed) return;
-            _xInput = Input.GetAxis("Horizontal");
+            _xInput = ctx.ReadValue<Vector2>();
         }
 
-        private void CheckAttackInput()
+        public void OnAttack(InputAction.CallbackContext ctx)
         {
-            // if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.Z) && !_isPossessed && _attackCooldown <= 0)
-            if (Input.GetButtonDown("Attack") && !_isPossessed && _attackCooldown <= 0)
+            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
+            if (ctx.performed && !_isPossessed && _attackCooldown <= 0)
             {
                 Attack();
                 SetState(State.Attack);
             }
         }
         
-        private void CheckDashInput()
+        public void OnDash(InputAction.CallbackContext ctx)
         {
-            if (Input.GetButtonDown("Dash") && !_isAttacking && !_isPossessed && _canDash)
+            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
+            if (ctx.performed && !_isAttacking && !_isPossessed && _canDash)
             {
                 Dash();
             }
         }
         
-        private void CheckImmunitySkillInput()
+        public void OnActivateShield(InputAction.CallbackContext ctx)
         {
+            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
             if (!_immuneSkillUnlocked) return;
-            if (Input.GetButtonDown("ImmuneSkill") && !_isPossessed)
+            if (ctx.performed && !_isPossessed)
             {
                 ActivateImmunity();
                 _onPlayerImmunity.Invoke();
@@ -737,7 +746,7 @@ namespace PlayerScripts
         
         public State GetState => _state;
 
-        public float GetMovementInput => _xInput;
+        public Vector2 GetMovementInput => _xInput;
         
         public Vector3 GetPlayerPosition => transform.position;
         

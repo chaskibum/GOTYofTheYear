@@ -1,6 +1,7 @@
 using PlayerScripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
+        [SerializeField] private PlayerInput playerInput;
+        
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject reviveButton;
         [SerializeField] private GameObject optionsButton;
@@ -75,9 +78,14 @@ namespace Managers
         private void Update()
         {
             if (inMenu) return;
-            if (Input.GetButtonDown("Cancel") && !uSurePanel.activeInHierarchy) HandlePause();
 
             _cooldownBarSlider.value = _player.GetCooldown * -1;
+        }
+
+        public void OnPause(InputAction.CallbackContext ctx)
+        {
+            if (inMenu) return;
+            if (ctx.performed && !uSurePanel.activeInHierarchy) HandlePause();
         }
 
         private void ShowGameOverScreen()
@@ -175,6 +183,7 @@ namespace Managers
             
             if (_isPaused)
             {
+                playerInput.SwitchCurrentActionMap("UI");
                 Time.timeScale = 0f;
                 pauseMenuUI.SetActive(true);
                 HighlightSliderButton();
@@ -183,10 +192,27 @@ namespace Managers
             }
             else
             {
+                playerInput.SwitchCurrentActionMap("Gameplay");
                 Time.timeScale = 1f;
                 pauseMenuUI.SetActive(false);
                 optionsButton.SetActive(true);
                 bossHealthBars.SetActive(true);
+            }
+        }
+
+        public void SetInMenu(bool on = true)
+        {
+            if (on)
+            {
+                inMenu = true;
+                playerInput.SwitchCurrentActionMap("UI");
+                print(playerInput.currentActionMap);
+            }
+            else
+            {
+                inMenu = false;
+                playerInput.SwitchCurrentActionMap("Gameplay");
+                print(playerInput.currentActionMap);
             }
         }
 

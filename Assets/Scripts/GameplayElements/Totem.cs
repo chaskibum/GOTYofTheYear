@@ -1,6 +1,7 @@
 using Managers;
 using PlayerScripts;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace GameplayElements
@@ -57,7 +58,7 @@ namespace GameplayElements
             {
                 if (_animator.GetBool("Active"))
                 {
-                    CheckInteractInput();
+                    // CheckInteractInput();
                     interactPrompt.SetActive(true);
                 }
             }
@@ -67,11 +68,20 @@ namespace GameplayElements
             }
         }
 
-        private void CheckInteractInput()
+        /*private void CheckInteractInput()
         {
             if (Input.GetButtonDown("GameInteract"))
             {
                 Interact();
+            }
+        }*/
+        
+        public void OnInteract(InputAction.CallbackContext ctx)
+        {
+            if (_isInRange)
+            {
+                if (_animator.GetBool("Active"))
+                    if (ctx.performed) Interact();
             }
         }
 

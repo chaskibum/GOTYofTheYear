@@ -10,6 +10,7 @@ using ScriptableObjects.Dialogues;
 using TMPEffects.Components;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -104,7 +105,7 @@ namespace Utils
         {
             if (_isInRange)
             {
-                if (_canSpeak) CheckInteractInput();
+                // if (_canSpeak) CheckInteractInput();
                 if (_showInteractPrompt) interactPrompt.SetActive(true);
                 else interactPrompt.SetActive(false);
             }
@@ -127,13 +128,16 @@ namespace Utils
                 _selectedDialogues = dialogueES.dialogues;
             }
         }
-
-        private void CheckInteractInput()
+        
+        public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (Input.GetButtonDown("GameInteract"))
+            if (_isInRange)
             {
-                Interact();
-                CalculateDirection();
+                if (_canSpeak)
+                {
+                    if (ctx.performed) Interact();
+                    CalculateDirection();
+                }
             }
         }
 

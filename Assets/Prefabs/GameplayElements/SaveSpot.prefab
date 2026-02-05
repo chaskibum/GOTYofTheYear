@@ -10021,6 +10021,7 @@ GameObject:
   - component: {fileID: 3166931855914280821}
   - component: {fileID: 6967432828046652089}
   - component: {fileID: 2932998920352219254}
+  - component: {fileID: 2375760164476444617}
   m_Layer: 0
   m_Name: SaveSpot
   m_TagString: Untagged
@@ -10188,6 +10189,88 @@ MonoBehaviour:
   activatingSound: {fileID: 5306319384898273666}
   torchSound: {fileID: 0}
   interactPrompt: {fileID: 8401478070260069604}
+--- !u!114 &2375760164476444617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634877203542898585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c02a73bf6c077354f8139608b16ee45b, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4a6ff7ab-91f5-4a1d-b368-abd743226a03
+    m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0bb2fc4b-05f4-4a9d-9d5e-9d09a58b2565
+    m_ActionName: 'Gameplay/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e2f6585-6d9c-4877-9b96-17c6b8f1407b
+    m_ActionName: 'Gameplay/Attack[/Keyboard/h,/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ae7f7e3-2608-4c7a-a79c-ccff2e2106e7
+    m_ActionName: 'Gameplay/Dash[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 730ff260-c02f-45e1-a1ea-6eb34bf00463
+    m_ActionName: 'Gameplay/ActivateShield[/Keyboard/j,/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84841593-d775-425a-a4e7-3cba944c9c1d
+    m_ActionName: 'Gameplay/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2932998920352219254}
+        m_TargetAssemblyTypeName: GameplayElements.SaveSpotManager, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f231293f-a649-4721-9272-e8d5155e246d
+    m_ActionName: 'Gameplay/Interact[/Keyboard/e,/Keyboard/enter,/Keyboard/numpadEnter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 09206f2c-02bb-4c7a-b569-a25fdf407476
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c50b91fd-e14b-46bb-8e04-6092b24b90d7
+    m_ActionName: 'UI/Select[/Keyboard/enter,/Keyboard/numpadEnter,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 04d0dc9f-1c48-4c0e-b70c-45c7a5855f3d
+    m_ActionName: 'UI/Back[/Keyboard/escape]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &4323394220733378427
 PrefabInstance:
   m_ObjectHideFlags: 0

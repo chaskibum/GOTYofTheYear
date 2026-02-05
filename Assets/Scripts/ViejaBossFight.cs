@@ -3,6 +3,7 @@ using DG.Tweening;
 using EnemiesScripts;
 using Managers;
 using UnityEngine;
+using Utils;
 
 public class ViejaBossFight : EnemyController
 {
@@ -44,6 +45,7 @@ public class ViejaBossFight : EnemyController
         Hp -= 1;
         if (Hp <= 0)
         {
+            GamepadVibration.Instance.Rumble(0.8f, 1f, 3f);
             finalBoss.GetAnimator.SetTrigger("Die");
             deathParticles.Play();
             entranceThunder.Stop();

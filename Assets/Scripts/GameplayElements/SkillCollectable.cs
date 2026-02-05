@@ -2,6 +2,7 @@ using DG.Tweening;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace GameplayElements
 {
@@ -82,7 +83,7 @@ namespace GameplayElements
             panel.SetActive(true);
             Time.timeScale = 0;
             closeButton.Select();
-            _uiManager.inMenu = true;
+            _uiManager.SetInMenu();
         }
 
         public void HideSkill()
@@ -95,7 +96,8 @@ namespace GameplayElements
         {
             Time.timeScale = 1;
             panel.SetActive(false);
-            _uiManager.inMenu = false;
+            _uiManager.SetInMenu(false);
+            GamepadVibration.Instance.Rumble(0.4f, 0.5f, 1.5f);
         }
 
         private void ResetCollectable()

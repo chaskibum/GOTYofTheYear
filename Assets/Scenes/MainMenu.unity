@@ -1703,8 +1703,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "- Cr\xE9ditos -"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d4c2ab0662dcb24fa972ea421971e24, type: 2}
-  m_sharedMaterial: {fileID: -3721602366328117856, guid: 0d4c2ab0662dcb24fa972ea421971e24, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
+  m_sharedMaterial: {fileID: 3974013105380456000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5280,6 +5280,10 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   sfxSource: {fileID: 372991839}
   musicSource: {fileID: 1601041619}
+  dialogueSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}
   finalBossMusic: {fileID: 0}
   settings: {fileID: 1265508581}
   audioClips:

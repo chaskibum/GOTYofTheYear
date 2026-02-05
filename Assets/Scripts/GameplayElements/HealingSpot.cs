@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace GameplayElements
@@ -53,7 +54,7 @@ namespace GameplayElements
         {
             if (_isInRange)
             {
-                CheckInteractInput();
+                // CheckInteractInput();
                 _animator.SetBool("OnRange", true);
             }
             else
@@ -62,14 +63,13 @@ namespace GameplayElements
             }
         }
 
-        private void CheckInteractInput()
+        public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (Input.GetButtonDown("GameInteract"))
+            if (_isInRange)
             {
-                Interact();
+                if (ctx.performed) Interact();
             }
         }
-
         public void Interact()
         {
             if (_animator.GetBool("Used")) return;

@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace GameplayElements
@@ -76,14 +77,14 @@ namespace GameplayElements
                 return;
             }
         
-            if (_inRange) CheckInteractInput();
+            // if (_inRange) CheckInteractInput();
         }
 
-        private void CheckInteractInput()
+        public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (Input.GetButtonDown("GameInteract"))
+            if (_inRange)
             {
-                Interact();
+                if (ctx.performed) Interact();
             }
         }
     
@@ -91,7 +92,7 @@ namespace GameplayElements
         {
             if (!panel.activeInHierarchy)
             {
-                _uiManager.inMenu = true;
+                _uiManager.SetInMenu();
                 panel.SetActive(true);
                 Time.timeScale = 0;
                 closeButton.Select();
@@ -107,7 +108,7 @@ namespace GameplayElements
             Time.timeScale = 1;
             panel.SetActive(false);
             _justClosed = true;
-            _uiManager.inMenu = false;
+            _uiManager.SetInMenu(false);
             
             HideObject();
             

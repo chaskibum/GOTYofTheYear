@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using GameplayElements;
 using Managers;
+using Utils;
 
 namespace EnemiesScripts
 {
@@ -142,6 +143,7 @@ namespace EnemiesScripts
         private void Die()
         {
             SetState(State.Die);
+            GamepadVibration.Instance.Rumble(0.5f, 0.7f, 1f);
             healthGroup.gameObject.SetActive(false);
             PlayerPrefs.SetString("ArmorDead", "yes");
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);

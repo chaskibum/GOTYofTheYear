@@ -2,6 +2,7 @@ using DG.Tweening;
 using PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -29,7 +30,7 @@ namespace Managers
         [SerializeField] private GameObject wonScreen;
 
         [SerializeField] private Image fade;
-    
+        
         private bool _gameOver = false;
         public bool gameWon = false;
 

@@ -110,16 +110,8 @@ namespace Managers
     
         public void PlayDialogSound()
         {
-            /*var clip = RandomDialog();
-            sfxSource.pitch = Random.Range(0.9f, 1.1f);
-            sfxSource.PlayOneShot(audioClips[clip]);*/
             BroAudio.Play(dialogueSound);
         }
-
-        /*private int RandomDialog()
-        {
-            return Random.Range(5, 7);
-        }*/
 
         public void StopClip()
         {

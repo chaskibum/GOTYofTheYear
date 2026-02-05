@@ -27,13 +27,13 @@ namespace PlayerScripts
         
         private void HandleFlipPlayer()
         {
-            float moveInput = _playerController.GetMovementInput;
+            Vector2 moveInput = _playerController.GetMovementInput;
 
             if (_playerController.GetIsAttacking) return;
 
-            if (moveInput > 0f && !facingRight)
+            if (moveInput.x > 0f && !facingRight)
                 Flip();
-            else if (moveInput < 0f && facingRight)
+            else if (moveInput.x < 0f && facingRight)
                 Flip();
         }
 
