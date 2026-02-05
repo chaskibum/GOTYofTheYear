@@ -16,7 +16,7 @@ MonoBehaviour:
     Value: -1
     _isOverride: 1
   _combFilteringTime:
-    Value: 0.04
+    Value: 0.1
     _isOverride: 1
   _ignoreCombFilteringIfSameFrame: 0
   _ignoreIfDistanceIsGreaterThan: 0.1

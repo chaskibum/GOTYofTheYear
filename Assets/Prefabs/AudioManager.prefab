@@ -181,6 +181,11 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   sfxSource: {fileID: 2806757252661346451}
   musicSource: {fileID: 2884741939490765846}
+  dialogueSound:
+    ID: 1073741830
+    _sourceAsset: {fileID: 11400000, guid: de08f12e28636254e8b917947c01940f, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2635627274610449076}
+  finalBossMusic: {fileID: 0}
   settings: {fileID: 0}
   audioClips:
   - {fileID: 8300000, guid: 85e90ea4f673bf94993719514eed4814, type: 3}
@@ -255,7 +260,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.0762266
   Loop: 1
   Mute: 0
   Spatialize: 0

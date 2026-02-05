@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0345f6968f9c4241959624889b545dd, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  Entities:
+  - UseAddressables: 0
+    <Name>k__BackingField: DialogueSounds
+    <ID>k__BackingField: 1073741830
+    MulticlipsPlayMode: 2
+    _group: {fileID: 11400000, guid: 7eb160a74e1c7114aac52b6a6240332f, type: 2}
+    Clips:
+    - AudioClipAssetReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      AudioClip: {fileID: 8300000, guid: 7cf5f5ff69ea33e47ae7db60978d021c, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
+      Weight: 0
+    - AudioClipAssetReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      AudioClip: {fileID: 8300000, guid: e98dbb03dd81e5e4d89d70fca6b4288a, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 0.9
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0.20000005
+    <VolumeRandomRange>k__BackingField: 0.19999999
+    <RandomFlags>k__BackingField: 3
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  Group: {fileID: 0}
+  <AssetName>k__BackingField: Dialogue
+  _assetGUID: de08f12e28636254e8b917947c01940f

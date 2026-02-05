@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ami.BroAudio;
 using DG.Tweening;
 using GameplayElements;
 using Managers;
@@ -65,6 +66,8 @@ namespace Utils
         private bool _playerToTheRight;
         private PlayerController _player;
         private SpriteRenderer _sprite;
+
+        [SerializeField] private SoundID dialogueSound;
 
         private IEnumerator Start()
         {
@@ -203,7 +206,6 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
-                    //AlejarVieja(vieja1);
                     Destroy(vieja1);
                     TraerVieja(vieja2);
                     return;
@@ -215,19 +217,18 @@ namespace Utils
                     
                     if (vieja1) Destroy(vieja1);
                     Destroy(vieja2);
-                    //AlejarVieja(vieja2);
                     TraerVieja(vieja3);
                     return;
                 }
             }
         }
         
-        private void AlejarVieja(GameObject vieja)
+        /*private void AlejarVieja(GameObject vieja)
         {
             var pos = vieja.transform.localPosition;
             pos.x += 30;
             vieja.transform.localPosition = pos;
-        }
+        }*/
         
         private void TraerVieja(GameObject vieja)
         {
@@ -261,7 +262,7 @@ namespace Utils
             yield return new WaitForSeconds(timeToDisappear);
             DeactivateDialog();
             _showInteractPrompt = false;
-            AudioManager.Instance.StopClip();
+            // AudioManager.Instance.StopClip();
             while (_sprite.color.a > 0)
             {
                 var color = _sprite.color;
@@ -322,7 +323,7 @@ namespace Utils
 
             foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
-                AudioManager.Instance.PlayDialogSound();
+                // BroAudio.Play(dialogueSound);
                 yield return new WaitForSecondsRealtime(DialogueSpeed);
 
                 if (!_isTyping) yield break;

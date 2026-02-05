@@ -158,11 +158,23 @@ MonoBehaviour:
   hideVieja: 0
   repeatLastDialogue: 0
   endingDialogue: 0
+  goodEndingDialogue: 0
+  entranceThunder: {fileID: 0}
+  thunderSound: {fileID: 0}
   viejaHitbox: {fileID: 0}
   fadeToBlack: {fileID: 0}
+  viejaEnding: {fileID: 0}
+  vieja1: {fileID: 0}
+  vieja2: {fileID: 0}
+  vieja3: {fileID: 0}
+  viejaGoodEnding: {fileID: 0}
   dash: {fileID: 0}
   dialogueES: {fileID: 0}
   dialogueEN: {fileID: 0}
+  dialogueSound:
+    ID: 1073741830
+    _sourceAsset: {fileID: 11400000, guid: de08f12e28636254e8b917947c01940f, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1331777317948042120}
 --- !u!95 &2995075747971858342
 Animator:
   serializedVersion: 7
@@ -342,7 +354,19 @@ MonoBehaviour:
       m_Calls: []
   OnCharacterShown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686403160495626935, guid: bbd70bfd97559ea478bbb5cba5952232, type: 3}
+        m_TargetAssemblyTypeName: Managers.AudioManager, Assembly-CSharp
+        m_MethodName: PlayDialogSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnStartWriter:
     m_PersistentCalls:
       m_Calls: []

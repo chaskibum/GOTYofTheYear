@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ami.BroAudio;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -17,11 +18,11 @@ namespace Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicSource;
 
+        [SerializeField] private SoundID dialogueSound;
+
         public AudioSource finalBossMusic;
 
         [SerializeField] private AudioSettings settings;
-
-        // [SerializeField] private GameObject mainMenuOptionsPanel;
     
         public enum AudioList
         {
@@ -109,15 +110,16 @@ namespace Managers
     
         public void PlayDialogSound()
         {
-            var clip = RandomDialog();
+            /*var clip = RandomDialog();
             sfxSource.pitch = Random.Range(0.9f, 1.1f);
-            sfxSource.PlayOneShot(audioClips[clip]);
+            sfxSource.PlayOneShot(audioClips[clip]);*/
+            BroAudio.Play(dialogueSound);
         }
 
-        private int RandomDialog()
+        /*private int RandomDialog()
         {
             return Random.Range(5, 7);
-        }
+        }*/
 
         public void StopClip()
         {
