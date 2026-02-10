@@ -24,7 +24,7 @@ namespace Utils
         private bool _showInteractPrompt = true;
         private bool _dialogueStarted;
         private int _dialogueIndex;
-        private const float DialogueSpeed = 0.02f;
+        private const float DialogueSpeed = 0.0165f;
         private bool _canSpeak = true;
         private bool _blockDialogue = false;
         private bool _lastDialogue;
@@ -226,13 +226,6 @@ namespace Utils
                 }
             }
         }
-        
-        /*private void AlejarVieja(GameObject vieja)
-        {
-            var pos = vieja.transform.localPosition;
-            pos.x += 30;
-            vieja.transform.localPosition = pos;
-        }*/
         
         private void TraerVieja(GameObject vieja)
         {

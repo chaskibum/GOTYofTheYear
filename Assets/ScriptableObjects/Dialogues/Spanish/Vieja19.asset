@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Mantendr\xE9 mi promesa, Selene. Mientras yo viva, vos tambi\xE9n lo har\xE1s."
+  - "Ya tom\xE9 mi decisi\xF3n. No tratar\xE9 m\xE1s de huir del pasado. "
+  - "En \xE9l encuentro muchos recuerdos que preferir\xEDa borrar, pero tambi\xE9n
+    todos aquellos que aprecio. Y con ellos me encuentro a mi. Hace tiempo que no
+    ten\xEDa claro qui\xE9n era, pero ahora..."
+  - "Mantendr\xE9 mi promesa, Selene. Seguir\xE9 viviendo. Y mientras lo haga, vos
+    tambi\xE9n vivir\xE1s."
   - <color=yellow>Este Recado Maldito llega a su fin.</color>
   - <color=#FF00FF>Mijo...</color>
   - "\xBFGusta una tacita de caf\xE9?"
