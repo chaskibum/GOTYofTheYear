@@ -15,7 +15,7 @@ namespace Utils
 
         public void Rumble(float low, float high, float duration)
         {
-            StartCoroutine(RumbleRoutine(low, high, duration));
+            // StartCoroutine(RumbleRoutine(low, high, duration));
         }
 
         private IEnumerator RumbleRoutine(float low, float high, float duration)
