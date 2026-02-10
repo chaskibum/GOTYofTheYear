@@ -1,4 +1,3 @@
-using Ami.BroAudio;
 using UnityEngine;
 
 namespace EnemiesScripts
@@ -9,9 +8,9 @@ namespace EnemiesScripts
         private float _rotation;
 
         [Header("Audio")]
-        [SerializeField] private SoundID attackSound;
-        [SerializeField] private SoundID hurtSound;
-        [SerializeField] private SoundID dieSound;
+        [SerializeField] private AudioSource attackSound;
+        [SerializeField] private AudioSource hurtSound;
+        [SerializeField] private AudioSource dieSound;
         
         protected override void ResetEnemy()
         {
@@ -34,11 +33,12 @@ namespace EnemiesScripts
 
         public override void GetHit()
         {
+            // if (Animator.GetBool("Attacking")) return;
             base.GetHit();
-            if (Hp > 0) BroAudio.Play(hurtSound);// AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
+            if (Hp > 0) hurtSound.Play();// AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
             else {
-                BroAudio.Stop(attackSound);
-                BroAudio.Play(dieSound);//AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
+                attackSound.Stop();
+                dieSound.Play();//AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
             }
         }
 
@@ -47,7 +47,7 @@ namespace EnemiesScripts
             if (!CanAttack) return;
             Animator?.SetBool("Attacking", true);
             // AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
-            BroAudio.Play(attackSound);
+            attackSound.Play();
             base.Attack();
         }
 

@@ -148,7 +148,7 @@ namespace EnemiesScripts
         
         protected virtual void ChaseState()
         {
-            Visuals.flipX = !PlayerToTheRight;
+            if (!Animator.GetBool("Attacking")) Visuals.flipX = !PlayerToTheRight;
 
             var rotation = transform.rotation;
             rotation.eulerAngles = new Vector3(0, 0, !PlayerToTheRight ? 10 : -10);
