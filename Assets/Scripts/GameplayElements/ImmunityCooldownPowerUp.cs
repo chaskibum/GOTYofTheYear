@@ -22,6 +22,7 @@ public class ImmunityCooldownPowerUp : MonoBehaviour, IInteractable
     
     [SerializeField] private bool PowerUp1 = false;
     [SerializeField] private bool PowerUp2 = false;
+    [SerializeField] private bool PowerUp3 = false;
     
     private void Start()
     {
@@ -33,6 +34,8 @@ public class ImmunityCooldownPowerUp : MonoBehaviour, IInteractable
         if (PlayerPrefs.GetString("PowerUp1") == name)
             HideObject();
         else if (PlayerPrefs.GetString("PowerUp2") == name)
+            HideObject();
+        else if (PlayerPrefs.GetString("PowerUp3") == name)
             HideObject();
         
         GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
@@ -107,6 +110,8 @@ public class ImmunityCooldownPowerUp : MonoBehaviour, IInteractable
             PlayerPrefs.SetString("PowerUp1", name);
         else if (PowerUp2)
             PlayerPrefs.SetString("PowerUp2", name);
+        else if (PowerUp3)
+            PlayerPrefs.SetString("PowerUp3", name);
 
         _player.GetPlayerData.shieldCooldown -= 3;
         _uiManager.ChangeCooldownSliderMin();
@@ -119,5 +124,6 @@ public class ImmunityCooldownPowerUp : MonoBehaviour, IInteractable
         objectLight.SetActive(true);
         PlayerPrefs.SetString("PowerUp1", "");
         PlayerPrefs.SetString("PowerUp2", "");
+        PlayerPrefs.SetString("PowerUp3", "");
     }
 }
