@@ -33,12 +33,11 @@ namespace EnemiesScripts
 
         public override void GetHit()
         {
-            // if (Animator.GetBool("Attacking")) return;
             base.GetHit();
-            if (Hp > 0) hurtSound.Play();// AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
+            if (Hp > 0) hurtSound.Play();
             else {
                 attackSound.Stop();
-                dieSound.Play();//AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorDeath);
+                dieSound.Play();
             }
         }
 
@@ -46,7 +45,6 @@ namespace EnemiesScripts
         {
             if (!CanAttack) return;
             Animator?.SetBool("Attacking", true);
-            // AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorAttack, false, 0.8f);
             attackSound.Play();
             base.Attack();
         }

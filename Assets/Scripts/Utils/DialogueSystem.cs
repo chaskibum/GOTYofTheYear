@@ -38,7 +38,11 @@ namespace Utils
         [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private GameObject dialoguePanel;
+        [SerializeField] private Transform panelImage;
         [SerializeField] private TMP_Text dialogueText;
+        private Vector3 _smallPanel = new Vector3(0.7f, 0.3f, 1);
+        private Vector3 _mediumPanel = new Vector3(0.7f, 0.6f, 1);
+        private Vector3 _bigPanel = new Vector3(0.7f, 1f, 1);
         [Header("ViejaOptions")]
         [SerializeField] private bool disappearAfterDialogue;
         [SerializeField] private float timeToDisappear;
@@ -317,6 +321,10 @@ namespace Utils
             
             dialogueText.text = string.Empty;
             dialogueText.text = _selectedDialogues[_dialogueIndex];
+
+            if (dialogueText.text.Length < 50) panelImage.localScale = _smallPanel;
+            else if (dialogueText.text.Length < 120) panelImage.localScale = _mediumPanel;
+            else panelImage.localScale = _bigPanel;
 
             foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
