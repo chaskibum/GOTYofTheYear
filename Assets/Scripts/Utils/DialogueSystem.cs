@@ -59,6 +59,7 @@ namespace Utils
         [SerializeField] private GameObject vieja2;
         [SerializeField] private GameObject vieja3;
         [SerializeField] private GameObject viejaGoodEnding;
+        [SerializeField] private GameObject noRecuerdoVieja;
         private int _viejalIndex = 0;
         
         [Header("Others")]
@@ -174,7 +175,7 @@ namespace Utils
                 if (vieja2) vieja2.gameObject.SetActive(true);
                 if (vieja3) vieja3.gameObject.SetActive(true);
                 
-                if (name == "Vieja2")
+                /*if (name == "Vieja2")
                 {
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
                     {
@@ -197,13 +198,30 @@ namespace Utils
                     {
                         viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
                     }
+                }*/
+
+                if (!vieja1 && !vieja2 && vieja3.transform.localPosition.x == 548.82f)
+                {
+                    print(vieja3.transform.localPosition.x);
+                    print("spawneando vieja buena");
+                    viejaGoodEnding.gameObject.SetActive(true);
+                    Destroy(vieja3);
+                    return;
                 }
+                
+                /*else if (vieja1.transform.localPosition.x != 548.82f || vieja2.transform.localPosition.x != 548.82f ||
+                         vieja3.transform.localPosition.x != 548.82f)
+                {
+                    viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
+                    viejaEnding.GetComponent<SpriteRenderer>().enabled = true;
+                }*/
                 
                 if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1 && vieja1.transform.localPosition.x != 548.82f)
                 {
                     // DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
                     
                     TraerVieja(vieja1);
                     return;
@@ -213,8 +231,9 @@ namespace Utils
                     DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
                     
-                    Destroy(vieja1);
+                    // Destroy(vieja1);
                     TraerVieja(vieja2);
                     return;
                 }
@@ -223,11 +242,22 @@ namespace Utils
                     DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
+                    if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
                     
-                    if (vieja1) Destroy(vieja1);
-                    Destroy(vieja2);
+                    // if (vieja1) Destroy(vieja1);
+                    // Destroy(vieja2);
                     TraerVieja(vieja3);
                     return;
+                }
+                
+                if (vieja1 && vieja1.transform.localPosition.x != 548.82f || vieja2 && vieja2.transform.localPosition.x != 548.82f ||
+                    vieja3 && vieja3.transform.localPosition.x != 548.82f)
+                {
+                    if (viejaEnding.GetComponent<SpriteRenderer>().enabled) return;
+                    noRecuerdoVieja.SetActive(true);
+                    print("no recuerdo vieja aparece");
+                    // viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
+                    // viejaEnding.GetComponent<SpriteRenderer>().enabled = true;
                 }
             }
         }
@@ -374,6 +404,11 @@ namespace Utils
                 {
                     ActivateCollider();
                 }
+
+                if (name == "Vieja1") Destroy(vieja1);
+                if (name == "Vieja2") Destroy(vieja2);
+                if (name == "Vieja3") Destroy(vieja3);
+                
                 if (goodEndingDialogue)
                 {
                     _canSpeak = false;

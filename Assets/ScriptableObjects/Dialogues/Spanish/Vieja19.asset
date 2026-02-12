@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   dialogues:
-  - "Ya tom\xE9 mi decisi\xF3n. No tratar\xE9 m\xE1s de huir del pasado. "
+  - "Ya tom\xE9 mi decisi\xF3n. No tratar\xE9 m\xE1s huir del pasado. "
   - "En \xE9l encuentro muchos recuerdos que preferir\xEDa borrar, pero tambi\xE9n
     todos aquellos que aprecio. Y con ellos me encuentro a mi. Hace tiempo que no
     ten\xEDa claro qui\xE9n era, pero ahora..."
