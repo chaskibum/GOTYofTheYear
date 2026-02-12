@@ -7,9 +7,9 @@ namespace EnemiesScripts
     public class SneakyBushScript : EnemyController
     {
         [Header("Audio")] 
-        [SerializeField] private SoundID attackSound;
-        [SerializeField] private SoundID hurtSound;
-        [SerializeField] private SoundID deathSound;
+        [SerializeField] private AudioSource attackSound;
+        [SerializeField] private AudioSource hurtSound;
+        [SerializeField] private AudioSource deathSound;
         
         protected override void IdleState()
         {
@@ -36,7 +36,7 @@ namespace EnemiesScripts
         public void PlayAttackSound()
         {
             // AudioManager.Instance.PlayClip(AudioManager.AudioList.BushAttack);
-            BroAudio.Play(attackSound);
+            attackSound.Play();
             particles.Clear();
             particles.Play();
         }
@@ -54,14 +54,14 @@ namespace EnemiesScripts
             if (Hp <= 0)
             {
                 // AudioManager.Instance.PlayClip(AudioManager.AudioList.BushDeath);
-                BroAudio.Stop(attackSound);
-                BroAudio.Play(deathSound);
+                attackSound.Stop();
+                deathSound.Play();
                 particles.Stop();
                 Animator?.SetBool("Attacking", false);
             }
             else
             {
-                BroAudio.Play(hurtSound);
+                hurtSound.Play();
             }
         }
 
