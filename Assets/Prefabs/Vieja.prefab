@@ -173,10 +173,6 @@ MonoBehaviour:
   dash: {fileID: 0}
   dialogueES: {fileID: 0}
   dialogueEN: {fileID: 0}
-  dialogueSound:
-    ID: 1073741830
-    _sourceAsset: {fileID: 11400000, guid: de08f12e28636254e8b917947c01940f, type: 2}
-    <DebugObject>k__BackingField: {fileID: 1331777317948042120}
 --- !u!95 &2995075747971858342
 Animator:
   serializedVersion: 7
@@ -348,9 +344,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Necesito que te abras paso a trav\xE9s de 3 \xE1reas, y conseguir los
-    ingredientes que debo tener... <color=yellow>para crear un hechizo</color> que
-    deshaga la maldici\xF3n por <wave>siempre 123456.</wave>"
+  m_text: "\t\xBFMe podr\xEDas perdonar?\n\n  PERDONAR \t|     NO PERDONAR\n  (Bot\xF3n
+    de      \t|        (Bot\xF3n de\n Interactuar)    \t|          Atacar)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}
   m_sharedMaterial: {fileID: -2345810495039490867, guid: 90d143eee61a18f41a4761f53a0f21dd, type: 2}

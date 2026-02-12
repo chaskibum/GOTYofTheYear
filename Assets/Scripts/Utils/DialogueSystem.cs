@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Ami.BroAudio;
 using DG.Tweening;
 using GameplayElements;
 using Managers;
@@ -72,8 +71,6 @@ namespace Utils
         private PlayerController _player;
         private SpriteRenderer _sprite;
 
-        [SerializeField] private SoundID dialogueSound;
-
         private IEnumerator Start()
         {
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
@@ -109,7 +106,6 @@ namespace Utils
         {
             if (_isInRange)
             {
-                // if (_canSpeak) CheckInteractInput();
                 if (_showInteractPrompt) interactPrompt.SetActive(true);
                 else interactPrompt.SetActive(false);
             }
@@ -172,7 +168,7 @@ namespace Utils
             
             if (endingDialogue)
             {
-                ActivateCollider();
+                // ActivateCollider();
                 
                 if (vieja1) vieja1.gameObject.SetActive(true);
                 if (vieja2) vieja2.gameObject.SetActive(true);
@@ -183,6 +179,7 @@ namespace Utils
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
                     {
                         viejaGoodEnding.gameObject.SetActive(true);
+                        // ActivateCollider();
                         Destroy(vieja2);
                         return;
                     }
@@ -192,6 +189,7 @@ namespace Utils
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" || PlayerPrefs.GetString("Viejal2") == "Viejal2")
                     {
                         viejaGoodEnding.gameObject.SetActive(true);
+                        // ActivateCollider();
                         Destroy(vieja3);
                         return;
                     }
@@ -203,6 +201,7 @@ namespace Utils
                 
                 if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1 && vieja1.transform.localPosition.x != 548.82f)
                 {
+                    // DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
@@ -211,6 +210,7 @@ namespace Utils
                 }
                 if (PlayerPrefs.GetString("Viejal2") == "Viejal2" && vieja2 && vieja2.transform.localPosition.x != 548.82f)
                 {
+                    DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
@@ -220,6 +220,7 @@ namespace Utils
                 }
                 if (PlayerPrefs.GetString("Viejal3") == "Viejal3" && vieja3.transform.localPosition.x != 548.82f)
                 {
+                    DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     
@@ -263,7 +264,6 @@ namespace Utils
             yield return new WaitForSeconds(timeToDisappear);
             DeactivateDialog();
             _showInteractPrompt = false;
-            // AudioManager.Instance.StopClip();
             while (_sprite.color.a > 0)
             {
                 var color = _sprite.color;
@@ -277,6 +277,11 @@ namespace Utils
         private void ActivateCollider()
         {
             viejaHitbox.SetActive(true);
+        }
+
+        private void DeactivateCollider()
+        {
+            viejaHitbox.SetActive(false);
         }
     
         private void CanSpeakAgain()
@@ -321,6 +326,7 @@ namespace Utils
             
             dialogueText.text = string.Empty;
             dialogueText.text = _selectedDialogues[_dialogueIndex];
+            dialogueText.textWrappingMode = TextWrappingModes.Normal;
 
             if (dialogueText.text.Length < 50) panelImage.localScale = _smallPanel;
             else if (dialogueText.text.Length < 120) panelImage.localScale = _mediumPanel;
@@ -328,7 +334,6 @@ namespace Utils
 
             foreach (char ch in _selectedDialogues[_dialogueIndex])
             {
-                // BroAudio.Play(dialogueSound);
                 yield return new WaitForSecondsRealtime(DialogueSpeed);
 
                 if (!_isTyping) yield break;
@@ -347,6 +352,11 @@ namespace Utils
                 entranceThunder.transform.parent.GetComponent<PolygonCollider2D>().enabled = true;
                 Invoke(nameof(ShakeCamera), 0.6f);
             }
+
+            if (name == "ViejaGood" && _dialogueIndex == _selectedDialogues.Count - 7)
+            {
+                Invoke(nameof(ChoiceDialogue), 0.1f);
+            }
             if (_writingSound != null)
             {
                 StopCoroutine(_writingSound);
@@ -360,6 +370,10 @@ namespace Utils
             }
             else
             {
+                if (name == "ViejaBadEnding")
+                {
+                    ActivateCollider();
+                }
                 if (goodEndingDialogue)
                 {
                     _canSpeak = false;
@@ -369,6 +383,14 @@ namespace Utils
                 }
                 ExitDialogue();
             }
+        }
+
+        private void ChoiceDialogue()
+        {
+            CompleteDialogue();
+            ActivateCollider();
+            dialogueText.textWrappingMode = TextWrappingModes.NoWrap;
+            panelImage.localScale = new Vector3(1, 1, 1);
         }
 
         private void ShakeCamera()

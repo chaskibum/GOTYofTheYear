@@ -25,11 +25,11 @@ public class ViejaEnding : MonoBehaviour
         fade.color = Color.black;
         rain.volume = 0f;
         rain.DOFade(1f, 8f);
-        viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
-        vieja1.GetComponent<BoxCollider2D>().enabled = false;
-        vieja2.GetComponent<BoxCollider2D>().enabled = false;
-        vieja3.GetComponent<BoxCollider2D>().enabled = false;
-        viejaGoodEnding.GetComponent<BoxCollider2D>().enabled = false;
+        if (viejaEnding) viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
+        if (vieja1) vieja1.GetComponent<BoxCollider2D>().enabled = false;
+        if (vieja2) vieja2.GetComponent<BoxCollider2D>().enabled = false;
+        if (vieja3) vieja3.GetComponent<BoxCollider2D>().enabled = false;
+        if (viejaGoodEnding) viejaGoodEnding.GetComponent<BoxCollider2D>().enabled = false;
         AudioManager.Instance.PlayClip(AudioManager.AudioList.ViejaDeath);
         GameManager.Instance.GetPlayer.StopInputs();
         GameManager.Instance.GetUIManager.inMenu = true;

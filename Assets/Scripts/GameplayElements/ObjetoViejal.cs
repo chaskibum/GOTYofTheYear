@@ -90,7 +90,7 @@ namespace GameplayElements
     
         public void Interact()
         {
-            if (!panel.activeInHierarchy)
+            /*if (!panel.activeInHierarchy)
             {
                 _uiManager.SetInMenu();
                 panel.SetActive(true);
@@ -100,7 +100,11 @@ namespace GameplayElements
             else
             {
                 ClosePanel();
-            }
+            }*/
+            _uiManager.SetInMenu();
+            panel.SetActive(true);
+            Time.timeScale = 0;
+            closeButton.Select();
         }
 
         public void ClosePanel()
