@@ -69,6 +69,7 @@ namespace Managers
 
         public void HighlightVolumeSlider()
         {
+            print("highlightinf!");
             slider.Select();
         }
     }
