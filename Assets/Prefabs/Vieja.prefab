@@ -34,12 +34,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3139523096159179861}
   - {fileID: 6142914319619726494}
+  - {fileID: 3139523096159179861}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3268039482471644624
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,6 +59,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,9 +82,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 563985417
   m_SortingLayer: 8
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 342950201683668163, guid: 90dd937da9baab84397ffed5415cb108, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,7 +96,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &4077928002189562652
 BoxCollider2D:
@@ -170,6 +174,7 @@ MonoBehaviour:
   vieja2: {fileID: 0}
   vieja3: {fileID: 0}
   viejaGoodEnding: {fileID: 0}
+  noRecuerdoVieja: {fileID: 0}
   dash: {fileID: 0}
   dialogueES: {fileID: 0}
   dialogueEN: {fileID: 0}
@@ -383,6 +388,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -763,7 +769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -810,8 +816,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
---- !u!4 &3139523096159179861 stripped
-Transform:
+--- !u!224 &3139523096159179861 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
   m_PrefabInstance: {fileID: 2477997768937778566}
   m_PrefabAsset: {fileID: 0}

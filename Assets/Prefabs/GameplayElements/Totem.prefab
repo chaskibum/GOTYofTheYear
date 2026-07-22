@@ -118,13 +118,14 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5744473015593088968}
   - {fileID: 3240999949111427948}
   - {fileID: 5476770338913157397}
+  - {fileID: 5744473015593088968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9009791933691010419
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,6 +144,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -164,9 +167,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 285662925
   m_SortingLayer: 5
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 9020891681193337988, guid: 499a4002a2020914f8bb45fd47d7514d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -176,7 +181,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &5307932624016876573
 BoxCollider2D:
@@ -495,7 +499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -516,6 +520,10 @@ PrefabInstance:
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalRotation.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -547,8 +555,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5721757259522890655, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
   m_PrefabInstance: {fileID: 5064924008973258267}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5744473015593088968 stripped
-Transform:
+--- !u!224 &5744473015593088968 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
   m_PrefabInstance: {fileID: 5064924008973258267}
   m_PrefabAsset: {fileID: 0}

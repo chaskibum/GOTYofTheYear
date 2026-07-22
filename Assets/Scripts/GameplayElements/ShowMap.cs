@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
+using TMPro;
 
 namespace GameplayElements
 {
@@ -10,6 +11,7 @@ namespace GameplayElements
     {
         [SerializeField] private GameObject map;
         [SerializeField] private GameObject interactPrompt;
+        private TextMeshProUGUI _interactPromptText;
         [SerializeField] private Button closeButton;
 
         private bool _inRange;
@@ -18,7 +20,15 @@ namespace GameplayElements
 
         private void Start()
         {
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            _interactPromptText.text = GetInteractionPrompt();
+
             _uiManager = GameManager.Instance.GetUIManager;
+        }
+
+        public string GetInteractionPrompt()
+        {
+            return "Presiona [E] para ver mapa";
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -41,7 +51,7 @@ namespace GameplayElements
                 _justClosed = false;
                 return;
             }
-        
+
             // if (_inRange) CheckInteractInput();
             // if (_inRange && map.activeInHierarchy) CheckCloseInput();
         }
@@ -61,7 +71,7 @@ namespace GameplayElements
                 ClosePanel();
             }
         }*/
-    
+
         public void Interact()
         {
             if (!map.activeInHierarchy)

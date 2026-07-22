@@ -5,10 +5,10 @@ using Utils;
 
 namespace GameplayElements
 {
-    public class HealingSpot : MonoBehaviour, IInteractable
+    public class HealingSpot : MonoBehaviour
     {
         [SerializeField] private AudioSource healSound;
-        
+
         private Animator _animator;
         private bool _isInRange;
 
@@ -39,7 +39,7 @@ namespace GameplayElements
                 GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
             }
         }
-    
+
         private void OnTriggerStay2D(Collider2D other)
         {
             _isInRange = true;
@@ -49,7 +49,7 @@ namespace GameplayElements
         {
             _isInRange = false;
         }
-    
+
         void Update()
         {
             if (_isInRange)
@@ -77,11 +77,11 @@ namespace GameplayElements
             GameManager.Instance.GetPlayer.Heal();
             _animator.SetBool("Used", true);
         }
-    
+
         private void ResetAnimations()
         {
             if (!_animator) return;
-        
+
             _animator.SetBool("Used", false);
         }
     }
