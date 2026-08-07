@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utils;
 
 namespace EnemiesScripts
 {
@@ -9,7 +10,7 @@ namespace EnemiesScripts
         private Vector3 _playerDirection;
         private bool _forceAdded = false;
         private float _timer = 3;
-        
+
         protected override void Update()
         {
             CalculateDirection();
@@ -17,7 +18,7 @@ namespace EnemiesScripts
             {
                 GetPlayerPosition();
             }
-            
+
             UpdateState();
         }
 
@@ -25,7 +26,7 @@ namespace EnemiesScripts
         {
             _timer -= Time.deltaTime;
             if (_timer <= 0) _flying = false;
-            
+
             Animator.SetTrigger("BackToIdle");
             particles.Stop();
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
@@ -50,7 +51,7 @@ namespace EnemiesScripts
             CanChangeState = true;
             Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        
+
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
@@ -62,7 +63,7 @@ namespace EnemiesScripts
             CanChangeState = true;
             Visuals.transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        
+
         protected override void GetPlayerPosition()
         {
             PlayerPos = Player.GetPlayerTarget;
@@ -72,14 +73,14 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             Visuals.flipX = !PlayerToTheRight;
-            
+
             if (!_forceAdded)
             {
                 Body.AddForce(_playerDirection * data.stepAwayForce, ForceMode2D.Impulse);
                 _forceAdded = true;
             }
-            
-            if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange) 
+
+            if (Vector3.Distance(Body.position, PlayerPos) > data.detectionRange)
                 SetState(State.Idle);
 
             if (Vector3.Distance(Body.position, PlayerPos) < data.attackRange && CanAttack)
@@ -89,7 +90,7 @@ namespace EnemiesScripts
 
             var actualDistance = Vector3.Distance(Body.position, PlayerPos);
             StartCoroutine(CheckIfStuck(actualDistance));
-            
+
             _flying = true;
             Visuals.transform.eulerAngles += new Vector3(0, 0, 1000) * Time.deltaTime;
         }
@@ -114,6 +115,12 @@ namespace EnemiesScripts
                 EndAttack();
                 StartCoroutine(LockStateForSeconds(1));
             }
+        }
+
+        public override void GetHit()
+        {
+            base.GetHit();
+            GamepadVibration.Instance.Rumble(0.6f, 0.7f, 0.1f);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-    
+
         private readonly UnityEvent _onGameOver = new UnityEvent();
         private readonly UnityEvent _onGameWon = new UnityEvent();
         private readonly UnityEvent _onGameRestart = new UnityEvent();
@@ -25,12 +25,15 @@ namespace Managers
         private readonly UnityEvent<int> _onLifeAmountChanged = new UnityEvent<int>();
 
         [SerializeField] private PlayerController player;
+        [SerializeField] private InputDevice inputDevice;
         [SerializeField] private UIManager uiManager;
-        
+
         [SerializeField] private GameObject wonScreen;
 
+
         [SerializeField] private Image fade;
-        
+
+        private bool _isControllerConnected = false;
         private bool _gameOver = false;
         public bool gameWon = false;
 
@@ -48,9 +51,12 @@ namespace Managers
             _onGameWon.AddListener(PlayEnding);
             _onGameRestart.AddListener(RestartGameEvent);
 
+            inputDevice.OnInputDeviceChanged += (isController) => _isControllerConnected = isController;
+
             fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            CheckIfControllerConnected();
         }
 
         private void OnDestroy()
@@ -90,6 +96,11 @@ namespace Managers
             RestartGameEvent();
         }
 
+        private void CheckIfControllerConnected()
+        {
+            _isControllerConnected = Gamepad.current != null ? true : false;
+        }
+
         private void RestartGameEvent()
         {
             // if (Time.timeScale == 0) uiManager.HandlePause();
@@ -98,7 +109,7 @@ namespace Managers
             Time.timeScale = 1;
             _gameOver = false;
         }
-    
+
         public void BackToMainMenu()
         {
             uiManager.HandlePause();
@@ -118,14 +129,16 @@ namespace Managers
         public UnityEvent GetResetObjects => _resetObjects;
         public UnityEvent<int> GetHpAmountChanged => _onHpAmountChanged;
         public UnityEvent<int> GetLifeAmountChanged => _onLifeAmountChanged;
-    
+
 
         #endregion
-    
+
         public PlayerController GetPlayer => player;
-        
+
         public UIManager GetUIManager => uiManager;
-    
+
         public bool GetGameOver => _gameOver;
+
+        public bool GetControllerConnected => _isControllerConnected;
     }
 }

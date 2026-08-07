@@ -1,6 +1,7 @@
 using GameplayElements;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Utils;
 
 namespace EnemiesScripts
 {
@@ -8,7 +9,7 @@ namespace EnemiesScripts
     {
         protected ApplyMovement MovementScript;
         [SerializeField] private Light2D crowLight;
-        
+
         protected override void Start()
         {
             base.Start();
@@ -20,7 +21,7 @@ namespace EnemiesScripts
             base.ResetEnemy();
             attackHitbox.SetActive(true);
             crowLight.enabled = true;
-            
+
             if (MovementScript)
                 MovementScript.enabled = true;
         }
@@ -30,7 +31,7 @@ namespace EnemiesScripts
             base.RestartEnemy();
             attackHitbox.SetActive(true);
             crowLight.enabled = true;
-            
+
             if (MovementScript)
                 MovementScript.enabled = true;
         }
@@ -45,9 +46,15 @@ namespace EnemiesScripts
         {
             base.DieState();
             crowLight.enabled = false;
-            
+
             if (MovementScript)
                 MovementScript.enabled = false;
+        }
+
+        public override void GetHit()
+        {
+            base.GetHit();
+            GamepadVibration.Instance.Rumble(0.1f, 0.25f, 0.10f);
         }
     }
 }

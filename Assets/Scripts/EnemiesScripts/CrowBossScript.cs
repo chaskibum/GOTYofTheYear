@@ -48,7 +48,7 @@ namespace EnemiesScripts
             }
             _cam = Camera.main;
         }
-        
+
         protected override void ResetEnemy()
         {
             if (!BossSlain)
@@ -108,6 +108,7 @@ namespace EnemiesScripts
                     wave.SetActive(true);
                     painScream.Play();
                     _cam.DOShakePosition(1.2f, 1f);
+                    GamepadVibration.Instance.Rumble(0.6f, 0.9f, 0.6f);
                     if (Hp < data.baseHp / 2 + 1)
                         drums1.loop = false;
                     yield return new WaitWhile(() => Hp % 4 == 0);
@@ -127,21 +128,21 @@ namespace EnemiesScripts
 
             if (healthGroup.alpha < 1)
                 healthGroup.DOFade(1, 1.5f);
-            
+
             if (_waveCoroutine == null)
                 _waveCoroutine = StartCoroutine(WaveSpawner());
-            
+
             if (modifyPosition == 0 && !chillidoPlayed)
             {
                 chillido.Play();
                 chillidoPlayed = true;
             }
-            
+
             if (!drums1.isPlaying && Hp > data.baseHp / 2)
                 drums1.Play();
             else if (!drums1.isPlaying && !drums2.isPlaying && Hp < data.baseHp / 2 + 1)
                 drums2.Play();
-                
+
             ChaseTimer += Time.deltaTime;
             if (ChaseTimer >= data.stepAwayForce)
             {
@@ -178,6 +179,7 @@ namespace EnemiesScripts
             else
             {
                 healthBar.SetHealth(Hp);
+                GamepadVibration.Instance.Rumble(0.2f, 0.35f, 0.15f);
             }
         }
 

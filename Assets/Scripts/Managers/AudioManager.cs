@@ -86,7 +86,7 @@ namespace Managers
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)
         {
             sfxSource.volume = volume;
-            sfxSource.pitch = changePitch ? Random.Range(0.85f, 1.15f) : 1f;
+            sfxSource.pitch = changePitch ? Random.Range(0.9f, 1.1f) : 1f;
             if (oneShot)
                 sfxSource.PlayOneShot(audioClips[(int)clip]);
             else

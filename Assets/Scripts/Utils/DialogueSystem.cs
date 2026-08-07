@@ -33,10 +33,10 @@ namespace Utils
         private bool _isTyping;
         private Coroutine _writingSound;
         private TMPWriter _writer;
+        private TextMeshProUGUI _interactPromptText;
 
         [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
-        private TextMeshProUGUI _interactPromptText;
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private Transform panelImage;
         [SerializeField] private TMP_Text dialogueText;
@@ -94,6 +94,7 @@ namespace Utils
                 _selectedDialogues = dialogueES.dialogues;
             }
 
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
 
             yield return new WaitForSeconds(0.1f);
             if (name == "SecretDialogueVieja" && _player.GetDoubleJumpUnlocked)
@@ -110,8 +111,28 @@ namespace Utils
 
         public string GetInteractionPrompt()
         {
-            if (_isSpanish) return "Presiona [E] para hablar";
-            else return "Press [E] to talk";
+            if (_isSpanish)
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para hablar";
+                }
+                else
+                {
+                    return "Presiona [E] para hablar";
+                }
+            }
+            else
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to talk";
+                }
+                else
+                {
+                    return "Press [E] to talk";
+                }
+            }
         }
 
         private void OnDestroy()
@@ -464,6 +485,7 @@ namespace Utils
         private void OnTriggerEnter2D(Collider2D other)
         {
             _isInRange = true;
+            _interactPromptText.text = GetInteractionPrompt();
         }
 
         private void OnTriggerExit2D(Collider2D other)

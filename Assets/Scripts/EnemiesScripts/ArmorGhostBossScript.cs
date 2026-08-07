@@ -21,7 +21,7 @@ namespace EnemiesScripts
         private Coroutine _spawnCoroutine;
         private Vector3 _startingLockPosition = new Vector3(214, -111, 0);
         private Vector3 _targetLockPosition = new Vector3(214, -104, 0);
-        
+
         private bool BossSlain;
         private Camera _cam;
 
@@ -66,7 +66,7 @@ namespace EnemiesScripts
                 DeactivateCoroutine();
             }
         }
-        
+
         protected override void RestartEnemy()
         {
             base.RestartEnemy();
@@ -87,7 +87,7 @@ namespace EnemiesScripts
         protected override void ChaseState()
         {
             base.ChaseState();
-            
+
             Animator?.SetBool("Hit", false);
 
             if (healthGroup.alpha < 1)
@@ -131,6 +131,7 @@ namespace EnemiesScripts
             if (Hp > 0)
             {
                 healthBar.SetHealth(Hp);
+                GamepadVibration.Instance.Rumble(0.3f, 0.6f, 0.15f);
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorHit, true);
             }
             else
@@ -166,13 +167,13 @@ namespace EnemiesScripts
             AudioManager.Instance.PlayClip(AudioManager.AudioList.ArmorBossAttack, false, 0.8f);
             base.Attack();
         }
-        
+
         protected override void EndAttack()
         {
             base.EndAttack();
             Animator?.SetBool("Attacking", false);
         }
-        
+
         protected override IEnumerator EndFeedback()
         {
             yield return new WaitForSecondsRealtime(0.05f);
@@ -182,7 +183,7 @@ namespace EnemiesScripts
             else
                 Time.timeScale = 1;
         }
-        
+
         private IEnumerator SpawnEnemies()
         {
             while (!BossSlain)
@@ -194,11 +195,12 @@ namespace EnemiesScripts
                 objects[Random.Range(0, objects.Count)].SetActive(true);
                 swordAttack.Play();
                 _cam.DOShakePosition(1.2f, 1f);
+                GamepadVibration.Instance.Rumble(0.6f, 0.9f, 0.6f);
                 scream.Play();
                 Animator?.SetBool("Screaming", true);
                 SetState(State.Idle);
                 StartCoroutine(LockStateForSeconds(1.5f));
-                
+
                 yield return new WaitForSeconds(Random.Range(10f, 15f));
 
                 if (BossSlain) break;
@@ -222,7 +224,7 @@ namespace EnemiesScripts
             }
             foreach (GameObject enemy in enemies)
                 enemy.SetActive(false);
-                
+
             foreach (GameObject obj in objects)
                 obj.SetActive(false);
         }
@@ -237,7 +239,7 @@ namespace EnemiesScripts
         private void RelocateObjects()
         {
             GameManager.Instance.GetResetObjects.Invoke();
-            
+
             foreach (GameObject obj in objects)
             {
                 obj.transform.localPosition = new Vector3(0, 23, 0);
@@ -260,7 +262,7 @@ namespace EnemiesScripts
             DeactivateCoroutine();
             _spawnCoroutine = null;
         }
-        
+
         private void StopSlowMotion()
         {
             Time.timeScale = 1f;

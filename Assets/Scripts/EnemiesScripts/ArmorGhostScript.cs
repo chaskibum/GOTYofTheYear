@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utils;
 
 namespace EnemiesScripts
 {
@@ -11,7 +12,7 @@ namespace EnemiesScripts
         [SerializeField] private AudioSource attackSound;
         [SerializeField] private AudioSource hurtSound;
         [SerializeField] private AudioSource dieSound;
-        
+
         protected override void ResetEnemy()
         {
             base.ResetEnemy();
@@ -34,8 +35,13 @@ namespace EnemiesScripts
         public override void GetHit()
         {
             base.GetHit();
-            if (Hp > 0) hurtSound.Play();
-            else {
+            if (Hp > 0)
+            {
+                hurtSound.Play();
+                GamepadVibration.Instance.Rumble(0.2f, 0.35f, 0.15f);
+            }
+            else
+            {
                 attackSound.Stop();
                 dieSound.Play();
             }

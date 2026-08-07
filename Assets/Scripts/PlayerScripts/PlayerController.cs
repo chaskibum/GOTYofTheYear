@@ -592,7 +592,7 @@ namespace PlayerScripts
             _dashTimer = data.dashCooldown;
             _animator.SetBool(Falling, false);
             _animator.SetBool(Dashing, true);
-            AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash);
+            AudioManager.Instance.PlayClip(AudioManager.AudioList.Dash, true);
             _body.linearVelocity = Vector2.zero;
             float direction = visuals.GetSpriteRenderer.flipX ? -1 : 1;
             _body.linearVelocityX = direction * data.dashSpeed;

@@ -18,6 +18,7 @@ namespace GameplayElements
         private TextMeshProUGUI _interactPromptText;
         [SerializeField] private Button closeButton;
         [SerializeField] private GameObject objectLight;
+        [SerializeField] private GameManager gameManager;
 
         private bool _inRange;
         private bool _justClosed;
@@ -30,8 +31,9 @@ namespace GameplayElements
 
         private void Start()
         {
+            gameManager = GameManager.Instance;
+
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
-            _interactPromptText.text = GetInteractionPrompt();
 
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
@@ -45,12 +47,19 @@ namespace GameplayElements
             else if (PlayerPrefs.GetString("PowerUp3") == name)
                 HideObject();
 
-            GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
+            gameManager.GetGameRestarted?.AddListener(ResetCollectable);
         }
 
         public string GetInteractionPrompt()
         {
-            return "Presiona [E] para agarrar power up";
+            if (gameManager.GetControllerConnected)
+            {
+                return "Presiona <color=yellow>(Y)</color> para agarrar power up";
+            }
+            else
+            {
+                return "Presiona [E] para agarrar power up";
+            }
         }
 
         private void HideObject()
@@ -67,6 +76,7 @@ namespace GameplayElements
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            _interactPromptText.text = GetInteractionPrompt();
             interactPrompt.SetActive(true);
             _inRange = true;
         }

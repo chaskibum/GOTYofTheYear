@@ -1,16 +1,17 @@
 using Ami.BroAudio;
 using Managers;
 using UnityEngine;
+using Utils;
 
 namespace EnemiesScripts
 {
     public class SneakyBushScript : EnemyController
     {
-        [Header("Audio")] 
+        [Header("Audio")]
         [SerializeField] private AudioSource attackSound;
         [SerializeField] private AudioSource hurtSound;
         [SerializeField] private AudioSource deathSound;
-        
+
         protected override void IdleState()
         {
             Body.linearVelocity = Vector2.Lerp(Body.linearVelocity, Vector2.zero, Time.deltaTime);
@@ -61,6 +62,7 @@ namespace EnemiesScripts
             }
             else
             {
+                GamepadVibration.Instance.Rumble(0.1f, 0.25f, 0.10f);
                 hurtSound.Play();
             }
         }
