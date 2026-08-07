@@ -3,20 +3,22 @@ using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using TMPro;
 
 namespace GameplayElements
 {
     public class SaveSpotManager : MonoBehaviour, IInteractable
     {
         private Vector3 _lastSavedRespawnPosition;
-        private Animator _animator; 
+        private Animator _animator;
         private static event Action<SaveSpotManager> OnCollisionEvent;
 
         [SerializeField] private bool isMainRespawn;
         [SerializeField] private AudioSource activatingSound;
         [SerializeField] private AudioSource torchSound;
         [SerializeField] private GameObject interactPrompt;
-    
+        private TextMeshProUGUI _interactPromptText;
+
         private bool _isInRange;
 
         private void Awake()
@@ -26,9 +28,17 @@ namespace GameplayElements
 
         private void Start()
         {
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            _interactPromptText.text = GetInteractionPrompt();
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
             GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
             Invoke(nameof(ActivateRespawn), 0.1f);
+        }
+
+        public string GetInteractionPrompt()
+        {
+            return "Presiona [E] para guardar";
         }
 
         private void ActivateRespawn()
@@ -38,7 +48,7 @@ namespace GameplayElements
                 Interact();
             }
         }
-        
+
         private void OnEnable()
         {
             OnCollisionEvent += HandleAnimations;
@@ -60,7 +70,7 @@ namespace GameplayElements
         {
             _isInRange = false;
         }
-    
+
         void Update()
         {
             if (_isInRange)
@@ -85,7 +95,7 @@ namespace GameplayElements
         {
             if (isMainRespawn) ActivateMainRespawn();
             else ActivateBonfireRespawn();
-        
+
             OnCollisionEvent?.Invoke(this);
         }
 
@@ -106,11 +116,11 @@ namespace GameplayElements
         private void HandleAnimations(SaveSpotManager activated)
         {
             if (!_animator) return;
-        
+
             bool isActive = activated == this;
 
             if (isMainRespawn && _animator.GetBool("Activated")) return;
-        
+
             _animator.SetBool("Activated", isActive);
         }
 
@@ -120,11 +130,11 @@ namespace GameplayElements
             activatingSound.Play();
             if (torchSound) torchSound.Play();
         }
-    
+
         private void ResetAnimations()
         {
             if (!_animator) return;
-        
+
             _animator.SetBool("Activated", false);
             Invoke(nameof(ActivateRespawn), 0.1f);
         }

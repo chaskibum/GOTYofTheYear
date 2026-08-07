@@ -36,6 +36,7 @@ namespace Utils
 
         [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
+        private TextMeshProUGUI _interactPromptText;
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private Transform panelImage;
         [SerializeField] private TMP_Text dialogueText;
@@ -105,6 +106,12 @@ namespace Utils
             if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
             if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
             if (startVieja && _player.GetDashUnlocked) gameObject.SetActive(false);
+        }
+
+        public string GetInteractionPrompt()
+        {
+            if (_isSpanish) return "Presiona [E] para hablar";
+            else return "Press [E] to talk";
         }
 
         private void OnDestroy()

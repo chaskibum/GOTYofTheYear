@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
+using TMPro;
 
 namespace GameplayElements
 {
@@ -11,9 +12,10 @@ namespace GameplayElements
     {
         private SpriteRenderer _sprite;
         private BoxCollider2D _collider;
-        
+
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject interactPrompt;
+        private TextMeshProUGUI _interactPromptText;
         [SerializeField] private Button closeButton;
         [SerializeField] private GameObject objectLight;
 
@@ -21,35 +23,43 @@ namespace GameplayElements
         private bool _justClosed;
         private UIManager _uiManager;
         private PlayerController _player;
-    
+
         [SerializeField] private bool PowerUp1 = false;
         [SerializeField] private bool PowerUp2 = false;
         [SerializeField] private bool PowerUp3 = false;
-    
+
         private void Start()
         {
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            _interactPromptText.text = GetInteractionPrompt();
+
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
             _uiManager = GameManager.Instance.GetUIManager;
             _player = GameManager.Instance.GetPlayer;
-            
+
             if (PlayerPrefs.GetString("PowerUp1") == name)
                 HideObject();
             else if (PlayerPrefs.GetString("PowerUp2") == name)
                 HideObject();
             else if (PlayerPrefs.GetString("PowerUp3") == name)
                 HideObject();
-        
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
         }
-    
+
+        public string GetInteractionPrompt()
+        {
+            return "Presiona [E] para agarrar power up";
+        }
+
         private void HideObject()
         {
             _sprite.enabled = false;
             _collider.enabled = false;
             objectLight.SetActive(false);
         }
-    
+
         private void OnDestroy()
         {
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
@@ -109,9 +119,9 @@ namespace GameplayElements
             panel.SetActive(false);
             _justClosed = true;
             _uiManager.SetInMenu(false);
-        
+
             HideObject();
-            
+
             if (PowerUp1)
                 PlayerPrefs.SetString("PowerUp1", name);
             else if (PowerUp2)
@@ -122,7 +132,7 @@ namespace GameplayElements
             _player.GetPlayerData.shieldCooldown -= 3;
             _uiManager.ChangeCooldownSliderMin();
         }
-        
+
         private void ResetCollectable()
         {
             _sprite.enabled = true;
