@@ -23,7 +23,7 @@ namespace Managers
         public AudioSource finalBossMusic;
 
         [SerializeField] private AudioSettings settings;
-    
+
         public enum AudioList
         {
             MenuPlay,
@@ -64,11 +64,12 @@ namespace Managers
             ArmorBossScream,
             HealingTree,
             BossKill,
+            PlayerDoubleJump,
         }
-    
+
         [SerializeField] List<AudioClip> audioClips;
 
-    
+
         private void Awake()
         {
             if (!Instance)
@@ -85,7 +86,7 @@ namespace Managers
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)
         {
             sfxSource.volume = volume;
-            sfxSource.pitch = changePitch ? Random.Range(0.9f, 1.1f) : 1f;
+            sfxSource.pitch = changePitch ? Random.Range(0.85f, 1.15f) : 1f;
             if (oneShot)
                 sfxSource.PlayOneShot(audioClips[(int)clip]);
             else
@@ -107,7 +108,7 @@ namespace Managers
         {
             return Random.Range(8, 10);
         }
-    
+
         public void PlayDialogSound()
         {
             BroAudio.Play(dialogueSound);

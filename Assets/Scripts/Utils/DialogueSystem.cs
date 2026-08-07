@@ -43,6 +43,7 @@ namespace Utils
         private Vector3 _mediumPanel = new Vector3(0.7f, 0.6f, 1);
         private Vector3 _bigPanel = new Vector3(0.7f, 1f, 1);
         [Header("ViejaOptions")]
+        [SerializeField] private bool startVieja = false;
         [SerializeField] private bool disappearAfterDialogue;
         [SerializeField] private float timeToDisappear;
         [SerializeField] private bool hideVieja;
@@ -61,12 +62,12 @@ namespace Utils
         [SerializeField] private GameObject viejaGoodEnding;
         [SerializeField] private GameObject noRecuerdoVieja;
         private int _viejalIndex = 0;
-        
+
         [Header("Others")]
         [SerializeField] private SkillCollectable dash;
         [SerializeField] private DialoguesData dialogueES;
         [SerializeField] private DialoguesData dialogueEN;
-        
+
         [Header("Flip")]
         private bool _playerToTheRight;
         private PlayerController _player;
@@ -75,11 +76,11 @@ namespace Utils
         private IEnumerator Start()
         {
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
-            
+
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
             _writer = dialoguePanel.GetComponentInChildren<TMPWriter>();
-            
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
 
             if (LocalizationSettings.SelectedLocale.ToString() != "Spanish (es)")
@@ -91,11 +92,19 @@ namespace Utils
             {
                 _selectedDialogues = dialogueES.dialogues;
             }
-            
+
+
+            yield return new WaitForSeconds(0.1f);
+            if (name == "SecretDialogueVieja" && _player.GetDoubleJumpUnlocked)
+            {
+                gameObject.SetActive(true);
+                yield break;
+            }
             if (hideVieja) gameObject.SetActive(false);
             yield return new WaitForSeconds(0.1f);
             if (name == "Vieja (1)" && _player.GetDashUnlocked) gameObject.SetActive(false);
             if (name == "Vieja (2)" && _player.GetDoubleJumpUnlocked) gameObject.SetActive(false);
+            if (startVieja && _player.GetDashUnlocked) gameObject.SetActive(false);
         }
 
         private void OnDestroy()
@@ -129,7 +138,7 @@ namespace Utils
                 _selectedDialogues = dialogueES.dialogues;
             }
         }
-        
+
         public void OnInteract(InputAction.CallbackContext ctx)
         {
             if (_isInRange)
@@ -166,15 +175,15 @@ namespace Utils
             _dialogueStarted = false;
             dialoguePanel.SetActive(false);
             _player.inDialog = false;
-            
+
             if (endingDialogue)
             {
                 // ActivateCollider();
-                
+
                 if (vieja1) vieja1.gameObject.SetActive(true);
                 if (vieja2) vieja2.gameObject.SetActive(true);
                 if (vieja3) vieja3.gameObject.SetActive(true);
-                
+
                 /*if (name == "Vieja2")
                 {
                     if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
@@ -208,21 +217,21 @@ namespace Utils
                     Destroy(vieja3);
                     return;
                 }
-                
+
                 /*else if (vieja1.transform.localPosition.x != 548.82f || vieja2.transform.localPosition.x != 548.82f ||
                          vieja3.transform.localPosition.x != 548.82f)
                 {
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = true;
                 }*/
-                
+
                 if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1 && vieja1.transform.localPosition.x != 548.82f)
                 {
                     // DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
-                    
+
                     TraerVieja(vieja1);
                     return;
                 }
@@ -232,7 +241,7 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
-                    
+
                     // Destroy(vieja1);
                     TraerVieja(vieja2);
                     return;
@@ -243,13 +252,13 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
-                    
+
                     // if (vieja1) Destroy(vieja1);
                     // Destroy(vieja2);
                     TraerVieja(vieja3);
                     return;
                 }
-                
+
                 if (vieja1 && vieja1.transform.localPosition.x != 548.82f || vieja2 && vieja2.transform.localPosition.x != 548.82f ||
                     vieja3 && vieja3.transform.localPosition.x != 548.82f)
                 {
@@ -261,7 +270,7 @@ namespace Utils
                 }
             }
         }
-        
+
         private void TraerVieja(GameObject vieja)
         {
             var pos = vieja.transform.localPosition;
@@ -313,7 +322,7 @@ namespace Utils
         {
             viejaHitbox.SetActive(false);
         }
-    
+
         private void CanSpeakAgain()
         {
             if (_blockDialogue) return;
@@ -321,13 +330,13 @@ namespace Utils
             interactPrompt.SetActive(true);
             _canSpeak = true;
         }
-    
+
         private void CalculateDirection()
         {
             _playerToTheRight = _player.GetPlayerPosition.x > transform.position.x;
             _sprite.flipX = _playerToTheRight ? false : true;
         }
-        
+
         public void Interact()
         {
             if (_isTyping)
@@ -349,11 +358,11 @@ namespace Utils
             dialoguePanel.SetActive(true);
             StartCoroutine(WriteDialogue());
         }
-        
+
         private IEnumerator WriteDialogue()
         {
             _isTyping = true;
-            
+
             dialogueText.text = string.Empty;
             dialogueText.text = _selectedDialogues[_dialogueIndex];
             dialogueText.textWrappingMode = TextWrappingModes.Normal;
@@ -368,11 +377,11 @@ namespace Utils
 
                 if (!_isTyping) yield break;
             }
-            
+
             _isTyping = false;
             _writingSound = null;
         }
-        
+
         private void NextLine()
         {
             if (name == "ViejaEvil" && _dialogueIndex == _selectedDialogues.Count - 2)
@@ -408,7 +417,7 @@ namespace Utils
                 if (name == "Vieja1") Destroy(vieja1);
                 if (name == "Vieja2") Destroy(vieja2);
                 if (name == "Vieja3") Destroy(vieja3);
-                
+
                 if (goodEndingDialogue)
                 {
                     _canSpeak = false;
@@ -432,7 +441,7 @@ namespace Utils
         {
             Camera.main.DOShakePosition(0.5f, 2f);
         }
-        
+
         private void CompleteDialogue()
         {
             _isTyping = false;

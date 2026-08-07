@@ -21,32 +21,32 @@ namespace PlayerScripts
         private static readonly int Falling = Animator.StringToHash("Falling");
 
         [SerializeField] private PlayerData data;
-        
+
         [SerializeField] private LayerMask groundLayer;
 
         [SerializeField] private GameObject playerWeapon;
-        
+
         [SerializeField] private Transform playerTarget;
         [SerializeField] private PlayerVisuals visuals;
         [SerializeField] private GameObject shieldVisuals;
         [SerializeField] private ParticleSystem jumpParticles;
-        
+
         private Animator _animator;
         private PlayerHealth _playerHealth;
 
         #region States
         public enum State { Idle, Move, Jump, Fall, Attack, GetHit, Die, Possessed, Dash }
-        
+
         private State _state = State.Idle;
         private bool _isOnFloor;
-        
+
         #endregion
-        
+
         [Header("Dash")]
         [SerializeField] private bool _dashUnlocked;
         private bool _canDash;
         private float _dashTimer;
-        
+
         [Header("Jump")]
         [SerializeField] private bool _doubleJumpUnlocked;
         private float _coyoteCounter;
@@ -54,12 +54,12 @@ namespace PlayerScripts
         private float _jumpKeyTimePressed;
         private bool _canDoubleJump;
         private bool _jumpHeld;
-        
+
         [Header("Immunity Skill")]
         [SerializeField] private bool _immuneSkillUnlocked;
         private float _cooldown = 0f;
-        
-        [Header("Properties")] 
+
+        [Header("Properties")]
         private int _hp;
         private Vector3 _respawnPosition;
         private Vector3 _mainRespawnPosition;
@@ -71,7 +71,7 @@ namespace PlayerScripts
         private bool _isAttacking;
         private float _attackCooldown;
         private PlayerWeapon _weapon;
-        
+
         private Rigidbody2D _body;
 
         private Vector2 _xInput;
@@ -81,14 +81,14 @@ namespace PlayerScripts
         private int _exorciseInputTarget = 20;
         private float _randomPossessedDirection;
         private Camera _cam;
-        
+
         [Header("Events")]
         private readonly UnityEvent<int> _onPlayerHit = new UnityEvent<int>();
         private readonly UnityEvent _onPlayerPossessed = new UnityEvent();
         private readonly UnityEvent _onPlayerExorcised = new UnityEvent();
         private readonly UnityEvent _onPlayerRevived = new UnityEvent();
         private readonly UnityEvent _onPlayerImmunity = new UnityEvent();
-        
+
         private void Start()
         {
             _body = gameObject.GetComponent<Rigidbody2D>();
@@ -98,13 +98,13 @@ namespace PlayerScripts
             _cam = Camera.main;
 
             _endingPosition = new Vector3(545, -74.5f, 0);
-            
+
             _hp = data.baseHp;
             _attackCooldown = data.attackCooldown;
             data.immunityTime = data.baseImmunityTime;
-            
+
             AddListeners(true);
-            
+
             // Skills
             if (PlayerPrefs.GetString("DashUnlocked") == "Dash") UnlockDash();
             if (PlayerPrefs.GetString("DoubleJumpUnlocked") == "DoubleJump") UnlockDoubleJump();
@@ -131,7 +131,7 @@ namespace PlayerScripts
         {
             AddListeners(false);
         }
-        
+
         private void AddListeners(bool add)
         {
             var player = GameManager.Instance.GetPlayer;
@@ -173,7 +173,7 @@ namespace PlayerScripts
                 if (_inputCount >= _exorciseInputTarget) Exorcised();
                 print(_inputCount);
             }
-            
+
             if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
             if (inDialog)
             {
@@ -183,20 +183,21 @@ namespace PlayerScripts
                 _animator.SetBool(Falling, false);
                 AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
 
-                if (stateInfo.IsName("PlayerFall")) {
+                if (stateInfo.IsName("PlayerFall"))
+                {
                     _animator.SetTrigger("TouchedFloor");
                 }
                 _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
                 return;
             }
-            
+
             UpdateState();
             UpdatePhysicsState();
         }
 
-        
+
         #region States
-        
+
         private void IdleState()
         {
             _animator.SetBool(Dashing, false);
@@ -204,25 +205,25 @@ namespace PlayerScripts
             _body.gravityScale = data.regularGravity;
             if (_xInput != Vector2.zero) SetState(State.Move);
             else _body.linearVelocity = new Vector2(0, _body.linearVelocity.y);
-            
+
             _animator.SetBool(Moving, false);
             _animator.SetBool(Jumping, false);
             _animator.SetBool(DoubleJumping, false);
             _animator.SetBool(Falling, false);
         }
-        
+
         private void MoveState()
         {
             CheckIfIsFalling();
-            
+
             if (_xInput == Vector2.zero) SetState(State.Idle);
-            
+
             Move();
-            
+
             if (_isOnFloor) _animator.SetBool(Moving, true);
         }
-        
-        
+
+
         private void JumpState()
         {
             if (_xInput != Vector2.zero) Move();
@@ -233,14 +234,14 @@ namespace PlayerScripts
             {
                 SetState(State.Fall);
             }
-            
+
             CheckIfIsFalling();
         }
-        
+
         private void FallState()
         {
             if (_xInput != Vector2.zero) Move();
-            
+
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
             _jumpKeyTimePressed = 0f;
@@ -256,7 +257,7 @@ namespace PlayerScripts
                 SetState(State.Idle);
             }
         }
-        
+
         private void AttackState()
         {
             _jumpKeyTimePressed = 0f;
@@ -266,13 +267,13 @@ namespace PlayerScripts
                 SetState(State.Idle);
             }
         }
-        
+
         private void DashState()
         {
             _body.gravityScale = data.dashGravity;
             // Invoke(nameof(EndDash), data.dashDuration);
         }
-        
+
         private void GetHitState()
         {
             if (!_isPossessed) StartCoroutine(LockStateForSeconds(data.deathAnimationTime));
@@ -282,44 +283,44 @@ namespace PlayerScripts
             // _animator.SetBool(GotHit, false);
             SetState(State.Idle);
         }
-        
+
         private void PossessedState()
         {
             _body.linearVelocity = new Vector2(_randomPossessedDirection * data.moveSpeed, _body.linearVelocity.y);
 
             // if (_inputCount >= 15) Exorcised();
         }
-        
+
         private void DieState()
         {
             _isImmune = true;
             Time.timeScale = 0.2f;
         }
-        
+
         #endregion
-        
+
         #region StatesLogic
-        
+
         private void SetState(State newState)
         {
             _state = newState;
         }
-        
+
         private IEnumerator LockStateForSeconds(float duration)
         {
             _canChangeState = false;
             yield return new WaitForSeconds(duration);
             _canChangeState = true;
         }
-        
+
         private void CheckIfGrounded()
         {
             RaycastHit2D ray = Physics2D.Raycast(
-                _body.transform.position, 
-                Vector2.down, 
-                1.1f, 
+                _body.transform.position,
+                Vector2.down,
+                1.1f,
                 groundLayer);
-            
+
 
             if (ray.collider) // El raycast toca el suelo
             {
@@ -340,14 +341,14 @@ namespace PlayerScripts
                     // Acabamos de dejar el suelo
                     _coyoteCounter = data.coyoteTime;
                     if (_dashUnlocked) _canDash = true;
-                } 
+                }
 
                 _isOnFloor = false;
                 _coyoteCounter -= Time.deltaTime;
                 Debug.DrawRay(_body.transform.position, Vector2.down * 1.1f, Color.green);
             }
         }
-        
+
         private void Attack()
         {
             if (_isAttacking || _isPossessed) return;
@@ -359,7 +360,7 @@ namespace PlayerScripts
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerMissedAttack, true);
             _animator.SetBool(Attacking, true);
         }
-        
+
         private void EndAttack()
         {
             _isAttacking = false;
@@ -371,7 +372,7 @@ namespace PlayerScripts
             if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
             else _body.linearVelocity = new Vector2(_xInput.x * data.moveSpeed, _body.linearVelocity.y);
         }
-        
+
         public void PlayStepSound()
         {
             AudioManager.Instance.PlayStepSound();
@@ -390,13 +391,13 @@ namespace PlayerScripts
         private void Jump()
         {
             if (_state == State.Possessed) return;
-            
+
             _isOnFloor = false;
             _body.gravityScale = data.regularGravity;
             SetState(State.Jump);
-            
+
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
-            
+
             _body.AddForceY(data.jumpForce, ForceMode2D.Impulse);
         }
 
@@ -406,6 +407,12 @@ namespace PlayerScripts
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerJump, true);
         }
 
+        private void PlayDoubleJumpSound()
+        {
+            if (Time.timeScale == 1)
+                AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerDoubleJump, true);
+        }
+
         private void CheckIfIsFalling()
         {
             if (_body.linearVelocityY < 0 && !_isOnFloor)
@@ -413,24 +420,24 @@ namespace PlayerScripts
                 SetState(State.Fall);
             }
         }
-        
+
         private void GetHit(int damage)
         {
             if (_isImmune) return;
-            
+
             _hp -= damage;
 
             if (!_isPossessed)
             {
                 // Frena el impulso del player (por si venia de un salto o dash)
                 _body.linearVelocity = Vector2.zero;
-                
+
                 // Reproducir animacion al ser golpeado
                 float direction = visuals.GetSpriteRenderer.flipX ? 1 : -1;
                 _body.linearVelocityX = direction * data.pushForce / 2;
                 _body.linearVelocityY = data.pushForce;
             }
-            
+
             GameManager.Instance.GetHpAmountChanged?.Invoke(_hp);
 
             if (_hp <= 0)
@@ -450,7 +457,7 @@ namespace PlayerScripts
                 AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerHit, true);
             }
         }
-        
+
         private void PlayerPossessed()
         {
             _animator.SetBool(Possessed, true);
@@ -463,7 +470,7 @@ namespace PlayerScripts
         {
             _randomPossessedDirection = Random.value < 0.5f ? -1f : 1f;
         }
-        
+
         private void ExorciseInputs()
         {
             if (Input.GetButtonDown("Jump")) _inputCount += 1;
@@ -502,20 +509,21 @@ namespace PlayerScripts
             {
                 _jumpHeld = false;
             }
-            
+
             // Si el jugador está en el piso o dentro de la ventana del coyote time -> puede saltar
             if ((_isOnFloor || _coyoteCounter > 0f) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
+                PlayJumpSound();
                 _lastJumpPressedTime = -Mathf.Infinity;
                 if (_doubleJumpUnlocked) _canDoubleJump = true;
                 _animator.SetBool(Jumping, true);
-                PlayJumpSound();
             }
             // Sino, si el jugador esta en el aire y puede hacer doble salto -> saltar en el aire
             else if ((!_isOnFloor && _canDoubleJump) && Time.time - _lastJumpPressedTime <= data.jumpBufferTime)
             {
                 Jump();
+                PlayDoubleJumpSound();
                 _jumpKeyTimePressed = 0f;
                 _canDoubleJump = false;
                 _lastJumpPressedTime = -Mathf.Infinity;
@@ -541,7 +549,7 @@ namespace PlayerScripts
                 SetState(State.Attack);
             }
         }
-        
+
         public void OnDash(InputAction.CallbackContext ctx)
         {
             // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
@@ -550,7 +558,7 @@ namespace PlayerScripts
                 Dash();
             }
         }
-        
+
         public void OnActivateShield(InputAction.CallbackContext ctx)
         {
             // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
@@ -574,7 +582,7 @@ namespace PlayerScripts
         {
             _dashUnlocked = true;
         }
-        
+
         private void UnlockImmunity()
         {
             _immuneSkillUnlocked = true;
@@ -611,14 +619,14 @@ namespace PlayerScripts
             Invoke(nameof(EndImmunityTime), data.shieldDuration);
             _cooldown = data.shieldCooldown;
         }
-        
+
         private void EndImmunityTime()
         {
             _isImmune = false;
             shieldVisuals.gameObject.SetActive(false);
         }
         #endregion
-        
+
         #region RespawnLogic
         private void Respawn()
         {
@@ -655,7 +663,7 @@ namespace PlayerScripts
             EndAttack();
             ResetPlayerStats();
         }
-        
+
         private void Revive()
         {
             transform.position = _mainRespawnPosition;
@@ -670,7 +678,7 @@ namespace PlayerScripts
             Exorcised();
             SetState(State.Idle);
         }
-        
+
         public void SetRespawnPosition(Vector3 newPosition)
         {
             _respawnPosition = newPosition;
@@ -683,7 +691,7 @@ namespace PlayerScripts
             SavePlayerStats();
         }
         #endregion
-        
+
         private void UpdateState()
         {
             switch (_state)
@@ -706,13 +714,13 @@ namespace PlayerScripts
                 case State.Dash: DashState(); break;
             }
         }
-        
+
         public void Heal()
         {
             _hp = data.baseHp;
             _playerHealth.healthBar.SetHealth(_hp);
         }
-        
+
         public void SetPlayerMaterial(PhysicsMaterial2D material)
         {
             _body.sharedMaterial = material;
@@ -743,17 +751,17 @@ namespace PlayerScripts
         }
 
         #region GetProperties
-        
+
         public State GetState => _state;
 
         public Vector2 GetMovementInput => _xInput;
-        
+
         public Vector3 GetPlayerPosition => transform.position;
-        
+
         public Vector3 GetPlayerTarget => playerTarget.position;
-        
+
         public int GetPlayerLives => PlayerPrefs.GetInt("Lives");
-        
+
         public float GetCooldown => _cooldown;
 
         public bool GetIsAttacking => _isAttacking;
@@ -761,13 +769,13 @@ namespace PlayerScripts
         public PlayerData GetPlayerData => data;
 
         public PlayerVisuals GetPlayerVisuals => visuals;
-        
+
         public bool GetIsPossessed => _isPossessed;
-        
+
         public bool GetIsImmune => _isImmune;
-        
+
         public bool GetDashUnlocked => _dashUnlocked;
-        
+
         public bool GetDoubleJumpUnlocked => _doubleJumpUnlocked;
 
         #endregion
@@ -778,11 +786,11 @@ namespace PlayerScripts
         {
             PlayerPrefs.SetFloat("XPosition", _respawnPosition.x);
             PlayerPrefs.SetFloat("YPosition", _respawnPosition.y);
-            
+
             // Guardamos la posicion del respawn de inicio del nivel.
             PlayerPrefs.SetFloat("MainXPosition", _mainRespawnPosition.x);
             PlayerPrefs.SetFloat("MainYPosition", _mainRespawnPosition.y);
-            
+
             PlayerPrefs.SetInt("Lives", _playerHealth.GetPlayerLives);
             PlayerPrefs.SetInt("BaseLives", _playerHealth.GetPlayerBaseLives);
         }
@@ -791,10 +799,10 @@ namespace PlayerScripts
         {
             PlayerPrefs.SetFloat("XPosition", 0);
             PlayerPrefs.SetFloat("YPosition", 0);
-            
+
             PlayerPrefs.SetFloat("MainXPosition", 0);
             PlayerPrefs.SetFloat("MainYPosition", 0);
-            
+
             PlayerPrefs.SetInt("Lives", data.startingLives);
             PlayerPrefs.SetInt("BaseLives", data.startingLives);
         }
@@ -806,11 +814,11 @@ namespace PlayerScripts
         public UnityEvent<int> GetPlayerHitEvent => _onPlayerHit;
 
         public UnityEvent GetPlayerPossessedEvent => _onPlayerPossessed;
-        
+
         public UnityEvent GetPlayerExorcisedEvent => _onPlayerExorcised;
-        
+
         public UnityEvent GetPlayerRevived => _onPlayerRevived;
-        
+
         public UnityEvent GetPlayerImmunity => _onPlayerImmunity;
 
         #endregion

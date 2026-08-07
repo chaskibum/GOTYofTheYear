@@ -1704,8 +1704,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "- Cr\xE9ditos -"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
-  m_sharedMaterial: {fileID: 3974013105380456000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 91b3b1bea0851b44c958dca77f33dc5b, type: 2}
+  m_sharedMaterial: {fileID: 1377594467405753527, guid: 91b3b1bea0851b44c958dca77f33dc5b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5315,7 +5315,7 @@ MonoBehaviour:
   dialogueSound:
     ID: 0
     _sourceAsset: {fileID: 0}
-    <DebugObject>k__BackingField: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 1446886479}
   finalBossMusic: {fileID: 0}
   settings: {fileID: 1265508581}
   audioClips:
@@ -5787,8 +5787,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Opciones -'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
-  m_sharedMaterial: {fileID: 3974013105380456000, guid: ff04f2b0d06bd8047919a8a985c7f4ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 91b3b1bea0851b44c958dca77f33dc5b, type: 2}
+  m_sharedMaterial: {fileID: 1377594467405753527, guid: 91b3b1bea0851b44c958dca77f33dc5b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
