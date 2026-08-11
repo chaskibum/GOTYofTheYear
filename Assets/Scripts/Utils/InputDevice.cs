@@ -28,6 +28,5 @@ public class InputDevice : MonoBehaviour
             return;
 
         UsingController = action.activeControl.device is Gamepad;
-        print("CHEKEANDO INPUT ACTUAL");
     }
 }

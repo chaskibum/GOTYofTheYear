@@ -226,7 +226,7 @@ namespace PlayerScripts
 
         private void JumpState()
         {
-            if (_xInput != Vector2.zero) Move();
+            Move();
 
             _jumpKeyTimePressed += Time.deltaTime;
 
@@ -240,7 +240,7 @@ namespace PlayerScripts
 
         private void FallState()
         {
-            if (_xInput != Vector2.zero) Move();
+            Move();
 
             if (_body.linearVelocityY > 1) _body.linearVelocityY = 1;
             _body.gravityScale = data.regularGravity * data.fallGravity;
@@ -369,7 +369,7 @@ namespace PlayerScripts
 
         private void Move()
         {
-            if (_isAttacking && _isOnFloor) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
+            if (_isAttacking && _isOnFloor || _xInput == Vector2.zero) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
             else _body.linearVelocity = new Vector2(_xInput.x * data.moveSpeed, _body.linearVelocity.y);
         }
 
