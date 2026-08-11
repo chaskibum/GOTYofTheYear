@@ -80,7 +80,7 @@ namespace Managers
 
         private void Start()
         {
-            finalBossMusic.volume = 0.8f;
+            if (finalBossMusic) finalBossMusic.volume = 0.8f;
         }
 
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)

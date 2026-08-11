@@ -79,6 +79,36 @@ MonoBehaviour:
     m_Localized: Opciones
     m_Metadata:
       m_Items: []
+  - m_Id: 95813806768185344
+    m_Localized: "Cr\xE9ditos"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95813851861147648
+    m_Localized: 'Idioma:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815483294408704
+    m_Localized: "- Cr\xE9ditos -"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815830268207104
+    m_Localized: "Programaci\xF3n, M\xFAsica, Narrativa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815881367412736
+    m_Localized: "Arte, Dise\xF1o de Nivel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815900858343424
+    m_Localized: Sonido, Testeo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95817750693208064
+    m_Localized: 'Vida extra
+
+      obtenida!'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

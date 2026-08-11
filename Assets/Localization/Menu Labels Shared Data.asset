@@ -75,6 +75,34 @@ MonoBehaviour:
     m_Key: menu.exit
     m_Metadata:
       m_Items: []
+  - m_Id: 95813806768185344
+    m_Key: menu.creditsButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95813851861147648
+    m_Key: menu.language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815483294408704
+    m_Key: menu.credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815830268207104
+    m_Key: credits.bruno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815881367412736
+    m_Key: credits.martin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815900858343424
+    m_Key: credits.felipe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95817750693208064
+    m_Key: gameplay.hp
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

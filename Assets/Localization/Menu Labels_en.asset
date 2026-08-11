@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 7954992390152
-    m_Localized: Recado Fallido
+    m_Localized: Errand failed
     m_Metadata:
       m_Items: []
   - m_Id: 7954929475584
@@ -31,52 +31,82 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7954988195840
-    m_Localized: "M\xFAsica:"
+    m_Localized: 'Music:'
     m_Metadata:
       m_Items: []
   - m_Id: 7954988195841
-    m_Localized: Cerrar
+    m_Localized: Close
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390144
-    m_Localized: '- Opciones -'
+    m_Localized: '- Options -'
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390145
-    m_Localized: '- Pausa -'
+    m_Localized: '- Pause -'
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390146
-    m_Localized: Reiniciar
+    m_Localized: Restart
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390147
-    m_Localized: "Esto reiniciar\xE1 todo tu progreso y te llevar\xE1 al comienzo
-      del juego. \xBFDe verdad quer\xE9s reiniciar?"
+    m_Localized: This will restart all your progress and send you to the beginning
+      of the game. Do you wish to restart?
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390148
-    m_Localized: "S\xED, reiniciar juego"
+    m_Localized: Yes, restart game
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390149
-    m_Localized: No, continuar juego
+    m_Localized: No, continue game
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390150
-    m_Localized: Revivir
+    m_Localized: Revive
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390151
-    m_Localized: "Men\xFA"
+    m_Localized: Menu
     m_Metadata:
       m_Items: []
   - m_Id: 7954992390153
-    m_Localized: Salir
+    m_Localized: Exit
     m_Metadata:
       m_Items: []
   - m_Id: 1437625801957376
-    m_Localized: Opciones
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95813806768185344
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95813851861147648
+    m_Localized: 'Language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815483294408704
+    m_Localized: '- Credits -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815830268207104
+    m_Localized: Development, Music, Narrative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815881367412736
+    m_Localized: Art, Level Design
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95815900858343424
+    m_Localized: Sound, Testing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95817750693208064
+    m_Localized: 'Extra life
+
+      obtained!'
     m_Metadata:
       m_Items: []
   references:

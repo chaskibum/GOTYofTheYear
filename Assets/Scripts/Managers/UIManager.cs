@@ -11,7 +11,7 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput playerInput;
-        
+
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject reviveButton;
         [SerializeField] private GameObject optionsButton;
@@ -25,21 +25,23 @@ namespace Managers
 
         [SerializeField] private GameObject cooldownBar;
         private Slider _cooldownBarSlider;
-    
+
         private bool _isPaused = false;
         public bool inMenu = false;
 
         private PlayerController _player;
-    
+
         private void Start()
         {
             AddListeners(true);
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
-        
+
             _player = GameManager.Instance.GetPlayer;
             _cooldownBarSlider = cooldownBar.GetComponentInChildren<Slider>();
             ChangeCooldownSliderMin();
-        
+
+            languageDropdown.value = LocalizationSettings.SelectedLocale.Identifier.Code == "es" ? 0 : 1;
+
             int lives = _player.GetPlayerLives;
 
             UpdateLife(lives);
@@ -53,7 +55,7 @@ namespace Managers
         private void AddListeners(bool add)
         {
             _player = GameManager.Instance.GetPlayer;
-        
+
             if (add)
             {
                 GameManager.Instance.GetGameOverEvent.AddListener(ShowGameOverScreen);
@@ -106,9 +108,9 @@ namespace Managers
             optionsButton.SetActive(true);
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
             else cooldownBar.SetActive(false);
-        
+
             if (pauseMenuUI.activeInHierarchy) HandlePause();
-        
+
             int baseLives = _player.GetPlayerData.baseLives;
 
             UpdateLife(baseLives);
@@ -128,7 +130,7 @@ namespace Managers
             Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("es");
             if (language == 1)
                 newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
-            
+
             print(newLocale);
             LocalizationSettings.SelectedLocale = newLocale;
         }
@@ -140,9 +142,9 @@ namespace Managers
             optionsButton.SetActive(true);
             cooldownBar.SetActive(false);
             ChangeCooldownSliderMin(true);
-            
+
             HandlePause();
-        
+
             int baseLives = _player.GetPlayerData.baseLives;
 
             UpdateLife(baseLives);
@@ -174,13 +176,13 @@ namespace Managers
                 optionsButton.SetActive(false);
             }
         }
-    
+
         public void HandlePause()
         {
             _isPaused = !_isPaused;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
+
             if (_isPaused)
             {
                 playerInput.SwitchCurrentActionMap("UI");
@@ -228,7 +230,7 @@ namespace Managers
 
         public void ChangeCooldownSliderMin(bool reset = false)
         {
-            if (reset) 
+            if (reset)
                 _cooldownBarSlider.minValue = _player.GetPlayerData.baseShieldCooldown * -1;
             else
                 _cooldownBarSlider.minValue = _player.GetPlayerData.shieldCooldown * -1;

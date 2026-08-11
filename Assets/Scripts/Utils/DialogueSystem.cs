@@ -84,6 +84,8 @@ namespace Utils
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
 
+            LanguageChanged(LocalizationSettings.SelectedLocale);
+
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
 
             yield return new WaitForSeconds(0.1f);
