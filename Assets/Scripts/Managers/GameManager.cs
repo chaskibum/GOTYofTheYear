@@ -36,6 +36,8 @@ namespace Managers
         private bool _isControllerConnected = false;
         private bool _gameOver = false;
         public bool gameWon = false;
+        private bool _isGameInSpanish = true;
+
 
         private void Awake()
         {

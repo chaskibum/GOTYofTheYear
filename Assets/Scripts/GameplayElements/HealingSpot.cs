@@ -2,26 +2,76 @@ using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace GameplayElements
 {
-    public class HealingSpot : MonoBehaviour
+    public class HealingSpot : MonoBehaviour, IInteractable
     {
         [SerializeField] private AudioSource healSound;
+        [SerializeField] private GameObject interactPrompt;
+        private TextMeshProUGUI _interactPromptText;
 
         private Animator _animator;
         private bool _isInRange;
+        private bool _isSpanish = true;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             ResetAnimations();
             AddListeners(true);
+
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            _interactPromptText.text = GetInteractionPrompt();
+        }
+
+        public string GetInteractionPrompt()
+        {
+            if (_isSpanish)
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para curarte";
+                }
+                else
+                {
+                    return "Presiona [E] para curarte";
+                }
+            }
+            else
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to heal";
+                }
+                else
+                {
+                    return "Press [E] to heal";
+                }
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+            }
+            else
+            {
+                _isSpanish = true;
+            }
         }
 
         private void OnDestroy()
         {
             AddListeners(false);
+            LocalizationSettings.SelectedLocaleChanged -= LanguageChanged;
         }
 
         private void AddListeners(bool add)
@@ -40,9 +90,10 @@ namespace GameplayElements
             }
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             _isInRange = true;
+            _interactPromptText.text = GetInteractionPrompt();
         }
 
         private void OnTriggerExit2D(Collider2D other)

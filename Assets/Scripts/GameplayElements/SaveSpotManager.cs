@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace GameplayElements
 {
@@ -16,10 +18,13 @@ namespace GameplayElements
         [SerializeField] private bool isMainRespawn;
         [SerializeField] private AudioSource activatingSound;
         [SerializeField] private AudioSource torchSound;
+
         [SerializeField] private GameObject interactPrompt;
         private TextMeshProUGUI _interactPromptText;
 
         private bool _isInRange;
+        private bool _isSpanish = true;
+
 
         private void Awake()
         {
@@ -31,6 +36,8 @@ namespace GameplayElements
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             _interactPromptText.text = GetInteractionPrompt();
 
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
             GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
             Invoke(nameof(ActivateRespawn), 0.1f);
@@ -38,7 +45,40 @@ namespace GameplayElements
 
         public string GetInteractionPrompt()
         {
-            return "Presiona [E] para guardar";
+            if (_isSpanish)
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para guardar";
+                }
+                else
+                {
+                    return "Presiona [E] para guardar";
+                }
+            }
+            else
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to save";
+                }
+                else
+                {
+                    return "Press [E] to save";
+                }
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+            }
+            else
+            {
+                _isSpanish = true;
+            }
         }
 
         private void ActivateRespawn()
@@ -56,14 +96,16 @@ namespace GameplayElements
 
         private void OnDestroy()
         {
+            LocalizationSettings.SelectedLocaleChanged -= LanguageChanged;
             OnCollisionEvent -= HandleAnimations;
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetAnimations);
             GameManager.Instance.GetPlayer.GetPlayerRevived?.RemoveListener(ResetAnimations);
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             _isInRange = true;
+            _interactPromptText.text = GetInteractionPrompt();
         }
 
         private void OnTriggerExit2D(Collider2D other)

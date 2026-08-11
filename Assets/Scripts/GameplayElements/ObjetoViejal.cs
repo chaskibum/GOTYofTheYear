@@ -2,23 +2,29 @@ using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using Utils;
 
 namespace GameplayElements
 {
-    public class ObjetoViejal : MonoBehaviour
+    public class ObjetoViejal : MonoBehaviour, IInteractable
     {
         private SpriteRenderer _sprite;
         private BoxCollider2D _collider;
-        
+
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private Button closeButton;
         [SerializeField] private GameObject objectLight;
+        private bool _isSpanish = true;
+        private TextMeshProUGUI _interactPromptText;
 
         private bool _inRange;
         private bool _justClosed;
         private UIManager _uiManager;
-        
+
         [SerializeField] private bool Viejal1 = false;
         [SerializeField] private bool Viejal2 = false;
         [SerializeField] private bool Viejal3 = false;
@@ -28,7 +34,11 @@ namespace GameplayElements
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
             _uiManager = GameManager.Instance.GetUIManager;
-            
+
+            _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            _interactPromptText.text = GetInteractionPrompt();
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+
             if (PlayerPrefs.GetString("Viejal1") == name)
             {
                 HideObject();
@@ -41,8 +51,46 @@ namespace GameplayElements
             {
                 HideObject();
             }
-        
+
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
+        }
+
+        public string GetInteractionPrompt()
+        {
+            if (_isSpanish)
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para ver objeto especial";
+                }
+                else
+                {
+                    return "Presiona [E] para ver objeto especial";
+                }
+            }
+            else
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to view special item";
+                }
+                else
+                {
+                    return "Press [E] to view special item";
+                }
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+            }
+            else
+            {
+                _isSpanish = true;
+            }
         }
 
         private void HideObject()
@@ -51,15 +99,17 @@ namespace GameplayElements
             _collider.enabled = false;
             objectLight.SetActive(false);
         }
-        
+
         private void OnDestroy()
         {
+
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             interactPrompt.SetActive(true);
+            _interactPromptText.text = GetInteractionPrompt();
             _inRange = true;
         }
 
@@ -76,7 +126,7 @@ namespace GameplayElements
                 _justClosed = false;
                 return;
             }
-        
+
             // if (_inRange) CheckInteractInput();
         }
 
@@ -87,7 +137,7 @@ namespace GameplayElements
                 if (ctx.performed) Interact();
             }
         }
-    
+
         public void Interact()
         {
             /*if (!panel.activeInHierarchy)
@@ -113,9 +163,9 @@ namespace GameplayElements
             panel.SetActive(false);
             _justClosed = true;
             _uiManager.SetInMenu(false);
-            
+
             HideObject();
-            
+
             if (Viejal1)
             {
                 PlayerPrefs.SetString("Viejal1", name);
@@ -131,8 +181,8 @@ namespace GameplayElements
                 PlayerPrefs.SetString("Viejal3", name);
                 print("viejal 3 saved");
             }
-        } 
-        
+        }
+
         private void ResetCollectable()
         {
             _sprite.enabled = true;

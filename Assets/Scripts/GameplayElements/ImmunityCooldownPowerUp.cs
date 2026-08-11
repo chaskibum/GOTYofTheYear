@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace GameplayElements
 {
@@ -21,6 +23,7 @@ namespace GameplayElements
         [SerializeField] private GameManager gameManager;
 
         private bool _inRange;
+        private bool _isSpanish = true;
         private bool _justClosed;
         private UIManager _uiManager;
         private PlayerController _player;
@@ -34,6 +37,7 @@ namespace GameplayElements
             gameManager = GameManager.Instance;
 
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
 
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
@@ -52,13 +56,39 @@ namespace GameplayElements
 
         public string GetInteractionPrompt()
         {
-            if (gameManager.GetControllerConnected)
+            if (_isSpanish)
             {
-                return "Presiona <color=yellow>(Y)</color> para agarrar power up";
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para agarrar power up";
+                }
+                else
+                {
+                    return "Presiona [E] para agarrar power up";
+                }
             }
             else
             {
-                return "Presiona [E] para agarrar power up";
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to grab power up";
+                }
+                else
+                {
+                    return "Press [E] to grab power up";
+                }
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+            }
+            else
+            {
+                _isSpanish = true;
             }
         }
 
@@ -71,6 +101,7 @@ namespace GameplayElements
 
         private void OnDestroy()
         {
+            LocalizationSettings.SelectedLocaleChanged -= LanguageChanged;
             GameManager.Instance.GetGameRestarted?.RemoveListener(ResetCollectable);
         }
 

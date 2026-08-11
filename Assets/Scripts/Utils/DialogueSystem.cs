@@ -84,16 +84,6 @@ namespace Utils
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
 
-            if (LocalizationSettings.SelectedLocale.ToString() != "Spanish (es)")
-            {
-                _isSpanish = false;
-                _selectedDialogues = dialogueEN.dialogues;
-            }
-            else
-            {
-                _selectedDialogues = dialogueES.dialogues;
-            }
-
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
 
             yield return new WaitForSeconds(0.1f);

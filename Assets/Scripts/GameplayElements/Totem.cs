@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace GameplayElements
 {
@@ -16,12 +18,15 @@ namespace GameplayElements
         [SerializeField] private GameObject teletransport;
         [SerializeField] private GameObject interactPrompt;
         private TextMeshProUGUI _interactPromptText;
+        private bool _isSpanish = true;
         [SerializeField] private AudioSource activeSound;
 
         private void Start()
         {
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             _interactPromptText.text = GetInteractionPrompt();
+
+            LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
 
             _animator = GetComponent<Animator>();
             _player = GameManager.Instance.GetPlayer;
@@ -32,11 +37,45 @@ namespace GameplayElements
 
         public string GetInteractionPrompt()
         {
-            return "Presiona [E] para usar tótem";
+            if (_isSpanish)
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Presiona <color=yellow>(Y)</color> para usar tótem";
+                }
+                else
+                {
+                    return "Presiona [E] para usar tótem";
+                }
+            }
+            else
+            {
+                if (GameManager.Instance.GetControllerConnected)
+                {
+                    return "Press <color=yellow>(Y)</color> to use totem";
+                }
+                else
+                {
+                    return "Press [E] to use totem";
+                }
+            }
+        }
+
+        private void LanguageChanged(Locale lang)
+        {
+            if (lang.ToString() != "Spanish (es)")
+            {
+                _isSpanish = false;
+            }
+            else
+            {
+                _isSpanish = true;
+            }
         }
 
         private void OnDestroy()
         {
+            LocalizationSettings.SelectedLocaleChanged -= LanguageChanged;
             AddListeners(false);
         }
 
@@ -52,9 +91,10 @@ namespace GameplayElements
             }
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             _isInRange = true;
+            _interactPromptText.text = GetInteractionPrompt();
         }
 
         private void OnTriggerExit2D(Collider2D other)

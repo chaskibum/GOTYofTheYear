@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealingStatue
   healSound: {fileID: 7653666220463971221}
+  interactPrompt: {fileID: 8255636390909096523}
 --- !u!95 &6975272214101208054
 Animator:
   serializedVersion: 7
@@ -550,5 +551,10 @@ PrefabInstance:
 --- !u!224 &3748230945174425607 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 716721365021686227, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
+  m_PrefabInstance: {fileID: 4464802703430871508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8255636390909096523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5721757259522890655, guid: e6d4fbba89da7c849a07607cbccf419a, type: 3}
   m_PrefabInstance: {fileID: 4464802703430871508}
   m_PrefabAsset: {fileID: 0}
