@@ -170,6 +170,7 @@ namespace GameplayElements
             else if (PowerUp3)
                 PlayerPrefs.SetString("PowerUp3", name);
 
+            GamepadVibration.Instance.Rumble(0.4f, 0.5f, 2f);
             _player.GetPlayerData.shieldCooldown -= 3;
             _uiManager.ChangeCooldownSliderMin();
         }

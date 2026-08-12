@@ -97,7 +97,7 @@ namespace GameplayElements
             Time.timeScale = 1;
             panel.SetActive(false);
             _uiManager.SetInMenu(false);
-            GamepadVibration.Instance.Rumble(0.4f, 0.5f, 1.5f);
+            GamepadVibration.Instance.Rumble(0.4f, 0.5f, 2f);
         }
 
         private void ResetCollectable()

@@ -287,8 +287,6 @@ namespace PlayerScripts
         private void PossessedState()
         {
             _body.linearVelocity = new Vector2(_randomPossessedDirection * data.moveSpeed, _body.linearVelocity.y);
-
-            // if (_inputCount >= 15) Exorcised();
         }
 
         private void DieState()
