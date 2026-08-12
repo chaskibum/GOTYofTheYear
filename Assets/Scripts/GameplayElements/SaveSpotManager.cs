@@ -25,10 +25,12 @@ namespace GameplayElements
         private bool _isInRange;
         private bool _isSpanish;
 
+        private PlayerInput _playerInput;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _playerInput = GetComponent<PlayerInput>();
         }
 
         private void Start()
@@ -38,6 +40,8 @@ namespace GameplayElements
 
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
             LanguageChanged(LocalizationSettings.SelectedLocale);
+
+            _playerInput.enabled = true;
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
             GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
@@ -107,7 +111,6 @@ namespace GameplayElements
         {
             _isInRange = true;
             _interactPromptText.text = GetInteractionPrompt();
-            print(_isSpanish);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -134,6 +137,7 @@ namespace GameplayElements
                 if (ctx.performed) Interact();
             }
         }
+        
         public void Interact()
         {
             if (isMainRespawn) ActivateMainRespawn();

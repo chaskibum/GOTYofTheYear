@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,13 @@ namespace GameplayElements
         private bool _inRange;
         private bool _justClosed;
         private UIManager _uiManager;
+        
+        private PlayerInput _playerInput;
+
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
         private void Start()
         {
@@ -28,6 +36,8 @@ namespace GameplayElements
             _interactPromptText.text = GetInteractionPrompt();
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
             LanguageChanged(LocalizationSettings.SelectedLocale);
+            
+            _playerInput.enabled = true;
 
             _uiManager = GameManager.Instance.GetUIManager;
         }

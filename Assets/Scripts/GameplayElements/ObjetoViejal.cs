@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,10 +25,17 @@ namespace GameplayElements
         private bool _inRange;
         private bool _justClosed;
         private UIManager _uiManager;
+        
+        private PlayerInput _playerInput;
 
         [SerializeField] private bool Viejal1 = false;
         [SerializeField] private bool Viejal2 = false;
         [SerializeField] private bool Viejal3 = false;
+
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
         private void Start()
         {
@@ -39,6 +47,8 @@ namespace GameplayElements
             _interactPromptText.text = GetInteractionPrompt();
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
             LanguageChanged(LocalizationSettings.SelectedLocale);
+            
+            _playerInput.enabled = true;
 
             if (PlayerPrefs.GetString("Viejal1") == name)
             {

@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using PlayerScripts;
 using UnityEngine;
@@ -20,6 +21,13 @@ namespace GameplayElements
         private TextMeshProUGUI _interactPromptText;
         private bool _isSpanish;
         [SerializeField] private AudioSource activeSound;
+        
+        private PlayerInput _playerInput;
+
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
         private void Start()
         {
@@ -28,6 +36,8 @@ namespace GameplayElements
 
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
             LanguageChanged(LocalizationSettings.SelectedLocale);
+            
+            _playerInput.enabled = true;
             
             _animator = GetComponent<Animator>();
             _player = GameManager.Instance.GetPlayer;

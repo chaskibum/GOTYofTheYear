@@ -34,6 +34,7 @@ namespace Utils
         private Coroutine _writingSound;
         private TMPWriter _writer;
         private TextMeshProUGUI _interactPromptText;
+        private PlayerInput _playerInput;
 
         [Header("DialoguePanel")]
         [SerializeField] private GameObject interactPrompt;
@@ -74,6 +75,11 @@ namespace Utils
         private PlayerController _player;
         private SpriteRenderer _sprite;
 
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
+
         private IEnumerator Start()
         {
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
@@ -86,6 +92,8 @@ namespace Utils
             GameManager.Instance.GetGameRestarted?.AddListener(ResetDialogues);
 
             LanguageChanged(LocalizationSettings.SelectedLocale);
+            
+            _playerInput.enabled = true;
 
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
 

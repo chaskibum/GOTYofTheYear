@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using PlayerScripts;
 using UnityEngine;
@@ -27,10 +28,17 @@ namespace GameplayElements
         private bool _justClosed;
         private UIManager _uiManager;
         private PlayerController _player;
+        
+        private PlayerInput _playerInput;
 
         [SerializeField] private bool PowerUp1 = false;
         [SerializeField] private bool PowerUp2 = false;
         [SerializeField] private bool PowerUp3 = false;
+
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
         private void Start()
         {
@@ -44,6 +52,8 @@ namespace GameplayElements
             _collider = GetComponent<BoxCollider2D>();
             _uiManager = GameManager.Instance.GetUIManager;
             _player = GameManager.Instance.GetPlayer;
+            
+            _playerInput.enabled = true;
 
             if (PlayerPrefs.GetString("PowerUp1") == name)
                 HideObject();

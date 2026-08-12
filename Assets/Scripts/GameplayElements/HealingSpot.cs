@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,13 @@ namespace GameplayElements
         private Animator _animator;
         private bool _isInRange;
         private bool _isSpanish;
+        
+        private PlayerInput _playerInput;
+
+        private void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
         private void Start()
         {
@@ -24,6 +32,8 @@ namespace GameplayElements
             ResetAnimations();
             AddListeners(true);
 
+            _playerInput.enabled = true;
+            
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
             LanguageChanged(LocalizationSettings.SelectedLocale);
 
