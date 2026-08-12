@@ -23,7 +23,7 @@ namespace GameplayElements
         private TextMeshProUGUI _interactPromptText;
 
         private bool _isInRange;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
 
 
         private void Awake()
@@ -37,6 +37,7 @@ namespace GameplayElements
             _interactPromptText.text = GetInteractionPrompt();
 
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetAnimations);
             GameManager.Instance.GetPlayer.GetPlayerRevived?.AddListener(ResetAnimations);
@@ -106,6 +107,7 @@ namespace GameplayElements
         {
             _isInRange = true;
             _interactPromptText.text = GetInteractionPrompt();
+            print(_isSpanish);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -117,7 +119,6 @@ namespace GameplayElements
         {
             if (_isInRange)
             {
-                // CheckInteractInput();
                 _animator.SetBool("OnRange", true);
             }
             else

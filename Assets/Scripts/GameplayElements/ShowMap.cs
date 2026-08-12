@@ -16,7 +16,7 @@ namespace GameplayElements
         private TextMeshProUGUI _interactPromptText;
 
         [SerializeField] private Button closeButton;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
 
         private bool _inRange;
         private bool _justClosed;
@@ -27,6 +27,7 @@ namespace GameplayElements
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             _interactPromptText.text = GetInteractionPrompt();
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             _uiManager = GameManager.Instance.GetUIManager;
         }

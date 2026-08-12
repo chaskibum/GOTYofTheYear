@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,6 +13,7 @@ namespace Managers
         [SerializeField] private Slider slider;
         [SerializeField] private Button closeButton;
         [SerializeField] private Image fade;
+        [SerializeField] private InputActionReference moveAction;
     
         private void Start()
         {
@@ -23,20 +21,13 @@ namespace Managers
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-
-            /*Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
-            /*if (language == 1)
-                newLocale = LocalizationSettings.AvailableLocales.GetLocale("en");#1#
-
-            print(newLocale);
-            LocalizationSettings.SelectedLocale = newLocale;*/
         }
 
         private void Update()
         {
             if (EventSystem.current.currentSelectedGameObject == null)
             {
-                if (Input.GetButtonDown("Vertical"))
+                if (moveAction.action.triggered)
                 {
                     playButton.Select();
                 }

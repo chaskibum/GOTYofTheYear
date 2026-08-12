@@ -28,7 +28,7 @@ namespace Utils
         private bool _blockDialogue = false;
         private bool _lastDialogue;
         private int _goodEndingItems = 0;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
         private List<String> _selectedDialogues = new List<String>();
         private bool _isTyping;
         private Coroutine _writingSound;
@@ -77,6 +77,7 @@ namespace Utils
         private IEnumerator Start()
         {
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             _player = GameManager.Instance.GetPlayer;
             _sprite = GetComponent<SpriteRenderer>();
@@ -198,36 +199,9 @@ namespace Utils
 
             if (endingDialogue)
             {
-                // ActivateCollider();
-
                 if (vieja1) vieja1.gameObject.SetActive(true);
                 if (vieja2) vieja2.gameObject.SetActive(true);
                 if (vieja3) vieja3.gameObject.SetActive(true);
-
-                /*if (name == "Vieja2")
-                {
-                    if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && PlayerPrefs.GetString("Viejal3") != "Viejal3")
-                    {
-                        viejaGoodEnding.gameObject.SetActive(true);
-                        // ActivateCollider();
-                        Destroy(vieja2);
-                        return;
-                    }
-                }
-                if (name == "Vieja3")
-                {
-                    if (PlayerPrefs.GetString("Viejal1") == "Viejal1" || PlayerPrefs.GetString("Viejal2") == "Viejal2")
-                    {
-                        viejaGoodEnding.gameObject.SetActive(true);
-                        // ActivateCollider();
-                        Destroy(vieja3);
-                        return;
-                    }
-                    else
-                    {
-                        viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
-                    }
-                }*/
 
                 if (!vieja1 && !vieja2 && vieja3.transform.localPosition.x == 548.82f)
                 {
@@ -238,16 +212,8 @@ namespace Utils
                     return;
                 }
 
-                /*else if (vieja1.transform.localPosition.x != 548.82f || vieja2.transform.localPosition.x != 548.82f ||
-                         vieja3.transform.localPosition.x != 548.82f)
-                {
-                    viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
-                    viejaEnding.GetComponent<SpriteRenderer>().enabled = true;
-                }*/
-
                 if (PlayerPrefs.GetString("Viejal1") == "Viejal1" && vieja1 && vieja1.transform.localPosition.x != 548.82f)
                 {
-                    // DeactivateCollider();
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
@@ -261,8 +227,7 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
-
-                    // Destroy(vieja1);
+                    
                     TraerVieja(vieja2);
                     return;
                 }
@@ -272,9 +237,7 @@ namespace Utils
                     viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
                     viejaEnding.GetComponent<SpriteRenderer>().enabled = false;
                     if (noRecuerdoVieja.activeInHierarchy) noRecuerdoVieja.gameObject.SetActive(false);
-
-                    // if (vieja1) Destroy(vieja1);
-                    // Destroy(vieja2);
+                    
                     TraerVieja(vieja3);
                     return;
                 }
@@ -285,8 +248,6 @@ namespace Utils
                     if (viejaEnding.GetComponent<SpriteRenderer>().enabled) return;
                     noRecuerdoVieja.SetActive(true);
                     print("no recuerdo vieja aparece");
-                    // viejaEnding.GetComponent<BoxCollider2D>().enabled = true;
-                    // viejaEnding.GetComponent<SpriteRenderer>().enabled = true;
                 }
             }
         }

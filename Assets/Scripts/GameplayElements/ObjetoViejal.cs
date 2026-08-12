@@ -18,7 +18,7 @@ namespace GameplayElements
         [SerializeField] private GameObject interactPrompt;
         [SerializeField] private Button closeButton;
         [SerializeField] private GameObject objectLight;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
         private TextMeshProUGUI _interactPromptText;
 
         private bool _inRange;
@@ -38,6 +38,7 @@ namespace GameplayElements
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             _interactPromptText.text = GetInteractionPrompt();
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             if (PlayerPrefs.GetString("Viejal1") == name)
             {

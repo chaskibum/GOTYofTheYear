@@ -18,7 +18,7 @@ namespace GameplayElements
         [SerializeField] private GameObject teletransport;
         [SerializeField] private GameObject interactPrompt;
         private TextMeshProUGUI _interactPromptText;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
         [SerializeField] private AudioSource activeSound;
 
         private void Start()
@@ -27,7 +27,8 @@ namespace GameplayElements
             _interactPromptText.text = GetInteractionPrompt();
 
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
-
+            LanguageChanged(LocalizationSettings.SelectedLocale);
+            
             _animator = GetComponent<Animator>();
             _player = GameManager.Instance.GetPlayer;
             AddListeners(true);
@@ -95,6 +96,7 @@ namespace GameplayElements
         {
             _isInRange = true;
             _interactPromptText.text = GetInteractionPrompt();
+            print(_isSpanish);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -108,7 +110,6 @@ namespace GameplayElements
             {
                 if (_animator.GetBool("Active"))
                 {
-                    // CheckInteractInput();
                     interactPrompt.SetActive(true);
                 }
             }
@@ -117,14 +118,6 @@ namespace GameplayElements
                 interactPrompt.SetActive(false);
             }
         }
-
-        /*private void CheckInteractInput()
-        {
-            if (Input.GetButtonDown("GameInteract"))
-            {
-                Interact();
-            }
-        }*/
 
         public void OnInteract(InputAction.CallbackContext ctx)
         {

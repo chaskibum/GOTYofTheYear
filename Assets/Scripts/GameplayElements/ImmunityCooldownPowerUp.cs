@@ -23,7 +23,7 @@ namespace GameplayElements
         [SerializeField] private GameManager gameManager;
 
         private bool _inRange;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
         private bool _justClosed;
         private UIManager _uiManager;
         private PlayerController _player;
@@ -38,6 +38,7 @@ namespace GameplayElements
 
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             _sprite = GetComponentInChildren<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
@@ -137,17 +138,6 @@ namespace GameplayElements
 
         public void Interact()
         {
-            /*if (!panel.activeInHierarchy)
-            {
-                _uiManager.SetInMenu();
-                panel.SetActive(true);
-                Time.timeScale = 0;
-                closeButton.Select();
-            }
-            else
-            {
-                ClosePanel();
-            }*/
             _uiManager.SetInMenu();
             panel.SetActive(true);
             Time.timeScale = 0;

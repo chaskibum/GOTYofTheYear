@@ -16,7 +16,7 @@ namespace GameplayElements
 
         private Animator _animator;
         private bool _isInRange;
-        private bool _isSpanish = true;
+        private bool _isSpanish;
 
         private void Start()
         {
@@ -25,6 +25,7 @@ namespace GameplayElements
             AddListeners(true);
 
             LocalizationSettings.SelectedLocaleChanged += LanguageChanged;
+            LanguageChanged(LocalizationSettings.SelectedLocale);
 
             _interactPromptText = interactPrompt.GetComponentInChildren<TextMeshProUGUI>();
             _interactPromptText.text = GetInteractionPrompt();
