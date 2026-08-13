@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja5_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - You okay <color=#FF00FF>Sonny</color>? I heard some crazy noises over there.
+  - I was about to come down and help! <shake>(COF, COF)</shake>.\nThough I never
+    doubted the <color=#FF00FF>Guardian of the Order</color> would manage by himself.
+  - I see you extracted the power from that hideous thing. With it you can reach
+    the training grounds, to my left.
+  - I'm sure you'll have a lot of fun! <shear>hehehe</shear>.

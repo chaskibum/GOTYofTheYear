@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja4_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - <shake>WATCH OUT! (cof)</shake>\nI sense something horrifying ahead of us. But
+    one of my <color=yellow>ingredientes</color=yellow> lies there. Help me get it,
+    please!
+  - Do not forget to <color=#FF00FF><grow>activate the totem</grow></color>, on the
+    right. If a tragedy were to occur, god forbid, it would be of great help for
+    you.
+  - The other totem sits near the town, I am sure you have seen it. <color=#FF00FF><grow>Until
+    this one is activated, the other will remain blocked</grow></color>. Keep that
+    in mind while exploring the other areas!

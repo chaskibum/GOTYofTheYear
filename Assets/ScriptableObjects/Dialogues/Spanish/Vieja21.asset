@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
   language: 0
   dialogues:
-  - "\xBFQu\xE9 hac\xE9s ac\xE1 Mijo? Mis ingredientes se hayan en el lado contrario."
+  - "\xBFQu\xE9 hac\xE9s por ac\xE1? Mis ingredientes se hayan en el lado contrario."
   - "No ten\xE9s nada que ver por estos lares... Te espero m\xE1s adelante. "
