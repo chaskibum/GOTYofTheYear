@@ -109,6 +109,80 @@ MonoBehaviour:
       obtained!'
     m_Metadata:
       m_Items: []
+  - m_Id: 96484907638775808
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96496967219077120
+    m_Localized: 'Skill extracted from an extremely fast demon. It allows the Guardian
+      to traverse long distances, even through the air.
+
+      
+
+      Press <color=#FF00FF>Shift
+      / RT</color> to dash.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497047477084160
+    m_Localized: 'Skill extracted from a spirit that dominates high altitudes. It
+      allows the Guardian to jump while airborne.
+
+      
+
+      Press <color=#FF00FF>Spacebar
+      / A</color> in the air to jump a second time.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497116196560896
+    m_Localized: '- Double Jump -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497161893502976
+    m_Localized: 'Amulet obtained from a legendary warrior. The Guardian becomes
+      immune to all damage for a few seconds.
+
+      
+
+      Press <color=#FF00FF>J
+      / X / LT</color> to activate the amulet.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497225172967424
+    m_Localized: '- Immunity Amulet -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497274061774848
+    m_Localized: You obtained a <color=#FF00FF>cooldown improvement for the immunity
+      amulet</color>!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497332610064384
+    m_Localized: '- Immunity Cooldown -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497370392354816
+    m_Localized: '- Special Object -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497437367001088
+    m_Localized: 'An old doll, in the worst of conditions. From it emanates a <color=yellow>sweet
+      scent of perfume</color>, still lingering due to the uncountable days of play
+      it served. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497478399877120
+    m_Localized: 'Some toy binoculars. They are covered in moss and the glasses are
+      broken. After a closer inspection, you distinguish a name carved on it with
+      something sharp: <color=yellow>Selene.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497528765079552
+    m_Localized: "A clumsy but cute <color=yellow>portrait</color> of a little girl,
+      hand drawn. A message, desperately crossed out, reads as follows: <color=yellow>\u2018From
+      Iris, with love, to Selene\u2019</color>. Below it, a more recent inscription
+      was angrily written: <color=yellow>\u2018WHY?\u2019</color>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

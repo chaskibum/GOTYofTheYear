@@ -109,6 +109,69 @@ MonoBehaviour:
       obtenida!'
     m_Metadata:
       m_Items: []
+  - m_Id: 96484907638775808
+    m_Localized: Guardar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96496967219077120
+    m_Localized: "Habilidad extra\xEDda de un demonio de extrema rapidez. Permite
+      al Guardi\xE1n atravesar largas distancias, incluso en el aire.\r\n\r\nPresiona
+      <color=#FF00FF>Shift / RT</color> para dashear."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497047477084160
+    m_Localized: "Habilidad extra\xEDda de un esp\xEDritu con dominio de los aires.
+      Permite al Guardi\xE1n saltar sin estar en el piso.\r\n\r\nPresiona <color=#FF00FF>Espacio
+      / A</color> en el aire para saltar una segunda vez."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497116196560896
+    m_Localized: '- Doble Salto -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497161893502976
+    m_Localized: "Amuleto obtenido de un guerrero legendario. El Guardi\xE1n se vuelve
+      inmune a todo da\xF1o por unos segundos.\r\n\r\nPresiona <color=#FF00FF>J /
+      X / LT</color> para activar el amuleto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497225172967424
+    m_Localized: '- Amuleto de Inmunidad -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497274061774848
+    m_Localized: Conseguiste una <color=#FF00FF>mejora de recarga para el amuleto
+      de inmunidad</color>!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497332610064384
+    m_Localized: '- Recarga Inmunidad -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497370392354816
+    m_Localized: '- Objeto Especial -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497437367001088
+    m_Localized: "Una vieja mu\xF1eca, en p\xE9simas condiciones. De esta se desprende
+      un <color=yellow>aroma a perfume</color> todav\xEDa perceptible, que probablemente
+      perdura debido a los incontables d\xEDas de juego para los que sirvi\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497478399877120
+    m_Localized: "Unos binoculares, de juguete. Est\xE1n cubiertos de musgo y sus
+      lentes se han roto. Al inspeccionar uno de sus lados, se distingue un nombre
+      tallado con un objeto filoso: <color=yellow>Selene.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497528765079552
+    m_Localized: "Un torpe pero tierno <color=yellow>retrato</color> de una ni\xF1a
+      peque\xF1a, dibujado a mano. Se ve una anotaci\xF3n tachada desesperadamente:
+      <color=yellow>\u2018De Iris, con cari\xF1o, para Selene\u2019</color>. Debajo,
+      una inscripci\xF3n m\xE1s reciente fue escrita con rabia: <color=yellow>\u2018\xBFPOR
+      QU\xC9?\u2019</color>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

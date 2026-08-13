@@ -103,6 +103,54 @@ MonoBehaviour:
     m_Key: gameplay.hp
     m_Metadata:
       m_Items: []
+  - m_Id: 96484907638775808
+    m_Key: menu.save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96496967219077120
+    m_Key: gameplay.dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497047477084160
+    m_Key: gameplay.doublejump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497116196560896
+    m_Key: gameplay.doublejumptitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497161893502976
+    m_Key: gameplay.amulet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497225172967424
+    m_Key: gameplay.amulettitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497274061774848
+    m_Key: gameplay.cooldown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497332610064384
+    m_Key: gameplay.cooldowntitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497370392354816
+    m_Key: gameplay.viejaltitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497437367001088
+    m_Key: gameplay.viejal1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497478399877120
+    m_Key: gameplay.viejal2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96497528765079552
+    m_Key: gameplay.viejal3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
