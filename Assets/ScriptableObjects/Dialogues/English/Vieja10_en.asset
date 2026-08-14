@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja10_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - Be careful <color=#FF00FF>Sonny</color>.
+  - <color=#00FFFF>A terrible battle</color> occurred here, The last one my tribe
+    ever took part of, the one that ended our fight.
+  - <color=yellow>I was just a little girl</color=yellow> when it happened. I tried
+    to help, to protect everyone but... That night, death was in the air. And none
+    of our Gods came down to help us.
+  - I don't remember much about this place, I can't even recall how I left here alive.
+    <wave amplitude=2>Perhaps it's better that way, to forget everything.</wave>

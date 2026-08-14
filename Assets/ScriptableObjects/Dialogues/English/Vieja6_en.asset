@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja6_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - I see you bested the ghost of one of the warriors. <sketchy>You have great potential...</sketchy>
+  - Ahem.
+  - You will come across many of them. Decades ago, this place was home to a warrior
+    tribe. The men battled, the women took care of the men.
+  - When the enemies became more difficult to deal with, the tribe needed something
+    else to keep the advantage on the field.
+  - That is when the women of the tribe started to investigate about ancient stories
+    and inhuman powers.
+  - None of them saw the dangers of playing with something that <sketchy>big</sketchy>...

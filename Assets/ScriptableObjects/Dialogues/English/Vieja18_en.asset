@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja18_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - Hum, this...
+  - This is the gift I gave Selene on her birthday! My hand drawn <color=#FF00FF>portrait</color>
+    of her.
+  - So <color=yellow>that's how she looked like...</color> How could i forget?
+  - I think I know where you found this. I know what happened, why I tried to erase
+    everything from my mind.

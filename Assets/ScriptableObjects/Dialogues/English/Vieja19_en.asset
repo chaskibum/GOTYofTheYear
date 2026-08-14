@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja19_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - I've made my decision. I won't run from the past anymore.
+  - Over there I find a lot of memories I'd rather erase, but also every single one
+    that I cherish. And with these memories, I find myself. I wasn't sure who I was
+    for a long time, but now...
+  - Please, <color=#FF00FF>Sonny</color>... forgive me. You could say my "granny's
+    deliriums" are no more, but as I learned, no one is able to erase the past, and
+    this errand mustn't have been easy for you.
+  - "\tCould you forgive me?\r\n\r\n  FORGIVE \t|     DON'T FORGIVE\r\n  (Interact    
+    \t|           (Attack\r\n   Button)    \t|           Button)"
+  - Oh... thank you, <color=#FF00FF>Sonny</color>. You don't look like it, but behind
+    that big axe there is an even bigger heart.
+  - I'll keep my promise, Selene. I'll keep on living. And as long as I do, so will
+    you.
+  - <color=yellow>This Cursed Errand has reached its end.</color>
+  - <color=#FF00FF>Sonny...</color>
+  - Would you like a cup of tea?

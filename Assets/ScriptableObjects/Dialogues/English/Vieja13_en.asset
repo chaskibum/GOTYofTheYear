@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja13_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - <sketchy>We meet once again, Guardian of the Order.\nThis is the end of your
+    journey.</sketchy>
+  - I am one ingredient away from completing my spell. Where is it? You would ask...
+    <sketchy>I find myself talking to it at this very moment.</sketchy>
+  - Only the soul of a true warrior will allow me to wander freely, with no need
+    of this <sketchy>old</sketchy> and <sketchy>useless</sketchy> vessel.
+  - 'The only vessel that remained after that last battle where I tested the warriors
+    limits, tried to unlock their maximum potential... Only to watch them <dangle>die</dangle>
+    one by one. '
+  - Finally, someone worthy appears. Someone who can give me the freedom I so long
+    desired.
+  - You have no idea how much I waited for this moment...
+  - Now... <shake>GIVE ME YOUR SOUL!</shake>

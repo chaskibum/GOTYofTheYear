@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja7_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - <jump>Aw <color=#FF00FF>Sonny</color>!</jump> Your knees look worse than mine!
+  - You fell? I can't blame you. This is the area where the warriors trained their
+    physical fitness. Only a few finished the test.
+  - It was so funny, watching them try again and again... Silently and from far away,
+    of course. The training must never be interrupted.
+  - It was prohibited to come close, I was terrified of doing so. But <color=yellow>I
+    remember coming with someone</color=yellow>, she always convinced me. We used
+    to return hours later, crying from laughter.
+  - <wave amplitude=2>It was so long ago that sometimes I forgot I was that person...</wave>

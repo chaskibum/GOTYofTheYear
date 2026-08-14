@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf711bd06ef4f479a2906fc1414ca9, type: 3}
+  m_Name: Vieja17_en
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Dialogues.DialoguesData
+  language: 1
+  dialogues:
+  - Some <color=#FF00FF>binoculars...</color> why show me this? They're broken and
+    useless. Although...
+  - '*She turns them*'
+  - <color=yellow>SELENE!</color> That was her name. The name of <color=yellow>my
+    best friend.</color> Now I remember...
+  - It was with her that I used to play dolls in the forest.
+  - It was with her that we used to spy on the warriors while they trained.
+  - I remember our little adventures, how much fun we had together. I'd love to see
+    her again...
