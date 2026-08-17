@@ -18,7 +18,8 @@ namespace Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicSource;
 
-        [SerializeField] private SoundID dialogueSound;
+        [SerializeField] private AudioSource dialogueSound;
+        // [SerializeField] private SoundID dialogueSound;
 
         public AudioSource finalBossMusic;
 
@@ -111,7 +112,9 @@ namespace Managers
 
         public void PlayDialogSound()
         {
-            BroAudio.Play(dialogueSound);
+            // BroAudio.Play(dialogueSound);
+            if (dialogueSound.isPlaying) return;
+            dialogueSound.Play();
         }
 
         public void StopClip()
