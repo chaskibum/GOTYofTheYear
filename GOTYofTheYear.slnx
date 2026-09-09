@@ -1,6 +1,4 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="BroAudio.csproj" />
-  <Project Path="BroAudioEditor.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
 </Solution>
