@@ -235,5 +235,13 @@ namespace Managers
             else
                 _cooldownBarSlider.minValue = _player.GetPlayerData.shieldCooldown * -1;
         }
+
+        public void PlayCooldownFinishedSound()
+        {
+            if (_cooldownBarSlider.value >= _cooldownBarSlider.maxValue)
+            {
+                AudioManager.Instance.PlayCooldownFinished();
+            }
+        }
     }
 }

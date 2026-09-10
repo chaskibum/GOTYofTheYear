@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -6,6 +7,8 @@ namespace EnemiesScripts
 {
     public class FlyingObjectScript : EnemyController
     {
+        [SerializeField] private AudioSource skullSound;
+
         private bool _flying;
         private Vector3 _playerDirection;
         private bool _forceAdded = false;
@@ -37,6 +40,7 @@ namespace EnemiesScripts
                 _timer = 3;
                 Animator.SetTrigger("StartAttack");
                 particles.Play();
+                if (skullSound && !skullSound.isPlaying) skullSound.Play();
             }
         }
 

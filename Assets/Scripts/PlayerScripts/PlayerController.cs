@@ -57,6 +57,7 @@ namespace PlayerScripts
 
         [Header("Immunity Skill")]
         [SerializeField] private bool _immuneSkillUnlocked;
+        [SerializeField] private AudioSource possessedSound;
         private float _cooldown = 0f;
 
         [Header("Properties")]
@@ -458,6 +459,8 @@ namespace PlayerScripts
 
         private void PlayerPossessed()
         {
+            if (!possessedSound.isPlaying) possessedSound.Play();
+
             _animator.SetBool(Possessed, true);
             GetRandomDirection();
             SetState(State.Possessed);

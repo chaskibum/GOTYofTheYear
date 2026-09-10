@@ -17,6 +17,8 @@ namespace Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicSource;
 
+        [SerializeField] private AudioSource cooldownFinished;
+
         [SerializeField] private AudioSource dialogueSound;
         // [SerializeField] private SoundID dialogueSound;
 
@@ -65,6 +67,7 @@ namespace Managers
             HealingTree,
             BossKill,
             PlayerDoubleJump,
+            PowerUp,
         }
 
         [SerializeField] List<AudioClip> audioClips;
@@ -111,9 +114,19 @@ namespace Managers
 
         public void PlayDialogSound()
         {
-            // BroAudio.Play(dialogueSound);
             if (dialogueSound.isPlaying) return;
+
             dialogueSound.Play();
+        }
+
+        public void PlayPowerUpSound()
+        {
+            PlayClip(AudioList.PowerUp);
+        }
+
+        public void PlayCooldownFinished()
+        {
+            cooldownFinished.Play();
         }
 
         public void StopClip()

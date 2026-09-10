@@ -6,6 +6,8 @@ namespace EnemiesScripts
 {
     public class GhostScript : EnemyController
     {
+        [SerializeField] private AudioSource chaseSound;
+
         protected float StateTimer = 0;
         private ApplyMovement _movementScript;
 
@@ -25,7 +27,7 @@ namespace EnemiesScripts
         {
             if (StateTimer > 0)
                 StateTimer -= Time.deltaTime;
-            
+
             base.Update();
         }
 
@@ -51,13 +53,13 @@ namespace EnemiesScripts
         {
             if (Vector3.Distance(transform.position, PlayerPos) > data.detectionRange + 3) return;
             Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
-            
+
             PlayHitFeedback();
 
             StateTimer = data.pushTime;
-            
+
             AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack);
-            
+
             Hp -= 1;
             if (Hp <= 0)
             {
@@ -90,6 +92,10 @@ namespace EnemiesScripts
         {
             if (StateTimer > 0 && newState != State.GetHit && newState != State.Die) return;
             CurrentState = newState;
+            if (CurrentState == State.Chase)
+            {
+                if (chaseSound && !chaseSound.isPlaying) chaseSound.Play();
+            }
             stateText.text = CurrentState.ToString();
         }
 
