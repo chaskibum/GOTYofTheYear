@@ -172,6 +172,23 @@ MonoBehaviour:
       QU\xC9?\u2019</color>"
     m_Metadata:
       m_Items: []
+  - m_Id: 106987300361003008
+    m_Localized: '- Atacar -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106987420817219584
+    m_Localized: "Presiona H / Z / <color=#FF00FF>(\u25A2)</color>\npara atacar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988173115973632
+    m_Localized: '- Fantasmas -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988294310387712
+    m_Localized: "No dejes que te atrapen.\n\nSi lo hacen, <color=#FF00FF>machac\xE1
+      los botones</color> para exorcizarte!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

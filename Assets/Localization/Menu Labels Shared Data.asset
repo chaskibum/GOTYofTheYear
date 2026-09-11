@@ -151,6 +151,22 @@ MonoBehaviour:
     m_Key: gameplay.viejal3
     m_Metadata:
       m_Items: []
+  - m_Id: 106987300361003008
+    m_Key: gameplay.attacktitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106987420817219584
+    m_Key: gameplay.attacktutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988173115973632
+    m_Key: gameplay.possessedtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988294310387712
+    m_Key: gameplay.possessedtutorial
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

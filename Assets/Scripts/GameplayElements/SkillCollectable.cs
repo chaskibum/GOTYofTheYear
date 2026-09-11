@@ -16,7 +16,7 @@ namespace GameplayElements
         [SerializeField] private GameObject panel;
 
         [SerializeField] private Button closeButton;
-    
+
         // PARA BORRAR DESPUÉS
         [SerializeField] private bool dashCollectable = false;
         [SerializeField] private bool doubleJumpCollectable = false;
@@ -28,7 +28,7 @@ namespace GameplayElements
             _collider = GetComponent<BoxCollider2D>();
             _uiManager = GameManager.Instance.GetUIManager;
             _startPosition = transform.position;
-        
+
             HideSkill();
 
             GameManager.Instance.GetGameRestarted?.AddListener(ResetCollectable);
@@ -78,7 +78,7 @@ namespace GameplayElements
                 PlayerPrefs.SetString("ImmunityUnlocked", name);
                 GameManager.Instance.GetImmunityUnlocked?.Invoke();
             }
-        
+
             HideSkill();
             panel.SetActive(true);
             Time.timeScale = 0;
@@ -91,7 +91,7 @@ namespace GameplayElements
             _sprite.enabled = false;
             _collider.enabled = false;
         }
-        
+
         public void ClosePanel()
         {
             Time.timeScale = 1;

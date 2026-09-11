@@ -117,7 +117,7 @@ MonoBehaviour:
     m_Localized: 'Skill extracted from an extremely fast demon. It allows the Guardian
       to traverse long distances, even through the air.
 
-      
+
 
       Press <color=#FF00FF>Shift
       / RT</color> to dash.'
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_Localized: 'Skill extracted from a spirit that dominates high altitudes. It
       allows the Guardian to jump while airborne.
 
-      
+
 
       Press <color=#FF00FF>Spacebar
       / A</color> in the air to jump a second time.'
@@ -141,10 +141,10 @@ MonoBehaviour:
     m_Localized: 'Amulet obtained from a legendary warrior. The Guardian becomes
       immune to all damage for a few seconds.
 
-      
 
-      Press <color=#FF00FF>J
-      / X / LT</color> to activate the amulet.'
+
+      Press <color=#FF00FF>J / X
+      / LT</color> to activate the amulet.'
     m_Metadata:
       m_Items: []
   - m_Id: 96497225172967424
@@ -181,6 +181,26 @@ MonoBehaviour:
       hand drawn. A message, desperately crossed out, reads as follows: <color=yellow>\u2018From
       Iris, with love, to Selene\u2019</color>. Below it, a more recent inscription
       was angrily written: <color=yellow>\u2018WHY?\u2019</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106987300361003008
+    m_Localized: '- Attack -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106987420817219584
+    m_Localized: "Press H / Z / <color=#FF00FF>(\u25A2)</color>\nto attack!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988173115973632
+    m_Localized: '- Ghosts -'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106988294310387712
+    m_Localized: 'Don''t get caught by them.
+
+
+      If you do, <color=#FF00FF>mash
+      the buttons</color> to expel it!'
     m_Metadata:
       m_Items: []
   references:

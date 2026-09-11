@@ -182,6 +182,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 32553041812bfe14d9b1ecdf3806e95f, type: 2}
   sfxSource: {fileID: 2806757252661346451}
   musicSource: {fileID: 2884741939490765846}
+  cooldownFinished: {fileID: 0}
   dialogueSound: {fileID: 3948066809872161968}
   finalBossMusic: {fileID: 0}
   settings: {fileID: 0}
@@ -388,7 +389,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1.0762266
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0

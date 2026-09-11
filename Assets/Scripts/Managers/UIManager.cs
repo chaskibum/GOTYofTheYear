@@ -29,6 +29,8 @@ namespace Managers
         private bool _isPaused = false;
         public bool inMenu = false;
 
+        public bool shownGhostTutorialPanel = false;
+
         private PlayerController _player;
 
         private void Start()
@@ -137,6 +139,7 @@ namespace Managers
 
         private void RestartUI()
         {
+            shownGhostTutorialPanel = false;
             gameOverPanel.SetActive(false);
             reviveButton.SetActive(false);
             optionsButton.SetActive(true);

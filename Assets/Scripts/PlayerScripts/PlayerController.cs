@@ -73,6 +73,8 @@ namespace PlayerScripts
         private float _attackCooldown;
         private PlayerWeapon _weapon;
 
+        public bool hasAttacked = false;
+
         private Rigidbody2D _body;
 
         private Vector2 _xInput;
@@ -353,6 +355,7 @@ namespace PlayerScripts
             if (_isAttacking || _isPossessed) return;
             _body.linearVelocityX *= 0.5f;
             _isAttacking = true;
+            hasAttacked = true;
             Invoke(nameof(EndAttack), data.attackSpeed);
             _attackCooldown = data.attackCooldown;
             _weapon.FlipAttackPosition();
@@ -646,6 +649,7 @@ namespace PlayerScripts
 
         private void RestartGame()
         {
+            hasAttacked = false;
             SetRespawnPosition(Vector3.zero);
             transform.position = _respawnPosition;
             _hp = data.baseHp;
