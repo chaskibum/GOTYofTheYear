@@ -22,8 +22,6 @@ namespace Managers
         [SerializeField] private AudioSource dialogueSound;
         // [SerializeField] private SoundID dialogueSound;
 
-        public AudioSource finalBossMusic;
-
         [SerializeField] private AudioSettings settings;
 
         public enum AudioList
@@ -79,11 +77,6 @@ namespace Managers
                 Instance = this;
             else
                 Destroy(gameObject);
-        }
-
-        private void Start()
-        {
-            if (finalBossMusic) finalBossMusic.volume = 0.8f;
         }
 
         public void PlayClip(AudioList clip, bool changePitch = false, float volume = 1f, bool oneShot = true)

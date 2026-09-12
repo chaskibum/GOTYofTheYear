@@ -10,7 +10,7 @@ public class ViejaBossFight : EnemyController
     [Header("Audio")]
     [SerializeField] private AudioSource lastHitSound;
     [SerializeField] private AudioSource possessedSound;
-    
+
     [SerializeField] private Transform[] positions;
     [SerializeField] private FinalBossScript finalBoss;
     [SerializeField] private ParticleSystem deathParticles;
@@ -23,9 +23,9 @@ public class ViejaBossFight : EnemyController
     {
         Body = GetComponent<Rigidbody2D>();
         Visuals = GetComponentInChildren<SpriteRenderer>();
-        
+
         possessedSound.volume = 0.4f;
-            
+
         AddListeners(true);
     }
 
@@ -37,11 +37,11 @@ public class ViejaBossFight : EnemyController
             possessedSound.volume = 1f;
         }
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
-        
+
         AudioManager.Instance.PlayClip(AudioManager.AudioList.PlayerAttack, true, 0.8f);
 
         PlayHitFeedback();
-            
+
         Hp -= 1;
         if (Hp <= 0)
         {
@@ -53,7 +53,6 @@ public class ViejaBossFight : EnemyController
             AudioManager.Instance.PlayClip(AudioManager.AudioList.CalderoDeath);
             Camera.main.DOShakePosition(1.8f, 1.2f);
             possessedSound.volume = 0f;
-            AudioManager.Instance.finalBossMusic.volume = 0f;
             lastHitSound.Play();
             Invoke(nameof(EndGame), 3f);
             finalBoss.speed = 0f;
@@ -68,7 +67,7 @@ public class ViejaBossFight : EnemyController
         finalBoss.DeactivateCoroutine();
         Time.timeScale = 1f;
     }
-    
+
     protected override IEnumerator EndFeedback()
     {
         yield return new WaitForSecondsRealtime(0.15f);
@@ -88,9 +87,9 @@ public class ViejaBossFight : EnemyController
     {
         if (Hp == 1)
             _newPos = positions[^1];
-        else 
+        else
             _newPos = positions[Random.Range(0, positions.Length - 1)];
-        
+
         if (_newPos != _actualPos)
         {
             _actualPos = _newPos;
