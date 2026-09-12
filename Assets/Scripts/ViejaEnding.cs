@@ -17,14 +17,14 @@ public class ViejaEnding : MonoBehaviour
 
     private void Start()
     {
-        rain.volume = 0.8f;
+        // rain.volume = 0.8f;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         fade.color = Color.black;
-        rain.volume = 0f;
-        rain.DOFade(1f, 8f);
+        // rain.volume = 0f;
+        // rain.DOFade(1f, 8f);
         if (viejaEnding) viejaEnding.GetComponent<BoxCollider2D>().enabled = false;
         if (vieja1) vieja1.GetComponent<BoxCollider2D>().enabled = false;
         if (vieja2) vieja2.GetComponent<BoxCollider2D>().enabled = false;
