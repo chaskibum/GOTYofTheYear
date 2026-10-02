@@ -51,6 +51,9 @@ namespace Managers
             int lives = _player.GetPlayerLives;
 
             UpdateLife(lives);
+
+            inMenu = false;
+            if (Time.timeScale != 1) Time.timeScale = 1;
         }
 
         private void OnDestroy()
