@@ -69,6 +69,7 @@ namespace PlayerScripts
         private bool _detectInputs;
         public bool inDialog = false;
         private bool _isImmune;
+        private bool _blockInputs;
         private bool _isAttacking;
         private float _attackCooldown;
         private PlayerWeapon _weapon;
@@ -100,6 +101,8 @@ namespace PlayerScripts
             _weapon = playerWeapon.GetComponent<PlayerWeapon>();
             _cam = Camera.main;
 
+            _blockInputs = false;
+
             _endingPosition = new Vector3(545, -74.5f, 0);
 
             _hp = data.baseHp;
@@ -113,7 +116,7 @@ namespace PlayerScripts
             if (PlayerPrefs.GetString("DoubleJumpUnlocked") == "DoubleJump") UnlockDoubleJump();
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") UnlockImmunity();
 
-            HandleRespawnOnStart();
+            Invoke(nameof(HandleRespawnOnStart), 0.05f);
         }
 
         private void HandleRespawnOnStart()
@@ -165,6 +168,8 @@ namespace PlayerScripts
 
         private void Update()
         {
+            if (_blockInputs) return;
+            
             _cooldown -= Time.deltaTime;
             _attackCooldown -= Time.deltaTime;
             _dashTimer -= Time.deltaTime;
@@ -352,7 +357,7 @@ namespace PlayerScripts
 
         private void Attack()
         {
-            if (_isAttacking || _isPossessed) return;
+            if (_isAttacking || _isPossessed || _blockInputs) return;
             _body.linearVelocityX *= 0.5f;
             _isAttacking = true;
             hasAttacked = true;
@@ -371,6 +376,7 @@ namespace PlayerScripts
 
         private void Move()
         {
+            if (_blockInputs) return;
             if (_isAttacking && _isOnFloor || _xInput == Vector2.zero) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
             else _body.linearVelocity = new Vector2(_xInput.x * data.moveSpeed, _body.linearVelocity.y);
         }
@@ -380,19 +386,9 @@ namespace PlayerScripts
             AudioManager.Instance.PlayStepSound();
         }
 
-        private bool JumpPressed()
-        {
-            return Input.GetButtonDown("Jump");
-        }
-
-        /*private bool JumpReleased()
-        {
-            return Input.GetButtonUp("Jump");
-        }*/
-
         private void Jump()
         {
-            if (_state == State.Possessed) return;
+            if (_state == State.Possessed || _blockInputs) return;
 
             _isOnFloor = false;
             _body.gravityScale = data.regularGravity;
@@ -500,8 +496,7 @@ namespace PlayerScripts
 
         public void OnJump(InputAction.CallbackContext ctx)
         {
-            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon) return;
-            if (_isAttacking || _isPossessed) return;
+            if (_isAttacking || _isPossessed || _blockInputs) return;
 
             if (ctx.started)
             {
@@ -539,14 +534,13 @@ namespace PlayerScripts
 
         public void OnMove(InputAction.CallbackContext ctx)
         {
-            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
-            if (_isPossessed) return;
+            if (_isPossessed || _blockInputs) return;
             _xInput = ctx.ReadValue<Vector2>();
         }
 
         public void OnAttack(InputAction.CallbackContext ctx)
         {
-            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
+            if (_blockInputs) return;
             if (ctx.performed && !_isPossessed && _attackCooldown <= 0)
             {
                 Attack();
@@ -556,7 +550,7 @@ namespace PlayerScripts
 
         public void OnDash(InputAction.CallbackContext ctx)
         {
-            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
+            if (_blockInputs) return;
             if (ctx.performed && !_isAttacking && !_isPossessed && _canDash)
             {
                 Dash();
@@ -565,7 +559,7 @@ namespace PlayerScripts
 
         public void OnActivateShield(InputAction.CallbackContext ctx)
         {
-            // if (GameManager.Instance.GetGameOver || Time.timeScale == 0.2f || !_canChangeState || GameManager.Instance.gameWon || inDialog) return;
+            if (_blockInputs) return;
             if (!_immuneSkillUnlocked) return;
             if (ctx.performed && !_isPossessed)
             {
@@ -752,7 +746,7 @@ namespace PlayerScripts
         public void StopInputs()
         {
             _animator.SetBool("Moving", false);
-            _canChangeState = false;
+            _blockInputs = true;
         }
 
         #region GetProperties
@@ -782,6 +776,8 @@ namespace PlayerScripts
         public bool GetDashUnlocked => _dashUnlocked;
 
         public bool GetDoubleJumpUnlocked => _doubleJumpUnlocked;
+        
+        public bool GetInputsBlocked => _blockInputs;
 
         #endregion
 

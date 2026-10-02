@@ -63,6 +63,7 @@ namespace Utils
         [SerializeField] private GameObject vieja3;
         [SerializeField] private GameObject viejaGoodEnding;
         [SerializeField] private GameObject noRecuerdoVieja;
+        [SerializeField] private AudioSource rain;
         private int _viejalIndex = 0;
 
         [Header("Others")]
@@ -170,6 +171,7 @@ namespace Utils
 
         public void OnInteract(InputAction.CallbackContext ctx)
         {
+            if (_player.GetInputsBlocked) return;
             if (_isInRange)
             {
                 if (_canSpeak)
@@ -269,8 +271,18 @@ namespace Utils
 
         private void EndGame()
         {
-            fadeToBlack.DOFade(1, 5f);
-            Invoke(nameof(BackToMenu), 5.5f);
+            rain.DOFade(0, 5f);
+            fadeToBlack.DOFade(1, 5f).OnComplete((() =>
+            {
+                GameManager.Instance.GetUIManager.ShowGoodEndingPanel();
+                DOVirtual.DelayedCall(
+                    1f, () =>
+                    {
+                        AudioManager.Instance.PlayMusic(AudioManager.AudioList.HappyEndingMelody);
+                        fadeToBlack.DOFade(0, 1f);
+                        DOVirtual.DelayedCall(10f, () => fadeToBlack.DOFade(1, 3f).OnComplete(BackToMenu));
+                    });
+            }));
         }
 
         private void BackToMenu()
@@ -411,6 +423,7 @@ namespace Utils
                 {
                     _canSpeak = false;
                     GameManager.Instance.GetPlayer.StopInputs();
+                    GameManager.Instance.GetUIManager.inMenu = true;
                     Invoke(nameof(EndGame), 3f);
                     return;
                 }

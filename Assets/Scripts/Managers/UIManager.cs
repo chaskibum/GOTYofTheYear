@@ -22,6 +22,10 @@ namespace Managers
         [SerializeField] public GameObject pauseMenuUI;
         [SerializeField] private Transform livesContainer;
         [SerializeField] private GameObject bossHealthBars;
+        
+        [Header("Ending")]
+        [SerializeField] private GameObject ending1;
+        [SerializeField] private GameObject ending2;
 
         [SerializeField] private GameObject cooldownBar;
         private Slider _cooldownBarSlider;
@@ -245,6 +249,16 @@ namespace Managers
             {
                 AudioManager.Instance.PlayCooldownFinished();
             }
+        }
+
+        public void ShowGoodEndingPanel()
+        {
+            ending2.SetActive(true);
+        }
+        
+        public void ShowBadEndingPanel()
+        {
+            ending1.SetActive(true);
         }
     }
 }

@@ -66,6 +66,8 @@ namespace Managers
             BossKill,
             PlayerDoubleJump,
             PowerUp,
+            SadEndingMelody,
+            HappyEndingMelody,
         }
 
         [SerializeField] List<AudioClip> audioClips;
@@ -91,6 +93,13 @@ namespace Managers
                 sfxSource.Play();
             }
             sfxSource.loop = oneShot;
+        }
+
+        public void PlayMusic(AudioList clip)
+        {
+            musicSource.clip = audioClips[(int)clip];
+            musicSource.loop = false;
+            musicSource.Play();
         }
 
         public void PlayStepSound()
