@@ -168,8 +168,6 @@ namespace PlayerScripts
 
         private void Update()
         {
-            if (_blockInputs) return;
-            
             _cooldown -= Time.deltaTime;
             _attackCooldown -= Time.deltaTime;
             _dashTimer -= Time.deltaTime;
@@ -376,8 +374,12 @@ namespace PlayerScripts
 
         private void Move()
         {
-            if (_blockInputs) return;
-            if (_isAttacking && _isOnFloor || _xInput == Vector2.zero) _body.linearVelocity = Vector2.Lerp(_body.linearVelocity, Vector2.zero, 0.01f);
+            if (_isAttacking && _isOnFloor || _xInput == Vector2.zero)
+            {
+                Vector2 velocity = _body.linearVelocity;
+                velocity.x = Mathf.Lerp(velocity.x, 0f, 0.01f);
+                _body.linearVelocity = velocity;
+            }
             else _body.linearVelocity = new Vector2(_xInput.x * data.moveSpeed, _body.linearVelocity.y);
         }
 
@@ -440,6 +442,7 @@ namespace PlayerScripts
 
             if (_hp <= 0)
             {
+                _blockInputs = true;
                 GamepadVibration.Instance.Rumble(0.6f, 0.9f, 0.6f);
                 _animator.SetTrigger("Died");
                 SetState(State.Die);
@@ -628,10 +631,12 @@ namespace PlayerScripts
         #region RespawnLogic
         private void Respawn()
         {
+            _blockInputs = false;
             GameManager.Instance.GetPlayerRespawn.Invoke();
             transform.position = _respawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
+            _xInput = Vector2.zero;
             Time.timeScale = 1f;
             _isImmune = false;
             _isPossessed = false;
@@ -650,6 +655,7 @@ namespace PlayerScripts
             data.shieldCooldown = data.baseShieldCooldown;
             _cooldown = data.shieldCooldown;
             _body.linearVelocity = new Vector2(0, 0);
+            _xInput = Vector2.zero;
             EndImmunityTime();
             _cooldown = 0f;
             CancelInvoke();
@@ -665,9 +671,11 @@ namespace PlayerScripts
 
         private void Revive()
         {
+            _blockInputs = false;
             transform.position = _mainRespawnPosition;
             _hp = data.baseHp;
             _body.linearVelocity = new Vector2(0, 0);
+            _xInput = Vector2.zero;
             _body.gravityScale = data.regularGravity;
             EndImmunityTime();
             _cooldown = 0f;
