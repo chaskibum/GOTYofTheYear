@@ -1,6 +1,8 @@
+using DG.Tweening;
 using PlayerScripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -93,7 +95,14 @@ namespace Managers
             _cooldownBarSlider.value = _player.GetCooldown * -1;
         }
 
-        public void OnPause(InputAction.CallbackContext ctx)
+        /*public void OnPause(InputAction.CallbackContext ctx)
+        {
+            print("pause pressed!");
+            if (inMenu) return;
+            if (ctx.performed && !uSurePanel.activeInHierarchy) HandlePause();
+        }*/
+        
+        public void OnTestPause(InputAction.CallbackContext ctx)
         {
             if (inMenu) return;
             if (ctx.performed && !uSurePanel.activeInHierarchy) HandlePause();
@@ -114,7 +123,7 @@ namespace Managers
         {
             gameOverPanel.SetActive(false);
             reviveButton.SetActive(false);
-            optionsButton.SetActive(true);
+            // optionsButton.SetActive(true);
             if (PlayerPrefs.GetString("ImmunityUnlocked") == "Immunity") ShowCooldown();
             else cooldownBar.SetActive(false);
 
@@ -149,7 +158,7 @@ namespace Managers
             shownGhostTutorialPanel = false;
             gameOverPanel.SetActive(false);
             reviveButton.SetActive(false);
-            optionsButton.SetActive(true);
+            // optionsButton.SetActive(true);
             cooldownBar.SetActive(false);
             ChangeCooldownSliderMin(true);
 
@@ -182,13 +191,21 @@ namespace Managers
             {
                 GameManager.Instance.GetGameOverEvent?.Invoke();
                 reviveButton.SetActive(true);
-                reviveButton.GetComponent<Button>().Select();
+                // DOVirtual.DelayedCall(0.1f, () => reviveButton.GetComponent<Button>().Select());
+                DOVirtual.DelayedCall(0.1f, () =>
+                {
+                    var button = reviveButton.GetComponent<Button>();
+
+                    EventSystem.current.SetSelectedGameObject(null);
+                    EventSystem.current.SetSelectedGameObject(button.gameObject);
+                });
                 optionsButton.SetActive(false);
             }
         }
 
         public void HandlePause()
         {
+            print("pause pressed!");
             _isPaused = !_isPaused;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -207,7 +224,7 @@ namespace Managers
                 playerInput.SwitchCurrentActionMap("Gameplay");
                 Time.timeScale = 1f;
                 pauseMenuUI.SetActive(false);
-                optionsButton.SetActive(true);
+                // optionsButton.SetActive(true);
                 bossHealthBars.SetActive(true);
             }
         }

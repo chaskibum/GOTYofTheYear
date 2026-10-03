@@ -68,6 +68,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TestPause",
+                    "type": "Button",
+                    "id": "61fdfbd0-c144-47b0-8f1d-c374ec3c60c8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -315,22 +324,22 @@
                 },
                 {
                     "name": "",
-                    "id": "d031633e-047a-438e-86da-02fb306b8f92",
-                    "path": "<Gamepad>/start",
+                    "id": "b003439a-b1ab-4f6c-9265-9ba46f1edf4c",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";XboxController;PlaystationController",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b003439a-b1ab-4f6c-9265-9ba46f1edf4c",
-                    "path": "<Keyboard>/p",
+                    "id": "0ad36171-081d-4c05-97d4-92abe24684e6",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";XboxController;PlaystationController",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -356,6 +365,39 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d00d786-6834-435f-bc9e-c2d2b96b7d20",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XboxController;PlaystationController",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eca37dd3-d9ff-4b92-a2ce-7b23ec9cd585",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13f14270-de17-49a9-be56-8539efede560",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -371,6 +413,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TestPause",
+                    "type": "Button",
+                    "id": "7a7e64c6-07f1-4658-aeaa-0d2ee205a214",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Select",
@@ -535,6 +586,39 @@
                 },
                 {
                     "name": "",
+                    "id": "5c214707-ed97-4ce8-b7d2-12c69f9824ae",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XboxController;PlaystationController",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9abff9a1-6232-4026-b109-cf050e97e46f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "137b726d-d659-4668-9c70-a84f9a685c4f",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TestPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "46b6cf16-1f06-4e03-be15-291fafbfdc7a",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
@@ -581,17 +665,6 @@
                     "name": "",
                     "id": "8d025ee5-97e6-4d32-8cc9-1e6f5e6eaf09",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";XboxController;PlaystationController",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d488bb36-f6e4-4f3c-b474-9d775b3dfb74",
-                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": ";XboxController;PlaystationController",

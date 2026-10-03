@@ -81,6 +81,7 @@ namespace Managers
 
         private void GameOverScreen()
         {
+            uiManager.SetInMenu();
             _gameOver = true;
             Time.timeScale = 0;
         }
@@ -105,6 +106,7 @@ namespace Managers
         private void RestartGameEvent()
         {
             uiManager.pauseMenuUI.SetActive(false);
+            uiManager.SetInMenu(false);
             fade.DOFade(0f, 2f).SetEase(Ease.InBack);
             Time.timeScale = 1;
             _gameOver = false;
