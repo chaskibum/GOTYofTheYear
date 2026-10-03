@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace Managers
         [SerializeField] private AudioMixer audioMixer;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource musicSource;
+        [SerializeField] private AudioSource mainMenuLoop;
 
         [SerializeField] private AudioSource cooldownFinished;
 
@@ -167,6 +169,11 @@ namespace Managers
         public void OnButtonPressed()
         {
             PlayClip(AudioList.MenuPress);
+        }
+
+        public void FadeMenuLoop()
+        {
+            mainMenuLoop.DOFade(0f, 3f).OnComplete(() => mainMenuLoop.volume = 1);
         }
     }
 }

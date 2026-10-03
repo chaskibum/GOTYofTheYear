@@ -10,6 +10,8 @@ public class ViejaBossFight : EnemyController
     [Header("Audio")]
     [SerializeField] private AudioSource lastHitSound;
     [SerializeField] private AudioSource possessedSound;
+    [SerializeField] private AudioSource musicIntro;
+    [SerializeField] private AudioSource musicLoop;
 
     [SerializeField] private Transform[] positions;
     [SerializeField] private FinalBossScript finalBoss;
@@ -35,6 +37,8 @@ public class ViejaBossFight : EnemyController
         {
             finalBoss.StartFight();
             possessedSound.volume = 1f;
+            musicIntro.Play();
+            DOVirtual.DelayedCall(1f, () => musicLoop.Play());
         }
         Body.AddForce(Direction * data.pushForce, ForceMode2D.Impulse);
 
@@ -56,6 +60,7 @@ public class ViejaBossFight : EnemyController
             lastHitSound.Play();
             Invoke(nameof(EndGame), 3f);
             finalBoss.speed = 0f;
+            musicLoop.Stop();
         }
         else
             Invoke(nameof(ChangePosition), 0.05f);
@@ -107,5 +112,6 @@ public class ViejaBossFight : EnemyController
         Body.linearVelocity = Vector2.zero;
         Visuals.color = Color.white;
         possessedSound.volume = 0.4f;
+        musicLoop.DOFade(0f, 2f).OnComplete(() => musicLoop.Stop());
     }
 }
